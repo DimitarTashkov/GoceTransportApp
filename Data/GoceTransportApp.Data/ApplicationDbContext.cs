@@ -24,6 +24,24 @@
         {
         }
 
+        public DbSet<City> Cities { get; set; }
+
+        public DbSet<Street> Streets { get; set; }
+
+        public DbSet<CityStreet> CitiesStreets { get; set; }
+
+        public DbSet<Driver> Drivers { get; set; }
+
+        public DbSet<Organization> Organizations { get; set; }
+
+        public DbSet<Vehicle> Vehicles { get; set; }
+
+        public DbSet<Ticket> Tickets { get; set; }
+
+        public DbSet<Schedule> Schedules { get; set; }
+
+        public DbSet<Route> Routes { get; set; }
+
         public DbSet<Setting> Settings { get; set; }
 
         public override int SaveChanges() => this.SaveChanges(true);

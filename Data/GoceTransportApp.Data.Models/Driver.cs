@@ -5,6 +5,7 @@
     using System.ComponentModel.DataAnnotations.Schema;
 
     using GoceTransportApp.Data.Common.Models;
+    using GoceTransportApp.Data.Models.Enumerations;
 
     public class Driver : BaseModel<Guid>
     {
@@ -24,7 +25,7 @@
         public int? Age { get; set; }
 
         [Required]
-        public int Experience { get; set; }
+        public DriverExperience Experience { get; set; }
 
         [Required]
         public Guid OrganizationId { get; set; }

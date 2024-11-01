@@ -3,9 +3,9 @@ namespace GoceTransportApp.Data.Models
 {
     using System;
     using System.Collections.Generic;
-
+    using System.ComponentModel.DataAnnotations;
     using GoceTransportApp.Data.Common.Models;
-
+    using GoceTransportApp.Data.Models.Enumerations;
     using Microsoft.AspNetCore.Identity;
 
     public class ApplicationUser : IdentityUser, IAuditInfo, IDeletableEntity
@@ -17,6 +17,11 @@ namespace GoceTransportApp.Data.Models
             this.Claims = new HashSet<IdentityUserClaim<string>>();
             this.Logins = new HashSet<IdentityUserLogin<string>>();
         }
+
+        [Required]
+        public string Name { get; set; } = null!;
+
+        public CitiesEnumeration City { get; set; }
 
         // Audit info
         public DateTime CreatedOn { get; set; }
@@ -33,5 +38,8 @@ namespace GoceTransportApp.Data.Models
         public virtual ICollection<IdentityUserClaim<string>> Claims { get; set; }
 
         public virtual ICollection<IdentityUserLogin<string>> Logins { get; set; }
+
+        public HashSet<UserTicket> UsersTickets { get; set; }
+        = new HashSet<UserTicket> { new UserTicket() };
     }
 }

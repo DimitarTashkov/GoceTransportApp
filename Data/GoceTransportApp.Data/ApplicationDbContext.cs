@@ -38,9 +38,13 @@
 
         public DbSet<Ticket> Tickets { get; set; }
 
+        public DbSet<UserTicket> UsersTickets { get; set; }
+
         public DbSet<Schedule> Schedules { get; set; }
 
         public DbSet<Route> Routes { get; set; }
+
+        public DbSet<Report> Reports { get; set; }
 
         public DbSet<Setting> Settings { get; set; }
 
@@ -65,6 +69,9 @@
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
+            // Set Vehichle's Number to unique constraint
+            builder.Entity<Vehicle>().HasIndex(v => v.Number).IsUnique();
+
             // Needed for Identity models configuration
             base.OnModelCreating(builder);
 

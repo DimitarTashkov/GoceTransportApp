@@ -1,6 +1,7 @@
 ﻿namespace GoceTransportApp.Data.Models
 {
     using System;
+    using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
 
@@ -13,7 +14,6 @@
             this.Id = Guid.NewGuid();
         }
 
-        //TODO: Add userId
         [Required]
         public DateTime IssuedDate { get; set; }
 
@@ -34,5 +34,14 @@
 
         [ForeignKey(nameof(OrganizationId))]
         public Organization Organization { get; set; } = null!;
+
+        [Required]
+        public Guid ShceduleId { get; set; }
+
+        [ForeignKey(nameof(ShceduleId))]
+        public Schedule TimeTable { get; set; }
+
+        public HashSet<UserTicket> TicketsUsers { get; set; }
+        = new HashSet<UserTicket> { new UserTicket() };
     }
 }

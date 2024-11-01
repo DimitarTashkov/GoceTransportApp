@@ -1,6 +1,7 @@
 ﻿namespace GoceTransportApp.Data.Models
 {
     using System;
+    using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
 
     using GoceTransportApp.Data.Common.Models;
@@ -27,5 +28,8 @@
         [Required]
         [MaxLength(20)]
         public string ZipCode { get; set; } = null!;
+
+        public HashSet<CityStreet> CitiesStreets { get; set; }
+        = new HashSet<CityStreet>();
     }
 }

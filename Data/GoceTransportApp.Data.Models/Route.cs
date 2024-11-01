@@ -26,12 +26,6 @@
         public Street FromStreet { get; set; } = null!;
 
         [Required]
-        public decimal Duration { get; set; }
-
-        [Required]
-        public decimal Distance { get; set; }
-
-        [Required]
         public Guid ToCityId { get; set; }
 
         [ForeignKey(nameof(ToCityId))]
@@ -42,5 +36,11 @@
 
         [ForeignKey(nameof(ToStreetId))]
         public Street ToStreet { get; set; } = null!;
+
+        [Required]
+        public decimal Duration { get; set; }
+
+        [Required]
+        public decimal Distance { get; set; }
     }
 }

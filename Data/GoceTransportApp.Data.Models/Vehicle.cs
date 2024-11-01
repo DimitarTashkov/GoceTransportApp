@@ -1,5 +1,8 @@
 ﻿using GoceTransportApp.Data.Common.Models;
+using GoceTransportApp.Data.Models.Enumerations;
+using Microsoft.EntityFrameworkCore;
 using System;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -14,7 +17,6 @@ namespace GoceTransportApp.Data.Models
 
         [Required]
         [MaxLength(50)]
-        //[Unique]
         public string Number { get; set; } = null!;
 
         [Required]
@@ -37,7 +39,8 @@ namespace GoceTransportApp.Data.Models
         public decimal FuelConsumption { get; set; }
 
         [Required]
-        public string VehicleStatus { get; set; } = null!;
+        [DefaultValue(VehicleStatus.Available)]
+        public VehicleStatus VehicleStatus { get; set; }
 
         [Required]
         public Guid OrganizationId { get; set; }

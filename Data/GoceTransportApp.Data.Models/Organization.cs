@@ -29,6 +29,9 @@
 
         public HashSet<Driver> Drivers { get; set; } = new HashSet<Driver>();
 
+        public HashSet<Ticket> Tickets { get; set; } = new HashSet<Ticket>();
+
         public List<Schedule> Schedules { get; set; } = new List<Schedule>();
+        public List<Report> Reports { get; set; } = new List<Report>();
     }
 }

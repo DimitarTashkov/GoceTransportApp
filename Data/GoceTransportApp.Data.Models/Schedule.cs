@@ -23,6 +23,18 @@
         public DateTime Arrival { get; set; }
 
         [Required]
+        public Guid OrganizationId { get; set; }
+
+        [ForeignKey(nameof(OrganizationId))]
+        public Organization Organization { get; set; }
+
+        [Required]
+        public Guid VehicleId { get; set; }
+
+        [ForeignKey(nameof(VehicleId))]
+        public Vehicle Vehicle { get; set; }
+
+        [Required]
         public Guid RouteId { get; set; }
 
         [ForeignKey(nameof(RouteId))]

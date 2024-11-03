@@ -39,7 +39,7 @@ namespace GoceTransportApp.Data.Models
 
         public virtual ICollection<IdentityUserLogin<string>> Logins { get; set; }
 
-        public HashSet<UserTicket> UsersTickets { get; set; }
-        = new HashSet<UserTicket> { new UserTicket() };
+        public HashSet<Ticket> Tickets { get; set; }
+        = new HashSet<Ticket>();
     }
 }

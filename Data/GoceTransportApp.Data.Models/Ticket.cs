@@ -41,7 +41,13 @@
         [ForeignKey(nameof(ShceduleId))]
         public Schedule TimeTable { get; set; }
 
-        public HashSet<UserTicket> TicketsUsers { get; set; }
-        = new HashSet<UserTicket> { new UserTicket() };
+        [Required]
+        public string CustomerId { get; set; } = null!;
+
+        [ForeignKey(nameof(CustomerId))]
+        public ApplicationUser Customer { get; set; }
+
+        public HashSet<Ticket> Tickets { get; set; }
+        = new HashSet<Ticket>();
     }
 }

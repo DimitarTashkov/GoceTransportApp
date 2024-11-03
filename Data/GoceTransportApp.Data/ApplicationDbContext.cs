@@ -38,8 +38,6 @@
 
         public DbSet<Ticket> Tickets { get; set; }
 
-        public DbSet<UserTicket> UsersTickets { get; set; }
-
         public DbSet<Schedule> Schedules { get; set; }
 
         public DbSet<Route> Routes { get; set; }

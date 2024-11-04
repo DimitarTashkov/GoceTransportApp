@@ -1,11 +1,9 @@
 ﻿namespace GoceTransportApp.Data.Models
 {
+    using GoceTransportApp.Data.Common.Models;
     using System;
-    using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
-
-    using GoceTransportApp.Data.Common.Models;
 
     public class Ticket : BaseDeletableModel<Guid>
     {
@@ -14,6 +12,7 @@
             this.Id = Guid.NewGuid();
         }
 
+        // TODO: Add custom validation attribute that assures IssuedDate is not bigger than ExpiryDate
         [Required]
         public DateTime IssuedDate { get; set; }
 
@@ -36,18 +35,15 @@
         public Organization Organization { get; set; } = null!;
 
         [Required]
-        public Guid ShceduleId { get; set; }
+        public Guid ScheduleId { get; set; }
 
-        [ForeignKey(nameof(ShceduleId))]
+        [ForeignKey(nameof(ScheduleId))]
         public Schedule TimeTable { get; set; }
 
         [Required]
-        public string CustomerId { get; set; } = null!;
+        public string CustomerId { get; set; }
 
         [ForeignKey(nameof(CustomerId))]
         public ApplicationUser Customer { get; set; }
-
-        public HashSet<Ticket> Tickets { get; set; }
-        = new HashSet<Ticket>();
     }
 }

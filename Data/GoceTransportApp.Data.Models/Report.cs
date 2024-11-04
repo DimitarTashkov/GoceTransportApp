@@ -1,12 +1,7 @@
 ﻿using GoceTransportApp.Data.Common.Models;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace GoceTransportApp.Data.Models
 {
@@ -16,6 +11,7 @@ namespace GoceTransportApp.Data.Models
         {
             this.Id = Guid.NewGuid();
         }
+
         [Required]
         public DayOfWeek Day { get; set; }
 
@@ -28,7 +24,7 @@ namespace GoceTransportApp.Data.Models
         [Required]
         public decimal Revenue { get; set; }
 
-        public decimal Expenses { get; set; }
+        public decimal? Expenses { get; set; }
 
         [Required]
         public Guid OrganizationId { get; set; }

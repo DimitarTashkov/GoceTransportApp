@@ -1,10 +1,12 @@
 ﻿using GoceTransportApp.Data.Common.Models;
 using GoceTransportApp.Data.Models.Enumerations;
-using Microsoft.EntityFrameworkCore;
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+
+using static GoceTransportApp.Common.EntityValidationConstants.VehicleConstants;
 
 namespace GoceTransportApp.Data.Models
 {
@@ -16,27 +18,27 @@ namespace GoceTransportApp.Data.Models
         }
 
         [Required]
-        [MaxLength(50)]
+        [MaxLength(MaxNumberLength)]
         public string Number { get; set; } = null!;
 
         [Required]
-        [MaxLength(30)]
+        [MaxLength(MaxTypeLength)]
         public string Type { get; set; } = null!;
 
         [Required]
-        [MaxLength(50)]
+        [MaxLength(MaxManufacturerLength)]
         public string Manufacturer { get; set; } = null!;
 
         [Required]
-        [MaxLength(50)]
+        [MaxLength(MaxModelLength)]
         public string Model { get; set; } = null!;
 
         [Required]
-        [Range(1, 100)]
+        [Range(MinCapacityLength, MaxCapacityLength)]
         public int Capacity { get; set; }
 
-        [Range(1, 50)]
-        public decimal FuelConsumption { get; set; }
+        [Range(MinFuelConsumptionLength, MaxFuelConsumptionLength)]
+        public double FuelConsumption { get; set; }
 
         [Required]
         [DefaultValue(VehicleStatus.Available)]
@@ -47,5 +49,8 @@ namespace GoceTransportApp.Data.Models
 
         [ForeignKey(nameof(OrganizationId))]
         public Organization Organization { get; set; } = null!;
+
+        public HashSet<Schedule> Schedules { get; set; }
+        = new HashSet<Schedule>();
     }
 }

@@ -1,13 +1,11 @@
 ﻿// ReSharper disable VirtualMemberCallInConstructor
 namespace GoceTransportApp.Data.Models
 {
+    using GoceTransportApp.Data.Common.Models;
+    using Microsoft.AspNetCore.Identity;
     using System;
 
-    using GoceTransportApp.Data.Common.Models;
-
-    using Microsoft.AspNetCore.Identity;
-
-    public class ApplicationRole : IdentityRole, IAuditInfo, IDeletableEntity
+    public class ApplicationRole : IdentityRole<string>, IAuditInfo, IDeletableEntity
     {
         public ApplicationRole()
             : this(null)

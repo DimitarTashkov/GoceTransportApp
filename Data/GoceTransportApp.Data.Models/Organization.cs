@@ -1,10 +1,13 @@
 ﻿namespace GoceTransportApp.Data.Models
 {
+    using GoceTransportApp.Data.Common.Models;
     using System;
     using System.Collections.Generic;
+    using System.ComponentModel;
     using System.ComponentModel.DataAnnotations;
-
-    using GoceTransportApp.Data.Common.Models;
+    using System.ComponentModel.DataAnnotations.Schema;
+    using static GoceTransportApp.Common.EntityValidationConstants.OrganizationConstants;
+    using static GoceTransportApp.Common.GlobalConstants;
 
     public class Organization : BaseDeletableModel<Guid>
     {
@@ -14,24 +17,38 @@
         }
 
         [Required]
-        [MaxLength(50)]
+        [MaxLength(MaxNameLength)]
         public string Name { get; set; } = null!;
 
-        [MaxLength(50)]
+        [MaxLength(MaxAddressLength)]
         public string Address { get; set; }
 
         [Required]
-        [MaxLength(50)]
-        public string Founder { get; set; } = null!;
+        [DefaultValue(DefaultOrganizationImageUrl)]
+        public string ImageUrl { get; set; } = null!;
 
-        [MaxLength(20)]
+        [Required]
+        public string FounderId { get; set; }
+
+        [ForeignKey(nameof(FounderId))]
+        public ApplicationUser Founder { get; set; }
+
+        [MaxLength(MaxPhoneNumberLength)]
         public string Phone { get; set; }
 
-        public HashSet<Driver> Drivers { get; set; } = new HashSet<Driver>();
+        public HashSet<Driver> OrganizationDrivers { get; set; }
+            = new HashSet<Driver>();
 
-        public HashSet<Ticket> Tickets { get; set; } = new HashSet<Ticket>();
+        public HashSet<Ticket> OrganizationTickets { get; set; }
+            = new HashSet<Ticket>();
 
-        public List<Schedule> Schedules { get; set; } = new List<Schedule>();
-        public List<Report> Reports { get; set; } = new List<Report>();
+        public HashSet<Schedule> OrganizationSchedules { get; set; }
+            = new HashSet<Schedule>();
+
+        public HashSet<Report> OrganizationReports { get; set; }
+            = new HashSet<Report>();
+
+        public HashSet<Message> OrganizationMessages { get; set; }
+            = new HashSet<Message>();
     }
 }

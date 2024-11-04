@@ -1,11 +1,12 @@
 ﻿namespace GoceTransportApp.Data.Models
 {
+    using GoceTransportApp.Data.Common.Models;
+    using GoceTransportApp.Data.Models.Enumerations;
     using System;
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
 
-    using GoceTransportApp.Data.Common.Models;
-    using GoceTransportApp.Data.Models.Enumerations;
+    using static GoceTransportApp.Common.EntityValidationConstants.DriverConstants;
 
     public class Driver : BaseModel<Guid>
     {
@@ -15,13 +16,14 @@
         }
 
         [Required]
-        [MaxLength(50)]
+        [MaxLength(MaxNameLength)]
         public string FirstName { get; set; } = null!;
 
         [Required]
-        [MaxLength(50)]
+        [MaxLength(MaxNameLength)]
         public string LastName { get; set; } = null!;
 
+        [Range(MinAgeLength, MaxAgeLength)]
         public int? Age { get; set; }
 
         [Required]

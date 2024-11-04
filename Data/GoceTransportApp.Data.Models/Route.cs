@@ -1,10 +1,10 @@
 ﻿namespace GoceTransportApp.Data.Models
 {
+    using GoceTransportApp.Data.Common.Models;
     using System;
+    using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
-
-    using GoceTransportApp.Data.Common.Models;
 
     public class Route : BaseDeletableModel<Guid>
     {
@@ -38,9 +38,15 @@
         public Street ToStreet { get; set; } = null!;
 
         [Required]
-        public decimal Duration { get; set; }
+        public double Duration { get; set; }
 
         [Required]
-        public decimal Distance { get; set; }
+        public double Distance { get; set; }
+
+        public HashSet<Schedule> RouteSchedules { get; set; }
+        = new HashSet<Schedule>();
+
+        public HashSet<Ticket> RouteTickets { get; set; }
+        = new HashSet<Ticket>();
     }
 }

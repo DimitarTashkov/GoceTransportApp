@@ -44,4 +44,8 @@
     <ProjectReference Include="..\GoceTransportApp.Web.Infrastructure\GoceTransportApp.Web.Infrastructure.csproj" />
     <ProjectReference Include="..\GoceTransportApp.Web.ViewModels\GoceTransportApp.Web.ViewModels.csproj" />
   </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="wwwroot\images\" />
+  </ItemGroup>
 </Project>

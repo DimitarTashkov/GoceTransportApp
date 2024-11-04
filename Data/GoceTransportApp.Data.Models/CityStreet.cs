@@ -1,10 +1,9 @@
 ﻿namespace GoceTransportApp.Data.Models
 {
+    using Microsoft.EntityFrameworkCore;
     using System;
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
-
-    using Microsoft.EntityFrameworkCore;
 
     [PrimaryKey(nameof(CityId), nameof(StreetId))]
     public class CityStreet

@@ -1,10 +1,10 @@
 ﻿namespace GoceTransportApp.Data.Models
 {
+    using GoceTransportApp.Data.Common.Models;
     using System;
+    using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
-
-    using GoceTransportApp.Data.Common.Models;
 
     public class Schedule : BaseDeletableModel<Guid>
     {
@@ -39,5 +39,8 @@
 
         [ForeignKey(nameof(RouteId))]
         public Route Route { get; set; } = null!;
+
+        public HashSet<Ticket> ScheduleTickets { get; set; }
+        = new HashSet<Ticket>();
     }
 }

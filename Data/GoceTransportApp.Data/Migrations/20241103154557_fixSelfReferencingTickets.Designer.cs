@@ -4,6 +4,7 @@ using GoceTransportApp.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GoceTransportApp.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20241103154557_fixSelfReferencingTickets")]
+    partial class fixSelfReferencingTickets
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -71,8 +74,8 @@ namespace GoceTransportApp.Data.Migrations
                     b.Property<int>("AccessFailedCount")
                         .HasColumnType("int");
 
-                    b.Property<Guid>("CityId")
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<int>("City")
+                        .HasColumnType("int");
 
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()
@@ -91,18 +94,8 @@ namespace GoceTransportApp.Data.Migrations
                     b.Property<bool>("EmailConfirmed")
                         .HasColumnType("bit");
 
-                    b.Property<string>("FirstName")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
-
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
-
-                    b.Property<string>("LastName")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
 
                     b.Property<bool>("LockoutEnabled")
                         .HasColumnType("bit");
@@ -112,6 +105,10 @@ namespace GoceTransportApp.Data.Migrations
 
                     b.Property<DateTime?>("ModifiedOn")
                         .HasColumnType("datetime2");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("NormalizedEmail")
                         .HasMaxLength(256)
@@ -130,10 +127,6 @@ namespace GoceTransportApp.Data.Migrations
                     b.Property<bool>("PhoneNumberConfirmed")
                         .HasColumnType("bit");
 
-                    b.Property<string>("ProfilePictureUrl")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("SecurityStamp")
                         .HasColumnType("nvarchar(max)");
 
@@ -145,8 +138,6 @@ namespace GoceTransportApp.Data.Migrations
                         .HasColumnType("nvarchar(256)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("CityId");
 
                     b.HasIndex("IsDeleted");
 
@@ -166,6 +157,11 @@ namespace GoceTransportApp.Data.Migrations
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Country")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<DateTime>("CreatedOn")
                         .HasColumnType("datetime2");
@@ -251,44 +247,6 @@ namespace GoceTransportApp.Data.Migrations
                     b.ToTable("Drivers");
                 });
 
-            modelBuilder.Entity("GoceTransportApp.Data.Models.Message", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("Content")
-                        .IsRequired()
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<DateTime>("CreatedOn")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime?>("ModifiedOn")
-                        .HasColumnType("datetime2");
-
-                    b.Property<Guid>("OrganizationId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("SenderId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("Title")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("OrganizationId");
-
-                    b.HasIndex("SenderId");
-
-                    b.ToTable("Messages");
-                });
-
             modelBuilder.Entity("GoceTransportApp.Data.Models.Organization", b =>
                 {
                     b.Property<Guid>("Id")
@@ -309,10 +267,6 @@ namespace GoceTransportApp.Data.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<string>("ImageUrl")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
 
@@ -325,8 +279,8 @@ namespace GoceTransportApp.Data.Migrations
                         .HasColumnType("nvarchar(50)");
 
                     b.Property<string>("Phone")
-                        .HasMaxLength(15)
-                        .HasColumnType("nvarchar(15)");
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
 
                     b.HasKey("Id");
 
@@ -355,7 +309,7 @@ namespace GoceTransportApp.Data.Migrations
                     b.Property<DateTime?>("DeletedOn")
                         .HasColumnType("datetime2");
 
-                    b.Property<decimal?>("Expenses")
+                    b.Property<decimal>("Expenses")
                         .HasColumnType("decimal(18,2)");
 
                     b.Property<bool>("IsDeleted")
@@ -394,11 +348,11 @@ namespace GoceTransportApp.Data.Migrations
                     b.Property<DateTime?>("DeletedOn")
                         .HasColumnType("datetime2");
 
-                    b.Property<double>("Distance")
-                        .HasColumnType("float");
+                    b.Property<decimal>("Distance")
+                        .HasColumnType("decimal(18,2)");
 
-                    b.Property<double>("Duration")
-                        .HasColumnType("float");
+                    b.Property<decimal>("Duration")
+                        .HasColumnType("decimal(18,2)");
 
                     b.Property<Guid>("FromCityId")
                         .HasColumnType("uniqueidentifier");
@@ -574,7 +528,7 @@ namespace GoceTransportApp.Data.Migrations
                     b.Property<Guid>("RouteId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid>("ScheduleId")
+                    b.Property<Guid>("ShceduleId")
                         .HasColumnType("uniqueidentifier");
 
                     b.HasKey("Id");
@@ -587,7 +541,7 @@ namespace GoceTransportApp.Data.Migrations
 
                     b.HasIndex("RouteId");
 
-                    b.HasIndex("ScheduleId");
+                    b.HasIndex("ShceduleId");
 
                     b.ToTable("Tickets");
                 });
@@ -604,8 +558,8 @@ namespace GoceTransportApp.Data.Migrations
                     b.Property<DateTime>("CreatedOn")
                         .HasColumnType("datetime2");
 
-                    b.Property<double>("FuelConsumption")
-                        .HasColumnType("float");
+                    b.Property<decimal>("FuelConsumption")
+                        .HasColumnType("decimal(18,2)");
 
                     b.Property<string>("Manufacturer")
                         .IsRequired()
@@ -622,16 +576,16 @@ namespace GoceTransportApp.Data.Migrations
 
                     b.Property<string>("Number")
                         .IsRequired()
-                        .HasMaxLength(10)
-                        .HasColumnType("nvarchar(10)");
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<Guid>("OrganizationId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Type")
                         .IsRequired()
-                        .HasMaxLength(20)
-                        .HasColumnType("nvarchar(20)");
+                        .HasMaxLength(30)
+                        .HasColumnType("nvarchar(30)");
 
                     b.Property<int>("VehicleStatus")
                         .HasColumnType("int");
@@ -752,17 +706,6 @@ namespace GoceTransportApp.Data.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("GoceTransportApp.Data.Models.ApplicationUser", b =>
-                {
-                    b.HasOne("GoceTransportApp.Data.Models.City", "City")
-                        .WithMany("CityUsers")
-                        .HasForeignKey("CityId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.Navigation("City");
-                });
-
             modelBuilder.Entity("GoceTransportApp.Data.Models.CityStreet", b =>
                 {
                     b.HasOne("GoceTransportApp.Data.Models.City", "City")
@@ -785,37 +728,18 @@ namespace GoceTransportApp.Data.Migrations
             modelBuilder.Entity("GoceTransportApp.Data.Models.Driver", b =>
                 {
                     b.HasOne("GoceTransportApp.Data.Models.Organization", "Organization")
-                        .WithMany("OrganizationDrivers")
+                        .WithMany("Drivers")
                         .HasForeignKey("OrganizationId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("Organization");
-                });
-
-            modelBuilder.Entity("GoceTransportApp.Data.Models.Message", b =>
-                {
-                    b.HasOne("GoceTransportApp.Data.Models.Organization", "Organization")
-                        .WithMany("OrganizationMessages")
-                        .HasForeignKey("OrganizationId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.HasOne("GoceTransportApp.Data.Models.ApplicationUser", "Sender")
-                        .WithMany("UserMessages")
-                        .HasForeignKey("SenderId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.Navigation("Organization");
-
-                    b.Navigation("Sender");
                 });
 
             modelBuilder.Entity("GoceTransportApp.Data.Models.Organization", b =>
                 {
                     b.HasOne("GoceTransportApp.Data.Models.ApplicationUser", "Founder")
-                        .WithMany("UserOrganizations")
+                        .WithMany()
                         .HasForeignKey("FounderId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
@@ -826,7 +750,7 @@ namespace GoceTransportApp.Data.Migrations
             modelBuilder.Entity("GoceTransportApp.Data.Models.Report", b =>
                 {
                     b.HasOne("GoceTransportApp.Data.Models.Organization", "Organization")
-                        .WithMany("OrganizationReports")
+                        .WithMany("Reports")
                         .HasForeignKey("OrganizationId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
@@ -837,25 +761,25 @@ namespace GoceTransportApp.Data.Migrations
             modelBuilder.Entity("GoceTransportApp.Data.Models.Route", b =>
                 {
                     b.HasOne("GoceTransportApp.Data.Models.City", "FromCity")
-                        .WithMany("FromCityRoutes")
+                        .WithMany()
                         .HasForeignKey("FromCityId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("GoceTransportApp.Data.Models.Street", "FromStreet")
-                        .WithMany("FromStreetRoutes")
+                        .WithMany()
                         .HasForeignKey("FromStreetId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("GoceTransportApp.Data.Models.City", "ToCity")
-                        .WithMany("ToCityRoutes")
+                        .WithMany()
                         .HasForeignKey("ToCityId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("GoceTransportApp.Data.Models.Street", "ToStreet")
-                        .WithMany("ToStreetRoutes")
+                        .WithMany()
                         .HasForeignKey("ToStreetId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
@@ -872,19 +796,19 @@ namespace GoceTransportApp.Data.Migrations
             modelBuilder.Entity("GoceTransportApp.Data.Models.Schedule", b =>
                 {
                     b.HasOne("GoceTransportApp.Data.Models.Organization", "Organization")
-                        .WithMany("OrganizationSchedules")
+                        .WithMany("Schedules")
                         .HasForeignKey("OrganizationId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("GoceTransportApp.Data.Models.Route", "Route")
-                        .WithMany("RouteSchedules")
+                        .WithMany()
                         .HasForeignKey("RouteId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("GoceTransportApp.Data.Models.Vehicle", "Vehicle")
-                        .WithMany("Schedules")
+                        .WithMany()
                         .HasForeignKey("VehicleId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
@@ -899,26 +823,26 @@ namespace GoceTransportApp.Data.Migrations
             modelBuilder.Entity("GoceTransportApp.Data.Models.Ticket", b =>
                 {
                     b.HasOne("GoceTransportApp.Data.Models.ApplicationUser", "Customer")
-                        .WithMany("UserTickets")
+                        .WithMany("Tickets")
                         .HasForeignKey("CustomerId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("GoceTransportApp.Data.Models.Organization", "Organization")
-                        .WithMany("OrganizationTickets")
+                        .WithMany("Tickets")
                         .HasForeignKey("OrganizationId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("GoceTransportApp.Data.Models.Route", "Route")
-                        .WithMany("RouteTickets")
+                        .WithMany()
                         .HasForeignKey("RouteId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("GoceTransportApp.Data.Models.Schedule", "TimeTable")
-                        .WithMany("ScheduleTickets")
-                        .HasForeignKey("ScheduleId")
+                        .WithMany()
+                        .HasForeignKey("ShceduleId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
@@ -1001,61 +925,28 @@ namespace GoceTransportApp.Data.Migrations
 
                     b.Navigation("Roles");
 
-                    b.Navigation("UserMessages");
-
-                    b.Navigation("UserOrganizations");
-
-                    b.Navigation("UserTickets");
+                    b.Navigation("Tickets");
                 });
 
             modelBuilder.Entity("GoceTransportApp.Data.Models.City", b =>
                 {
                     b.Navigation("CitiesStreets");
-
-                    b.Navigation("CityUsers");
-
-                    b.Navigation("FromCityRoutes");
-
-                    b.Navigation("ToCityRoutes");
                 });
 
             modelBuilder.Entity("GoceTransportApp.Data.Models.Organization", b =>
                 {
-                    b.Navigation("OrganizationDrivers");
+                    b.Navigation("Drivers");
 
-                    b.Navigation("OrganizationMessages");
+                    b.Navigation("Reports");
 
-                    b.Navigation("OrganizationReports");
+                    b.Navigation("Schedules");
 
-                    b.Navigation("OrganizationSchedules");
-
-                    b.Navigation("OrganizationTickets");
-                });
-
-            modelBuilder.Entity("GoceTransportApp.Data.Models.Route", b =>
-                {
-                    b.Navigation("RouteSchedules");
-
-                    b.Navigation("RouteTickets");
-                });
-
-            modelBuilder.Entity("GoceTransportApp.Data.Models.Schedule", b =>
-                {
-                    b.Navigation("ScheduleTickets");
+                    b.Navigation("Tickets");
                 });
 
             modelBuilder.Entity("GoceTransportApp.Data.Models.Street", b =>
                 {
-                    b.Navigation("FromStreetRoutes");
-
                     b.Navigation("StreetsCities");
-
-                    b.Navigation("ToStreetRoutes");
-                });
-
-            modelBuilder.Entity("GoceTransportApp.Data.Models.Vehicle", b =>
-                {
-                    b.Navigation("Schedules");
                 });
 #pragma warning restore 612, 618
         }

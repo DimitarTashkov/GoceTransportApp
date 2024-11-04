@@ -24,6 +24,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\GoceTransportApp.Common\GoceTransportApp.Common.csproj" />
     <ProjectReference Include="..\GoceTransportApp.Data.Common\GoceTransportApp.Data.Common.csproj" />
   </ItemGroup>
   

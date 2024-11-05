@@ -1,7 +1,10 @@
 ﻿namespace GoceTransportApp.Common
 {
-    public class EntityValidationMessages
+    public static class EntityValidationMessages
     {
-
+        public static class StreetsValidation
+        {
+            public const string StreetNameRequiredMessage = "Street name is required";
+        }
     }
 }

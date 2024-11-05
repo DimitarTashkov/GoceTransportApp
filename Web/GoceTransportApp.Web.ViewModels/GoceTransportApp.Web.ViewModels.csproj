@@ -24,7 +24,12 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\Data\GoceTransportApp.Data.Models\GoceTransportApp.Data.Models.csproj" />
+    <ProjectReference Include="..\..\GoceTransportApp.Common\GoceTransportApp.Common.csproj" />
     <ProjectReference Include="..\..\Services\GoceTransportApp.Services.Mapping\GoceTransportApp.Services.Mapping.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Cities\" />
   </ItemGroup>
 
 </Project>

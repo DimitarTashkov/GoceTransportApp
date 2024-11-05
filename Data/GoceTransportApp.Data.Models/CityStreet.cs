@@ -1,5 +1,6 @@
 ﻿namespace GoceTransportApp.Data.Models
 {
+    using GoceTransportApp.Data.Common.Models;
     using Microsoft.EntityFrameworkCore;
     using System;
     using System.ComponentModel.DataAnnotations;
@@ -19,9 +20,5 @@
 
         [ForeignKey(nameof(StreetId))]
         public Street Street { get; set; } = null!;
-
-        [Required]
-        [MaxLength(30)]
-        public string StreetCode { get; set; } = null!;
     }
 }

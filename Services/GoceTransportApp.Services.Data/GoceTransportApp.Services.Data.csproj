@@ -21,6 +21,7 @@
   <ItemGroup>
     <ProjectReference Include="..\..\Data\GoceTransportApp.Data.Common\GoceTransportApp.Data.Common.csproj" />
     <ProjectReference Include="..\..\Data\GoceTransportApp.Data.Models\GoceTransportApp.Data.Models.csproj" />
+    <ProjectReference Include="..\..\Web\GoceTransportApp.Web.ViewModels\GoceTransportApp.Web.ViewModels.csproj" />
     <ProjectReference Include="..\GoceTransportApp.Services.Mapping\GoceTransportApp.Services.Mapping.csproj" />
   </ItemGroup>
 

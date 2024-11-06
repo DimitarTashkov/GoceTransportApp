@@ -1,7 +1,9 @@
 ﻿namespace GoceTransportApp.Data.Repositories
 {
     using System;
+    using System.Collections.Generic;
     using System.Linq;
+    using System.Linq.Expressions;
     using System.Threading.Tasks;
 
     using GoceTransportApp.Data.Common.Repositories;
@@ -21,7 +23,11 @@
 
         protected ApplicationDbContext Context { get; set; }
 
-        public virtual IQueryable<TEntity> All() => this.DbSet;
+        public virtual IEnumerable<TEntity> GetAll() => this.DbSet.ToArray();
+
+        public virtual async Task<IEnumerable<TEntity>> GetAllAsync() => await this.DbSet.ToArrayAsync();
+
+        public virtual IQueryable<TEntity> GetAllAttached() => this.DbSet.AsQueryable();
 
         public virtual IQueryable<TEntity> AllAsNoTracking() => this.DbSet.AsNoTracking();
 
@@ -46,6 +52,79 @@
         {
             this.Dispose(true);
             GC.SuppressFinalize(this);
+        }
+
+        public TEntity GetById(Guid id)
+        {
+            TEntity entity = this.DbSet
+                .Find(id);
+
+            return entity;
+        }
+
+        public async Task<TEntity> GetByIdAsync(Guid id)
+        {
+            TEntity entity = await this.DbSet
+                .FindAsync(id);
+
+            return entity;
+        }
+
+        public TEntity FirstOrDefault(Func<TEntity, bool> predicate)
+        {
+            TEntity entity = this.DbSet
+                .FirstOrDefault(predicate);
+
+            return entity;
+        }
+
+        public async Task<TEntity> FirstOrDefaultAsync(Expression<Func<TEntity, bool>> predicate)
+        {
+            TEntity entity = await this.DbSet
+                .FirstOrDefaultAsync(predicate);
+
+            return entity;
+        }
+
+        public void Add(TEntity item)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void AddRange(TEntity[] items)
+        {
+            this.DbSet.AddRange(items);
+            this.Context.SaveChanges();
+        }
+
+        public async Task AddRangeAsync(TEntity[] items)
+        {
+            await this.DbSet.AddRangeAsync(items);
+            await this.Context.SaveChangesAsync();
+        }
+
+        public async Task<bool> DeleteAsync(TEntity entity)
+        {
+            this.DbSet.Remove(entity);
+            await this.Context.SaveChangesAsync();
+
+            return true;
+        }
+
+        public async Task<bool> UpdateAsync(TEntity item)
+        {
+            try
+            {
+                this.DbSet.Attach(item);
+                this.Context.Entry(item).State = EntityState.Modified;
+                await this.Context.SaveChangesAsync();
+
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
         }
 
         protected virtual void Dispose(bool disposing)

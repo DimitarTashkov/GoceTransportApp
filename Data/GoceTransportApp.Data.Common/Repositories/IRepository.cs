@@ -1,21 +1,42 @@
 ﻿namespace GoceTransportApp.Data.Common.Repositories
 {
     using System;
+    using System.Collections.Generic;
     using System.Linq;
+    using System.Linq.Expressions;
+    using System.Security.Cryptography;
     using System.Threading.Tasks;
 
     public interface IRepository<TEntity> : IDisposable
         where TEntity : class
     {
-        IQueryable<TEntity> All();
+        TEntity GetById(Guid id);
+
+        Task<TEntity> GetByIdAsync(Guid id);
+
+        TEntity FirstOrDefault(Func<TEntity, bool> predicate);
+
+        Task<TEntity> FirstOrDefaultAsync(Expression<Func<TEntity, bool>> predicate);
+
+        IEnumerable<TEntity> GetAll();
+
+        Task<IEnumerable<TEntity>> GetAllAsync();
+
+        IQueryable<TEntity> GetAllAttached();
 
         IQueryable<TEntity> AllAsNoTracking();
 
-        Task AddAsync(TEntity entity);
+        void Add(TEntity item);
 
-        void Update(TEntity entity);
+        Task AddAsync(TEntity item);
 
-        void Delete(TEntity entity);
+        void AddRange(TEntity[] items);
+
+        Task AddRangeAsync(TEntity[] items);
+
+        Task<bool> DeleteAsync(TEntity entity);
+
+        Task<bool> UpdateAsync(TEntity item);
 
         Task<int> SaveChangesAsync();
     }

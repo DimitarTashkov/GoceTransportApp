@@ -23,7 +23,7 @@
 
         public IEnumerable<T> GetAll<T>()
         {
-            return this.settingsRepository.All().To<T>().ToList();
+            return this.settingsRepository.GetAllAttached().To<T>().ToList();
         }
     }
 }

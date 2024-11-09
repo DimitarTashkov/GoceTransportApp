@@ -1,6 +1,5 @@
 ﻿using GoceTransportApp.Data.Common.Repositories;
 using GoceTransportApp.Data.Models;
-using GoceTransportApp.Services.Data.Base;
 using GoceTransportApp.Web.ViewModels.Streets;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -10,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace GoceTransportApp.Services.Data.Streets
 {
-    public class StreetService : BaseService, IStreetService
+    public class StreetService : IStreetService
     {
         private readonly IRepository<Street> streetRepository;
 
@@ -57,10 +56,9 @@ namespace GoceTransportApp.Services.Data.Streets
             return result;
         }
 
-        public async Task<IEnumerable<StreetsDataViewModel>> GetAllStreetFromRoutes(Guid routeId)
+        public async Task<IEnumerable<StreetsDataViewModel>> GetAllStreets()
         {
             IEnumerable<StreetsDataViewModel> model = await streetRepository.GetAllAttached()
-                .Where(s => s.FromStreetRoutes.Any(sr => sr.Id == routeId))
                 .Select(s => new StreetsDataViewModel()
                 {
                     Name = s.Name
@@ -71,33 +69,47 @@ namespace GoceTransportApp.Services.Data.Streets
             return model;
         }
 
-        public async Task<IEnumerable<StreetsDataViewModel>> GetAllStreetsInCity(Guid cityId)
-        {
-            IEnumerable<StreetsDataViewModel> model = await streetRepository.GetAllAttached()
-                .Where(s => s.StreetsCities.Any(sc => sc.CityId == cityId))
-                .Select(s => new StreetsDataViewModel()
-                {
-                    Name = s.Name
-                })
-                .AsNoTracking()
-                .ToArrayAsync();
+        //public async Task<IEnumerable<StreetsDataViewModel>> GetAllStreetFromRoutes(Guid routeId)
+        //{
+        //    IEnumerable<StreetsDataViewModel> model = await streetRepository.GetAllAttached()
+        //        .Where(s => s.FromStreetRoutes.Any(sr => sr.Id == routeId))
+        //        .Select(s => new StreetsDataViewModel()
+        //        {
+        //            Name = s.Name
+        //        })
+        //        .AsNoTracking()
+        //        .ToArrayAsync();
 
-            return model;
-        }
+        //    return model;
+        //}
 
-        public async Task<IEnumerable<StreetsDataViewModel>> GetAllStreetToRoutes(Guid routeId)
-        {
-            IEnumerable<StreetsDataViewModel> model = await streetRepository.GetAllAttached()
-                .Where(s => s.ToStreetRoutes.Any(sr => sr.Id == routeId))
-                .Select(s => new StreetsDataViewModel()
-                {
-                    Name = s.Name
-                })
-                .AsNoTracking()
-                .ToArrayAsync();
+        //public async Task<IEnumerable<StreetsDataViewModel>> GetAllStreetsInCity(Guid cityId)
+        //{
+        //    IEnumerable<StreetsDataViewModel> model = await streetRepository.GetAllAttached()
+        //        .Where(s => s.StreetsCities.Any(sc => sc.CityId == cityId))
+        //        .Select(s => new StreetsDataViewModel()
+        //        {
+        //            Name = s.Name
+        //        })
+        //        .AsNoTracking()
+        //        .ToArrayAsync();
 
-            return model;
-        }
+        //    return model;
+        //}
+
+        //public async Task<IEnumerable<StreetsDataViewModel>> GetAllStreetToRoutes(Guid routeId)
+        //{
+        //    IEnumerable<StreetsDataViewModel> model = await streetRepository.GetAllAttached()
+        //        .Where(s => s.ToStreetRoutes.Any(sr => sr.Id == routeId))
+        //        .Select(s => new StreetsDataViewModel()
+        //        {
+        //            Name = s.Name
+        //        })
+        //        .AsNoTracking()
+        //        .ToArrayAsync();
+
+        //    return model;
+        //}
 
         public async Task<EditStreetInputModel> GetStreetForEdit(Guid id)
         {

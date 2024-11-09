@@ -12,7 +12,6 @@
             this.Id = Guid.NewGuid();
         }
 
-        // TODO: Add custom validation attribute that assures IssuedDate is not bigger than ExpiryDate
         [Required]
         public DateTime IssuedDate { get; set; }
 

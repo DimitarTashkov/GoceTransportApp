@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 using static GoceTransportApp.Common.EntityValidationConstants.StreetConstants;
-using static GoceTransportApp.Common.EntityValidationMessages.StreetsValidation;
+using static GoceTransportApp.Common.ErrorMessages.StreetsMessages;
 
 namespace GoceTransportApp.Web.ViewModels.Streets
 {

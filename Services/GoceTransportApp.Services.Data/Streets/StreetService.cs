@@ -61,6 +61,7 @@ namespace GoceTransportApp.Services.Data.Streets
             IEnumerable<StreetsDataViewModel> model = await streetRepository.GetAllAttached()
                 .Select(s => new StreetsDataViewModel()
                 {
+                    Id = s.Id.ToString(),
                     Name = s.Name
                 })
                 .AsNoTracking()
@@ -82,17 +83,6 @@ namespace GoceTransportApp.Services.Data.Streets
 
         //    return model;
         //}
-
-        //public async Task<IEnumerable<StreetsDataViewModel>> GetAllStreetsInCity(Guid cityId)
-        //{
-        //    IEnumerable<StreetsDataViewModel> model = await streetRepository.GetAllAttached()
-        //        .Where(s => s.StreetsCities.Any(sc => sc.CityId == cityId))
-        //        .Select(s => new StreetsDataViewModel()
-        //        {
-        //            Name = s.Name
-        //        })
-        //        .AsNoTracking()
-        //        .ToArrayAsync();
 
         //    return model;
         //}

@@ -37,7 +37,5 @@
         public HashSet<CityStreet> CitiesStreets { get; set; }
         = new HashSet<CityStreet>();
 
-        public HashSet<ApplicationUser> CityUsers { get; set; }
-        = new HashSet<ApplicationUser>();
     }
 }

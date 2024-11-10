@@ -52,10 +52,7 @@ namespace GoceTransportApp.Data.Models
 
         // TODO: Get user city via geolocation and set it then from enumeration
         [Required]
-        public Guid CityId { get; set; }
-
-        [ForeignKey(nameof(CityId))]
-        public City City { get; set; }
+        public string City { get; set; }
 
         public HashSet<Ticket> UserTickets { get; set; }
         = new HashSet<Ticket>();

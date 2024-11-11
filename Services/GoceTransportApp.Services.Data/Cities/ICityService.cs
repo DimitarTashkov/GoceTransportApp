@@ -18,9 +18,9 @@ namespace GoceTransportApp.Services.Data.Cities
 
         Task<IEnumerable<StreetsDataViewModel>> GetAllStreetsInCity(Guid cityId);
 
-        Task<bool> AddStreetToCity(Guid cityId, Guid streetId);
+        Task<CitiesAddStreetInputModel?> GetAddMovieToCinemaInputModelByIdAsync(Guid id);
 
-        Task<bool> RemoveStreetFromCity(Guid cityId, Guid streetId);
+        Task<bool> AddStreetToCity(Guid streetId, CitiesAddStreetInputModel model);
 
         Task CreateAsync(CitiesInputModel inputModel);
 

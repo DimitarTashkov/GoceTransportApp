@@ -18,5 +18,6 @@ namespace GoceTransportApp.Web.ViewModels.Cities
         public string ZipCode { get; set; } = null!;
 
         public IEnumerable<StreetsDataViewModel> Streets { get; set; }
+        = new List<StreetsDataViewModel>();
     }
 }

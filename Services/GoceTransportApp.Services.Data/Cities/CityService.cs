@@ -1,5 +1,6 @@
 ﻿using GoceTransportApp.Data.Common.Repositories;
 using GoceTransportApp.Data.Models;
+using GoceTransportApp.Services.Data.Base;
 using GoceTransportApp.Web.ViewModels.Cities;
 using GoceTransportApp.Web.ViewModels.Streets;
 using Microsoft.EntityFrameworkCore;
@@ -11,41 +12,74 @@ using System.Threading.Tasks;
 
 namespace GoceTransportApp.Services.Data.Cities
 {
-    public class CityService : ICityService
+    public class CityService : BaseService, ICityService
     {
         private readonly IRepository<City> cityRepository;
         private readonly IRepository<Street> streetRepository;
+        private readonly IRepository<CityStreet> cityStreetRepository;
 
-        public CityService(IRepository<City> cityRepository, IRepository<Street> streetRepository)
+        public CityService(IRepository<City> cityRepository, IRepository<Street> streetRepository, IRepository<CityStreet> cityStreetRepository)
         {
             this.cityRepository = cityRepository;
             this.streetRepository = streetRepository;
+            this.cityStreetRepository = cityStreetRepository;
         }
 
-        public async Task<bool> AddStreetToCity(Guid cityId, Guid streetId)
+        public async Task<bool> AddStreetToCity(Guid streetId, CitiesAddStreetInputModel model)
         {
-            City city = await cityRepository.GetByIdAsync(cityId);
             Street street = await streetRepository.GetByIdAsync(streetId);
 
-            if (city == null || street == null)
+            if (street == null)
             {
                 return false;
             }
 
-            bool isExists = city.CityStreets.Any(cs => cs.CityId == cityId && cs.StreetId == streetId);
-
-            if (isExists)
+            ICollection<CityStreet> entitiesToAdd = new List<CityStreet>();
+            foreach (StreetsCheckBoxItemInputModel cinemaInputModel in model.Streets)
             {
-                return false;
+                Guid cityGuid = Guid.Empty;
+                bool isCityGuidValid = this.IsGuidValid(cinemaInputModel.Id, ref cityGuid);
+                if (!isCityGuidValid)
+                {
+                    return false;
+                }
+
+                City? city = await this.cityRepository
+                    .GetByIdAsync(cityGuid);
+                if (city == null)
+                {
+                    return false;
+                }
+
+                CityStreet? cityStreet = await this.cityStreetRepository.GetAllAttached()
+                    .FirstOrDefaultAsync(cs => cs.StreetId == streetId &&
+                                                     cs.CityId == cityGuid);
+                if (cinemaInputModel.IsSelected)
+                {
+                    if (cityStreet == null)
+                    {
+                        entitiesToAdd.Add(new CityStreet()
+                        {
+                            City = city,
+                            Street = street
+                        });
+                    }
+                    else
+                    {
+                        cityStreet.IsDeleted = false;
+                    }
+                }
+                else
+                {
+                    if (cityStreet != null)
+                    {
+                        cityStreet.IsDeleted = true;
+                    }
+                }
+
             }
 
-            city.CityStreets.Add(new CityStreet()
-            {
-                CityId = cityId,
-                StreetId = streetId
-            });
-
-            await cityRepository.SaveChangesAsync();
+            await this.cityStreetRepository.AddRangeAsync(entitiesToAdd.ToArray());
 
             return true;
 
@@ -93,6 +127,37 @@ namespace GoceTransportApp.Services.Data.Cities
             bool result = await cityRepository.UpdateAsync(city);
 
             return result;
+        }
+
+        public async Task<CitiesAddStreetInputModel> GetAddMovieToCinemaInputModelByIdAsync(Guid cityId)
+        {
+            City? city = await this.cityRepository
+                .GetByIdAsync(cityId);
+
+            CitiesAddStreetInputModel? viewModel = null;
+            if (city != null)
+            {
+                viewModel = new CitiesAddStreetInputModel()
+                {
+                    Id = cityId.ToString(),
+                    Name = city.Name,
+                    Streets = await this.streetRepository
+                        .GetAllAttached()
+                        .Include(c => c.StreetsCities)
+                        .ThenInclude(sc => sc.City)
+                        .Select(c => new StreetsCheckBoxItemInputModel()
+                        {
+                            Id = c.Id.ToString(),
+                            Name = c.Name,
+                            IsSelected = c.StreetsCities
+                                .Any(sc => sc.City.Id == cityId &&
+                                           sc.IsDeleted == false)
+                        })
+                        .ToListAsync()
+                };
+            }
+
+            return viewModel;
         }
 
         public async Task<IEnumerable<CitiesDataViewModel>> GetAllCities()
@@ -203,9 +268,5 @@ namespace GoceTransportApp.Services.Data.Cities
             return editModel;
         }
 
-        public Task<bool> RemoveStreetFromCity(Guid cityId, Guid streetId)
-        {
-            throw new NotImplementedException();
-        }
     }
 }

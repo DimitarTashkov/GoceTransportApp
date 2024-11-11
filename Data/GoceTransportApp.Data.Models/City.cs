@@ -34,7 +34,7 @@
         public HashSet<Route> ToCityRoutes { get; set; }
         = new HashSet<Route>();
 
-        public HashSet<CityStreet> CitiesStreets { get; set; }
+        public HashSet<CityStreet> CityStreets { get; set; }
         = new HashSet<CityStreet>();
 
     }

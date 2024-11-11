@@ -48,7 +48,8 @@ namespace GoceTransportApp.Services.Data.Streets
         {
             Street street = new Street()
             {
-                Name = model.Street
+                Name = model.Street,
+                ModifiedOn = DateTime.UtcNow
             };
 
             bool result = await streetRepository.UpdateAsync(street);

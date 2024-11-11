@@ -12,9 +12,9 @@ namespace GoceTransportApp.Services.Data.Cities
     {
         Task<IEnumerable<CitiesDataViewModel>> GetAllCities();
 
-        Task<CitiesDataViewModel> GetCityDetails(Guid? id);
+        Task<CitiesDetailsViewModel> GetCityDetails(Guid id);
 
-        Task<CitiesDataViewModel> GetCityDetailsByName(string? name);
+        Task<CitiesDetailsViewModel> GetCityDetailsByName(string name);
 
         Task<IEnumerable<StreetsDataViewModel>> GetAllStreetsInCity(Guid cityId);
 

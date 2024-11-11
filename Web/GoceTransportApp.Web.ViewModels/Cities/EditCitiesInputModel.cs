@@ -12,6 +12,9 @@ namespace GoceTransportApp.Web.ViewModels.Cities
     public class EditCitiesInputModel
     {
         [Required]
+        public string Id { get; set; }
+
+        [Required]
         [MinLength(MinNameLength)]
         [MaxLength(MaxNameLength)]
         public string Name { get; set; } = null!;

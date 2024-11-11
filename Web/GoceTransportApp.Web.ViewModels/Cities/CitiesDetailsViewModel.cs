@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace GoceTransportApp.Web.ViewModels.Cities
 {
-    public class CitiesDataViewModel
+    public class CitiesDetailsViewModel
     {
         public string Id { get; set; } = null!;
 
@@ -17,5 +17,6 @@ namespace GoceTransportApp.Web.ViewModels.Cities
 
         public string ZipCode { get; set; } = null!;
 
+        public IEnumerable<StreetsDataViewModel> Streets { get; set; }
     }
 }

@@ -6,7 +6,7 @@ using Microsoft.VisualStudio.Web.CodeGenerators.Mvc.Templates.Blazor;
 using System;
 using System.Threading.Tasks;
 
-using static GoceTransportApp.Common.ErrorMessages.StreetsMessages;
+using static GoceTransportApp.Common.ErrorMessages.StreetMessages;
 
 namespace GoceTransportApp.Web.Controllers
 {
@@ -31,14 +31,14 @@ namespace GoceTransportApp.Web.Controllers
         [HttpGet]
         public async Task<IActionResult> Create()
         {
-            StreetsInputModel model = new StreetsInputModel();
+            StreetInputModel model = new StreetInputModel();
             // TODO: Check if the user has permissions to create streets
 
             return View(model);
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create(StreetsInputModel model)
+        public async Task<IActionResult> Create(StreetInputModel model)
         {
             if (!ModelState.IsValid)
             {
@@ -64,6 +64,11 @@ namespace GoceTransportApp.Web.Controllers
 
             EditStreetInputModel? formModel = await this.streetService
                 .GetStreetForEdit(streetGuid);
+
+            if (formModel == null)
+            {
+                return this.RedirectToAction(nameof(Index));
+            }
 
             return this.View(formModel);
         }

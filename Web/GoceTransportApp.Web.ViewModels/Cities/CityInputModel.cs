@@ -9,7 +9,7 @@ using static GoceTransportApp.Common.EntityValidationConstants.CityConstants;
 
 namespace GoceTransportApp.Web.ViewModels.Cities
 {
-    public class CitiesInputModel
+    public class CityInputModel
     {
         [Required]
         [MinLength(MinNameLength)]

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace GoceTransportApp.Web.ViewModels.Streets
 {
-    public class StreetsDataViewModel
+    public class StreetDataViewModel
     {
         public string Id { get; set; } = null!;
 

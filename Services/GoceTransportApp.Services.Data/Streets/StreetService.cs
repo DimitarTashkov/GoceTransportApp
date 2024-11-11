@@ -18,7 +18,7 @@ namespace GoceTransportApp.Services.Data.Streets
             this.streetRepository = streetRepository;
         }
 
-        public async Task CreateAsync(StreetsInputModel inputModel)
+        public async Task CreateAsync(StreetInputModel inputModel)
         {
             Street street = new Street()
             {
@@ -57,10 +57,10 @@ namespace GoceTransportApp.Services.Data.Streets
             return result;
         }
 
-        public async Task<IEnumerable<StreetsDataViewModel>> GetAllStreets()
+        public async Task<IEnumerable<StreetDataViewModel>> GetAllStreets()
         {
-            IEnumerable<StreetsDataViewModel> model = await streetRepository.GetAllAttached()
-                .Select(s => new StreetsDataViewModel()
+            IEnumerable<StreetDataViewModel> model = await streetRepository.GetAllAttached()
+                .Select(s => new StreetDataViewModel()
                 {
                     Id = s.Id.ToString(),
                     Name = s.Name

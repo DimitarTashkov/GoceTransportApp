@@ -25,8 +25,9 @@ namespace GoceTransportApp.Services.Data.Cities
             this.cityStreetRepository = cityStreetRepository;
         }
 
-        public async Task<bool> AddStreetToCity(Guid streetId, CitiesAddStreetInputModel model)
+        public async Task<bool> AddStreetToCity(Guid streetId, CityAddStreetInputModel model)
         {
+            //TODO:!!!!!!!!!! Reverse it because controller passes CityId to streetId
             Street street = await streetRepository.GetByIdAsync(streetId);
 
             if (street == null)
@@ -35,7 +36,7 @@ namespace GoceTransportApp.Services.Data.Cities
             }
 
             ICollection<CityStreet> entitiesToAdd = new List<CityStreet>();
-            foreach (StreetsCheckBoxItemInputModel cinemaInputModel in model.Streets)
+            foreach (StreetCheckBoxItemInputModel cinemaInputModel in model.Streets)
             {
                 Guid cityGuid = Guid.Empty;
                 bool isCityGuidValid = this.IsGuidValid(cinemaInputModel.Id, ref cityGuid);
@@ -85,7 +86,7 @@ namespace GoceTransportApp.Services.Data.Cities
 
         }
 
-        public async Task CreateAsync(CitiesInputModel inputModel)
+        public async Task CreateAsync(CityInputModel inputModel)
         {
             City city = new City()
             {
@@ -114,7 +115,7 @@ namespace GoceTransportApp.Services.Data.Cities
             return true;
         }
 
-        public async Task<bool> EditCityAsync(EditCitiesInputModel inputModel)
+        public async Task<bool> EditCityAsync(EditCityInputModel inputModel)
         {
             City city = new City()
             {
@@ -129,15 +130,15 @@ namespace GoceTransportApp.Services.Data.Cities
             return result;
         }
 
-        public async Task<CitiesAddStreetInputModel> GetAddMovieToCinemaInputModelByIdAsync(Guid cityId)
+        public async Task<CityAddStreetInputModel> GetAddMovieToCinemaInputModelByIdAsync(Guid cityId)
         {
             City? city = await this.cityRepository
                 .GetByIdAsync(cityId);
 
-            CitiesAddStreetInputModel? viewModel = null;
+            CityAddStreetInputModel? viewModel = null;
             if (city != null)
             {
-                viewModel = new CitiesAddStreetInputModel()
+                viewModel = new CityAddStreetInputModel()
                 {
                     Id = cityId.ToString(),
                     Name = city.Name,
@@ -145,7 +146,7 @@ namespace GoceTransportApp.Services.Data.Cities
                         .GetAllAttached()
                         .Include(c => c.StreetsCities)
                         .ThenInclude(sc => sc.City)
-                        .Select(c => new StreetsCheckBoxItemInputModel()
+                        .Select(c => new StreetCheckBoxItemInputModel()
                         {
                             Id = c.Id.ToString(),
                             Name = c.Name,
@@ -160,10 +161,10 @@ namespace GoceTransportApp.Services.Data.Cities
             return viewModel;
         }
 
-        public async Task<IEnumerable<CitiesDataViewModel>> GetAllCities()
+        public async Task<IEnumerable<CityDataViewModel>> GetAllCities()
         {
-            IEnumerable<CitiesDataViewModel> model = await cityRepository.GetAllAttached()
-               .Select(c => new CitiesDataViewModel()
+            IEnumerable<CityDataViewModel> model = await cityRepository.GetAllAttached()
+               .Select(c => new CityDataViewModel()
                {
                    Id = c.Id.ToString(),
                    Name = c.Name,
@@ -176,11 +177,11 @@ namespace GoceTransportApp.Services.Data.Cities
             return model;
         }
 
-        public async Task<IEnumerable<StreetsDataViewModel>> GetAllStreetsInCity(Guid cityId)
+        public async Task<IEnumerable<StreetDataViewModel>> GetAllStreetsInCity(Guid cityId)
         {
-            IEnumerable<StreetsDataViewModel> model = await streetRepository.GetAllAttached()
+            IEnumerable<StreetDataViewModel> model = await streetRepository.GetAllAttached()
                 .Where(s => s.StreetsCities.Any(sc => sc.CityId == cityId))
-                .Select(s => new StreetsDataViewModel()
+                .Select(s => new StreetDataViewModel()
                 {
                     Id = s.Id.ToString(),
                     Name = s.Name,
@@ -191,9 +192,9 @@ namespace GoceTransportApp.Services.Data.Cities
             return model;
         }
 
-        public async Task<CitiesDetailsViewModel> GetCityDetails(Guid id)
+        public async Task<CityDetailsViewModel> GetCityDetails(Guid id)
         {
-            CitiesDetailsViewModel viewModel = null;
+            CityDetailsViewModel viewModel = null;
 
             City? city =
                await cityRepository.GetAllAttached()
@@ -203,14 +204,14 @@ namespace GoceTransportApp.Services.Data.Cities
 
             if (city != null)
             {
-                viewModel = new CitiesDetailsViewModel()
+                viewModel = new CityDetailsViewModel()
                 {
                     Id = city.Id.ToString(),
                     Name = city.Name,
                     State = city.Name,
                     ZipCode = city.ZipCode,
                     Streets = city.CityStreets
-                    .Where(cs => cs.CityId == id).Select(cs => new StreetsDataViewModel()
+                    .Where(cs => cs.CityId == id).Select(cs => new StreetDataViewModel()
                     {
                         Id = cs.StreetId.ToString(),
                         Name = cs.Street.Name
@@ -222,9 +223,9 @@ namespace GoceTransportApp.Services.Data.Cities
             return viewModel;
         }
 
-        public async Task<CitiesDetailsViewModel> GetCityDetailsByName(string name)
+        public async Task<CityDetailsViewModel> GetCityDetailsByName(string name)
         {
-            CitiesDetailsViewModel viewModel = null;
+            CityDetailsViewModel viewModel = null;
 
             City? city =
                await cityRepository.GetAllAttached()
@@ -234,14 +235,14 @@ namespace GoceTransportApp.Services.Data.Cities
 
             if (city != null)
             {
-                viewModel = new CitiesDetailsViewModel()
+                viewModel = new CityDetailsViewModel()
                 {
                     Id = city.Id.ToString(),
                     Name = city.Name,
                     State = city.Name,
                     ZipCode = city.ZipCode,
                     Streets = city.CityStreets
-                    .Where(cs => cs.City.Name.ToLower() == name.ToLower()).Select(cs => new StreetsDataViewModel()
+                    .Where(cs => cs.City.Name.ToLower() == name.ToLower()).Select(cs => new StreetDataViewModel()
                     {
                         Id = cs.StreetId.ToString(),
                         Name = cs.Street.Name
@@ -253,10 +254,10 @@ namespace GoceTransportApp.Services.Data.Cities
             return viewModel;
         }
 
-        public async Task<EditCitiesInputModel> GetCityForEdit(Guid id)
+        public async Task<EditCityInputModel> GetCityForEdit(Guid id)
         {
-            EditCitiesInputModel editModel = await cityRepository.GetAllAttached()
-                .Select(c => new EditCitiesInputModel()
+            EditCityInputModel editModel = await cityRepository.GetAllAttached()
+                .Select(c => new EditCityInputModel()
                 {
                     Id = c.Id.ToString(),
                     Name = c.Name,

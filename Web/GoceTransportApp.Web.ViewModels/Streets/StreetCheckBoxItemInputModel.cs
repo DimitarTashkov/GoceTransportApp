@@ -9,7 +9,7 @@ using static GoceTransportApp.Common.EntityValidationConstants.StreetConstants;
 
 namespace GoceTransportApp.Web.ViewModels.Streets
 {
-    public class StreetsCheckBoxItemInputModel
+    public class StreetCheckBoxItemInputModel
     {
         [Required]
         public string Id { get; set; }

@@ -10,7 +10,7 @@ using static GoceTransportApp.Common.EntityValidationConstants.CityConstants;
 
 namespace GoceTransportApp.Web.ViewModels.Cities
 {
-    public class CitiesAddStreetInputModel
+    public class CityAddStreetInputModel
     {
         [Required]
         public string Id { get; set; }
@@ -20,7 +20,7 @@ namespace GoceTransportApp.Web.ViewModels.Cities
         [MaxLength(MaxNameLength)]
         public string Name { get; set; }
 
-        public List<StreetsCheckBoxItemInputModel> Streets { get; set; }
-        = new List<StreetsCheckBoxItemInputModel>();
+        public List<StreetCheckBoxItemInputModel> Streets { get; set; }
+        = new List<StreetCheckBoxItemInputModel>();
     }
 }

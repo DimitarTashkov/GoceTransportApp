@@ -7,7 +7,7 @@
     using System.ComponentModel.DataAnnotations.Schema;
 
     [PrimaryKey(nameof(CityId), nameof(StreetId))]
-    public class CityStreet : BaseDeletableModel<object>
+    public class CityStreet : BaseDeletableModel<Guid>
     {
         [Required]
         public Guid CityId { get; set; }

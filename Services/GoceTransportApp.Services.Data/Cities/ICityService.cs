@@ -20,7 +20,7 @@ namespace GoceTransportApp.Services.Data.Cities
 
         Task<CityAddStreetInputModel?> GetAddMovieToCinemaInputModelByIdAsync(Guid id);
 
-        Task<bool> AddStreetToCity(Guid streetId, CityAddStreetInputModel model);
+        Task<bool> AddStreetToCity(Guid cityId, CityAddStreetInputModel model);
 
         Task CreateAsync(CityInputModel inputModel);
 

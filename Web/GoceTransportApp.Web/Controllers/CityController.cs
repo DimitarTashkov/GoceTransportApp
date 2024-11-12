@@ -8,6 +8,7 @@ using GoceTransportApp.Services.Data.Cities;
 using GoceTransportApp.Web.ViewModels.Cities;
 
 using static GoceTransportApp.Common.ErrorMessages.CityMessages;
+using System.Collections.Generic;
 
 namespace GoceTransportApp.Web.Controllers
 {
@@ -202,6 +203,26 @@ namespace GoceTransportApp.Web.Controllers
             }
 
             return this.RedirectToAction(nameof(Index), "Cinema");
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> StreetsInCity(string? id)
+        {
+            Guid cityGuid = Guid.Empty;
+            bool isGuidValid = this.IsGuidValid(id, ref cityGuid);
+            if (!isGuidValid)
+            {
+                return this.RedirectToAction(nameof(Index));
+            }
+
+            IEnumerable<StreetDataViewModel> model = await cityService.GetAllStreetsInCity(cityGuid);
+
+            if (model == null)
+            {
+                return this.RedirectToAction(nameof(Index));
+            }
+
+            return View(model);
         }
     }
 }

@@ -25,41 +25,40 @@ namespace GoceTransportApp.Services.Data.Cities
             this.cityStreetRepository = cityStreetRepository;
         }
 
-        public async Task<bool> AddStreetToCity(Guid streetId, CityAddStreetInputModel model)
+        public async Task<bool> AddStreetToCity(Guid cityId, CityAddStreetInputModel model)
         {
-            //TODO:!!!!!!!!!! Reverse it because controller passes CityId to streetId
-            Street street = await streetRepository.GetByIdAsync(streetId);
+            City city = await cityRepository.GetByIdAsync(cityId);
 
-            if (street == null)
+            if (city == null)
             {
                 return false;
             }
 
-            ICollection<CityStreet> entitiesToAdd = new List<CityStreet>();
+            ICollection<CityStreet> streetsToAdd = new List<CityStreet>();
             foreach (StreetCheckBoxItemInputModel cinemaInputModel in model.Streets)
             {
-                Guid cityGuid = Guid.Empty;
-                bool isCityGuidValid = this.IsGuidValid(cinemaInputModel.Id, ref cityGuid);
+                Guid streetGuid = Guid.Empty;
+                bool isCityGuidValid = this.IsGuidValid(cinemaInputModel.Id, ref streetGuid);
                 if (!isCityGuidValid)
                 {
                     return false;
                 }
 
-                City? city = await this.cityRepository
-                    .GetByIdAsync(cityGuid);
-                if (city == null)
+                Street? street = await this.streetRepository
+                    .GetByIdAsync(streetGuid);
+                if (street == null)
                 {
                     return false;
                 }
 
                 CityStreet? cityStreet = await this.cityStreetRepository.GetAllAttached()
-                    .FirstOrDefaultAsync(cs => cs.StreetId == streetId &&
-                                                     cs.CityId == cityGuid);
+                    .FirstOrDefaultAsync(cs => cs.StreetId == cityId &&
+                                                     cs.CityId == streetGuid);
                 if (cinemaInputModel.IsSelected)
                 {
                     if (cityStreet == null)
                     {
-                        entitiesToAdd.Add(new CityStreet()
+                        streetsToAdd.Add(new CityStreet()
                         {
                             City = city,
                             Street = street
@@ -80,7 +79,8 @@ namespace GoceTransportApp.Services.Data.Cities
 
             }
 
-            await this.cityStreetRepository.AddRangeAsync(entitiesToAdd.ToArray());
+            await this.cityStreetRepository.AddRangeAsync(streetsToAdd.ToArray());
+            await cityStreetRepository.SaveChangesAsync();
 
             return true;
 

@@ -25,5 +25,7 @@ namespace GoceTransportApp.Services.Data.Base
 
             return true;
         }
+
+        //TODO: Check for IsUserOgranizationFounder
     }
 }

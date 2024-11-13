@@ -36,6 +36,9 @@
         [MaxLength(MaxPhoneNumberLength)]
         public string Phone { get; set; }
 
+        public HashSet<Route> OrganizationRoutes { get; set; }
+           = new HashSet<Route>();
+
         public HashSet<Driver> OrganizationDrivers { get; set; }
             = new HashSet<Driver>();
 

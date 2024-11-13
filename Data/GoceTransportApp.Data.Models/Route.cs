@@ -43,6 +43,12 @@
         [Required]
         public double Distance { get; set; }
 
+        [Required]
+        public Guid OrganizationId { get; set; }
+
+        [ForeignKey(nameof(OrganizationId))]
+        public Organization Organization { get; set; }
+
         public HashSet<Schedule> RouteSchedules { get; set; }
         = new HashSet<Schedule>();
 

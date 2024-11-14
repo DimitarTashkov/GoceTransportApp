@@ -29,7 +29,7 @@ namespace GoceTransportApp.Services.Data.Routes
 
         Task<EditCityInputModel> GetRouteForEdit(Guid id);
 
-        Task<bool> EditCityAsync(EditRouteInputModel inputModel);
+        Task<bool> EditRouteAsync(EditRouteInputModel inputModel);
 
         Task<RemoveRouteViewModel> GetRouteForDeletion(Guid id);
 

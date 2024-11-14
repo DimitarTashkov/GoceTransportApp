@@ -1,6 +1,8 @@
-﻿using System;
+﻿using GoceTransportApp.Data.Models;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -19,5 +21,16 @@ namespace GoceTransportApp.Web.ViewModels.Streets
         [MinLength(MinStreetLength)]
         [MaxLength(MaxStreetLength)]
         public string Street { get; set; }
+
+        [InverseProperty("FromStreet")]
+        public HashSet<Route> FromStreetRoutes { get; set; }
+        = new HashSet<Route>();
+
+        [InverseProperty("ToStreet")]
+        public HashSet<Route> ToStreetRoutes { get; set; }
+        = new HashSet<Route>();
+
+        public HashSet<CityStreet> StreetsCities { get; set; }
+       = new HashSet<CityStreet>();
     }
 }

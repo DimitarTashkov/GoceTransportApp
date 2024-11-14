@@ -51,6 +51,9 @@ namespace GoceTransportApp.Services.Data.Streets
             Street street = new Street()
             {
                 Name = model.Street,
+                StreetsCities = model.StreetsCities,
+                FromStreetRoutes = model.FromStreetRoutes,
+                ToStreetRoutes = model.ToStreetRoutes,
                 ModifiedOn = DateTime.UtcNow
             };
 
@@ -73,45 +76,17 @@ namespace GoceTransportApp.Services.Data.Streets
             return model;
         }
 
-        //public async Task<IEnumerable<StreetsDataViewModel>> GetAllStreetFromRoutes(Guid routeId)
-        //{
-        //    IEnumerable<StreetsDataViewModel> model = await streetRepository.GetAllAttached()
-        //        .Where(s => s.FromStreetRoutes.Any(sr => sr.Id == routeId))
-        //        .Select(s => new StreetsDataViewModel()
-        //        {
-        //            Name = s.Name
-        //        })
-        //        .AsNoTracking()
-        //        .ToArrayAsync();
-
-        //    return model;
-        //}
-
-        //    return model;
-        //}
-
-        //public async Task<IEnumerable<StreetsDataViewModel>> GetAllStreetToRoutes(Guid routeId)
-        //{
-        //    IEnumerable<StreetsDataViewModel> model = await streetRepository.GetAllAttached()
-        //        .Where(s => s.ToStreetRoutes.Any(sr => sr.Id == routeId))
-        //        .Select(s => new StreetsDataViewModel()
-        //        {
-        //            Name = s.Name
-        //        })
-        //        .AsNoTracking()
-        //        .ToArrayAsync();
-
-        //    return model;
-        //}
-
         public async Task<EditStreetInputModel> GetStreetForEdit(Guid id)
         {
             EditStreetInputModel editModel = await streetRepository.GetAllAttached()
                 .Select(s => new EditStreetInputModel()
                 {
-                    Id = s.Id.ToString()
-                    ,
-                    Street = s.Name
+                    Id = s.Id.ToString(),
+                    Street = s.Name,
+                    StreetsCities = s.StreetsCities,
+                    FromStreetRoutes = s.FromStreetRoutes,
+                    ToStreetRoutes = s.ToStreetRoutes
+
                 })
                 .FirstOrDefaultAsync(s => s.Id.ToLower() == id.ToString().ToLower());
 

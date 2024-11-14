@@ -3,6 +3,7 @@ using GoceTransportApp.Data.Models;
 using GoceTransportApp.Services.Data.Base;
 using GoceTransportApp.Web.ViewModels.Cities;
 using GoceTransportApp.Web.ViewModels.Routes;
+using GoceTransportApp.Web.ViewModels.Streets;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -105,12 +106,12 @@ namespace GoceTransportApp.Services.Data.Routes
             return result;
         }
 
-        public async Task<IEnumerable<RouteDataViewModel>> GetAllArrivingRoutesToCity(Guid fromCity)
+        public async Task<IEnumerable<RouteDataViewModel>> GetAllArrivingRoutesToCity(Guid toCity)
         {
             throw new NotImplementedException();
         }
 
-        public async Task<IEnumerable<RouteDataViewModel>> GetAllArrivingRoutesToStreet(Guid fromCity)
+        public async Task<IEnumerable<RouteDataViewModel>> GetAllArrivingRoutesToStreet(Guid toStreet)
         {
             throw new NotImplementedException();
         }
@@ -120,34 +121,59 @@ namespace GoceTransportApp.Services.Data.Routes
             throw new NotImplementedException();
         }
 
-        public async Task<IEnumerable<RouteDataViewModel>> GetAllDepartingRoutesFromStreet(Guid fromCity)
+        public async Task<IEnumerable<RouteDataViewModel>> GetAllDepartingRoutesFromStreet(Guid fromStreet)
         {
             throw new NotImplementedException();
         }
 
         public async Task<IEnumerable<RouteDataViewModel>> GetAllRoutes()
         {
-            throw new NotImplementedException();
+            IEnumerable<RouteDataViewModel> model = await routeReposiory.GetAllAttached()
+                .Include(c => c.FromCity)
+                .Include(c => c.ToCity)
+                .Include(c => c.FromStreet)
+                .Include(c => c.ToStreet)
+               .Select(route => ReturnDataViewModel(route))
+               .AsNoTracking()
+               .ToArrayAsync();
+
+            return model;
         }
 
         public async Task<RemoveRouteViewModel> GetRouteForDeletion(Guid id)
         {
-            throw new NotImplementedException();
+            RemoveRouteViewModel editModel = await routeReposiory.GetAllAttached()
+                .Include(c => c.FromCity)
+                .Include(c => c.ToCity)
+                .Include(c => c.FromStreet)
+                .Include(c => c.ToStreet)
+                .Select(route => new RemoveRouteViewModel()
+                {
+                    Id = route.Id.ToString(),
+                    DepartingCity = route.FromCity.Name,
+                    ArrivingCity = route.ToCity.Name,
+                    DepartingStreet = route.FromStreet.Name,
+                    ArrivingStreet = route.ToStreet.Name,
+                    OrganizationId = route.OrganizationId.ToString(),
+                })
+                .FirstOrDefaultAsync(s => s.Id.ToLower() == id.ToString().ToLower());
+
+            return editModel;
         }
 
         public async Task<EditRouteInputModel> GetRouteForEdit(Guid id)
         {
             EditRouteInputModel editModel = await routeReposiory.GetAllAttached()
-               .Select(c => new EditRouteInputModel()
+               .Select(route => new EditRouteInputModel()
                {
-                   Id = c.Id.ToString(),
-                   Duration = c.Duration,
-                   Distance = c.Distance,
-                   FromCityId = c.FromCityId.ToString(),
-                   ToCityId = c.ToCityId.ToString(),
-                   FromStreetId = c.FromStreetId.ToString(),
-                   ToStreetId = c.ToStreetId.ToString(),
-                   OrganizationId = c.OrganizationId.ToString(),
+                   Id = route.Id.ToString(),
+                   Duration = route.Duration,
+                   Distance = route.Distance,
+                   FromCityId = route.FromCityId.ToString(),
+                   ToCityId = route.ToCityId.ToString(),
+                   FromStreetId = route.FromStreetId.ToString(),
+                   ToStreetId = route.ToStreetId.ToString(),
+                   OrganizationId = route.OrganizationId.ToString(),
                })
                .FirstOrDefaultAsync(s => s.Id.ToLower() == id.ToString().ToLower());
 
@@ -156,12 +182,75 @@ namespace GoceTransportApp.Services.Data.Routes
 
         public async Task<RouteDetailsViewModel> GetRouteInformation(Guid id)
         {
-            throw new NotImplementedException();
+            RouteDetailsViewModel viewModel = null;
+
+            Route? route =
+               await routeReposiory.GetAllAttached()
+                .Include(c => c.FromCity)
+                .Include(c => c.ToCity)
+                .Include(c => c.FromStreet)
+                .Include(c => c.ToStreet)
+                .Include(c => c.Organization)
+               .FirstOrDefaultAsync(c => c.Id == id);
+
+            if (route != null)
+            {
+                viewModel = ReturnDetailsViewModel(route);
+            }
+
+            return viewModel;
         }
 
         public async Task<RouteDetailsViewModel> GetRouteInformationFromCityToCity(Guid fromCity, Guid toCity)
         {
-            throw new NotImplementedException();
+            RouteDetailsViewModel viewModel = null;
+
+            Route? route =
+               await routeReposiory.GetAllAttached()
+                .Include(c => c.FromCity)
+                .Include(c => c.ToCity)
+                .Include(c => c.FromStreet)
+                .Include(c => c.ToStreet)
+                .Include(c => c.Organization)
+               .FirstOrDefaultAsync(c => c.FromCityId == fromCity && c.FromCityId == toCity);
+
+            if (route != null)
+            {
+                viewModel = ReturnDetailsViewModel(route);
+            }
+
+            return viewModel;
+        }
+
+        private RouteDetailsViewModel ReturnDetailsViewModel(Route route)
+        {
+            RouteDetailsViewModel? viewModel = new RouteDetailsViewModel()
+            {
+                Id = route.Id.ToString(),
+                DepartingCity = route.FromCity.Name,
+                ArrivingCity = route.ToCity.Name,
+                DepartingStreet = route.FromStreet.Name,
+                ArrivingStreet = route.ToStreet.Name,
+                Distance = route.Distance,
+                Duration = route.Duration,
+                Organization = route.Organization.Name,
+            };
+
+            return viewModel;
+        }
+
+        private RouteDataViewModel ReturnDataViewModel(Route route)
+        {
+            RouteDataViewModel? viewModel = new RouteDataViewModel()
+            {
+                Id = route.Id.ToString(),
+                DepartingCity = route.FromCity.Name,
+                ArrivingCity = route.ToCity.Name,
+                DepartingStreet = route.FromStreet.Name,
+                ArrivingStreet = route.ToStreet.Name,
+            };
+
+            return viewModel;
         }
     }
 }

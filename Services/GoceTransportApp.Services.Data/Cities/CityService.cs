@@ -14,8 +14,6 @@ namespace GoceTransportApp.Services.Data.Cities
 {
     public class CityService : BaseService, ICityService
     {
-        // TODO: Add all collections so they do not disappear
-
         private readonly IRepository<City> cityRepository;
         private readonly IRepository<Street> streetRepository;
         private readonly IRepository<CityStreet> cityStreetRepository;
@@ -124,6 +122,9 @@ namespace GoceTransportApp.Services.Data.Cities
                 Name = inputModel.Name,
                 State = inputModel.State,
                 ZipCode = inputModel.ZipCode,
+                CityStreets = inputModel.CityStreets,
+                FromCityRoutes = inputModel.FromCityRoutes,
+                ToCityRoutes = inputModel.ToCityRoutes,
                 ModifiedOn = DateTime.UtcNow
             };
 
@@ -264,7 +265,10 @@ namespace GoceTransportApp.Services.Data.Cities
                     Id = c.Id.ToString(),
                     Name = c.Name,
                     State = c.State,
-                    ZipCode = c.ZipCode
+                    ZipCode = c.ZipCode,
+                    CityStreets = c.CityStreets,
+                    FromCityRoutes = c.FromCityRoutes,
+                    ToCityRoutes = c.ToCityRoutes
                 })
                 .FirstOrDefaultAsync(s => s.Id.ToLower() == id.ToString().ToLower());
 

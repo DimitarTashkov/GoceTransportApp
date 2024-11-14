@@ -17,6 +17,7 @@ namespace GoceTransportApp.Web.ViewModels.Routes
         public string DepartingStreet { get; set; } = null!;
 
         public string ArrivingStreet { get; set; } = null!;
+
         public string Organization { get; set; }
 
         public double Distance { get; set; }

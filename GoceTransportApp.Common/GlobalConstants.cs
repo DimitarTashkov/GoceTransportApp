@@ -8,5 +8,6 @@
 
         public const string DefaultOrganizationImageUrl = "../../images/no-organization-image";
         public const string DefaultProfileImageUrl = "../../images/no-profile-image";
+        public const string TestPropertyCommit = "asd";
     }
 }

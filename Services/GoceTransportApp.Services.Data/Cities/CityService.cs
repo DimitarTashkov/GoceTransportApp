@@ -14,6 +14,8 @@ namespace GoceTransportApp.Services.Data.Cities
 {
     public class CityService : BaseService, ICityService
     {
+        // TODO: Add all collections so they do not disappear
+
         private readonly IRepository<City> cityRepository;
         private readonly IRepository<Street> streetRepository;
         private readonly IRepository<CityStreet> cityStreetRepository;

@@ -27,7 +27,7 @@ namespace GoceTransportApp.Services.Data.Routes
 
         Task CreateAsync(RouteInputModel inputModel);
 
-        Task<EditCityInputModel> GetRouteForEdit(Guid id);
+        Task<EditRouteInputModel> GetRouteForEdit(Guid id);
 
         Task<bool> EditRouteAsync(EditRouteInputModel inputModel);
 

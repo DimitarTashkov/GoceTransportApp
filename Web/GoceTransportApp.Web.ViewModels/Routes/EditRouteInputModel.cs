@@ -35,11 +35,17 @@ namespace GoceTransportApp.Web.ViewModels.Routes
 
         [Required(ErrorMessage = RouteDurationRequiredMessage)]
         public double Duration { get; set; }
+        public HashSet<Schedule> RouteSchedules { get; set; }
+        = new HashSet<Schedule>();
+
+        public HashSet<Ticket> RouteTickets { get; set; }
+        = new HashSet<Ticket>();
 
         public List<City> Cities { get; set; }
        = new List<City>();
 
         public List<City> Streets { get; set; }
         = new List<City>();
+
     }
 }

@@ -17,13 +17,9 @@ namespace GoceTransportApp.Services.Data.Routes
 
         Task<RouteDetailsViewModel> GetRouteInformationFromCityToCity(Guid fromCity, Guid toCity);
 
-        Task<IEnumerable<RouteDataViewModel>> GetAllDepartingRoutesFromCity(Guid fromCity);
+        Task<IEnumerable<RouteDataViewModel>> GetAllRoutesConnectedWithCity(Guid fromCity);
 
-        Task<IEnumerable<RouteDataViewModel>> GetAllArrivingRoutesToCity(Guid fromCity);
-
-        Task<IEnumerable<RouteDataViewModel>> GetAllDepartingRoutesFromStreet(Guid fromCity);
-
-        Task<IEnumerable<RouteDataViewModel>> GetAllArrivingRoutesToStreet(Guid fromCity);
+        Task<IEnumerable<RouteDataViewModel>> GetAllRoutesInOrganization(Guid organization);
 
         Task CreateAsync(RouteInputModel inputModel);
 

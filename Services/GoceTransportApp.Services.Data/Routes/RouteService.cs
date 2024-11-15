@@ -106,24 +106,19 @@ namespace GoceTransportApp.Services.Data.Routes
             return result;
         }
 
-        public async Task<IEnumerable<RouteDataViewModel>> GetAllArrivingRoutesToCity(Guid toCity)
+        public async Task<IEnumerable<RouteDataViewModel>> GetAllRoutesConnectedWithCity(Guid id)
         {
-            throw new NotImplementedException();
-        }
+                IEnumerable<RouteDataViewModel> model = await routeReposiory.GetAllAttached()
+                .Include(c => c.FromCity)
+                .Include(c => c.ToCity)
+                .Include(c => c.FromStreet)
+                .Include(c => c.ToStreet)
+               .Where(route => route.FromCityId == id || route.ToCityId == id)
+               .Select(route => ReturnDataViewModel(route))
+               .AsNoTracking()
+               .ToArrayAsync();
 
-        public async Task<IEnumerable<RouteDataViewModel>> GetAllArrivingRoutesToStreet(Guid toStreet)
-        {
-            throw new NotImplementedException();
-        }
-
-        public async Task<IEnumerable<RouteDataViewModel>> GetAllDepartingRoutesFromCity(Guid fromCity)
-        {
-            throw new NotImplementedException();
-        }
-
-        public async Task<IEnumerable<RouteDataViewModel>> GetAllDepartingRoutesFromStreet(Guid fromStreet)
-        {
-            throw new NotImplementedException();
+                return model;
         }
 
         public async Task<IEnumerable<RouteDataViewModel>> GetAllRoutes()
@@ -212,7 +207,7 @@ namespace GoceTransportApp.Services.Data.Routes
                 .Include(c => c.FromStreet)
                 .Include(c => c.ToStreet)
                 .Include(c => c.Organization)
-               .FirstOrDefaultAsync(c => c.FromCityId == fromCity && c.FromCityId == toCity);
+               .FirstOrDefaultAsync(c => c.FromCityId == fromCity && c.ToCityId == toCity);
 
             if (route != null)
             {
@@ -252,5 +247,21 @@ namespace GoceTransportApp.Services.Data.Routes
 
             return viewModel;
         }
+
+        public async Task<IEnumerable<RouteDataViewModel>> GetAllRoutesInOrganization(Guid organization)
+        {
+            IEnumerable<RouteDataViewModel> model = await routeReposiory.GetAllAttached()
+                .Include(c => c.FromCity)
+                .Include(c => c.ToCity)
+                .Include(c => c.FromStreet)
+                .Include(c => c.ToStreet)
+                .Where(route => route.OrganizationId == organization)
+               .Select(route => ReturnDataViewModel(route))
+               .AsNoTracking()
+               .ToArrayAsync();
+
+            return model;
+        }
+
     }
 }

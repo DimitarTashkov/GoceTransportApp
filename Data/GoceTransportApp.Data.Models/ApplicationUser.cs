@@ -38,20 +38,20 @@ namespace GoceTransportApp.Data.Models
         public virtual ICollection<IdentityUserLogin<string>> Logins { get; set; }
 
         // Additional information
-        [Required]
+        [PersonalData]
         [MaxLength(MaxNameLength)]
         public string FirstName { get; set; } = null!;
 
-        [Required]
+        [PersonalData]
         [MaxLength(MaxNameLength)]
         public string LastName { get; set; } = null!;
 
-        [Required]
+        [PersonalData]
         [DefaultValue(DefaultProfileImageUrl)]
         public string ProfilePictureUrl { get; set; } = null!;
 
         // TODO: Get user city via geolocation and set it then from enumeration
-        [Required]
+        [PersonalData]
         public string City { get; set; }
 
         public HashSet<Ticket> UserTickets { get; set; }

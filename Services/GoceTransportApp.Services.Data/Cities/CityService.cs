@@ -171,7 +171,7 @@ namespace GoceTransportApp.Services.Data.Cities
                {
                    Id = c.Id.ToString(),
                    Name = c.Name,
-                   State = c.Name,
+                   State = c.State,
                    ZipCode = c.ZipCode,
                })
                .AsNoTracking()
@@ -211,7 +211,7 @@ namespace GoceTransportApp.Services.Data.Cities
                 {
                     Id = city.Id.ToString(),
                     Name = city.Name,
-                    State = city.Name,
+                    State = city.State,
                     ZipCode = city.ZipCode,
                     Streets = city.CityStreets
                     .Where(cs => cs.CityId == id).Select(cs => new StreetDataViewModel()
@@ -242,7 +242,7 @@ namespace GoceTransportApp.Services.Data.Cities
                 {
                     Id = city.Id.ToString(),
                     Name = city.Name,
-                    State = city.Name,
+                    State = city.State,
                     ZipCode = city.ZipCode,
                     Streets = city.CityStreets
                     .Where(cs => cs.City.Name.ToLower() == name.ToLower()).Select(cs => new StreetDataViewModel()

@@ -88,6 +88,7 @@ namespace GoceTransportApp.Services.Data.Streets
                     ToStreetRoutes = s.ToStreetRoutes
 
                 })
+                .AsNoTracking()
                 .FirstOrDefaultAsync(s => s.Id.ToLower() == id.ToString().ToLower());
 
             return editModel;

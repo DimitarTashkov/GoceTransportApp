@@ -1,38 +1,31 @@
 ﻿@model IEnumerable<GoceTransportApp.Web.ViewModels.Streets.StreetDataViewModel>
 
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Street List</title>
-</head>
-<body>
-    <div class="container mt-5">
-        <h1 class="mb-4">Street List</h1>
+@{
+    ViewData["Title"] = "All Streets";
+}
 
-        <a asp-action="Create" class="btn btn-primary mb-3">Add New Street</a>
+<h1 class="mb-4">Edit Street</h1>
 
-        @if (TempData["StreetDeleteFailed"] != null)
-        {
-            <div class="alert alert-danger">
-                @TempData["StreetDeleteFailed"]
-            </div>
-        }
+<a asp-action="Create" class="btn btn-primary mb-3">Add New Street</a>
 
-        <table class="table table-striped table-bordered">
-            <thead class="table-light">
-                <tr>
-                    <th>Name</th>
-                    <th>Actions</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var street in Model)
-                {
-                    <partial name="_StreetRowPartial" model="street" />
-                }
-            </tbody>
-        </table>
+@if (TempData["StreetDeleteFailed"] != null)
+{
+    <div class="alert alert-danger">
+        @TempData["StreetDeleteFailed"]
     </div>
+}
 
-</body>
-</html>
+<table class="table table-striped table-bordered">
+    <thead class="table-light">
+        <tr>
+            <th>Name</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var street in Model)
+        {
+            <partial name="_StreetRowPartial" model="street" />
+        }
+    </tbody>
+</table>

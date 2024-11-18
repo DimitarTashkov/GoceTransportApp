@@ -268,7 +268,7 @@ namespace GoceTransportApp.Services.Data.Cities
                     ZipCode = c.ZipCode,
                     CityStreets = c.CityStreets,
                     FromCityRoutes = c.FromCityRoutes,
-                    ToCityRoutes = c.ToCityRoutes
+                    ToCityRoutes = c.ToCityRoutes,
                 })
                 .FirstOrDefaultAsync(s => s.Id.ToLower() == id.ToString().ToLower());
 

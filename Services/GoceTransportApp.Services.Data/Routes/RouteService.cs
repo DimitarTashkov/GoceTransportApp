@@ -18,10 +18,14 @@ namespace GoceTransportApp.Services.Data.Routes
         // TODO: Validate guids for all foreign keys
 
         private readonly IDeletableEntityRepository<Route> routeReposiory;
+        private readonly IRepository<Street> streetReposiory;
+        private readonly IRepository<City> cityReposiory;
 
-        public RouteService(IDeletableEntityRepository<Route> routeReposiory)
+        public RouteService(IDeletableEntityRepository<Route> routeReposiory, IRepository<Street> streetReposiory, IRepository<City> cityReposiory)
         {
             this.routeReposiory = routeReposiory;
+            this.cityReposiory = cityReposiory;
+            this.streetReposiory = streetReposiory;
         }
 
         public async Task<bool> ArchiveRouteAsync(RemoveRouteViewModel model)
@@ -98,7 +102,10 @@ namespace GoceTransportApp.Services.Data.Routes
                 ToCityId = Guid.Parse(inputModel.ToCityId),
                 FromStreetId = Guid.Parse(inputModel.FromStreetId),
                 ToStreetId = Guid.Parse(inputModel.ToStreetId),
-                CreatedOn = DateTime.UtcNow
+                ModifiedOn = DateTime.UtcNow,
+                OrganizationId = Guid.Parse(inputModel.OrganizationId),
+                RouteTickets = inputModel.RouteTickets,
+                RouteSchedules = inputModel.RouteSchedules,
             };
 
             bool result = await routeReposiory.UpdateAsync(route);
@@ -169,8 +176,20 @@ namespace GoceTransportApp.Services.Data.Routes
                    FromStreetId = route.FromStreetId.ToString(),
                    ToStreetId = route.ToStreetId.ToString(),
                    OrganizationId = route.OrganizationId.ToString(),
+                   RouteSchedules = route.RouteSchedules,
+                   RouteTickets = route.RouteTickets,
                })
                .FirstOrDefaultAsync(s => s.Id.ToLower() == id.ToString().ToLower());
+
+            editModel.Streets = await streetReposiory
+                .GetAllAttached()
+                .AsNoTracking()
+                .ToListAsync();
+
+            editModel.Cities = await cityReposiory
+                .GetAllAttached()
+                .AsNoTracking()
+                .ToListAsync();
 
             return editModel;
         }

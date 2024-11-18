@@ -1,0 +1,29 @@
+﻿@model GoceTransportApp.Web.ViewModels.Cities.CityAddStreetInputModel
+
+@{
+    ViewData["Title"] = "Add Street to City";
+}
+
+<h2>Add streets to city</h2>
+
+<form asp-action="AddStreet" method="post">
+    <input type="hidden" asp-for="Id" />
+    <input type="hidden" asp-for="Name" />
+
+    <h3>Select Streets:</h3>
+
+    <div class="form-group">
+        @for (var i = 0; i < Model.Streets.Count; i++)
+        {
+            <div class="form-check">
+
+                <input type="hidden" asp-for="@Model.Streets[i].Id" />
+                <input type="hidden" asp-for="@Model.Streets[i].Name" />
+                <input type="checkbox" asp-for="@Model.Streets[i].IsSelected" class="form-check-input" />
+                <label class="form-check-label">@Model.Streets[i].Name</label>
+            </div>
+        }
+    </div>
+
+    <button type="submit" class="btn btn-primary">Confirm</button>
+</form>

@@ -4,20 +4,25 @@
     ViewData["Title"] = "Create Street";
 }
 
-<h1 class="mb-4">Create a New Street</h1>
+<div class="container mt-5">
+    <h1 class="text-center mb-4">Create Street</h1>
 
-<form asp-action="Create" method="post" class="row g-3">
-    <div class="col-md-6">
-        <label asp-for="Street" class="form-label"></label>
-        <input asp-for="Street" class="form-control" />
-        <span asp-validation-for="Street" class="text-danger"></span>
-    </div>
+    <div class="card shadow-sm">
+        <div class="card-body">
+            <form asp-action="Create" method="post">
 
-    <div class="col-12">
-        <button type="submit" class="btn btn-success">Create</button>
-        <a asp-action="Index" class="btn btn-secondary">Cancel</a>
+                <div class="mb-3">
+                    <label asp-for="Street" class="form-label">Street Name</label>
+                    <input asp-for="Street" class="form-control" />
+                    <span asp-validation-for="Street" class="text-danger"></span>
+                </div>
+
+                <button type="submit" class="btn btn-primary">Create</button>
+                <a asp-action="Index" class="btn btn-secondary">Cancel</a>
+            </form>
+        </div>
     </div>
-</form>
+</div>
 
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />

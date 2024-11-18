@@ -1,0 +1,21 @@
+﻿@model IEnumerable<GoceTransportApp.Web.ViewModels.Cities.CityDataViewModel>
+
+@{
+    ViewData["Title"] = "All Cities";
+}
+
+<div class="container mt-5">
+    <h1 class="text-center mb-4">Cities</h1>
+
+    <div class="mt-4">
+        <a asp-action="Create" class="btn btn-success">Add New City</a>
+    </div>
+
+    <div class="row mt-4">
+        @foreach (var city in Model)
+        {
+            <partial name="_CityListPartial" model="city" />
+        }
+    </div>
+
+</div>

@@ -9,6 +9,9 @@
     using GoceTransportApp.Data.Repositories;
     using GoceTransportApp.Data.Seeding;
     using GoceTransportApp.Services.Data;
+    using GoceTransportApp.Services.Data.Cities;
+    using GoceTransportApp.Services.Data.Routes;
+    using GoceTransportApp.Services.Data.Streets;
     using GoceTransportApp.Services.Mapping;
     using GoceTransportApp.Services.Messaging;
     using GoceTransportApp.Web.ViewModels;
@@ -65,6 +68,9 @@
             // Application services
             services.AddTransient<IEmailSender, NullMessageSender>();
             services.AddTransient<ISettingsService, SettingsService>();
+            services.AddScoped<IStreetService, StreetService>();
+            services.AddScoped<ICityService, CityService>();
+            services.AddScoped<IRouteService, RouteService>();
         }
 
         private static void Configure(WebApplication app)

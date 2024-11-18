@@ -199,10 +199,11 @@ namespace GoceTransportApp.Web.Controllers
                 .AddStreetToCity(cityGuid, model);
             if (result == false)
             {
+                // TODO: Add temp message and redirect to Details
                 return this.RedirectToAction(nameof(Index));
             }
 
-            return this.RedirectToAction(nameof(Index), "Cinema");
+            return this.RedirectToAction(nameof(Details), new {id = model.Id});
         }
 
         [HttpGet]

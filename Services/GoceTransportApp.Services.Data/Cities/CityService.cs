@@ -16,9 +16,9 @@ namespace GoceTransportApp.Services.Data.Cities
     {
         private readonly IRepository<City> cityRepository;
         private readonly IRepository<Street> streetRepository;
-        private readonly IRepository<CityStreet> cityStreetRepository;
+        private readonly IDeletableEntityRepository<CityStreet> cityStreetRepository;
 
-        public CityService(IRepository<City> cityRepository, IRepository<Street> streetRepository, IRepository<CityStreet> cityStreetRepository)
+        public CityService(IRepository<City> cityRepository, IRepository<Street> streetRepository, IDeletableEntityRepository<CityStreet> cityStreetRepository)
         {
             this.cityRepository = cityRepository;
             this.streetRepository = streetRepository;
@@ -74,6 +74,7 @@ namespace GoceTransportApp.Services.Data.Cities
                     if (cityStreet != null)
                     {
                         cityStreet.IsDeleted = true;
+                        cityStreet.DeletedOn = DateTime.UtcNow;
                     }
                 }
 

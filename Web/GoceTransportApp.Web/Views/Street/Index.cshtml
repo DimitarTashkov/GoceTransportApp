@@ -4,28 +4,18 @@
     ViewData["Title"] = "All Streets";
 }
 
-<h1 class="mb-4">Edit Street</h1>
+<div class="container mt-5">
+    <h1 class="text-center mb-4">Streets</h1>
 
-<a asp-action="Create" class="btn btn-primary mb-3">Add New Street</a>
-
-@if (TempData["StreetDeleteFailed"] != null)
-{
-    <div class="alert alert-danger">
-        @TempData["StreetDeleteFailed"]
-    </div>
-}
-
-<table class="table table-striped table-bordered">
-    <thead class="table-light">
-        <tr>
-            <th>Name</th>
-            <th>Actions</th>
-        </tr>
-    </thead>
-    <tbody>
+    <!-- Render the Partial View for Each Street -->
+    <div class="row">
         @foreach (var street in Model)
         {
-            <partial name="_StreetRowPartial" model="street" />
+            <partial name="_StreetListPartial" model="street" />
         }
-    </tbody>
-</table>
+    </div>
+
+    <div class="mt-4">
+        <a asp-action="Create" class="btn btn-success">Add New Street</a>
+    </div>
+</div>

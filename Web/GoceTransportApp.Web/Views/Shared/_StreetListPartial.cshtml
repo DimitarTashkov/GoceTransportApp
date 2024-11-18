@@ -1,0 +1,14 @@
+﻿@model GoceTransportApp.Web.ViewModels.Streets.StreetDataViewModel
+
+<div class="col-md-4 mb-4">
+    <div class="card">
+        <div class="card-body">
+            <h5 class="card-title">@Model.Name</h5>
+            <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-primary btn-sm">Edit</a>
+            <a asp-action="Details" asp-route-id="@Model.Id" class="btn btn-secondary btn-sm">Details</a>
+            <form asp-action="Delete" asp-route-id="@Model.Id" method="post" class="d-inline">
+                <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+            </form>
+        </div>
+    </div>
+</div>

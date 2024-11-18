@@ -52,8 +52,8 @@ namespace GoceTransportApp.Services.Data.Cities
                 }
 
                 CityStreet? cityStreet = await this.cityStreetRepository.GetAllAttached()
-                    .FirstOrDefaultAsync(cs => cs.StreetId == cityId &&
-                                                     cs.CityId == streetGuid);
+                    .FirstOrDefaultAsync(cs => cs.StreetId == streetGuid &&
+                                                     cs.CityId == cityId);
                 if (cinemaInputModel.IsSelected)
                 {
                     if (cityStreet == null)

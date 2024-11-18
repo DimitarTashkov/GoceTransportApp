@@ -7,15 +7,14 @@
 <div class="container mt-5">
     <h1 class="text-center mb-4">Streets</h1>
 
-    <!-- Render the Partial View for Each Street -->
-    <div class="row">
+    <div class="mt-4">
+        <a asp-action="Create" class="btn btn-success">Add New Street</a>
+    </div>
+
+    <div class="row mt-4">
         @foreach (var street in Model)
         {
             <partial name="_StreetListPartial" model="street" />
         }
-    </div>
-
-    <div class="mt-4">
-        <a asp-action="Create" class="btn btn-success">Add New Street</a>
-    </div>
+    </div> 
 </div>

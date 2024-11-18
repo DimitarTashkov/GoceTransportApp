@@ -1,0 +1,43 @@
+﻿@model GoceTransportApp.Web.ViewModels.Cities.CityDetailsViewModel
+
+<div class="card">
+    <div class="card-body">
+        <h2 class="card-title text-center mb-4">@Model.Name</h2>
+
+        <div class="mb-3">
+            <h5 class="card-subtitle mb-2 text-muted">State</h5>
+            <p class="card-text">@Model.State</p>
+        </div>
+
+        <div class="mb-3">
+            <h5 class="card-subtitle mb-2 text-muted">Zip Code</h5>
+            <p class="card-text">@Model.ZipCode</p>
+        </div>
+
+        <div class="mb-3">
+            <h5 class="card-subtitle mb-2 text-muted">Streets</h5>
+            @if (Model.Streets != null && Model.Streets.Any())
+            {
+                <div class="list-group">
+                    @foreach (var street in Model.Streets)
+                    {
+                        <div class="list-group-item">
+                            <h5 class="mb-1">@street.Name</h5>
+                        </div>
+                    }
+                </div>
+            }
+            else
+            {
+                <p class="text-muted">No streets available for this city.</p>
+            }
+
+        </div>
+
+        <div class="text-center mt-4">
+            <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-primary me-2">Edit</a>
+            <a asp-action="AddStreet" asp-route-id="@Model.Id" class="btn btn-success me-2">Add Street</a>
+            <a asp-action="Index" class="btn btn-secondary">Back to List</a>
+        </div>
+    </div>
+</div>

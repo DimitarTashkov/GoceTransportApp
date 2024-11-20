@@ -25,6 +25,7 @@
 
             public const string RouteEditFailed = "Unexpected error occurred while updating the route! Please contact administrator!";
             public const string RouteDeleteFailed = "Unexpected error occurred while deleting the route! Please contact administrator!";
+            public const string RouteArchivationFailed = "Unexpected error occurred while archiving the route! Please contact administrator!";
         }
     }
 }

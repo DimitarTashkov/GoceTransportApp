@@ -50,12 +50,13 @@ namespace GoceTransportApp.Web.Controllers
 
             return RedirectToAction(nameof(Index));
         }
+
         [HttpGet]
         public async Task<IActionResult> Edit(string? id)
         {
 
-            Guid cityGuid = Guid.Empty;
-            bool isIdValid = IsGuidValid(id, ref cityGuid);
+            Guid routeGuid = Guid.Empty;
+            bool isIdValid = IsGuidValid(id, ref routeGuid);
 
             if (!isIdValid)
             {
@@ -63,7 +64,7 @@ namespace GoceTransportApp.Web.Controllers
             }
 
             EditRouteInputModel? formModel = await this.routeService
-                .GetRouteForEdit(cityGuid);
+                .GetRouteForEdit(routeGuid);
 
             if (formModel == null)
             {
@@ -87,6 +88,71 @@ namespace GoceTransportApp.Web.Controllers
             if (!isUpdated)
             {
                 ModelState.AddModelError(nameof(RouteEditFailed), RouteEditFailed);
+
+                return this.View(formModel);
+            }
+
+            return this.RedirectToAction(nameof(Index));
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Delete(string? id)
+        {
+            Guid routeGuid = Guid.Empty;
+            bool isIdValid = IsGuidValid(id, ref routeGuid);
+            if (!isIdValid)
+            {
+                return this.RedirectToAction(nameof(Index));
+            }
+
+            RemoveRouteViewModel? model = await routeService
+                .GetRouteForDeletion(routeGuid);
+
+            if (model == null)
+            {
+                TempData[nameof(RouteDeleteFailed)] = RouteDeleteFailed;
+
+                return this.RedirectToAction("Index");
+            }
+
+            return View(model);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Delete(RemoveRouteViewModel formModel)
+        {
+            if (!ModelState.IsValid)
+            {
+                return this.View(formModel);
+            }
+
+            bool isDeleted = await this.routeService
+                .DeleteRouteAsync(formModel);
+
+            if (!isDeleted)
+            {
+                ModelState.AddModelError(nameof(RouteEditFailed), RouteEditFailed);
+
+                return this.View(formModel);
+            }
+
+            return this.RedirectToAction(nameof(Index));
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Archive(RemoveRouteViewModel formModel)
+        {
+            if (!ModelState.IsValid)
+            {
+                return this.View(formModel);
+            }
+
+            bool isArchived = await this.routeService
+                .ArchiveRouteAsync(formModel);
+
+            if (!isArchived)
+            {
+                ModelState.AddModelError(nameof(RouteArchivationFailed), RouteArchivationFailed);
 
                 return this.View(formModel);
             }

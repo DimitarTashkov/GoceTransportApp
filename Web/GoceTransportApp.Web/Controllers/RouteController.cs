@@ -33,7 +33,7 @@ namespace GoceTransportApp.Web.Controllers
         public async Task<IActionResult> Create()
         {
             RouteInputModel model = new RouteInputModel();
-            // TODO: Check if the user has permissions to create routes
+            // TODO: Check if the user has permissions to create, edit, delete/archive routes
 
             return View(model);
         }

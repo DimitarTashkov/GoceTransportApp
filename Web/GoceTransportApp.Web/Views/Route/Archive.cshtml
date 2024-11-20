@@ -1,0 +1,22 @@
+﻿@model GoceTransportApp.Web.ViewModels.Routes.RemoveRouteViewModel
+
+@{
+    ViewData["Title"] = "Archive route";
+}
+
+<h1>Archive Route</h1>
+
+<div class="card shadow-sm">
+    <div class="card-body">
+        <h5 class="card-title">Route: @Model.DepartingCity → @Model.ArrivingCity</h5>
+        <p class="card-text">
+            <strong>Departing Street:</strong> @Model.DepartingStreet<br />
+            <strong>Arriving Street:</strong> @Model.ArrivingStreet
+        </p>
+        <form asp-action="Archive" method="post">
+            <input type="hidden" asp-for="Id" />
+            <button type="submit" class="btn btn-warning">Confirm Archive</button>
+            <p class="text-warning">NOTE: This action is about to archive your route! You can access it in your archived routes section!</p>
+        </form>
+    </div>
+</div>

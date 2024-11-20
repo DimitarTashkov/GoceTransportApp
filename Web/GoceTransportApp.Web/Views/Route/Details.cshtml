@@ -1,5 +1,9 @@
 ﻿@model GoceTransportApp.Web.ViewModels.Routes.RouteDetailsViewModel
 
+@{
+    ViewData["Title"] = "Route Details";
+}
+
 <h1 class="mb-4">Route Details</h1>
 
 @if (TempData[nameof(GoceTransportApp.Common.ErrorMessages.RouteMessages.InvalidRouteDetails)] != null)

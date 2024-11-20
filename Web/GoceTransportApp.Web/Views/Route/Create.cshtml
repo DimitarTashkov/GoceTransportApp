@@ -1,0 +1,48 @@
+﻿@model GoceTransportApp.Web.ViewModels.Routes.RouteInputModel
+
+@{
+    ViewData["Title"] = "Create Route";
+}
+
+<h1>Create New Route</h1>
+@*TODO: Inject cityService and streetService to get all entities for the collections*@
+
+<form asp-action="Create" method="post" class="needs-validation" novalidate>
+    <div class="mb-3">
+        <label asp-for="FromCityId" class="form-label">From City</label>
+        <select asp-for="FromCityId" asp-items="@(new SelectList(Model.Cities, "Id", "Name"))" class="form-select"></select>
+        <span asp-validation-for="FromCityId" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="ToCityId" class="form-label">To City</label>
+        <select asp-for="ToCityId" asp-items="@(new SelectList(Model.Cities, "Id", "Name"))" class="form-select"></select>
+        <span asp-validation-for="ToCityId" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="FromStreetId" class="form-label">From Street</label>
+        <select asp-for="FromStreetId" asp-items="@(new SelectList(Model.Streets, "Id", "Name"))" class="form-select"></select>
+        <span asp-validation-for="FromStreetId" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="ToStreetId" class="form-label">To Street</label>
+        <select asp-for="ToStreetId" asp-items="@(new SelectList(Model.Streets, "Id", "Name"))" class="form-select"></select>
+        <span asp-validation-for="ToStreetId" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="Distance" class="form-label">Distance</label>
+        <input asp-for="Distance" class="form-control" />
+        <span asp-validation-for="Distance" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="Duration" class="form-label">Duration</label>
+        <input asp-for="Duration" class="form-control" />
+        <span asp-validation-for="Duration" class="text-danger"></span>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Create Route</button>
+</form>

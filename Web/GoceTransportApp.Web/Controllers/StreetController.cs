@@ -111,7 +111,7 @@ namespace GoceTransportApp.Web.Controllers
             {
                 TempData[nameof(StreetDeleteFailed)] = StreetDeleteFailed;
 
-                return this.RedirectToAction("Index", "Movie");
+                return this.RedirectToAction("Index");
             }
 
             return this.RedirectToAction(nameof(Index));

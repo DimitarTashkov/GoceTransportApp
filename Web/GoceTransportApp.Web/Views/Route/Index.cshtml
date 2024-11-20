@@ -1,0 +1,15 @@
+﻿@model IEnumerable<GoceTransportApp.Web.ViewModels.Routes.RouteDataViewModel>
+
+@{
+    ViewData["Title"] = "All Routes";
+}
+
+<h1 class="mb-4">Discover Routes:</h1> 
+<a asp-action="Create" class="btn btn-primary mb-4">Create New Route</a>
+
+<div class="row">
+    @foreach (var route in Model)
+    {
+        <partial name="_RouteCardPartial" model="route" />
+    }
+</div>

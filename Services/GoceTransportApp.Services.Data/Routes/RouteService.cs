@@ -236,7 +236,7 @@ namespace GoceTransportApp.Services.Data.Routes
             return viewModel;
         }
 
-        private RouteDetailsViewModel ReturnDetailsViewModel(Route route)
+        private static RouteDetailsViewModel ReturnDetailsViewModel(Route route)
         {
             RouteDetailsViewModel? viewModel = new RouteDetailsViewModel()
             {
@@ -253,7 +253,7 @@ namespace GoceTransportApp.Services.Data.Routes
             return viewModel;
         }
 
-        private RouteDataViewModel ReturnDataViewModel(Route route)
+        private static RouteDataViewModel ReturnDataViewModel(Route route)
         {
             RouteDataViewModel? viewModel = new RouteDataViewModel()
             {

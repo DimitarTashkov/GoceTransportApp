@@ -1,0 +1,16 @@
+﻿@model GoceTransportApp.Web.ViewModels.Routes.RouteDetailsViewModel
+
+<div class="card shadow-sm">
+    <div class="card-body">
+        <h5 class="card-title">Route Details</h5>
+        <p class="card-text">
+            <strong>Departing City:</strong> @Model.DepartingCity<br />
+            <strong>Arriving City:</strong> @Model.ArrivingCity<br />
+            <strong>Departing Street:</strong> @Model.DepartingStreet<br />
+            <strong>Arriving Street:</strong> @Model.ArrivingStreet<br />
+            <strong>Organization:</strong> @Model.Organization<br />
+            <strong>Distance:</strong> @Model.Distance km<br />
+            <strong>Duration:</strong> @Model.Duration hours
+        </p>
+    </div>
+</div>

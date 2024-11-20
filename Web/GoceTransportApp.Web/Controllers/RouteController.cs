@@ -159,5 +159,28 @@ namespace GoceTransportApp.Web.Controllers
 
             return this.RedirectToAction(nameof(Index));
         }
+
+        [HttpGet]
+        public async Task<IActionResult> Details(string? id)
+        {
+            Guid routeGuid = Guid.Empty;
+            bool isIdValid = IsGuidValid(id, ref routeGuid);
+            if (!isIdValid)
+            {
+                return this.RedirectToAction(nameof(Index));
+            }
+
+            RouteDetailsViewModel? model = await routeService
+                .GetRouteInformation(routeGuid);
+
+            if (model == null)
+            {
+                TempData[nameof(InvalidRouteDetails)] = InvalidRouteDetails;
+
+                return this.RedirectToAction("Index");
+            }
+
+            return View(model);
+        }
     }
 }

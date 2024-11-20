@@ -1,0 +1,19 @@
+﻿@model GoceTransportApp.Web.ViewModels.Routes.RouteDetailsViewModel
+
+<h1 class="mb-4">Route Details</h1>
+
+@if (TempData[nameof(GoceTransportApp.Common.ErrorMessages.RouteMessages.InvalidRouteDetails)] != null)
+{
+    <div class="alert alert-danger">
+        @TempData[nameof(GoceTransportApp.Common.ErrorMessages.RouteMessages.InvalidRouteDetails)]
+    </div>
+}
+
+<partial name="_RouteDetailsPartial" model="Model" />
+
+<div class="mt-4">
+    <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-warning">Edit</a>
+    <a asp-action="Delete" asp-route-id="@Model.Id" class="btn btn-danger">Delete</a>
+    <a asp-action="Archive" asp-route-id="@Model.Id" class="btn btn-secondary">Archive</a>
+    <a asp-action="Index" class="btn btn-light">Back to List</a>
+</div>

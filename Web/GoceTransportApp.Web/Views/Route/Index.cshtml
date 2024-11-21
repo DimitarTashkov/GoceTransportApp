@@ -3,6 +3,14 @@
 @{
     ViewData["Title"] = "All Routes";
 }
+<div class="mb-4 d-flex justify-content-start">
+    <form asp-action="Filter" method="get" class="d-flex me-1">
+        <input type="text" name="searchTerm" class="form-control me-2" placeholder="Search routes..." />
+        <button type="submit" class="btn btn-primary">Search</button>
+    </form>
+
+    <a asp-action="Index" class="btn btn-secondary">Reset</a>
+</div>
 
 <h1 class="mb-4">Discover Routes:</h1> 
 <a asp-action="Create" class="btn btn-primary mb-4">Create New Route</a>

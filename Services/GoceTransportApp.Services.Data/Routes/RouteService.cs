@@ -61,7 +61,7 @@ namespace GoceTransportApp.Services.Data.Routes
                 ToCityId = Guid.Parse(inputModel.ToCityId),
                 FromStreetId = Guid.Parse(inputModel.FromStreetId),
                 ToStreetId = Guid.Parse(inputModel.ToStreetId),
-                CreatedOn = DateTime.UtcNow
+                CreatedOn = DateTime.UtcNow,
             };
 
             await routeReposiory.AddAsync(route);
@@ -113,14 +113,14 @@ namespace GoceTransportApp.Services.Data.Routes
             return result;
         }
 
-        public async Task<IEnumerable<RouteDataViewModel>> GetAllRoutesConnectedWithCity(Guid id)
+        public async Task<IEnumerable<RouteDataViewModel>> GetRouteInformation(string searchedTerm)
         {
                 IEnumerable<RouteDataViewModel> model = await routeReposiory.GetAllAttached()
                 .Include(c => c.FromCity)
                 .Include(c => c.ToCity)
                 .Include(c => c.FromStreet)
                 .Include(c => c.ToStreet)
-               .Where(route => route.FromCityId == id || route.ToCityId == id)
+                .Where(c => c.FromCity.Name.Contains(searchedTerm) || c.ToCity.Name.Contains(searchedTerm))
                .Select(route => ReturnDataViewModel(route))
                .AsNoTracking()
                .ToArrayAsync();
@@ -214,28 +214,6 @@ namespace GoceTransportApp.Services.Data.Routes
 
             return viewModel;
         }
-
-        public async Task<RouteDetailsViewModel> GetRouteInformationFromCityToCity(Guid fromCity, Guid toCity)
-        {
-            RouteDetailsViewModel viewModel = null;
-
-            Route? route =
-               await routeReposiory.GetAllAttached()
-                .Include(c => c.FromCity)
-                .Include(c => c.ToCity)
-                .Include(c => c.FromStreet)
-                .Include(c => c.ToStreet)
-                .Include(c => c.Organization)
-               .FirstOrDefaultAsync(c => c.FromCityId == fromCity && c.ToCityId == toCity);
-
-            if (route != null)
-            {
-                viewModel = ReturnDetailsViewModel(route);
-            }
-
-            return viewModel;
-        }
-
         private static RouteDetailsViewModel ReturnDetailsViewModel(Route route)
         {
             RouteDetailsViewModel? viewModel = new RouteDetailsViewModel()

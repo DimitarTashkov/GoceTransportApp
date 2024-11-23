@@ -13,9 +13,9 @@ namespace GoceTransportApp.Services.Data.Streets
     {
         // TODO: Add all collections so they do not disappear
 
-        private readonly IRepository<Street> streetRepository;
+        private readonly IDeletableEntityRepository<Street> streetRepository;
 
-        public StreetService(IRepository<Street> streetRepository)
+        public StreetService(IDeletableEntityRepository<Street> streetRepository)
         {
             this.streetRepository = streetRepository;
         }
@@ -48,14 +48,17 @@ namespace GoceTransportApp.Services.Data.Streets
 
         public async Task<bool> EditStreetAsync(EditStreetInputModel model)
         {
-            Street street = new Street()
+            var street = await streetRepository.GetByIdAsync(Guid.Parse(model.Id));
+            if (street == null)
             {
-                Name = model.Street,
-                StreetsCities = model.StreetsCities,
-                FromStreetRoutes = model.FromStreetRoutes,
-                ToStreetRoutes = model.ToStreetRoutes,
-                ModifiedOn = DateTime.UtcNow
-            };
+                return false;
+            }
+
+            street.Name = model.Street;
+            street.StreetsCities = model.StreetsCities;
+            street.FromStreetRoutes = model.FromStreetRoutes;
+            street.ToStreetRoutes = model.ToStreetRoutes;
+            street.ModifiedOn = DateTime.UtcNow;
 
             bool result = await streetRepository.UpdateAsync(street);
 

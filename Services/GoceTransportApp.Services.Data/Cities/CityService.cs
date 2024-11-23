@@ -14,11 +14,11 @@ namespace GoceTransportApp.Services.Data.Cities
 {
     public class CityService : BaseService, ICityService
     {
-        private readonly IRepository<City> cityRepository;
-        private readonly IRepository<Street> streetRepository;
+        private readonly IDeletableEntityRepository<City> cityRepository;
+        private readonly IDeletableEntityRepository<Street> streetRepository;
         private readonly IDeletableEntityRepository<CityStreet> cityStreetRepository;
 
-        public CityService(IRepository<City> cityRepository, IRepository<Street> streetRepository, IDeletableEntityRepository<CityStreet> cityStreetRepository)
+        public CityService(IDeletableEntityRepository<City> cityRepository, IDeletableEntityRepository<Street> streetRepository, IDeletableEntityRepository<CityStreet> cityStreetRepository)
         {
             this.cityRepository = cityRepository;
             this.streetRepository = streetRepository;
@@ -118,16 +118,20 @@ namespace GoceTransportApp.Services.Data.Cities
 
         public async Task<bool> EditCityAsync(EditCityInputModel inputModel)
         {
-            City city = new City()
+            var city = await cityRepository.GetByIdAsync(Guid.Parse(inputModel.Id));
+
+            if (city == null)
             {
-                Name = inputModel.Name,
-                State = inputModel.State,
-                ZipCode = inputModel.ZipCode,
-                CityStreets = inputModel.CityStreets,
-                FromCityRoutes = inputModel.FromCityRoutes,
-                ToCityRoutes = inputModel.ToCityRoutes,
-                ModifiedOn = DateTime.UtcNow
-            };
+                return false;
+            }
+
+            city.Name = inputModel.Name;
+            city.State = inputModel.State;
+            city.ZipCode = inputModel.ZipCode;
+            city.CityStreets = inputModel.CityStreets;
+            city.FromCityRoutes = inputModel.FromCityRoutes;
+            city.ToCityRoutes = inputModel.ToCityRoutes;
+            city.ModifiedOn = DateTime.UtcNow;
 
             bool result = await cityRepository.UpdateAsync(city);
 

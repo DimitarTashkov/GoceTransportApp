@@ -115,8 +115,13 @@
         {
             try
             {
-                this.DbSet.Attach(item);
-                this.Context.Entry(item).State = EntityState.Modified;
+                var entry = this.Context.Entry(item);
+                if (entry.State == EntityState.Detached)
+                {
+                    this.DbSet.Attach(item);
+                }
+
+                entry.State = EntityState.Modified;
                 await this.Context.SaveChangesAsync();
 
                 return true;

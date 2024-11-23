@@ -18,10 +18,10 @@ namespace GoceTransportApp.Services.Data.Routes
         // TODO: Validate guids for all foreign keys
 
         private readonly IDeletableEntityRepository<Route> routeReposiory;
-        private readonly IRepository<Street> streetReposiory;
-        private readonly IRepository<City> cityReposiory;
+        private readonly IDeletableEntityRepository<Street> streetReposiory;
+        private readonly IDeletableEntityRepository<City> cityReposiory;
 
-        public RouteService(IDeletableEntityRepository<Route> routeReposiory, IRepository<Street> streetReposiory, IRepository<City> cityReposiory)
+        public RouteService(IDeletableEntityRepository<Route> routeReposiory, IDeletableEntityRepository<Street> streetReposiory, IDeletableEntityRepository<City> cityReposiory)
         {
             this.routeReposiory = routeReposiory;
             this.cityReposiory = cityReposiory;
@@ -94,19 +94,22 @@ namespace GoceTransportApp.Services.Data.Routes
 
         public async Task<bool> EditRouteAsync(EditRouteInputModel inputModel)
         {
-            Route route = new Route()
+            var route = await routeReposiory.GetByIdAsync(Guid.Parse(inputModel.Id));
+            if (route == null)
             {
-                Duration = inputModel.Duration,
-                Distance = inputModel.Distance,
-                FromCityId = Guid.Parse(inputModel.FromCityId),
-                ToCityId = Guid.Parse(inputModel.ToCityId),
-                FromStreetId = Guid.Parse(inputModel.FromStreetId),
-                ToStreetId = Guid.Parse(inputModel.ToStreetId),
-                ModifiedOn = DateTime.UtcNow,
-                OrganizationId = Guid.Parse(inputModel.OrganizationId),
-                RouteTickets = inputModel.RouteTickets,
-                RouteSchedules = inputModel.RouteSchedules,
-            };
+                return false;
+            }
+
+            route.Duration = inputModel.Duration;
+            route.Distance = inputModel.Distance;
+            route.FromCityId = Guid.Parse(inputModel.FromCityId);
+            route.ToCityId = Guid.Parse(inputModel.ToCityId);
+            route.FromStreetId = Guid.Parse(inputModel.FromStreetId);
+            route.ToStreetId = Guid.Parse(inputModel.ToStreetId);
+            route.ModifiedOn = DateTime.UtcNow;
+            route.OrganizationId = Guid.Parse(inputModel.OrganizationId);
+            route.RouteTickets = inputModel.RouteTickets;
+            route.RouteSchedules = inputModel.RouteSchedules;
 
             bool result = await routeReposiory.UpdateAsync(route);
 

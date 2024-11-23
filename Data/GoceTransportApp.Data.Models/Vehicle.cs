@@ -10,7 +10,7 @@ using static GoceTransportApp.Common.EntityValidationConstants.VehicleConstants;
 
 namespace GoceTransportApp.Data.Models
 {
-    public class Vehicle : BaseModel<Guid>
+    public class Vehicle : BaseDeletableModel<Guid>
     {
         public Vehicle()
         {

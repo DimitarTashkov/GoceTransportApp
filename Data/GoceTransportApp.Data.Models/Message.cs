@@ -7,7 +7,7 @@ using static GoceTransportApp.Common.EntityValidationConstants.MessageConstants;
 
 namespace GoceTransportApp.Data.Models
 {
-    public class Message : BaseModel<Guid>
+    public class Message : BaseDeletableModel<Guid>
     {
         public Message()
         {

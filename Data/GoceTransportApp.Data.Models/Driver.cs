@@ -8,7 +8,7 @@
 
     using static GoceTransportApp.Common.EntityValidationConstants.DriverConstants;
 
-    public class Driver : BaseModel<Guid>
+    public class Driver : BaseDeletableModel<Guid>
     {
         public Driver()
         {

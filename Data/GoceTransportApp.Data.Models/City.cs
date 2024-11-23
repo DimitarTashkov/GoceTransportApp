@@ -7,7 +7,7 @@
     using System.ComponentModel.DataAnnotations.Schema;
     using static GoceTransportApp.Common.EntityValidationConstants.CityConstants;
     
-    public class City : BaseModel<Guid>
+    public class City : BaseDeletableModel<Guid>
     {
         public City()
         {

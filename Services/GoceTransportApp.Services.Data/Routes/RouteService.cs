@@ -113,7 +113,7 @@ namespace GoceTransportApp.Services.Data.Routes
             return result;
         }
 
-        public async Task<IEnumerable<RouteDataViewModel>> GetRouteInformation(string searchedTerm)
+        public async Task<IEnumerable<RouteDataViewModel>> SearchForCity(string searchedTerm)
         {
                 IEnumerable<RouteDataViewModel> model = await routeReposiory.GetAllAttached()
                 .Include(c => c.FromCity)

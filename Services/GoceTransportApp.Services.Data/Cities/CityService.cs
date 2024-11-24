@@ -51,7 +51,7 @@ namespace GoceTransportApp.Services.Data.Cities
                     return false;
                 }
 
-                CityStreet? cityStreet = await this.cityStreetRepository.GetAllAttached()
+                CityStreet? cityStreet = await this.cityStreetRepository.AllWithDeleted()
                     .FirstOrDefaultAsync(cs => cs.StreetId == streetGuid &&
                                                      cs.CityId == cityId);
                 if (cinemaInputModel.IsSelected)
@@ -151,7 +151,7 @@ namespace GoceTransportApp.Services.Data.Cities
                     Id = cityId.ToString(),
                     Name = city.Name,
                     Streets = await this.streetRepository
-                        .GetAllAttached()
+                        .AllAsNoTracking()
                         .Include(c => c.StreetsCities)
                         .ThenInclude(sc => sc.City)
                         .Select(c => new StreetCheckBoxItemInputModel()
@@ -171,7 +171,7 @@ namespace GoceTransportApp.Services.Data.Cities
 
         public async Task<IEnumerable<CityDataViewModel>> GetAllCities()
         {
-            IEnumerable<CityDataViewModel> model = await cityRepository.GetAllAttached()
+            IEnumerable<CityDataViewModel> model = await cityRepository.AllAsNoTracking()
                .Select(c => new CityDataViewModel()
                {
                    Id = c.Id.ToString(),
@@ -179,7 +179,6 @@ namespace GoceTransportApp.Services.Data.Cities
                    State = c.State,
                    ZipCode = c.ZipCode,
                })
-               .AsNoTracking()
                .ToArrayAsync();
 
             return model;
@@ -187,14 +186,13 @@ namespace GoceTransportApp.Services.Data.Cities
 
         public async Task<IEnumerable<StreetDataViewModel>> GetAllStreetsInCity(Guid cityId)
         {
-            IEnumerable<StreetDataViewModel> model = await streetRepository.GetAllAttached()
+            IEnumerable<StreetDataViewModel> model = await streetRepository.AllAsNoTracking()
                 .Where(s => s.StreetsCities.Any(sc => sc.CityId == cityId))
                 .Select(s => new StreetDataViewModel()
                 {
                     Id = s.Id.ToString(),
                     Name = s.Name,
                 })
-                .AsNoTracking()
                 .ToArrayAsync();
 
             return model;
@@ -205,7 +203,7 @@ namespace GoceTransportApp.Services.Data.Cities
             CityDetailsViewModel viewModel = null;
 
             City? city =
-               await cityRepository.GetAllAttached()
+               await cityRepository.AllAsNoTracking()
                .Include(c => c.CityStreets)
                .ThenInclude(cs => cs.Street)
                .FirstOrDefaultAsync(c => c.Id == id);
@@ -236,7 +234,7 @@ namespace GoceTransportApp.Services.Data.Cities
             CityDetailsViewModel viewModel = null;
 
             City? city =
-               await cityRepository.GetAllAttached()
+               await cityRepository.AllAsNoTracking()
                .Include(c => c.CityStreets)
                .ThenInclude(cs => cs.Street)
                .FirstOrDefaultAsync(c => c.Name.ToLower() == name.ToLower());
@@ -264,7 +262,7 @@ namespace GoceTransportApp.Services.Data.Cities
 
         public async Task<EditCityInputModel> GetCityForEdit(Guid id)
         {
-            EditCityInputModel editModel = await cityRepository.GetAllAttached()
+            EditCityInputModel editModel = await cityRepository.AllAsNoTracking()
                 .Select(c => new EditCityInputModel()
                 {
                     Id = c.Id.ToString(),

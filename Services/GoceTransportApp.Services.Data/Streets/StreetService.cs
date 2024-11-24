@@ -67,13 +67,12 @@ namespace GoceTransportApp.Services.Data.Streets
 
         public async Task<IEnumerable<StreetDataViewModel>> GetAllStreets()
         {
-            IEnumerable<StreetDataViewModel> model = await streetRepository.GetAllAttached()
+            IEnumerable<StreetDataViewModel> model = await streetRepository.AllAsNoTracking()
                 .Select(s => new StreetDataViewModel()
                 {
                     Id = s.Id.ToString(),
                     Name = s.Name
                 })
-                .AsNoTracking()
                 .ToArrayAsync();
 
             return model;
@@ -81,7 +80,7 @@ namespace GoceTransportApp.Services.Data.Streets
 
         public async Task<EditStreetInputModel> GetStreetForEdit(Guid id)
         {
-            EditStreetInputModel editModel = await streetRepository.GetAllAttached()
+            EditStreetInputModel editModel = await streetRepository.AllAsNoTracking()
                 .Select(s => new EditStreetInputModel()
                 {
                     Id = s.Id.ToString(),
@@ -91,7 +90,6 @@ namespace GoceTransportApp.Services.Data.Streets
                     ToStreetRoutes = s.ToStreetRoutes
 
                 })
-                .AsNoTracking()
                 .FirstOrDefaultAsync(s => s.Id.ToLower() == id.ToString().ToLower());
 
             return editModel;

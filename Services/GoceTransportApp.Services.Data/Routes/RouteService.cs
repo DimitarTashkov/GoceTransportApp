@@ -118,14 +118,13 @@ namespace GoceTransportApp.Services.Data.Routes
 
         public async Task<IEnumerable<RouteDataViewModel>> SearchForCity(string searchedTerm)
         {
-                IEnumerable<RouteDataViewModel> model = await routeReposiory.GetAllAttached()
+                IEnumerable<RouteDataViewModel> model = await routeReposiory.AllAsNoTracking()
                 .Include(c => c.FromCity)
                 .Include(c => c.ToCity)
                 .Include(c => c.FromStreet)
                 .Include(c => c.ToStreet)
                 .Where(c => c.FromCity.Name.Contains(searchedTerm) || c.ToCity.Name.Contains(searchedTerm))
                .Select(route => ReturnDataViewModel(route))
-               .AsNoTracking()
                .ToArrayAsync();
 
                 return model;
@@ -133,13 +132,12 @@ namespace GoceTransportApp.Services.Data.Routes
 
         public async Task<IEnumerable<RouteDataViewModel>> GetAllRoutes()
         {
-            IEnumerable<RouteDataViewModel> model = await routeReposiory.GetAllAttached()
+            IEnumerable<RouteDataViewModel> model = await routeReposiory.AllAsNoTracking()
                 .Include(c => c.FromCity)
                 .Include(c => c.ToCity)
                 .Include(c => c.FromStreet)
                 .Include(c => c.ToStreet)
                .Select(route => ReturnDataViewModel(route))
-               .AsNoTracking()
                .ToArrayAsync();
 
             return model;
@@ -147,7 +145,7 @@ namespace GoceTransportApp.Services.Data.Routes
 
         public async Task<RemoveRouteViewModel> GetRouteForDeletion(Guid id)
         {
-            RemoveRouteViewModel editModel = await routeReposiory.GetAllAttached()
+            RemoveRouteViewModel editModel = await routeReposiory.AllAsNoTracking()
                 .Include(c => c.FromCity)
                 .Include(c => c.ToCity)
                 .Include(c => c.FromStreet)
@@ -168,7 +166,7 @@ namespace GoceTransportApp.Services.Data.Routes
 
         public async Task<EditRouteInputModel> GetRouteForEdit(Guid id)
         {
-            EditRouteInputModel editModel = await routeReposiory.GetAllAttached()
+            EditRouteInputModel editModel = await routeReposiory.AllAsNoTracking()
                .Select(route => new EditRouteInputModel()
                {
                    Id = route.Id.ToString(),
@@ -185,13 +183,11 @@ namespace GoceTransportApp.Services.Data.Routes
                .FirstOrDefaultAsync(s => s.Id.ToLower() == id.ToString().ToLower());
 
             editModel.Streets = await streetReposiory
-                .GetAllAttached()
-                .AsNoTracking()
+                .AllAsNoTracking()
                 .ToListAsync();
 
             editModel.Cities = await cityReposiory
-                .GetAllAttached()
-                .AsNoTracking()
+                .AllAsNoTracking()
                 .ToListAsync();
 
             return editModel;
@@ -202,7 +198,7 @@ namespace GoceTransportApp.Services.Data.Routes
             RouteDetailsViewModel viewModel = null;
 
             Route? route =
-               await routeReposiory.GetAllAttached()
+               await routeReposiory.AllAsNoTracking()
                 .Include(c => c.FromCity)
                 .Include(c => c.ToCity)
                 .Include(c => c.FromStreet)
@@ -250,14 +246,13 @@ namespace GoceTransportApp.Services.Data.Routes
 
         public async Task<IEnumerable<RouteDataViewModel>> GetAllRoutesInOrganization(Guid organization)
         {
-            IEnumerable<RouteDataViewModel> model = await routeReposiory.GetAllAttached()
+            IEnumerable<RouteDataViewModel> model = await routeReposiory.AllAsNoTracking()
                 .Include(c => c.FromCity)
                 .Include(c => c.ToCity)
                 .Include(c => c.FromStreet)
                 .Include(c => c.ToStreet)
                 .Where(route => route.OrganizationId == organization)
                .Select(route => ReturnDataViewModel(route))
-               .AsNoTracking()
                .ToArrayAsync();
 
             return model;

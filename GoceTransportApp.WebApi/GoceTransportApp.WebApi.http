@@ -1,0 +1,6 @@
+@GoceTransportApp.WebApi_HostAddress = http://localhost:5047
+
+GET {{GoceTransportApp.WebApi_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

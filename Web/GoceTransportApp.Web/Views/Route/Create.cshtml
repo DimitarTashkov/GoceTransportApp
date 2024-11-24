@@ -1,43 +1,56 @@
-﻿@model GoceTransportApp.Web.ViewModels.Routes.RouteInputModel
+﻿@using GoceTransportApp.Services.Data.Cities
+@model GoceTransportApp.Web.ViewModels.Routes.RouteInputModel
+@inject ICityService cityService
 
 @{
     ViewData["Title"] = "Create Route";
+    var cities = await cityService.GetAllCities();
 }
 
 <h1>Create New Route</h1>
 @*TODO: Inject cityService and streetService to get all entities for the collections*@
 
 <form asp-action="Create" method="post" class="needs-validation" novalidate>
+    <!-- From City -->
     <div class="mb-3">
         <label asp-for="FromCityId" class="form-label">From City</label>
-        <select asp-for="FromCityId" asp-items="@(new SelectList(Model.Cities, "Id", "Name"))" class="form-select"></select>
+        <select id="fromCity" asp-for="FromCityId" asp-items="@(new SelectList(cities, "Id", "Name"))" class="form-select" onchange="loadStreets('fromCity', 'fromStreet')"></select>
         <span asp-validation-for="FromCityId" class="text-danger"></span>
     </div>
 
-    <div class="mb-3">
-        <label asp-for="ToCityId" class="form-label">To City</label>
-        <select asp-for="ToCityId" asp-items="@(new SelectList(Model.Cities, "Id", "Name"))" class="form-select"></select>
-        <span asp-validation-for="ToCityId" class="text-danger"></span>
-    </div>
-
+    <!-- From Street -->
     <div class="mb-3">
         <label asp-for="FromStreetId" class="form-label">From Street</label>
-        <select asp-for="FromStreetId" asp-items="@(new SelectList(Model.Streets, "Id", "Name"))" class="form-select"></select>
+        <select id="fromStreet" asp-for="FromStreetId" class="form-select">
+            <option value="">Select a street</option>
+        </select>
         <span asp-validation-for="FromStreetId" class="text-danger"></span>
     </div>
 
+    <!-- To City -->
+    <div class="mb-3">
+        <label asp-for="ToCityId" class="form-label">To City</label>
+        <select id="toCity" asp-for="ToCityId" asp-items="@(new SelectList(cities, "Id", "Name"))" class="form-select" onchange="loadStreets('toCity', 'toStreet')"></select>
+        <span asp-validation-for="ToCityId" class="text-danger"></span>
+    </div>
+
+    <!-- To Street -->
     <div class="mb-3">
         <label asp-for="ToStreetId" class="form-label">To Street</label>
-        <select asp-for="ToStreetId" asp-items="@(new SelectList(Model.Streets, "Id", "Name"))" class="form-select"></select>
+        <select id="toStreet" asp-for="ToStreetId" class="form-select">
+            <option value="">Select a street</option>
+        </select>
         <span asp-validation-for="ToStreetId" class="text-danger"></span>
     </div>
 
+    <!-- Distance -->
     <div class="mb-3">
         <label asp-for="Distance" class="form-label">Distance</label>
         <input asp-for="Distance" class="form-control" />
         <span asp-validation-for="Distance" class="text-danger"></span>
     </div>
 
+    <!-- Duration -->
     <div class="mb-3">
         <label asp-for="Duration" class="form-label">Duration</label>
         <input asp-for="Duration" class="form-control" />
@@ -46,3 +59,9 @@
 
     <button type="submit" class="btn btn-primary">Create Route</button>
 </form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+    <script src="~/js/loadStreetsInCity.js"></script>
+
+}

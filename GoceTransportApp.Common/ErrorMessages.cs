@@ -12,11 +12,15 @@
 
         public static class CityMessages
         {
-            public const string CityNameRequiredMessage = "Street name is required";
+            public const string CityNameRequiredMessage = "City name is required";
+            public const string CityStateRequiredMessage = "City state is required";
+            public const string CityZipRequiredMessage = "City zip is required";
+
 
             public const string CityEditFailed = "Unexpected error occurred while updating the city! Please contact administrator!";
             public const string CityDeleteFailed = "Unexpected error occurred while deleting the city! Please contact administrator!";
         }
+
         public static class RouteMessages
         {
             public const string RouteDistanceRequiredMessage = "Route distance is required";

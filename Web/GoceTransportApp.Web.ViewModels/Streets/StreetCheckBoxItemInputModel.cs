@@ -6,6 +6,8 @@ using System.Text;
 using System.Threading.Tasks;
 
 using static GoceTransportApp.Common.EntityValidationConstants.StreetConstants;
+using static GoceTransportApp.Common.ErrorMessages.StreetMessages;
+
 
 namespace GoceTransportApp.Web.ViewModels.Streets
 {
@@ -14,7 +16,7 @@ namespace GoceTransportApp.Web.ViewModels.Streets
         [Required]
         public string Id { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = StreetNameRequiredMessage)]
         [MinLength(MinStreetLength)]
         [MaxLength(MaxStreetLength)]
         public string Name { get; set; } = null!;

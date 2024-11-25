@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 using static GoceTransportApp.Common.EntityValidationConstants.CityConstants;
-
+using static GoceTransportApp.Common.ErrorMessages.CityMessages;
 namespace GoceTransportApp.Web.ViewModels.Cities
 {
     public class EditCityInputModel
@@ -16,17 +16,17 @@ namespace GoceTransportApp.Web.ViewModels.Cities
         [Required]
         public string Id { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = CityNameRequiredMessage)]
         [MinLength(MinNameLength)]
         [MaxLength(MaxNameLength)]
         public string Name { get; set; } = null!;
 
-        [Required]
+        [Required(ErrorMessage = CityStateRequiredMessage)]
         [MaxLength(MaxStateLength)]
         [MinLength(MinStateLength)]
         public string State { get; set; } = null!;
 
-        [Required]
+        [Required(ErrorMessage = CityZipRequiredMessage)]
         [MinLength(MinZipCodeLength)]
         [MaxLength(MaxZipCodeLength)]
         public string ZipCode { get; set; } = null!;

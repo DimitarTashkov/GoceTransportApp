@@ -7,6 +7,8 @@ using System.Text;
 using System.Threading.Tasks;
 
 using static GoceTransportApp.Common.EntityValidationConstants.CityConstants;
+using static GoceTransportApp.Common.ErrorMessages.CityMessages;
+
 
 namespace GoceTransportApp.Web.ViewModels.Cities
 {
@@ -15,7 +17,7 @@ namespace GoceTransportApp.Web.ViewModels.Cities
         [Required]
         public string Id { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = CityNameRequiredMessage)]
         [MinLength(MinNameLength)]
         [MaxLength(MaxNameLength)]
         public string Name { get; set; }

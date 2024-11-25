@@ -1,0 +1,24 @@
+﻿@model GoceTransportApp.Web.ViewModels.Drivers.RemoveDriverViewModel
+
+@{
+    ViewData["Title"] = "Remove Driver";
+}
+
+<h1 class="mb-4">Remove Driver</h1>
+
+<div class="card shadow">
+    <div class="card-body">
+        <h5 class="card-title text-danger">Are you sure you want to remove this driver?</h5>
+        <p class="card-text">
+            <strong>First Name:</strong> @Model.FirstName<br />
+            <strong>Last Name:</strong> @Model.LastName<br />
+            <strong>Organization ID:</strong> @Model.OrganizationId
+        </p>
+
+        <form asp-action="Delete" method="post">
+            <input type="hidden" asp-for="Id" />
+            <button type="submit" class="btn btn-danger">Delete</button>
+            <a asp-action="Index" class="btn btn-secondary">Cancel</a>
+        </form>
+    </div>
+</div>

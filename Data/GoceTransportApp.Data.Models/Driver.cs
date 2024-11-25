@@ -26,6 +26,8 @@
         [Range(MinAgeLength, MaxAgeLength)]
         public int? Age { get; set; }
 
+        public string AvatarUrl { get; set; } = null!;
+
         [Required]
         public DriverExperience Experience { get; set; }
 

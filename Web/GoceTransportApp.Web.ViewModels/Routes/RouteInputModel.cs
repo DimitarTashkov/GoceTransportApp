@@ -32,11 +32,5 @@ namespace GoceTransportApp.Web.ViewModels.Routes
 
         [Required(ErrorMessage = RouteDurationRequiredMessage)]
         public double Duration { get; set; }
-
-        public List<City> Cities { get; set; }
-        = new List<City>();
-
-        public List<City> Streets { get; set; }
-        = new List<City>();
     }
 }

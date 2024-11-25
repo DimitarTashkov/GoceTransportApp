@@ -8,13 +8,14 @@
 }
 
 <h1>Create New Route</h1>
-@*TODO: Inject cityService and streetService to get all entities for the collections*@
 
 <form asp-action="Create" method="post" class="needs-validation" novalidate>
     <!-- From City -->
     <div class="mb-3">
         <label asp-for="FromCityId" class="form-label">From City</label>
-        <select id="fromCity" asp-for="FromCityId" asp-items="@(new SelectList(cities, "Id", "Name"))" class="form-select" onchange="loadStreets('fromCity', 'fromStreet')"></select>
+        <select id="fromCity" asp-for="FromCityId" asp-items="@(new SelectList(cities, "Id", "Name"))" class="form-select" onchange="loadStreets('fromCity', 'fromStreet')">
+            <option value=""> Select a city</option>
+        </select>
         <span asp-validation-for="FromCityId" class="text-danger"></span>
     </div>
 
@@ -30,7 +31,9 @@
     <!-- To City -->
     <div class="mb-3">
         <label asp-for="ToCityId" class="form-label">To City</label>
-        <select id="toCity" asp-for="ToCityId" asp-items="@(new SelectList(cities, "Id", "Name"))" class="form-select" onchange="loadStreets('toCity', 'toStreet')"></select>
+        <select id="toCity" asp-for="ToCityId" asp-items="@(new SelectList(cities, "Id", "Name"))" class="form-select" onchange="loadStreets('toCity', 'toStreet')">
+            <option value=""> Select a city</option>
+        </select>
         <span asp-validation-for="ToCityId" class="text-danger"></span>
     </div>
 

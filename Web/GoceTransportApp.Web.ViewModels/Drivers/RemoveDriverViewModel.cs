@@ -13,5 +13,7 @@ namespace GoceTransportApp.Web.ViewModels.Drivers
         public string FirstName { get; set; } = null!;
 
         public string LastName { get; set; } = null!;
+
+        public string OrganizationId { get; set; } = null!;
     }
 }

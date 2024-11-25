@@ -37,15 +37,11 @@
             public const string DriverFirstNameRequired = "Driver first name is required";
             public const string DriverLastNameRequired = "Driver last name is required";
             public const string DriverExperienceRequired = "Driver experience is required";
+            public const string InvalidDriverDetails = "Unexpected error occurred while extracting driver details! Please contact administrator!";
 
-
-            public const string RouteDurationRequiredMessage = "Route duration is required";
-
-            public const string InvalidRouteDetails = "Unexpected error occurred while extracting route details! Please contact administrator!";
             public const string InvalidDrivingExperience = "Invalid driving experience value provided.";
-            public const string RouteEditFailed = "Unexpected error occurred while updating the route! Please contact administrator!";
-            public const string RouteDeleteFailed = "Unexpected error occurred while deleting the route! Please contact administrator!";
-            public const string RouteArchivationFailed = "Unexpected error occurred while archiving the route! Please contact administrator!";
+            public const string DriverEditFailed = "Unexpected error occurred while updating the driver! Please contact administrator!";
+            public const string DriverDeleteFailed = "Unexpected error occurred while deleting the driver! Please contact administrator!";
         }
     }
 }

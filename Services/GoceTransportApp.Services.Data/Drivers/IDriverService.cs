@@ -19,8 +19,9 @@ namespace GoceTransportApp.Services.Data.Drivers
 
         Task<bool> EditDriverAsync(EditDriverInputModel inputModel);
 
-        Task<RemoveRouteViewModel> GetDriverForDeletion(Guid id);
+        Task<RemoveDriverViewModel> GetDriverForDeletion(Guid id);
 
-        Task<bool> RemoveDriverAsync(RemoveRouteViewModel inputModel);
+        Task<bool> RemoveDriverAsync(RemoveDriverViewModel inputModel);
+        Task<DriverDetailsViewModel> DriverDetails(Guid id);
     }
 }

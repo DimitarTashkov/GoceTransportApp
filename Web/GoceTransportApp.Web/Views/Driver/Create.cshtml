@@ -1,0 +1,55 @@
+﻿@model GoceTransportApp.Web.ViewModels.Drivers.DriverInputModel
+
+@{
+    ViewData["Title"] = "Add Driver";
+}
+
+<h1 class="mb-4">Add New Driver</h1>
+
+<div class="card shadow">
+    <div class="card-body">
+        <form asp-action="Create" method="post" class="needs-validation" novalidate>
+            <div class="mb-3">
+                <label asp-for="FirstName" class="form-label"></label>
+                <input asp-for="FirstName" class="form-control" />
+                <span asp-validation-for="FirstName" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="LastName" class="form-label"></label>
+                <input asp-for="LastName" class="form-control" />
+                <span asp-validation-for="LastName" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="Age" class="form-label"></label>
+                <input asp-for="Age" class="form-control" />
+                <span asp-validation-for="Age" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="AvatarUrl" class="form-label"></label>
+                <input asp-for="AvatarUrl" class="form-control" />
+                <span asp-validation-for="AvatarUrl" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="DrivingExperience" class="form-label">Driving Experience</label>
+                <select asp-for="DrivingExperience" asp-items="Html.GetEnumSelectList<GoceTransportApp.Data.Models.Enumerations.DriverExperience>()" class="form-select"></select>
+                <span asp-validation-for="DrivingExperience" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="OrganizationId" class="form-label"></label>
+                <input asp-for="OrganizationId" class="form-control" />
+                <span asp-validation-for="OrganizationId" class="text-danger"></span>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Save</button>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

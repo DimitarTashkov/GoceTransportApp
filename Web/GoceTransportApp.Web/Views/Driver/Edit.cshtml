@@ -1,0 +1,60 @@
+﻿@model GoceTransportApp.Web.ViewModels.Drivers.EditDriverInputModel
+
+@{
+    ViewData["Title"] = "Edit Driver";
+}
+
+<h1 class="mb-4">Edit Driver</h1>
+
+<div class="card shadow">
+    <div class="card-body">
+        <form asp-action="Edit" method="post" class="needs-validation" novalidate>
+            <input type="hidden" asp-for="Id" />
+
+            <div class="mb-3">
+                <label asp-for="FirstName" class="form-label">First Name</label>
+                <input asp-for="FirstName" class="form-control" />
+                <span asp-validation-for="FirstName" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="LastName" class="form-label">Last Name</label>
+                <input asp-for="LastName" class="form-control" />
+                <span asp-validation-for="LastName" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="Age" class="form-label">Age</label>
+                <input asp-for="Age" class="form-control" />
+                <span asp-validation-for="Age" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="AvatarUrl" class="form-label">Avatar URL</label>
+                <input asp-for="AvatarUrl" class="form-control" />
+                <span asp-validation-for="AvatarUrl" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="DrivingExperience" class="form-label">Driving Experience</label>
+                <select asp-for="DrivingExperience" class="form-select" asp-items="Html.GetEnumSelectList<GoceTransportApp.Data.Models.Enumerations.DriverExperience>()">
+                    <option value="">Select Experience</option>
+                </select>
+                <span asp-validation-for="DrivingExperience" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="OrganizationId" class="form-label">Organization ID</label>
+                <input asp-for="OrganizationId" class="form-control" />
+                <span asp-validation-for="OrganizationId" class="text-danger"></span>
+            </div>
+
+            <button type="submit" class="btn btn-success">Update Driver</button>
+            <a asp-action="Index" class="btn btn-secondary">Cancel</a>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

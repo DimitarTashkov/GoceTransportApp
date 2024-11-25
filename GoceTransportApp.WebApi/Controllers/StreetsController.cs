@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace GoceTransportApp.WebApi.Controllers
 {
     [ApiController]
-    [Route("api/[controller]")]
+    [Route("[controller]")]
     public class StreetsController : ControllerBase
     {
         private readonly ICityService cityService;
@@ -16,9 +16,10 @@ namespace GoceTransportApp.WebApi.Controllers
             this.cityService = cityService;
         }
 
-        [HttpGet("{cityId}")]
+        [HttpGet("GetStreetsByCity/{cityId?}")]
         [ProducesResponseType(typeof(IEnumerable<StreetDataViewModel>),StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> GetStreetsByCity(string cityId)
         {

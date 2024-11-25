@@ -15,6 +15,8 @@ namespace GoceTransportApp.WebApi
         {
             var builder = WebApplication.CreateBuilder(args);
             string connectionString = builder.Configuration.GetConnectionString("DefaultConnection")!;
+            string? goceTransportAppOrigins = builder.Configuration.GetValue<string>("Client Origins:GoceTransportApp");
+
             // Add services to the container.
 
             builder.Services
@@ -36,6 +38,30 @@ namespace GoceTransportApp.WebApi
             builder.Services.AddScoped<IStreetService, StreetService>();
             builder.Services.AddScoped<ICityService, CityService>();
 
+            //TODO: Allow CORS!!!
+            builder.Services.AddCors(cfg =>
+            {
+                cfg.AddPolicy("AllowAll", policyBld =>
+                {
+                    policyBld
+                        .AllowAnyHeader()
+                        .AllowAnyMethod()
+                        .AllowAnyOrigin();
+                });
+
+                if (!String.IsNullOrWhiteSpace(goceTransportAppOrigins))
+                {
+                    cfg.AddPolicy("AllowMyServer", policyBld =>
+                    {
+                        policyBld
+                            .AllowAnyHeader()
+                            .AllowAnyMethod()
+                            .AllowCredentials()
+                            .WithOrigins(goceTransportAppOrigins);
+                    });
+                }
+            });
+
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
@@ -49,6 +75,10 @@ namespace GoceTransportApp.WebApi
 
             app.UseAuthorization();
 
+            if (!String.IsNullOrWhiteSpace(goceTransportAppOrigins))
+            {
+                app.UseCors("AllowMyServer");
+            }
 
             app.MapControllers();
 

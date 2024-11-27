@@ -43,5 +43,20 @@
             public const string DriverEditFailed = "Unexpected error occurred while updating the driver! Please contact administrator!";
             public const string DriverDeleteFailed = "Unexpected error occurred while deleting the driver! Please contact administrator!";
         }
+
+        public static class VehicleMessages
+        {
+            public const string VehicleNumberRequired = "Vehicle number is required";
+            public const string VehicleTypeRequired = "Vehicle type is required";
+            public const string VehicleManufacturerRequired = "Vehicle manufacturer is required";
+            public const string VehicleModelRequired = "Vehicle model is required";
+            public const string VehicleCapacityRequired = "Vehicle capacity is required";
+
+            public const string InvalidDriverDetails = "Unexpected error occurred while extracting driver details! Please contact administrator!";
+
+            public const string InvalidDrivingExperience = "Invalid driving experience value provided.";
+            public const string DriverEditFailed = "Unexpected error occurred while updating the driver! Please contact administrator!";
+            public const string DriverDeleteFailed = "Unexpected error occurred while deleting the driver! Please contact administrator!";
+        }
     }
 }

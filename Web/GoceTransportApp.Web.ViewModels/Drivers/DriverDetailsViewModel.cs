@@ -9,6 +9,8 @@ namespace GoceTransportApp.Web.ViewModels.Drivers
 {
     public class DriverDetailsViewModel
     {
+        public string Id { get; set; } = null!;
+
         public string FirstName { get; set; } = null!;
 
         public string LastName { get; set; } = null!;

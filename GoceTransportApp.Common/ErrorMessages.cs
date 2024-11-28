@@ -52,11 +52,11 @@
             public const string VehicleModelRequired = "Vehicle model is required";
             public const string VehicleCapacityRequired = "Vehicle capacity is required";
 
-            public const string InvalidDriverDetails = "Unexpected error occurred while extracting driver details! Please contact administrator!";
+            public const string InvalidVehicleDetails = "Unexpected error occurred while extracting vehicle details! Please contact administrator!";
 
             public const string InvalidVehicleStatus = "Invalid vehicle status value provided.";
-            public const string DriverEditFailed = "Unexpected error occurred while updating the driver! Please contact administrator!";
-            public const string DriverDeleteFailed = "Unexpected error occurred while deleting the driver! Please contact administrator!";
+            public const string VehicleEditFailed = "Unexpected error occurred while updating the vehicle! Please contact administrator!";
+            public const string VehicleDeleteFailed = "Unexpected error occurred while deleting the vehicle! Please contact administrator!";
         }
     }
 }

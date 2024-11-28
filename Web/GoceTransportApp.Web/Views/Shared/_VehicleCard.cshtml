@@ -1,0 +1,17 @@
+﻿@model GoceTransportApp.Web.ViewModels.Vehicles.VehicleDataViewModel
+
+<div class="col-md-4">
+    <div class="card shadow">
+        <div class="card-body">
+            <h5 class="card-title">@Model.Number</h5>
+            <p class="card-text">
+                <strong>Type:</strong> @Model.Type <br />
+                <strong>Manufacturer:</strong> @Model.Manufacturer <br />
+                <strong>Model:</strong> @Model.Model
+            </p>
+            <a asp-action="Details" asp-route-id="@Model.Id" class="btn btn-primary btn-sm">Details</a>
+            <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-warning btn-sm">Edit</a>
+            <a asp-action="Delete" asp-route-id="@Model.Id" class="btn btn-danger btn-sm">Delete</a>
+        </div>
+    </div>
+</div>

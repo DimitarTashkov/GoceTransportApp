@@ -1,0 +1,16 @@
+﻿@model IEnumerable<GoceTransportApp.Web.ViewModels.Vehicles.VehicleDataViewModel>
+
+@{
+    ViewData["Title"] = "All Vehicles in Organization";
+}
+
+<h1 class="mb-4">Vehicles in organization</h1>
+
+<div class="row g-4">
+    @foreach (var vehicle in Model)
+    {
+        <partial name="_VehicleCard" model="vehicle" />
+    }
+</div>
+
+<a asp-action="Create" class="btn btn-success mt-4">Add New Vehicle</a>

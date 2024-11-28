@@ -1,12 +1,18 @@
 ﻿using GoceTransportApp.Data.Common.Repositories;
 using GoceTransportApp.Data.Models;
+using GoceTransportApp.Data.Models.Enumerations;
 using GoceTransportApp.Services.Data.Base;
+using GoceTransportApp.Web.ViewModels.Drivers;
 using GoceTransportApp.Web.ViewModels.Vehicles;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+
+using static GoceTransportApp.Common.ErrorMessages.VehicleMessages;
+
 
 namespace GoceTransportApp.Services.Data.Vehicles
 {
@@ -19,39 +25,152 @@ namespace GoceTransportApp.Services.Data.Vehicles
             this.vehicleRepository = vehicleRepository;
         }
 
-        public Task CreateAsync(VehicleInputModel inputModel)
+        public async Task CreateAsync(VehicleInputModel inputModel)
         {
-            throw new NotImplementedException();
+            if (!Enum.TryParse<VehicleStatus>(inputModel.Status, out var status))
+            {
+                throw new ArgumentException(InvalidVehicleStatus);
+            }
+
+            Vehicle vehicle = new Vehicle()
+            {
+                Number = inputModel.Number,
+                Type = inputModel.Type,
+                Manufacturer = inputModel.Manufacturer,
+                Model = inputModel.Model,
+                Capacity = inputModel.Capacity,
+                FuelConsumption = inputModel.FuelConsumption,
+                VehicleStatus = status,
+                OrganizationId = Guid.Parse(inputModel.OrganizationId),
+                CreatedOn = DateTime.UtcNow,
+            };
+
+            await vehicleRepository.AddAsync(vehicle);
+            await vehicleRepository.SaveChangesAsync();
         }
 
-        public Task<bool> EditVehicleAsync(EditVehicleInputModel inputModel)
+        public async Task<bool> EditVehicleAsync(EditVehicleInputModel inputModel)
         {
-            throw new NotImplementedException();
+            var vehicle = await vehicleRepository.GetByIdAsync(Guid.Parse(inputModel.Id));
+
+            if (vehicle == null)
+            {
+                return false;
+            }
+
+            if (!Enum.TryParse<VehicleStatus>(inputModel.Status, out var status))
+            {
+                throw new ArgumentException(InvalidVehicleStatus);
+            }
+
+            vehicle.Number = inputModel.Number;
+            vehicle.Type = inputModel.Type;
+            vehicle.Manufacturer = inputModel.Manufacturer;
+            vehicle.Model = inputModel.Model;
+            vehicle.Capacity = inputModel.Capacity;
+            vehicle.FuelConsumption = inputModel.FuelConsumption;
+            vehicle.VehicleStatus = status;
+            vehicle.OrganizationId = Guid.Parse(inputModel.OrganizationId);
+            vehicle.ModifiedOn = DateTime.UtcNow;
+
+            bool result = await vehicleRepository.UpdateAsync(vehicle);
+
+            return result;
         }
 
-        public Task<IEnumerable<VehicleDataViewModel>> GetAllVehicles()
+        public async Task<IEnumerable<VehicleDataViewModel>> GetAllVehicles()
         {
-            throw new NotImplementedException();
+            IEnumerable<VehicleDataViewModel> model = await vehicleRepository.AllAsNoTracking()
+              .Select(c => new VehicleDataViewModel()
+              {
+                  Id = c.Id.ToString(),
+                  Number = c.Number,
+                  Type = c.Type,
+                  Manufacturer = c.Manufacturer,
+                  Model = c.Model,
+              })
+              .ToArrayAsync();
+
+            return model;
         }
 
-        public Task<RemoveVehicleViewModel> GetVehicleForDeletion(Guid id)
+        public async Task<RemoveVehicleViewModel> GetVehicleForDeletion(Guid id)
         {
-            throw new NotImplementedException();
+            RemoveVehicleViewModel deleteModel = await vehicleRepository.AllAsNoTracking()
+                .Select(vehicle => new RemoveVehicleViewModel()
+                {
+                    Id = vehicle.Id.ToString(),
+                    Number = vehicle.Number,
+                    OrganizationId = vehicle.OrganizationId.ToString(),
+                })
+                .FirstOrDefaultAsync(s => s.Id.ToLower() == id.ToString().ToLower());
+
+            return deleteModel;
         }
 
-        public Task<EditVehicleInputModel> GetVehicleForEdit(Guid id)
+        public async Task<EditVehicleInputModel> GetVehicleForEdit(Guid id)
         {
-            throw new NotImplementedException();
+            EditVehicleInputModel editModel = await vehicleRepository.AllAsNoTracking()
+              .Select(vehicle => new EditVehicleInputModel()
+              {
+                  Id = vehicle.Id.ToString(),
+                  Number = vehicle.Number,
+                  Type = vehicle.Type,
+                  Manufacturer = vehicle.Manufacturer,
+                  Model = vehicle.Model,
+                  Capacity = vehicle.Capacity,
+                  FuelConsumption = vehicle.FuelConsumption,
+                  Status = vehicle.VehicleStatus.ToString(),
+                  OrganizationId = vehicle.OrganizationId.ToString(),
+                  Schedules = vehicle.Schedules.ToList(),
+              })
+              .FirstOrDefaultAsync(s => s.Id.ToLower() == id.ToString().ToLower());
+
+            return editModel;
         }
 
-        public Task<bool> RemoveVehicleAsync(RemoveVehicleViewModel inputModel)
+        public async Task<bool> RemoveVehicleAsync(RemoveVehicleViewModel inputModel)
         {
-            throw new NotImplementedException();
+            Guid vehicleGuid = Guid.Empty;
+            bool isVehicleGuidValid = this.IsGuidValid(inputModel.Id, ref vehicleGuid);
+
+            if (!isVehicleGuidValid)
+            {
+                return false;
+            }
+
+            Vehicle vehicle = await vehicleRepository
+                .FirstOrDefaultAsync(s => s.Id == vehicleGuid);
+
+            if (vehicle == null)
+            {
+                return false;
+            }
+
+            await vehicleRepository.DeleteAsync(vehicle);
+
+            return true;
         }
 
-        public Task<VehicleDetailsViewModel> VehicleDetails(Guid id)
+        public async Task<VehicleDetailsViewModel> VehicleDetails(Guid id)
         {
-            throw new NotImplementedException();
+            VehicleDetailsViewModel viewModel = null;
+
+            Vehicle? vehicle = await vehicleRepository.AllAsNoTracking()
+                .FirstOrDefaultAsync(d => d.Id == id);
+            if (vehicle != null)
+            {
+                viewModel.Number = vehicle.Number;
+                viewModel.Type = vehicle.Type;
+                viewModel.Manufacturer = vehicle.Manufacturer;
+                viewModel.Model = vehicle.Model;
+                viewModel.Capacity = vehicle.Capacity;
+                viewModel.FuelConsumption = vehicle.FuelConsumption;
+                viewModel.Status = vehicle.VehicleStatus.ToString();
+                viewModel.OrganizationId = vehicle.ToString();
+            }
+
+            return viewModel;
         }
     }
 }

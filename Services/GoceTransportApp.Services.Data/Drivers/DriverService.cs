@@ -157,9 +157,9 @@ namespace GoceTransportApp.Services.Data.Drivers
                 return false;
             }
 
-            await driverRepository.DeleteAsync(driver);
+            bool result = await driverRepository.DeleteAsync(driver);
 
-            return true;
+            return result;
         }
     }
 }

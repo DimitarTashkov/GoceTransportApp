@@ -86,8 +86,7 @@ namespace GoceTransportApp.Services.Data.Routes
                 return false;
             }
 
-             routeReposiory.HardDelete(route);
-            await routeReposiory.SaveChangesAsync();
+            await routeReposiory.HardDelete(route);
 
             return true;
         }

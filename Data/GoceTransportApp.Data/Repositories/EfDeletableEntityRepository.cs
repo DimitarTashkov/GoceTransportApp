@@ -2,7 +2,7 @@
 {
     using System;
     using System.Linq;
-
+    using System.Threading.Tasks;
     using GoceTransportApp.Data.Common.Models;
     using GoceTransportApp.Data.Common.Repositories;
 
@@ -24,20 +24,24 @@
 
         public IQueryable<TEntity> AllAsNoTrackingWithDeleted() => base.AllAsNoTracking().IgnoreQueryFilters();
 
-        public void HardDelete(TEntity entity) => base.Delete(entity);
+        public async Task<bool> HardDelete(TEntity entity) => await base.DeleteAsync(entity);
 
-        public void Undelete(TEntity entity)
+        public async Task<bool> Undelete(TEntity entity)
         {
             entity.IsDeleted = false;
             entity.DeletedOn = null;
-            this.Update(entity);
+            bool isUndeleted = await this.UpdateAsync(entity);
+
+            return isUndeleted;
         }
 
-        public override void Delete(TEntity entity)
+        public async override Task<bool> DeleteAsync(TEntity entity)
         {
             entity.IsDeleted = true;
             entity.DeletedOn = DateTime.UtcNow;
-            this.Update(entity);
+            bool isDeleted = await this.UpdateAsync(entity);
+
+            return isDeleted;
         }
     }
 }

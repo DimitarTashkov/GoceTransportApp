@@ -103,7 +103,7 @@
             await this.Context.SaveChangesAsync();
         }
 
-        public async Task<bool> DeleteAsync(TEntity entity)
+        public virtual async Task<bool> DeleteAsync(TEntity entity)
         {
             this.DbSet.Remove(entity);
             await this.Context.SaveChangesAsync();

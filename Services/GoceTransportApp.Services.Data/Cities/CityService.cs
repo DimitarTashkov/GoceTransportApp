@@ -81,7 +81,6 @@ namespace GoceTransportApp.Services.Data.Cities
             }
 
             await this.cityStreetRepository.AddRangeAsync(streetsToAdd.ToArray());
-            await cityStreetRepository.SaveChangesAsync();
 
             return true;
 
@@ -111,9 +110,9 @@ namespace GoceTransportApp.Services.Data.Cities
                 return false;
             }
 
-            await cityRepository.DeleteAsync(city);
+            bool result = await cityRepository.DeleteAsync(city);
 
-            return true;
+            return result;
         }
 
         public async Task<bool> EditCityAsync(EditCityInputModel inputModel)

@@ -42,8 +42,8 @@ namespace GoceTransportApp.Services.Data.Streets
                 return false;
             }
 
-            await streetRepository.DeleteAsync(street);
-            return true;
+            bool result = await streetRepository.DeleteAsync(street);
+            return result;
         }
 
         public async Task<bool> EditStreetAsync(EditStreetInputModel model)

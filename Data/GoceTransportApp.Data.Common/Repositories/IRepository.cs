@@ -34,6 +34,8 @@
 
         Task AddRangeAsync(TEntity[] items);
 
+        void Delete(TEntity entity);
+
         Task<bool> DeleteAsync(TEntity entity);
 
         Task<bool> UpdateAsync(TEntity item);

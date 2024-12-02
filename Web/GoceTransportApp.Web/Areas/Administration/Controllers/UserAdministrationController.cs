@@ -12,7 +12,7 @@
     using GoceTransportApp.Web.ViewModels.Users;
 
     [Authorize(Roles = GlobalConstants.AdministratorRoleName)]
-    [Area("Administration")]
+    [Area(GlobalConstants.AdministratorArea)]
     public class UserAdministrationController : BaseController
     {
         private readonly IUserService userService;

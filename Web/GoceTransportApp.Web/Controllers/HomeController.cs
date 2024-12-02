@@ -1,7 +1,7 @@
 ﻿namespace GoceTransportApp.Web.Controllers
 {
     using System.Diagnostics;
-
+    using GoceTransportApp.Common;
     using GoceTransportApp.Web.ViewModels;
 
     using Microsoft.AspNetCore.Mvc;
@@ -19,10 +19,14 @@
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
+        public IActionResult Error(int? statusCode = null)
         {
-            return this.View(
-                new ErrorViewModel { RequestId = Activity.Current?.Id ?? this.HttpContext.TraceIdentifier });
+            if (statusCode == StatusCodes.InternalServerError)
+            {
+                return this.Redirect($"/Error/{StatusCodes.InternalServerError}");
+            }
+
+            return this.Redirect($"/Error/{StatusCodes.NotFound}");
         }
     }
 }

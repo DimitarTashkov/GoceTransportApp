@@ -88,6 +88,7 @@
             if (app.Environment.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+                app.UseStatusCodePagesWithReExecute("/Home/Error");
                 app.UseMigrationsEndPoint();
             }
             else

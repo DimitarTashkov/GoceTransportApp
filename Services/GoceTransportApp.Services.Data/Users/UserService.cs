@@ -10,13 +10,13 @@ using System.Threading.Tasks;
 
 namespace GoceTransportApp.Services.Data.Users
 {
-    public class UserService
+    public class UserService : IUserService
     {
         private readonly UserManager<ApplicationUser> userManager;
-        private readonly RoleManager<IdentityRole<string>> roleManager;
+        private readonly RoleManager<ApplicationRole> roleManager;
 
         public UserService(UserManager<ApplicationUser> userManager,
-            RoleManager<IdentityRole<string>> roleManager)
+            RoleManager<ApplicationRole> roleManager)
         {
             this.userManager = userManager;
             this.roleManager = roleManager;

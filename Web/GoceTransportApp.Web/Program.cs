@@ -10,8 +10,11 @@
     using GoceTransportApp.Data.Seeding;
     using GoceTransportApp.Services.Data;
     using GoceTransportApp.Services.Data.Cities;
+    using GoceTransportApp.Services.Data.Drivers;
     using GoceTransportApp.Services.Data.Routes;
     using GoceTransportApp.Services.Data.Streets;
+    using GoceTransportApp.Services.Data.Users;
+    using GoceTransportApp.Services.Data.Vehicles;
     using GoceTransportApp.Services.Mapping;
     using GoceTransportApp.Services.Messaging;
     using GoceTransportApp.Web.ViewModels;
@@ -40,8 +43,10 @@
             services.AddDbContext<ApplicationDbContext>(
                 options => options.UseSqlServer(configuration.GetConnectionString("DefaultConnection")));
 
-            services.AddDefaultIdentity<ApplicationUser>(IdentityOptionsProvider.GetIdentityOptions)
-                .AddRoles<ApplicationRole>().AddEntityFrameworkStores<ApplicationDbContext>();
+            services
+                .AddDefaultIdentity<ApplicationUser>(IdentityOptionsProvider.GetIdentityOptions)
+                .AddRoles<ApplicationRole>()
+                .AddEntityFrameworkStores<ApplicationDbContext>();
 
             services.Configure<CookiePolicyOptions>(
                 options =>
@@ -71,6 +76,9 @@
             services.AddScoped<IStreetService, StreetService>();
             services.AddScoped<ICityService, CityService>();
             services.AddScoped<IRouteService, RouteService>();
+            services.AddScoped<IVehicleService, VehicleService>();
+            services.AddScoped<IDriverService, DriverService>();
+            services.AddScoped<IUserService, UserService>();
         }
 
         private static void Configure(WebApplication app)

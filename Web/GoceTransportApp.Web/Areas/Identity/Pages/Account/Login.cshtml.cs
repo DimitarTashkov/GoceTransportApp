@@ -4,7 +4,9 @@
 
 namespace CinemaApp.Web.Areas.Identity.Pages.Account
 {
+    using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
+    using System.Linq;
     using System.Threading.Tasks;
     using GoceTransportApp.Data.Models;
     using Microsoft.AspNetCore.Authentication;
@@ -12,6 +14,7 @@ namespace CinemaApp.Web.Areas.Identity.Pages.Account
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.AspNetCore.Mvc.RazorPages;
     using Microsoft.Extensions.Logging;
+    using Microsoft.VisualStudio.Web.CodeGenerators.Mvc.Templates.BlazorIdentity.Pages.Manage;
 
     public class LoginModel : PageModel
     {
@@ -45,6 +48,8 @@ namespace CinemaApp.Web.Areas.Identity.Pages.Account
         /// </summary>
         [TempData]
         public string ErrorMessage { get; set; }
+
+        public IList<AuthenticationScheme> ExternalProviders { get; set; }
 
         /// <summary>
         ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
@@ -87,6 +92,9 @@ namespace CinemaApp.Web.Areas.Identity.Pages.Account
 
             // Clear the existing external cookie to ensure a clean login process
             await HttpContext.SignOutAsync(IdentityConstants.ExternalScheme);
+
+            ExternalProviders = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
+
 
             ReturnUrl = returnUrl;
         }

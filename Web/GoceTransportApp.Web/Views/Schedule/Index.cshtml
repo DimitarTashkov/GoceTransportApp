@@ -1,0 +1,18 @@
+﻿@model IEnumerable<GoceTransportApp.Web.ViewModels.Schedules.ScheduleDataViewModel>
+
+@{
+    ViewData["Title"] = "Schedules";
+}
+
+<h1 class="text-center mt-4">@ViewData["Title"]</h1>
+
+<a asp-action="Create" class="btn btn-primary mb-4">
+    <i class="fas fa-plus"></i> Add New Schedule
+</a>
+
+<div class="row">
+    @foreach (var item in Model)
+    {
+        <partial name="_RouteCardPartial" model="item" />
+    }
+</div>

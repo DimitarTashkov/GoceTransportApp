@@ -1,5 +1,6 @@
 ﻿namespace GoceTransportApp.Web
 {
+    using System;
     using System.Reflection;
 
     using GoceTransportApp.Data;
@@ -18,7 +19,7 @@
     using GoceTransportApp.Services.Mapping;
     using GoceTransportApp.Services.Messaging;
     using GoceTransportApp.Web.ViewModels;
-
+    using Microsoft.AspNetCore.Authentication.Cookies;
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Http;
     using Microsoft.AspNetCore.Mvc;
@@ -61,6 +62,24 @@
                     options.Filters.Add(new AutoValidateAntiforgeryTokenAttribute());
                 }).AddRazorRuntimeCompilation();
             services.AddRazorPages();
+            services.AddAuthentication(options =>
+            {
+                options.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+                options.DefaultChallengeScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+            })
+                .AddGoogle(googleOptions =>
+                {
+                    var googleConfig = configuration.GetSection("Authentication:Google");
+                    googleOptions.ClientId = googleConfig["ClientId"];
+                    googleOptions.ClientSecret = googleConfig["ClientSecret"];
+                })
+                .AddFacebook(facebookOptions =>
+                {
+                    var facebookConfig = configuration.GetSection("Authentication:Facebook");
+                    facebookOptions.AppId = facebookConfig["AppId"];
+                    facebookOptions.AppSecret = facebookConfig["AppSecret"];
+                });
+
             services.AddDatabaseDeveloperPageExceptionFilter();
 
             services.AddSingleton(configuration);

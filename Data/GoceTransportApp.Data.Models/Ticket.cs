@@ -2,6 +2,7 @@
 {
     using GoceTransportApp.Data.Common.Models;
     using System;
+    using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
 
@@ -39,10 +40,7 @@
         [ForeignKey(nameof(ScheduleId))]
         public Schedule TimeTable { get; set; }
 
-        [Required]
-        public string CustomerId { get; set; }
-
-        [ForeignKey(nameof(CustomerId))]
-        public ApplicationUser Customer { get; set; }
+        public HashSet<UserTicket> TicketsUsers { get; set; }
+        = new HashSet<UserTicket>();
     }
 }

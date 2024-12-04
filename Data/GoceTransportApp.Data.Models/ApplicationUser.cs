@@ -54,8 +54,8 @@ namespace GoceTransportApp.Data.Models
         [PersonalData]
         public string City { get; set; }
 
-        public HashSet<Ticket> UserTickets { get; set; }
-        = new HashSet<Ticket>();
+        public HashSet<UserTicket> UsersTickets { get; set; }
+        = new HashSet<UserTicket>();
 
         public HashSet<Organization> UserOrganizations { get; set; }
         = new HashSet<Organization>();

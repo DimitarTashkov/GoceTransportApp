@@ -1,0 +1,23 @@
+﻿@model GoceTransportApp.Web.ViewModels.Schedules.ScheduleDetailsViewModel
+
+<div class="card shadow-sm mx-auto" style="max-width: 600px;">
+    <div class="card-body">
+        <h5 class="card-title">
+            <i class="fas fa-calendar-day text-primary"></i> @Model.Day
+        </h5>
+        <p class="card-text">
+            <strong>Departing:</strong> @Model.Departing <br />
+            <strong>Arriving:</strong> @Model.Arriving <br />
+            <strong>From:</strong> @Model.FromCity (@Model.FromStreet) <br />
+            <strong>To:</strong> @Model.ToCity (@Model.ToStreet) <br />
+            <strong>Vehicle:</strong> @Model.VehicleNumber <br />
+            <strong>Organization:</strong> @Model.OrganizationName
+        </p>
+        <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-warning">
+            <i class="fas fa-edit"></i> Edit
+        </a>
+        <a asp-action="Delete" asp-route-id="@Model.Id" class="btn btn-danger">
+            <i class="fas fa-trash-alt"></i> Delete
+        </a>
+    </div>
+</div>

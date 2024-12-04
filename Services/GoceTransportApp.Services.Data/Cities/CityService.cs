@@ -137,7 +137,7 @@ namespace GoceTransportApp.Services.Data.Cities
             return result;
         }
 
-        public async Task<CityAddStreetInputModel> GetAddMovieToCinemaInputModelByIdAsync(Guid cityId)
+        public async Task<CityAddStreetInputModel> GetAddStreetToCityModel(Guid cityId)
         {
             City? city = await this.cityRepository
                 .GetByIdAsync(cityId);

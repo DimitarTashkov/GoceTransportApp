@@ -170,7 +170,7 @@ namespace GoceTransportApp.Web.Controllers
             }
 
             CityAddStreetInputModel? viewModel = await this.cityService
-                .GetAddMovieToCinemaInputModelByIdAsync(cityGuid);
+                .GetAddStreetToCityModel(cityGuid);
 
             if (viewModel == null)
             {

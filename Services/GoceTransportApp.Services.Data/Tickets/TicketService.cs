@@ -83,7 +83,7 @@ namespace GoceTransportApp.Services.Data.Tickets
             return result;
         }
 
-        public async Task<IEnumerable<TicketDataViewModel>> GetAllTickets()
+        public async Task<IEnumerable<TicketDataViewModel>> GetAllTicketsAsync()
         {
             IEnumerable<TicketDataViewModel> model = await ticketRepository.AllAsNoTracking()
                 .Include(r => r.TimeTable)
@@ -102,7 +102,7 @@ namespace GoceTransportApp.Services.Data.Tickets
             return model;
         }
 
-        public async Task<RemoveTicketViewModel> GetTicketForDeletion(Guid id)
+        public async Task<RemoveTicketViewModel> GetTicketForDeletionAsync(Guid id)
         {
             RemoveTicketViewModel deleteModel = await ticketRepository.AllAsNoTracking()
                 .Include(r => r.Route)
@@ -121,7 +121,7 @@ namespace GoceTransportApp.Services.Data.Tickets
             return deleteModel;
         }
 
-        public async Task<EditTicketInputModel> GetTicketForEdit(Guid id)
+        public async Task<EditTicketInputModel> GetTicketForEditAsync(Guid id)
         {
             EditTicketInputModel editModel = await ticketRepository.AllAsNoTracking()
                .Select(ticket => new EditTicketInputModel()
@@ -163,7 +163,7 @@ namespace GoceTransportApp.Services.Data.Tickets
             return true;
         }
 
-        public async Task<TicketDetailsViewModel> TicketDetails(Guid id)
+        public async Task<TicketDetailsViewModel> GetTicketDetailsAsync(Guid id)
         {
             TicketDetailsViewModel viewModel = null;
 

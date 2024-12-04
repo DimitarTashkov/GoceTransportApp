@@ -78,7 +78,7 @@ namespace GoceTransportApp.Services.Data.Vehicles
             return result;
         }
 
-        public async Task<IEnumerable<VehicleDataViewModel>> GetAllVehicles()
+        public async Task<IEnumerable<VehicleDataViewModel>> GetAllVehiclesAsync()
         {
             IEnumerable<VehicleDataViewModel> model = await vehicleRepository.AllAsNoTracking()
               .Select(c => new VehicleDataViewModel()
@@ -94,7 +94,7 @@ namespace GoceTransportApp.Services.Data.Vehicles
             return model;
         }
 
-        public async Task<RemoveVehicleViewModel> GetVehicleForDeletion(Guid id)
+        public async Task<RemoveVehicleViewModel> GetVehicleForDeletionAsync(Guid id)
         {
             RemoveVehicleViewModel deleteModel = await vehicleRepository.AllAsNoTracking()
                 .Select(vehicle => new RemoveVehicleViewModel()
@@ -108,7 +108,7 @@ namespace GoceTransportApp.Services.Data.Vehicles
             return deleteModel;
         }
 
-        public async Task<EditVehicleInputModel> GetVehicleForEdit(Guid id)
+        public async Task<EditVehicleInputModel> GetVehicleForEditAsync(Guid id)
         {
             EditVehicleInputModel editModel = await vehicleRepository.AllAsNoTracking()
               .Select(vehicle => new EditVehicleInputModel()
@@ -152,7 +152,7 @@ namespace GoceTransportApp.Services.Data.Vehicles
             return true;
         }
 
-        public async Task<VehicleDetailsViewModel> VehicleDetails(Guid id)
+        public async Task<VehicleDetailsViewModel> GetVehicleDetailsAsync(Guid id)
         {
             VehicleDetailsViewModel viewModel = null;
 

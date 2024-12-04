@@ -9,11 +9,11 @@ namespace GoceTransportApp.Services.Data.Streets
 {
     public interface IStreetService
     {
-        Task<IEnumerable<StreetDataViewModel>> GetAllStreets();
+        Task<IEnumerable<StreetDataViewModel>> GetAllStreetsAsync();
 
         Task CreateAsync(StreetInputModel inputModel);
 
-        Task<EditStreetInputModel> GetStreetForEdit(Guid id);
+        Task<EditStreetInputModel> GetStreetForEditAsync(Guid id);
 
         Task<bool> EditStreetAsync(EditStreetInputModel inputModel);
 

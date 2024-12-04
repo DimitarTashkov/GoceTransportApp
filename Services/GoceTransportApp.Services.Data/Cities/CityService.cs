@@ -25,7 +25,7 @@ namespace GoceTransportApp.Services.Data.Cities
             this.cityStreetRepository = cityStreetRepository;
         }
 
-        public async Task<bool> AddStreetToCity(Guid cityId, CityAddStreetInputModel model)
+        public async Task<bool> AddStreetToCityAsync(Guid cityId, CityAddStreetInputModel model)
         {
             City city = await cityRepository.GetByIdAsync(cityId);
 
@@ -137,7 +137,7 @@ namespace GoceTransportApp.Services.Data.Cities
             return result;
         }
 
-        public async Task<CityAddStreetInputModel> GetAddStreetToCityModel(Guid cityId)
+        public async Task<CityAddStreetInputModel> GetAddStreetToCityModelAsync(Guid cityId)
         {
             City? city = await this.cityRepository
                 .GetByIdAsync(cityId);
@@ -168,7 +168,7 @@ namespace GoceTransportApp.Services.Data.Cities
             return viewModel;
         }
 
-        public async Task<IEnumerable<CityDataViewModel>> GetAllCities()
+        public async Task<IEnumerable<CityDataViewModel>> GetAllCitiesAsync()
         {
             IEnumerable<CityDataViewModel> model = await cityRepository.AllAsNoTracking()
                .Select(c => new CityDataViewModel()
@@ -183,7 +183,7 @@ namespace GoceTransportApp.Services.Data.Cities
             return model;
         }
 
-        public async Task<IEnumerable<StreetDataViewModel>> GetAllStreetsInCity(Guid cityId)
+        public async Task<IEnumerable<StreetDataViewModel>> GetAllStreetsInCityAsync(Guid cityId)
         {
             IEnumerable<StreetDataViewModel> model = await streetRepository.AllAsNoTracking()
                 .Where(s => s.StreetsCities.Any(sc => sc.CityId == cityId))
@@ -197,7 +197,7 @@ namespace GoceTransportApp.Services.Data.Cities
             return model;
         }
 
-        public async Task<CityDetailsViewModel> GetCityDetails(Guid id)
+        public async Task<CityDetailsViewModel> GetCityDetailsAsync(Guid id)
         {
             CityDetailsViewModel viewModel = null;
 
@@ -228,7 +228,7 @@ namespace GoceTransportApp.Services.Data.Cities
             return viewModel;
         }
 
-        public async Task<CityDetailsViewModel> GetCityDetailsByName(string name)
+        public async Task<CityDetailsViewModel> GetCityDetailsByNameAsync(string name)
         {
             CityDetailsViewModel viewModel = null;
 
@@ -259,7 +259,7 @@ namespace GoceTransportApp.Services.Data.Cities
             return viewModel;
         }
 
-        public async Task<EditCityInputModel> GetCityForEdit(Guid id)
+        public async Task<EditCityInputModel> GetCityForEditAsync(Guid id)
         {
             EditCityInputModel editModel = await cityRepository.AllAsNoTracking()
                 .Select(c => new EditCityInputModel()

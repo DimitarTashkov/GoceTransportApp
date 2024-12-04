@@ -24,7 +24,7 @@ namespace GoceTransportApp.Web.Controllers
         [HttpGet]
         public async Task<IActionResult> Index()
         {
-            var model = await driverService.GetAllDrivers();
+            var model = await driverService.GetAllDriversAsync();
 
             return View(model);
         }
@@ -63,7 +63,7 @@ namespace GoceTransportApp.Web.Controllers
             }
 
             EditDriverInputModel? formModel = await this.driverService
-                .GetDriverForEdit(driverGuid);
+                .GetDriverForEditAsync(driverGuid);
 
             if (formModel == null)
             {
@@ -105,7 +105,7 @@ namespace GoceTransportApp.Web.Controllers
             }
 
             RemoveDriverViewModel? model = await driverService
-                .GetDriverForDeletion(driverGuid);
+                .GetDriverForDeletionAsync(driverGuid);
 
             if (model == null)
             {
@@ -147,7 +147,7 @@ namespace GoceTransportApp.Web.Controllers
             }
 
             DriverDetailsViewModel? model = await driverService
-                .DriverDetails(driverGuid);
+                .GetDriverDetailsAsync(driverGuid);
 
             if (model == null)
             {

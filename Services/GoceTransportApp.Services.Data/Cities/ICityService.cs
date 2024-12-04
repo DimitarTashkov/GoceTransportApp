@@ -10,21 +10,21 @@ namespace GoceTransportApp.Services.Data.Cities
 {
     public interface ICityService
     {
-        Task<IEnumerable<CityDataViewModel>> GetAllCities();
+        Task<IEnumerable<CityDataViewModel>> GetAllCitiesAsync();
 
-        Task<CityDetailsViewModel> GetCityDetails(Guid id);
+        Task<CityDetailsViewModel> GetCityDetailsAsync(Guid id);
 
-        Task<CityDetailsViewModel> GetCityDetailsByName(string name);
+        Task<CityDetailsViewModel> GetCityDetailsByNameAsync(string name);
 
-        Task<IEnumerable<StreetDataViewModel>> GetAllStreetsInCity(Guid cityId);
+        Task<IEnumerable<StreetDataViewModel>> GetAllStreetsInCityAsync(Guid cityId);
 
-        Task<CityAddStreetInputModel?> GetAddStreetToCityModel(Guid id);
+        Task<CityAddStreetInputModel?> GetAddStreetToCityModelAsync(Guid id);
 
-        Task<bool> AddStreetToCity(Guid cityId, CityAddStreetInputModel model);
+        Task<bool> AddStreetToCityAsync(Guid cityId, CityAddStreetInputModel model);
 
         Task CreateAsync(CityInputModel inputModel);
 
-        Task<EditCityInputModel> GetCityForEdit(Guid id);
+        Task<EditCityInputModel> GetCityForEditAsync(Guid id);
 
         Task<bool> EditCityAsync(EditCityInputModel inputModel);
 

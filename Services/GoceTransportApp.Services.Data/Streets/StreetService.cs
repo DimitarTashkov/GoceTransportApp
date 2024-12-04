@@ -65,7 +65,7 @@ namespace GoceTransportApp.Services.Data.Streets
             return result;
         }
 
-        public async Task<IEnumerable<StreetDataViewModel>> GetAllStreets()
+        public async Task<IEnumerable<StreetDataViewModel>> GetAllStreetsAsync()
         {
             IEnumerable<StreetDataViewModel> model = await streetRepository.AllAsNoTracking()
                 .Select(s => new StreetDataViewModel()
@@ -78,7 +78,7 @@ namespace GoceTransportApp.Services.Data.Streets
             return model;
         }
 
-        public async Task<EditStreetInputModel> GetStreetForEdit(Guid id)
+        public async Task<EditStreetInputModel> GetStreetForEditAsync(Guid id)
         {
             EditStreetInputModel editModel = await streetRepository.AllAsNoTracking()
                 .Select(s => new EditStreetInputModel()

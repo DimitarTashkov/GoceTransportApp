@@ -10,18 +10,18 @@ namespace GoceTransportApp.Services.Data.Schedules
 {
     public interface IScheduleService
     {
-        Task<IEnumerable<ScheduleDataViewModel>> GetAllSchedules();
+        Task<IEnumerable<ScheduleDataViewModel>> GetAllSchedulesAsync();
 
         Task CreateAsync(ScheduleInputModel inputModel);
 
-        Task<EditScheduleInputModel> GetScheduleForEdit(Guid id);
+        Task<EditScheduleInputModel> GetScheduleForEditAsync(Guid id);
 
         Task<bool> EditScheduleAsync(EditScheduleInputModel inputModel);
 
-        Task<RemoveScheduleViewModel> GetScheduleForDeletion(Guid id);
+        Task<RemoveScheduleViewModel> GetScheduleForDeletionAsync(Guid id);
 
         Task<bool> RemoveScheduleAsync(RemoveScheduleViewModel inputModel);
 
-        Task<ScheduleDetailsViewModel> ScheduleDetails(Guid id);
+        Task<ScheduleDetailsViewModel> GetScheduleDetailsAsync(Guid id);
     }
 }

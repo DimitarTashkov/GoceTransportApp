@@ -21,7 +21,7 @@ namespace GoceTransportApp.Web.Controllers
         [HttpGet]
         public async Task<IActionResult> Index()
         {
-            var model = await scheduleService.GetAllSchedules();
+            var model = await scheduleService.GetAllSchedulesAsync();
 
             return View(model);
         }
@@ -60,7 +60,7 @@ namespace GoceTransportApp.Web.Controllers
             }
 
             EditScheduleInputModel? formModel = await this.scheduleService
-                .GetScheduleForEdit(scheduleGuid);
+                .GetScheduleForEditAsync(scheduleGuid);
 
             if (formModel == null)
             {
@@ -102,7 +102,7 @@ namespace GoceTransportApp.Web.Controllers
             }
 
             RemoveScheduleViewModel? model = await scheduleService
-                .GetScheduleForDeletion(scheduleGuid);
+                .GetScheduleForDeletionAsync(scheduleGuid);
 
             if (model == null)
             {
@@ -144,7 +144,7 @@ namespace GoceTransportApp.Web.Controllers
             }
 
             ScheduleDetailsViewModel? model = await scheduleService
-                .ScheduleDetails(scheduleGuid);
+                .GetScheduleDetailsAsync(scheduleGuid);
 
             if (model == null)
             {

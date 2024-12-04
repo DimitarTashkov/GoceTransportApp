@@ -25,7 +25,7 @@ namespace GoceTransportApp.Web.Controllers
         [HttpGet]
         public async Task<IActionResult> Index()
         {
-            var model = await cityService.GetAllCities();
+            var model = await cityService.GetAllCitiesAsync();
 
             return View(model);
         }
@@ -65,7 +65,7 @@ namespace GoceTransportApp.Web.Controllers
             }
 
             EditCityInputModel? formModel = await this.cityService
-                .GetCityForEdit(cityGuid);
+                .GetCityForEditAsync(cityGuid);
 
             if (formModel == null)
             {
@@ -131,7 +131,7 @@ namespace GoceTransportApp.Web.Controllers
             }
 
             CityDetailsViewModel? model = await this.cityService
-                .GetCityDetails(cityGuid);
+                .GetCityDetailsAsync(cityGuid);
             if (model == null)
             {
                 return this.RedirectToAction(nameof(Index));
@@ -149,7 +149,7 @@ namespace GoceTransportApp.Web.Controllers
             }
 
             CityDetailsViewModel? model = await this.cityService
-                .GetCityDetailsByName(name);
+                .GetCityDetailsByNameAsync(name);
 
             if (model == null)
             {
@@ -170,7 +170,7 @@ namespace GoceTransportApp.Web.Controllers
             }
 
             CityAddStreetInputModel? viewModel = await this.cityService
-                .GetAddStreetToCityModel(cityGuid);
+                .GetAddStreetToCityModelAsync(cityGuid);
 
             if (viewModel == null)
             {
@@ -196,7 +196,7 @@ namespace GoceTransportApp.Web.Controllers
             }
 
             bool result = await this.cityService
-                .AddStreetToCity(cityGuid, model);
+                .AddStreetToCityAsync(cityGuid, model);
             if (result == false)
             {
                 // TODO: Add temp message and redirect to Details
@@ -216,7 +216,7 @@ namespace GoceTransportApp.Web.Controllers
                 return this.RedirectToAction(nameof(Index));
             }
 
-            IEnumerable<StreetDataViewModel> model = await cityService.GetAllStreetsInCity(cityGuid);
+            IEnumerable<StreetDataViewModel> model = await cityService.GetAllStreetsInCityAsync(cityGuid);
 
             if (model == null)
             {

@@ -10,18 +10,18 @@ namespace GoceTransportApp.Services.Data.Tickets
 {
     public interface ITicketService
     {
-        Task<IEnumerable<TicketDataViewModel>> GetAllTickets();
+        Task<IEnumerable<TicketDataViewModel>> GetAllTicketsAsync();
 
         Task CreateAsync(TicketInputModel inputModel);
 
-        Task<EditTicketInputModel> GetTicketForEdit(Guid id);
+        Task<EditTicketInputModel> GetTicketForEditAsync(Guid id);
 
         Task<bool> EditTicketAsync(EditTicketInputModel inputModel);
 
-        Task<RemoveTicketViewModel> GetTicketForDeletion(Guid id);
+        Task<RemoveTicketViewModel> GetTicketForDeletionAsync(Guid id);
 
         Task<bool> RemoveTicketAsync(RemoveTicketViewModel inputModel);
 
-        Task<TicketDetailsViewModel> TicketDetails(Guid id);
+        Task<TicketDetailsViewModel> GetTicketDetailsAsync(Guid id);
     }
 }

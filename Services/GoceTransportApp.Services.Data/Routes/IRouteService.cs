@@ -11,21 +11,21 @@ namespace GoceTransportApp.Services.Data.Routes
 {
     public interface IRouteService
     {
-        Task<IEnumerable<RouteDataViewModel>> GetAllRoutes();
+        Task<IEnumerable<RouteDataViewModel>> GetAllRoutesAsync();
 
-        Task<RouteDetailsViewModel> GetRouteInformation(Guid id);
+        Task<RouteDetailsViewModel> GetRouteInformationAsync(Guid id);
 
-        Task<IEnumerable<RouteDataViewModel>> SearchForCity(string searchedTerm);
+        Task<IEnumerable<RouteDataViewModel>> SearchForCityAsync(string searchedTerm);
 
-        Task<IEnumerable<RouteDataViewModel>> GetAllRoutesInOrganization(Guid organization);
+        Task<IEnumerable<RouteDataViewModel>> GetAllRoutesInOrganizationAsync(Guid organization);
 
         Task CreateAsync(RouteInputModel inputModel);
 
-        Task<EditRouteInputModel> GetRouteForEdit(Guid id);
+        Task<EditRouteInputModel> GetRouteForEditAsync(Guid id);
 
         Task<bool> EditRouteAsync(EditRouteInputModel inputModel);
 
-        Task<RemoveRouteViewModel> GetRouteForDeletion(Guid id);
+        Task<RemoveRouteViewModel> GetRouteForDeletionAsync(Guid id);
 
         Task<bool> ArchiveRouteAsync(RemoveRouteViewModel model);
 

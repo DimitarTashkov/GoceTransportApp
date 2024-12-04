@@ -23,7 +23,7 @@ namespace GoceTransportApp.Web.Controllers
         [HttpGet]
         public async Task<IActionResult> Index()
         {
-            var model = await vehicleService.GetAllVehicles();
+            var model = await vehicleService.GetAllVehiclesAsync();
 
             return View(model);
         }
@@ -62,7 +62,7 @@ namespace GoceTransportApp.Web.Controllers
             }
 
             EditVehicleInputModel? formModel = await this.vehicleService
-                .GetVehicleForEdit(vehicleGuid);
+                .GetVehicleForEditAsync(vehicleGuid);
 
             if (formModel == null)
             {
@@ -104,7 +104,7 @@ namespace GoceTransportApp.Web.Controllers
             }
 
             RemoveVehicleViewModel? model = await vehicleService
-                .GetVehicleForDeletion(vehicleGuid);
+                .GetVehicleForDeletionAsync(vehicleGuid);
 
             if (model == null)
             {
@@ -146,7 +146,7 @@ namespace GoceTransportApp.Web.Controllers
             }
 
             VehicleDetailsViewModel? model = await vehicleService
-                .VehicleDetails(vehicleGuid);
+                .GetVehicleDetailsAsync(vehicleGuid);
 
             if (model == null)
             {

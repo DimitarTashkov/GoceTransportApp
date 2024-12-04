@@ -92,7 +92,7 @@ namespace GoceTransportApp.Services.Data.Schedules
             return result;
         }
 
-        public async Task<IEnumerable<ScheduleDataViewModel>> GetAllSchedules()
+        public async Task<IEnumerable<ScheduleDataViewModel>> GetAllSchedulesAsync()
         {
             IEnumerable<ScheduleDataViewModel> model = await scheduleRepository.AllAsNoTracking()
                 .Include(r => r.Route)
@@ -114,7 +114,7 @@ namespace GoceTransportApp.Services.Data.Schedules
             return model;
         }
 
-        public async Task<RemoveScheduleViewModel> GetScheduleForDeletion(Guid id)
+        public async Task<RemoveScheduleViewModel> GetScheduleForDeletionAsync(Guid id)
         {
             RemoveScheduleViewModel deleteModel = await scheduleRepository.AllAsNoTracking()
                 .Include(r => r.Route)
@@ -136,7 +136,7 @@ namespace GoceTransportApp.Services.Data.Schedules
             return deleteModel;
         }
 
-        public async Task<EditScheduleInputModel> GetScheduleForEdit(Guid id)
+        public async Task<EditScheduleInputModel> GetScheduleForEditAsync(Guid id)
         {
             EditScheduleInputModel editModel = await scheduleRepository.AllAsNoTracking()
               .Select(schedule => new EditScheduleInputModel()
@@ -178,7 +178,7 @@ namespace GoceTransportApp.Services.Data.Schedules
             return true;
         }
 
-        public async Task<ScheduleDetailsViewModel> ScheduleDetails(Guid id)
+        public async Task<ScheduleDetailsViewModel> GetScheduleDetailsAsync(Guid id)
         {
             ScheduleDetailsViewModel viewModel = null;
 

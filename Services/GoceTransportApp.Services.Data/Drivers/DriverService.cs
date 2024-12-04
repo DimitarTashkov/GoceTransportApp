@@ -47,7 +47,7 @@ namespace GoceTransportApp.Services.Data.Drivers
             await driverRepository.SaveChangesAsync();
         }
 
-        public async Task<DriverDetailsViewModel> DriverDetails(Guid id)
+        public async Task<DriverDetailsViewModel> GetDriverDetailsAsync(Guid id)
         {
             DriverDetailsViewModel viewModel = null;
 
@@ -93,7 +93,7 @@ namespace GoceTransportApp.Services.Data.Drivers
             return result;
         }
 
-        public async Task<IEnumerable<DriverDataViewModel>> GetAllDrivers()
+        public async Task<IEnumerable<DriverDataViewModel>> GetAllDriversAsync()
         {
             IEnumerable<DriverDataViewModel> model = await driverRepository.AllAsNoTracking()
               .Select(c => new DriverDataViewModel()
@@ -107,7 +107,7 @@ namespace GoceTransportApp.Services.Data.Drivers
             return model;
         }
 
-        public async Task<RemoveDriverViewModel> GetDriverForDeletion(Guid id)
+        public async Task<RemoveDriverViewModel> GetDriverForDeletionAsync(Guid id)
         {
             RemoveDriverViewModel deleteModel = await driverRepository.AllAsNoTracking()
                 .Select(driver => new RemoveDriverViewModel()
@@ -122,7 +122,7 @@ namespace GoceTransportApp.Services.Data.Drivers
             return deleteModel;
         }
 
-        public async Task<EditDriverInputModel> GetDriverForEdit(Guid id)
+        public async Task<EditDriverInputModel> GetDriverForEditAsync(Guid id)
         {
             EditDriverInputModel editModel = await driverRepository.AllAsNoTracking()
               .Select(driver => new EditDriverInputModel()

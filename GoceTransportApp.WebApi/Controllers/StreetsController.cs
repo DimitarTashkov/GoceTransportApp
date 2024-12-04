@@ -34,7 +34,7 @@ namespace GoceTransportApp.WebApi.Controllers
                 return this.BadRequest();
             }
 
-            IEnumerable<StreetDataViewModel> streets = await cityService.GetAllStreetsInCity(cityGuid);
+            IEnumerable<StreetDataViewModel> streets = await cityService.GetAllStreetsInCityAsync(cityGuid);
             return Ok(streets);
         }
         protected bool IsGuidValid(string? id, ref Guid parsedGuid)

@@ -115,7 +115,7 @@ namespace GoceTransportApp.Services.Data.Routes
             return result;
         }
 
-        public async Task<IEnumerable<RouteDataViewModel>> SearchForCity(string searchedTerm)
+        public async Task<IEnumerable<RouteDataViewModel>> SearchForCityAsync(string searchedTerm)
         {
                 IEnumerable<RouteDataViewModel> model = await routeReposiory.AllAsNoTracking()
                 .Include(c => c.FromCity)
@@ -129,7 +129,7 @@ namespace GoceTransportApp.Services.Data.Routes
                 return model;
         }
 
-        public async Task<IEnumerable<RouteDataViewModel>> GetAllRoutes()
+        public async Task<IEnumerable<RouteDataViewModel>> GetAllRoutesAsync()
         {
             IEnumerable<RouteDataViewModel> model = await routeReposiory.AllAsNoTracking()
                 .Include(c => c.FromCity)
@@ -142,7 +142,7 @@ namespace GoceTransportApp.Services.Data.Routes
             return model;
         }
 
-        public async Task<RemoveRouteViewModel> GetRouteForDeletion(Guid id)
+        public async Task<RemoveRouteViewModel> GetRouteForDeletionAsync(Guid id)
         {
             RemoveRouteViewModel editModel = await routeReposiory.AllAsNoTracking()
                 .Include(c => c.FromCity)
@@ -163,7 +163,7 @@ namespace GoceTransportApp.Services.Data.Routes
             return editModel;
         }
 
-        public async Task<EditRouteInputModel> GetRouteForEdit(Guid id)
+        public async Task<EditRouteInputModel> GetRouteForEditAsync(Guid id)
         {
             EditRouteInputModel editModel = await routeReposiory.AllAsNoTracking()
                .Select(route => new EditRouteInputModel()
@@ -192,7 +192,7 @@ namespace GoceTransportApp.Services.Data.Routes
             return editModel;
         }
 
-        public async Task<RouteDetailsViewModel> GetRouteInformation(Guid id)
+        public async Task<RouteDetailsViewModel> GetRouteInformationAsync(Guid id)
         {
             RouteDetailsViewModel viewModel = null;
 
@@ -243,7 +243,7 @@ namespace GoceTransportApp.Services.Data.Routes
             return viewModel;
         }
 
-        public async Task<IEnumerable<RouteDataViewModel>> GetAllRoutesInOrganization(Guid organization)
+        public async Task<IEnumerable<RouteDataViewModel>> GetAllRoutesInOrganizationAsync(Guid organization)
         {
             IEnumerable<RouteDataViewModel> model = await routeReposiory.AllAsNoTracking()
                 .Include(c => c.FromCity)

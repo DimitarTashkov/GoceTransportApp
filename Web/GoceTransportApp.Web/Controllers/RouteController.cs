@@ -24,7 +24,7 @@ namespace GoceTransportApp.Web.Controllers
         [HttpGet]
         public async Task<IActionResult> Index()
         {
-            var model = await routeService.GetAllRoutes();
+            var model = await routeService.GetAllRoutesAsync();
 
             return View(model);
         }
@@ -64,7 +64,7 @@ namespace GoceTransportApp.Web.Controllers
             }
 
             EditRouteInputModel? formModel = await this.routeService
-                .GetRouteForEdit(routeGuid);
+                .GetRouteForEditAsync(routeGuid);
 
             if (formModel == null)
             {
@@ -106,7 +106,7 @@ namespace GoceTransportApp.Web.Controllers
             }
 
             RemoveRouteViewModel? model = await routeService
-                .GetRouteForDeletion(routeGuid);
+                .GetRouteForDeletionAsync(routeGuid);
 
             if (model == null)
             {
@@ -171,7 +171,7 @@ namespace GoceTransportApp.Web.Controllers
             }
 
             RouteDetailsViewModel? model = await routeService
-                .GetRouteInformation(routeGuid);
+                .GetRouteInformationAsync(routeGuid);
 
             if (model == null)
             {

@@ -22,7 +22,7 @@ namespace GoceTransportApp.Web.Controllers
         [HttpGet]
         public async Task<IActionResult> Index()
         {
-            var model = await ticketService.GetAllTickets();
+            var model = await ticketService.GetAllTicketsAsync();
 
             return View(model);
         }
@@ -61,7 +61,7 @@ namespace GoceTransportApp.Web.Controllers
             }
 
             EditTicketInputModel? formModel = await this.ticketService
-                .GetTicketForEdit(scheduleGuid);
+                .GetTicketForEditAsync(scheduleGuid);
 
             if (formModel == null)
             {
@@ -103,7 +103,7 @@ namespace GoceTransportApp.Web.Controllers
             }
 
             RemoveTicketViewModel? model = await ticketService
-                .GetTicketForDeletion(ticketGuid);
+                .GetTicketForDeletionAsync(ticketGuid);
 
             if (model == null)
             {
@@ -145,7 +145,7 @@ namespace GoceTransportApp.Web.Controllers
             }
 
             TicketDetailsViewModel? model = await ticketService
-                .TicketDetails(ticketGuid);
+                .GetTicketDetailsAsync(ticketGuid);
 
             if (model == null)
             {

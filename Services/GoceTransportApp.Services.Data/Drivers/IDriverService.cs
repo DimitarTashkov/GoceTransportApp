@@ -11,17 +11,18 @@ namespace GoceTransportApp.Services.Data.Drivers
 {
     public interface IDriverService
     {
-        Task<IEnumerable<DriverDataViewModel>> GetAllDrivers();
+        Task<IEnumerable<DriverDataViewModel>> GetAllDriversAsync();
 
         Task CreateAsync(DriverInputModel inputModel);
 
-        Task<EditDriverInputModel> GetDriverForEdit(Guid id);
+        Task<EditDriverInputModel> GetDriverForEditAsync(Guid id);
 
         Task<bool> EditDriverAsync(EditDriverInputModel inputModel);
 
-        Task<RemoveDriverViewModel> GetDriverForDeletion(Guid id);
+        Task<RemoveDriverViewModel> GetDriverForDeletionAsync(Guid id);
 
         Task<bool> RemoveDriverAsync(RemoveDriverViewModel inputModel);
-        Task<DriverDetailsViewModel> DriverDetails(Guid id);
+
+        Task<DriverDetailsViewModel> GetDriverDetailsAsync(Guid id);
     }
 }

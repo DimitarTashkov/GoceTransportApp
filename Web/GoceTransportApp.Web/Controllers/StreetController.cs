@@ -23,7 +23,7 @@ namespace GoceTransportApp.Web.Controllers
         [HttpGet]
         public async Task<IActionResult> Index()
         {
-            var model = await streetService.GetAllStreets();
+            var model = await streetService.GetAllStreetsAsync();
 
             return View(model);
         }
@@ -63,7 +63,7 @@ namespace GoceTransportApp.Web.Controllers
             }
 
             EditStreetInputModel? formModel = await this.streetService
-                .GetStreetForEdit(streetGuid);
+                .GetStreetForEditAsync(streetGuid);
 
             if (formModel == null)
             {

@@ -58,5 +58,12 @@
             public const string VehicleEditFailed = "Unexpected error occurred while updating the vehicle! Please contact administrator!";
             public const string VehicleDeleteFailed = "Unexpected error occurred while deleting the vehicle! Please contact administrator!";
         }
+
+        public static class ScheduleMessages
+        {
+            public const string InvalidScheduleDetails = "Unexpected error occurred while extracting schedule details! Please contact administrator!";
+            public const string ScheduleEditFailed = "Unexpected error occurred while updating the schedule! Please contact administrator!";
+            public const string ScheduleDeleteFailed = "Unexpected error occurred while deleting the schedule! Please contact administrator!";
+        }
     }
 }

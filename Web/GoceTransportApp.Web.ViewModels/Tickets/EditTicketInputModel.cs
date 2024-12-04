@@ -14,10 +14,10 @@ namespace GoceTransportApp.Web.ViewModels.Tickets
         public string Id { get; set; }
 
         [Required]
-        public DateTime IssuedDate { get; set; }
+        public string IssuedDate { get; set; }
 
         [Required]
-        public DateTime ExpiryDate { get; set; }
+        public string ExpiryDate { get; set; }
 
         [Required]
         public decimal Price { get; set; }

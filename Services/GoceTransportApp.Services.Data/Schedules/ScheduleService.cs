@@ -15,9 +15,9 @@ namespace GoceTransportApp.Services.Data.Schedules
 {
     public class ScheduleService : BaseService, IScheduleService
     {
-        private readonly IRepository<Schedule> scheduleRepository;
+        private readonly IDeletableEntityRepository<Schedule> scheduleRepository;
 
-        public ScheduleService(IRepository<Schedule> scheduleRepository)
+        public ScheduleService(IDeletableEntityRepository<Schedule> scheduleRepository)
         {
             this.scheduleRepository = scheduleRepository;
         }

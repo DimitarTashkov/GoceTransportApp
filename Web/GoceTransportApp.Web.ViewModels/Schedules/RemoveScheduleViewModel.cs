@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace GoceTransportApp.Web.ViewModels.Schedules
 {
-    public class RemoveSchedule
+    public class RemoveScheduleViewModel
     {
         public string Id { get; set; } = null!;
 

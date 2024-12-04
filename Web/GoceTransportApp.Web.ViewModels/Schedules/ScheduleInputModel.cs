@@ -12,13 +12,13 @@ namespace GoceTransportApp.Web.ViewModels.Schedules
     public class ScheduleInputModel
     {
         [Required]
-        public DayOfWeek Day { get; set; }
+        public string Day { get; set; }
 
         [Required]
-        public DateTime Departure { get; set; }
+        public string Departure { get; set; }
 
         [Required]
-        public DateTime Arrival { get; set; }
+        public string Arrival { get; set; }
 
         [Required]
         public string OrganizationId { get; set; }

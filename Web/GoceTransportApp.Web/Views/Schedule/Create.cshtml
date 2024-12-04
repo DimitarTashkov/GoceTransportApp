@@ -1,0 +1,48 @@
+﻿@model GoceTransportApp.Web.ViewModels.Schedules.ScheduleInputModel
+
+@{
+    ViewData["Title"] = "Create Schedule";
+}
+
+<h1 class="text-center mt-4">@ViewData["Title"]</h1>
+
+<div class="card shadow-sm mx-auto" style="max-width: 600px;">
+    <div class="card-body">
+        <form asp-action="Create">
+            <div class="mb-3">
+                <label asp-for="Day" class="form-label"><i class="fas fa-calendar-day"></i> Day</label>
+                <input asp-for="Day" type="text" class="form-control datetimepicker" placeholder="Select a day" />
+                <span asp-validation-for="Day" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="Departure" class="form-label"><i class="fas fa-clock"></i> Departure</label>
+                <input asp-for="Departure" type="text" class="form-control datetimepicker" placeholder="Select departure time" />
+                <span asp-validation-for="Departure" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="Arrival" class="form-label"><i class="fas fa-clock"></i> Arrival</label>
+                <input asp-for="Arrival" type="text" class="form-control datetimepicker" placeholder="Select arrival time" />
+                <span asp-validation-for="Arrival" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="VehicleId" class="form-label"><i class="fas fa-bus"></i> Vehicle</label>
+                <input asp-for="VehicleId" class="form-control" />
+                <span asp-validation-for="VehicleId" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="RouteId" class="form-label"><i class="fas fa-map-signs"></i> Route</label>
+                <input asp-for="RouteId" class="form-control" />
+                <span asp-validation-for="RouteId" class="text-danger"></span>
+            </div>
+            <button type="submit" class="btn btn-primary w-100">
+                <i class="fas fa-save"></i> Save
+            </button>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+    <script src="~/js/showDateTimePicker.js"></script>
+
+}

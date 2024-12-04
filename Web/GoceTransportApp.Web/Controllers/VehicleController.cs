@@ -13,7 +13,7 @@ namespace GoceTransportApp.Web.Controllers
 {
     public class VehicleController : BaseController
     {
-        private IVehicleService vehicleService;
+        private readonly IVehicleService vehicleService;
 
         public VehicleController(IVehicleService vehicleService)
         {

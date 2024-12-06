@@ -49,7 +49,6 @@ namespace CinemaApp.Web.Areas.Identity.Pages.Account
         [TempData]
         public string ErrorMessage { get; set; }
 
-        public IList<AuthenticationScheme> ExternalProviders { get; set; }
 
         /// <summary>
         ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
@@ -92,8 +91,6 @@ namespace CinemaApp.Web.Areas.Identity.Pages.Account
 
             // Clear the existing external cookie to ensure a clean login process
             await HttpContext.SignOutAsync(IdentityConstants.ExternalScheme);
-
-            ExternalProviders = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
 
 
             ReturnUrl = returnUrl;

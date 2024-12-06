@@ -62,23 +62,7 @@
                     options.Filters.Add(new AutoValidateAntiforgeryTokenAttribute());
                 }).AddRazorRuntimeCompilation();
             services.AddRazorPages();
-            services.AddAuthentication(options =>
-            {
-                options.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;
-                options.DefaultChallengeScheme = CookieAuthenticationDefaults.AuthenticationScheme;
-            })
-                .AddGoogle(googleOptions =>
-                {
-                    var googleConfig = configuration.GetSection("Authentication:Google");
-                    googleOptions.ClientId = googleConfig["ClientId"];
-                    googleOptions.ClientSecret = googleConfig["ClientSecret"];
-                })
-                .AddFacebook(facebookOptions =>
-                {
-                    var facebookConfig = configuration.GetSection("Authentication:Facebook");
-                    facebookOptions.AppId = facebookConfig["AppId"];
-                    facebookOptions.AppSecret = facebookConfig["AppSecret"];
-                });
+            
 
             services.AddDatabaseDeveloperPageExceptionFilter();
 

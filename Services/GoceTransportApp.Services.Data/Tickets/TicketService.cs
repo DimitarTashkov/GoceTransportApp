@@ -190,5 +190,27 @@ namespace GoceTransportApp.Services.Data.Tickets
 
             return viewModel;
         }
+
+        public async Task<bool> BuyTicketsAsync(Guid ticketId, int quantity)
+        {
+            Ticket ticket = await ticketRepository.FirstOrDefaultAsync(t => t.Id == ticketId);
+            if (ticket == null)
+            {
+                return false;
+            }
+
+            UserTicket userTicket = await userTicketRepository
+                .FirstOrDefaultAsync(ut => ut.TicketId == ticket.Id);
+
+            if (userTicket == null || userTicket.AvailableTickets < quantity)
+            {
+                return false;
+            }
+
+            userTicket.AvailableTickets -= quantity;
+            await userTicketRepository.SaveChangesAsync();
+
+            return true;
+        }
     }
 }

@@ -23,5 +23,6 @@ namespace GoceTransportApp.Services.Data.Tickets
         Task<bool> RemoveTicketAsync(RemoveTicketViewModel inputModel);
 
         Task<TicketDetailsViewModel> GetTicketDetailsAsync(Guid id);
+        Task<bool> BuyTicketsAsync(Guid ticketId, int quantity);
     }
 }

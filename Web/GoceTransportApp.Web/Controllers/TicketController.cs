@@ -156,5 +156,58 @@ namespace GoceTransportApp.Web.Controllers
 
             return View(model);
         }
+
+        [HttpGet]
+        public async Task<IActionResult> Purchase(string? id)
+        {
+            Guid ticketGuid = Guid.Empty;
+            bool isIdValid = IsGuidValid(id, ref ticketGuid);
+
+            if (!isIdValid)
+            {
+                return RedirectToAction(nameof(Index));
+            }
+
+            TicketDetailsViewModel model = await ticketService.GetTicketDetailsAsync(ticketGuid);
+
+            if (model == null)
+            {
+                TempData[nameof(InvalidTicketDetails)] = InvalidTicketDetails;
+                return RedirectToAction(nameof(Index));
+            }
+
+            // Add a property to the model to store the number of tickets the user wants to buy
+            model.QuantityToBuy = 1; // Default to 1 ticket
+            return View(model);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Purchase(TicketDetailsViewModel model)
+        {
+            if (model.QuantityToBuy <= 0)
+            {
+                ModelState.AddModelError("", "Please select a valid number of tickets.");
+                return View(model);
+            }
+
+            Guid ticketGuid = Guid.Empty;
+            bool isIdValid = IsGuidValid(model.Id, ref ticketGuid);
+
+            if (!isIdValid)
+            {
+                return RedirectToAction(nameof(Index));
+            }
+
+            var purchaseSuccess = await ticketService.BuyTicketsAsync(ticketGuid, model.QuantityToBuy);
+
+            if (!purchaseSuccess)
+            {
+                ModelState.AddModelError(nameof(TicketPurchaseFailed), TicketPurchaseFailed);
+                return View(model);
+            }
+
+            TempData[nameof(TicketPurchaseSuccess)] = TicketPurchaseSuccess;
+            return RedirectToAction(nameof(Index));
+        }
     }
 }

@@ -70,6 +70,8 @@
             public const string InvalidTicketDetails = "Unexpected error occurred while extracting ticket details! Please contact administrator!";
             public const string TicketEditFailed = "Unexpected error occurred while updating the ticket! Please contact administrator!";
             public const string TicketDeleteFailed = "Unexpected error occurred while deleting the ticket! Please contact administrator!";
+            public const string TicketPurchaseFailed = "There was an error processing your ticket purchase!";
+            public const string TicketPurchaseSuccess = "Your ticket(s) have been purchased successfully!";
         }
     }
 }

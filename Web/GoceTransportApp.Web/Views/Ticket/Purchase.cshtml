@@ -1,0 +1,35 @@
+﻿@model GoceTransportApp.Web.ViewModels.Tickets.TicketDetailsViewModel
+@using static GoceTransportApp.Common.ErrorMessages.TicketMessages
+
+@{
+    ViewData["Title"] = "Purchase Ticket";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+@if (TempData[nameof(InvalidTicketDetails)] != null)
+{
+    <div class="alert alert-danger">
+        @TempData[nameof(InvalidTicketDetails)]
+    </div>
+}
+
+<form asp-action="Purchase" method="post">
+    <div class="form-group">
+        <label for="quantity">Quantity:</label>
+        <input type="number" name="QuantityToBuy" value="@Model.QuantityToBuy" min="1" max="@Model.AvailableTickets" class="form-control" required />
+    </div>
+    <div class="form-group">
+        <p>Price: @Model.Price</p>
+        <p>Available tickets: @Model.AvailableTickets</p>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Buy Tickets</button>
+</form>
+
+@if (TempData[nameof(TicketPurchaseSuccess)] != null)
+{
+    <div class="alert alert-success mt-3">
+        @TempData[nameof(TicketPurchaseSuccess)]
+    </div>
+}

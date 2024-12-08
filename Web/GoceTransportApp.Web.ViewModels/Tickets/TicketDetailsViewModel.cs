@@ -33,5 +33,8 @@ namespace GoceTransportApp.Web.ViewModels.Tickets
         public string OrganizationName { get; set; } = null!;
 
         public int AvailableTickets { get; set; }
+
+        public int QuantityToBuy { get; set; }
+
     }
 }

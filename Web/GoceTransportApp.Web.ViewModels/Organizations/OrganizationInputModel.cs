@@ -30,9 +30,6 @@ namespace GoceTransportApp.Web.ViewModels.Organizations
         [Required]
         public string FounderId { get; set; }
 
-        [ForeignKey(nameof(FounderId))]
-        public ApplicationUser Founder { get; set; }
-
         [MaxLength(MaxPhoneNumberLength)]
         public string Phone { get; set; }
     }

@@ -12,6 +12,8 @@ namespace GoceTransportApp.Web.ViewModels.Organizations
 {
     public class OrganizationDetailsViewModel
     {
+        public string Id { get; set; } = null!;
+
         public string Name { get; set; } = null!;
 
         public string Address { get; set; }
@@ -27,6 +29,9 @@ namespace GoceTransportApp.Web.ViewModels.Organizations
 
         public HashSet<Driver> OrganizationDrivers { get; set; }
             = new HashSet<Driver>();
+
+        public HashSet<Vehicle> OrganizationVehicles { get; set; }
+            = new HashSet<Vehicle>();
 
         public HashSet<Ticket> OrganizationTickets { get; set; }
             = new HashSet<Ticket>();

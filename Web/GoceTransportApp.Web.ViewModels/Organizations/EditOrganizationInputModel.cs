@@ -32,9 +32,6 @@ namespace GoceTransportApp.Web.ViewModels.Organizations
         [Required]
         public string FounderId { get; set; }
 
-        [ForeignKey(nameof(FounderId))]
-        public ApplicationUser Founder { get; set; }
-
         [MaxLength(MaxPhoneNumberLength)]
         public string Phone { get; set; }
 
@@ -43,6 +40,9 @@ namespace GoceTransportApp.Web.ViewModels.Organizations
 
         public HashSet<Driver> OrganizationDrivers { get; set; }
             = new HashSet<Driver>();
+
+        public HashSet<Vehicle> OrganizationVehicles { get; set; }
+            = new HashSet<Vehicle>();
 
         public HashSet<Ticket> OrganizationTickets { get; set; }
             = new HashSet<Ticket>();

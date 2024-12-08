@@ -193,7 +193,7 @@ namespace GoceTransportApp.Data.Migrations
 
                     b.HasIndex("IsDeleted");
 
-                    b.ToTable("Cities");
+                    b.ToTable("Cities", (string)null);
                 });
 
             modelBuilder.Entity("GoceTransportApp.Data.Models.CityStreet", b =>
@@ -225,7 +225,7 @@ namespace GoceTransportApp.Data.Migrations
 
                     b.HasIndex("StreetId");
 
-                    b.ToTable("CitiesStreets");
+                    b.ToTable("CitiesStreets", (string)null);
                 });
 
             modelBuilder.Entity("GoceTransportApp.Data.Models.Driver", b =>
@@ -274,7 +274,7 @@ namespace GoceTransportApp.Data.Migrations
 
                     b.HasIndex("OrganizationId");
 
-                    b.ToTable("Drivers");
+                    b.ToTable("Drivers", (string)null);
                 });
 
             modelBuilder.Entity("GoceTransportApp.Data.Models.Message", b =>
@@ -320,7 +320,7 @@ namespace GoceTransportApp.Data.Migrations
 
                     b.HasIndex("SenderId");
 
-                    b.ToTable("Messages");
+                    b.ToTable("Messages", (string)null);
                 });
 
             modelBuilder.Entity("GoceTransportApp.Data.Models.Organization", b =>
@@ -368,7 +368,7 @@ namespace GoceTransportApp.Data.Migrations
 
                     b.HasIndex("IsDeleted");
 
-                    b.ToTable("Organizations");
+                    b.ToTable("Organizations", (string)null);
                 });
 
             modelBuilder.Entity("GoceTransportApp.Data.Models.Report", b =>
@@ -413,7 +413,7 @@ namespace GoceTransportApp.Data.Migrations
 
                     b.HasIndex("OrganizationId");
 
-                    b.ToTable("Reports");
+                    b.ToTable("Reports", (string)null);
                 });
 
             modelBuilder.Entity("GoceTransportApp.Data.Models.Route", b =>
@@ -469,7 +469,7 @@ namespace GoceTransportApp.Data.Migrations
 
                     b.HasIndex("ToStreetId");
 
-                    b.ToTable("Routes");
+                    b.ToTable("Routes", (string)null);
                 });
 
             modelBuilder.Entity("GoceTransportApp.Data.Models.Schedule", b =>
@@ -518,7 +518,7 @@ namespace GoceTransportApp.Data.Migrations
 
                     b.HasIndex("VehicleId");
 
-                    b.ToTable("Schedules");
+                    b.ToTable("Schedules", (string)null);
                 });
 
             modelBuilder.Entity("GoceTransportApp.Data.Models.Setting", b =>
@@ -551,7 +551,7 @@ namespace GoceTransportApp.Data.Migrations
 
                     b.HasIndex("IsDeleted");
 
-                    b.ToTable("Settings");
+                    b.ToTable("Settings", (string)null);
                 });
 
             modelBuilder.Entity("GoceTransportApp.Data.Models.Street", b =>
@@ -581,7 +581,7 @@ namespace GoceTransportApp.Data.Migrations
 
                     b.HasIndex("IsDeleted");
 
-                    b.ToTable("Streets");
+                    b.ToTable("Streets", (string)null);
                 });
 
             modelBuilder.Entity("GoceTransportApp.Data.Models.Ticket", b =>
@@ -630,7 +630,7 @@ namespace GoceTransportApp.Data.Migrations
 
                     b.HasIndex("ScheduleId");
 
-                    b.ToTable("Tickets");
+                    b.ToTable("Tickets", (string)null);
                 });
 
             modelBuilder.Entity("GoceTransportApp.Data.Models.UserTicket", b =>
@@ -665,7 +665,7 @@ namespace GoceTransportApp.Data.Migrations
 
                     b.HasIndex("TicketId");
 
-                    b.ToTable("UsersTickets");
+                    b.ToTable("UsersTickets", (string)null);
                 });
 
             modelBuilder.Entity("GoceTransportApp.Data.Models.Vehicle", b =>
@@ -727,7 +727,7 @@ namespace GoceTransportApp.Data.Migrations
 
                     b.HasIndex("OrganizationId");
 
-                    b.ToTable("Vehicles");
+                    b.ToTable("Vehicles", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

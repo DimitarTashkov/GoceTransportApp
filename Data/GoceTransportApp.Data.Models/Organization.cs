@@ -42,6 +42,9 @@
         public HashSet<Driver> OrganizationDrivers { get; set; }
             = new HashSet<Driver>();
 
+        public HashSet<Vehicle> OrganizationVehicles { get; set; }
+            = new HashSet<Vehicle>();
+
         public HashSet<Ticket> OrganizationTickets { get; set; }
             = new HashSet<Ticket>();
 

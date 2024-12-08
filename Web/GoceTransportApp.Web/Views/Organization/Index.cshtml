@@ -1,0 +1,20 @@
+﻿@model IEnumerable<GoceTransportApp.Web.ViewModels.Organizations.OrganizationDataViewModel>
+
+@{
+    ViewData["Title"] = "Organizations";
+}
+
+<h2 class="text-center">Organizations</h2>
+
+<div class="row">
+    @foreach (var organization in Model)
+    {
+        <div class="col-md-4">
+            @await Html.PartialAsync("_OrganizationCardPartial", organization)
+        </div>
+    }
+</div>
+
+<div class="text-center mt-3">
+    <a asp-action="Create" class="btn btn-primary">Add New Organization</a>
+</div>

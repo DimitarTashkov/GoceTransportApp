@@ -1,0 +1,29 @@
+﻿@model GoceTransportApp.Web.ViewModels.Organizations.RemoveOrganizationViewModel
+
+@{
+    ViewData["Title"] = "Remove Organization";
+}
+
+<h2 class="text-center">Remove Organization</h2>
+
+<div class="card shadow-sm p-4" style="max-width: 600px; margin: auto;">
+    <p>Are you sure you want to delete this organization?</p>
+    <dl class="row">
+        <dt class="col-sm-4">Name</dt>
+        <dd class="col-sm-8">@Model.Name</dd>
+
+        <dt class="col-sm-4">Address</dt>
+        <dd class="col-sm-8">@Model.Address</dd>
+
+        <dt class="col-sm-4">Founder</dt>
+        <dd class="col-sm-8">@Model.FounderName</dd>
+    </dl>
+
+    <form asp-action="Delete" method="post">
+        <input type="hidden" asp-for="Id" />
+        <div class="text-center">
+            <button type="submit" class="btn btn-danger">Delete</button>
+            <a asp-action="Index" class="btn btn-secondary">Cancel</a>
+        </div>
+    </form>
+</div>

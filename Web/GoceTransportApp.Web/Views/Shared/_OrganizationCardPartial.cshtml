@@ -1,0 +1,17 @@
+﻿@model GoceTransportApp.Web.ViewModels.Organizations.OrganizationDataViewModel
+
+<div class="card shadow-sm mb-4">
+    <img src="@Model.ImageUrl" class="card-img-top" alt="Organization Image" style="height: 200px; object-fit: cover;">
+    <div class="card-body">
+        <h5 class="card-title">@Model.Name</h5>
+        <p class="card-text">
+            <strong>Address:</strong> @Model.Address<br />
+            <strong>Founder ID:</strong> @Model.FounderId
+        </p>
+        <div class="d-flex justify-content-between">
+            <a asp-action="Details" asp-route-id="@Model.Id" class="btn btn-info btn-sm">Details</a>
+            <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-warning btn-sm">Edit</a>
+            <a asp-action="Delete" asp-route-id="@Model.Id" class="btn btn-danger btn-sm">Delete</a>
+        </div>
+    </div>
+</div>

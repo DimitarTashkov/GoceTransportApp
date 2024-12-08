@@ -65,6 +65,7 @@
             public const string ScheduleEditFailed = "Unexpected error occurred while updating the schedule! Please contact administrator!";
             public const string ScheduleDeleteFailed = "Unexpected error occurred while deleting the schedule! Please contact administrator!";
         }
+
         public static class TicketMessages
         {
             public const string InvalidTicketDetails = "Unexpected error occurred while extracting ticket details! Please contact administrator!";
@@ -72,6 +73,17 @@
             public const string TicketDeleteFailed = "Unexpected error occurred while deleting the ticket! Please contact administrator!";
             public const string TicketPurchaseFailed = "There was an error processing your ticket purchase!";
             public const string TicketPurchaseSuccess = "Your ticket(s) have been purchased successfully!";
+        }
+
+        public static class OrganizationMessages
+        {
+            public const string OrganizationNameRequired = "Organization name is required!";
+
+            public const string InvalidOrganizationDetails = "Unexpected error occurred while extracting organization details! Please contact administrator!";
+            public const string OrganizationEditFailed = "Unexpected error occurred while updating the organization! Please contact administrator!";
+            public const string OrganizationDeleteFailed = "Unexpected error occurred while deleting the organization! Please contact administrator!";
+            public const string OrganizationPurchaseFailed = "There was an error processing your ticket purchase!";
+            public const string OrganizationPurchaseSuccess = "Your ticket(s) have been purchased successfully!";
         }
     }
 }

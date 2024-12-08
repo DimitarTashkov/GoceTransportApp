@@ -13,7 +13,9 @@
     using GoceTransportApp.Services.Data.Cities;
     using GoceTransportApp.Services.Data.Drivers;
     using GoceTransportApp.Services.Data.Routes;
+    using GoceTransportApp.Services.Data.Schedules;
     using GoceTransportApp.Services.Data.Streets;
+    using GoceTransportApp.Services.Data.Tickets;
     using GoceTransportApp.Services.Data.Users;
     using GoceTransportApp.Services.Data.Vehicles;
     using GoceTransportApp.Services.Mapping;
@@ -82,6 +84,8 @@
             services.AddScoped<IVehicleService, VehicleService>();
             services.AddScoped<IDriverService, DriverService>();
             services.AddScoped<IUserService, UserService>();
+            services.AddScoped<IScheduleService, ScheduleService>();
+            services.AddScoped<ITicketService, TicketService>();
         }
 
         private static void Configure(WebApplication app)

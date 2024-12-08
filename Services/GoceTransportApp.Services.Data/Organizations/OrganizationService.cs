@@ -1,11 +1,16 @@
 ﻿using GoceTransportApp.Data.Common.Repositories;
 using GoceTransportApp.Data.Models;
 using GoceTransportApp.Services.Data.Base;
+using GoceTransportApp.Web.ViewModels.Drivers;
 using GoceTransportApp.Web.ViewModels.Organizations;
+using GoceTransportApp.Web.ViewModels.Routes;
+using GoceTransportApp.Web.ViewModels.Schedules;
 using GoceTransportApp.Web.ViewModels.Tickets;
+using GoceTransportApp.Web.ViewModels.Vehicles;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -15,10 +20,26 @@ namespace GoceTransportApp.Services.Data.Organizations
     public class OrganizationService : BaseService, IOrganizationService
     {
         public readonly IDeletableEntityRepository<Organization> organizationRepository;
+        public readonly IDeletableEntityRepository<Route> routeRepository;
+        public readonly IDeletableEntityRepository<Driver> driverRepository;
+        public readonly IDeletableEntityRepository<Vehicle> vehicleRepository;
+        public readonly IDeletableEntityRepository<Ticket> ticketRepository;
+        public readonly IDeletableEntityRepository<Schedule> scheduleRepository;
 
-        public OrganizationService(IDeletableEntityRepository<Organization> organizationRepository)
+        public OrganizationService(
+            IDeletableEntityRepository<Organization> organizationRepository,
+            IDeletableEntityRepository<Route> routeRepository,
+            IDeletableEntityRepository<Driver> driverRepository,
+            IDeletableEntityRepository<Vehicle> vehicleRepository,
+            IDeletableEntityRepository<Ticket> ticketRepository,
+            IDeletableEntityRepository<Schedule> scheduleRepository)
         {
             this.organizationRepository = organizationRepository;
+            this.routeRepository = routeRepository;
+            this.driverRepository = driverRepository;
+            this.vehicleRepository = vehicleRepository;
+            this.ticketRepository = ticketRepository;
+            this.scheduleRepository = scheduleRepository;
         }
 
         public async Task CreateAsync(OrganizationInputModel inputModel)
@@ -77,6 +98,21 @@ namespace GoceTransportApp.Services.Data.Organizations
                   FounderId = c.FounderId
               })
               .ToArrayAsync();
+
+            return model;
+        }
+
+        public async Task<IEnumerable<DriverDataViewModel>> GetDriversByOrganizationId(Guid organizationId)
+        {
+            IEnumerable<DriverDataViewModel> model = await driverRepository.AllAsNoTracking()
+                .Where(o => o.OrganizationId == organizationId)
+                .Select(o => new DriverDataViewModel()
+                {
+                    Id = o.Id.ToString(),
+                    FirstName = o.FirstName,
+                    LastName = o.LastName,
+                })
+                .ToArrayAsync();
 
             return model;
         }
@@ -148,6 +184,88 @@ namespace GoceTransportApp.Services.Data.Organizations
                .FirstOrDefaultAsync(s => s.Id.ToLower() == id.ToString().ToLower());
 
             return editModel;
+        }
+
+        public async Task<IEnumerable<RouteDataViewModel>> GetRoutesByOrganizationId(Guid organizationId)
+        {
+            IEnumerable<RouteDataViewModel> model = await routeRepository.AllAsNoTracking()
+                .Include(c => c.FromCity)
+                .Include(c => c.ToCity)
+                .Include(c => c.FromStreet)
+                .Include(c => c.ToStreet)
+                .Where(o => o.OrganizationId == organizationId)
+                .Select(route => new RouteDataViewModel()
+                {
+                    Id = route.Id.ToString(),
+                    DepartingCity = route.FromCity.Name,
+                    ArrivingCity = route.ToCity.Name,
+                    DepartingStreet = route.FromStreet.Name,
+                    ArrivingStreet = route.ToStreet.Name,
+                })
+                .ToArrayAsync();
+
+
+            return model;
+        }
+
+        public async Task<IEnumerable<ScheduleDataViewModel>> GetSchedulesByOrganizationId(Guid organizationId)
+        {
+            IEnumerable<ScheduleDataViewModel> model = await scheduleRepository.AllAsNoTracking()
+                .Include(r => r.Route)
+                .ThenInclude(route => route.FromCity)
+                .Include(r => r.Route)
+                .ThenInclude(route => route.ToCity)
+                .Where(o => o.OrganizationId == organizationId)
+              .Select(c => new ScheduleDataViewModel()
+              {
+                  Id = c.Id.ToString(),
+                  Day = c.Day.ToString(),
+                  Departing = c.Departure.ToString(),
+                  Arriving = c.Arrival.ToString(),
+                  FromCity = c.Route.FromCity.Name,
+                  ToCity = c.Route.ToCity.Name,
+                  OrganizationId = c.OrganizationId.ToString(),
+              })
+              .ToArrayAsync();
+
+            return model;
+        }
+
+        public async Task<IEnumerable<TicketDataViewModel>> GetTicketsByOrganizationId(Guid organizationId)
+        {
+            IEnumerable<TicketDataViewModel> model = await ticketRepository.AllAsNoTracking()
+                .Include(r => r.TimeTable)
+                .Where(o => o.OrganizationId == organizationId)
+              .Select(c => new TicketDataViewModel()
+              {
+                  Id = c.Id.ToString(),
+                  ArrivingTime = c.TimeTable.Arrival.ToString(),
+                  DepartingTime = c.TimeTable.Departure.ToString(),
+                  Price = c.Price.ToString(),
+                  FromCity = c.Route.FromCity.Name,
+                  ToCity = c.Route.ToCity.Name,
+                  OrganizationId = c.OrganizationId.ToString(),
+              })
+              .ToArrayAsync();
+
+            return model;
+        }
+
+        public async Task<IEnumerable<VehicleDataViewModel>> GetVehiclesByOrganizationId(Guid organizationId)
+        {
+            IEnumerable<VehicleDataViewModel> model = await vehicleRepository.AllAsNoTracking()
+                .Where(o => o.OrganizationId == organizationId)
+             .Select(c => new VehicleDataViewModel()
+             {
+                 Id = c.Id.ToString(),
+                 Number = c.Number,
+                 Type = c.Type,
+                 Manufacturer = c.Manufacturer,
+                 Model = c.Model,
+             })
+             .ToArrayAsync();
+
+            return model;
         }
 
         public async Task<bool> RemoveOrganizationAsync(RemoveOrganizationViewModel inputModel)

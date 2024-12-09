@@ -123,6 +123,7 @@
             app.UseAuthorization();
 
             app.MapControllerRoute("areaRoute", "{area:exists}/{controller=Home}/{action=Index}/{id?}");
+            app.MapControllerRoute("Errors", "{controller=Home}/{action=Index}/{statusCode?}");
             app.MapControllerRoute("default", "{controller=Home}/{action=Index}/{id?}");
             app.MapRazorPages();
         }

@@ -3,6 +3,7 @@ using GoceTransportApp.Data.Models;
 using GoceTransportApp.Data.Models.Enumerations;
 using GoceTransportApp.Services.Data.Base;
 using GoceTransportApp.Web.ViewModels.Drivers;
+using GoceTransportApp.Web.ViewModels.Streets;
 using GoceTransportApp.Web.ViewModels.Vehicles;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -78,9 +79,28 @@ namespace GoceTransportApp.Services.Data.Vehicles
             return result;
         }
 
-        public async Task<IEnumerable<VehicleDataViewModel>> GetAllVehiclesAsync()
+        public async Task<IEnumerable<VehicleDataViewModel>> GetAllVehiclesAsync(AllVehiclesSearchFilterViewModel inputModel)
         {
-            IEnumerable<VehicleDataViewModel> model = await vehicleRepository.AllAsNoTracking()
+            IQueryable<Vehicle> allVehiclesQuery = this.vehicleRepository
+                .AllAsNoTracking();
+
+            if (!String.IsNullOrWhiteSpace(inputModel.SearchQuery))
+            {
+                allVehiclesQuery = allVehiclesQuery
+                    .Where(r => r.Manufacturer.Contains(inputModel.SearchQuery) ||
+                                         r.Model.Contains(inputModel.SearchQuery) ||
+                                         r.Type.Contains(inputModel.SearchQuery));
+            }
+
+            if (inputModel.CurrentPage.HasValue &&
+                inputModel.EntitiesPerPage.HasValue)
+            {
+                allVehiclesQuery = allVehiclesQuery
+                    .Skip(inputModel.EntitiesPerPage.Value * (inputModel.CurrentPage.Value - 1))
+                    .Take(inputModel.EntitiesPerPage.Value);
+            }
+
+            IEnumerable<VehicleDataViewModel> model = await allVehiclesQuery
               .Select(c => new VehicleDataViewModel()
               {
                   Id = c.Id.ToString(),
@@ -171,6 +191,20 @@ namespace GoceTransportApp.Services.Data.Vehicles
             }
 
             return viewModel;
+        }
+
+        public async Task<int> GetVehiclesCountByFilterAsync(AllVehiclesSearchFilterViewModel inputModel)
+        {
+            AllVehiclesSearchFilterViewModel inputModelCopy = new AllVehiclesSearchFilterViewModel()
+            {
+                CurrentPage = null,
+                EntitiesPerPage = null,
+                SearchQuery = inputModel.SearchQuery,
+            };
+
+            int vehiclesCount = (await this.GetAllVehiclesAsync(inputModelCopy))
+                .Count();
+            return vehiclesCount;
         }
     }
 }

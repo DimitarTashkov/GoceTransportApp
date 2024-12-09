@@ -10,7 +10,7 @@ namespace GoceTransportApp.Services.Data.Vehicles
 {
     public interface IVehicleService
     {
-        Task<IEnumerable<VehicleDataViewModel>> GetAllVehiclesAsync();
+        Task<IEnumerable<VehicleDataViewModel>> GetAllVehiclesAsync(AllVehiclesSearchFilterViewModel inputModel);
 
         Task CreateAsync(VehicleInputModel inputModel);
 
@@ -23,5 +23,7 @@ namespace GoceTransportApp.Services.Data.Vehicles
         Task<bool> RemoveVehicleAsync(RemoveVehicleViewModel inputModel);
 
         Task<VehicleDetailsViewModel> GetVehicleDetailsAsync(Guid id);
+
+        Task<int> GetVehiclesCountByFilterAsync(AllVehiclesSearchFilterViewModel inputModel);
     }
 }

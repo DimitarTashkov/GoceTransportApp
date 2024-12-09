@@ -7,6 +7,8 @@ using GoceTransportApp.Services.Data.Vehicles;
 using GoceTransportApp.Web.ViewModels.Vehicles;
 
 using static GoceTransportApp.Common.ErrorMessages.VehicleMessages;
+using GoceTransportApp.Web.ViewModels.Streets;
+using System.Collections.Generic;
 
 
 namespace GoceTransportApp.Web.Controllers
@@ -21,11 +23,21 @@ namespace GoceTransportApp.Web.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(AllVehiclesSearchFilterViewModel inputModel)
         {
-            var model = await vehicleService.GetAllVehiclesAsync();
+            IEnumerable<VehicleDataViewModel> allVehicles =
+                await vehicleService.GetAllVehiclesAsync(inputModel);
 
-            return View(model);
+            int allVehiclesCount = await vehicleService.GetVehiclesCountByFilterAsync(inputModel);
+            AllVehiclesSearchFilterViewModel viewModel = new AllVehiclesSearchFilterViewModel
+            {
+                Vehicles = allVehicles,
+                SearchQuery = inputModel.SearchQuery,
+                CurrentPage = inputModel.CurrentPage,
+                TotalPages = (int)Math.Ceiling((double)allVehiclesCount / inputModel.EntitiesPerPage!.Value)
+            };
+
+            return this.View(viewModel);
         }
 
         [HttpGet]

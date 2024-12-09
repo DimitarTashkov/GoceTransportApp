@@ -156,5 +156,77 @@ namespace GoceTransportApp.Web.Controllers
 
             return View(model);
         }
+
+        [HttpGet]
+        public async Task<IActionResult> Routes(string organizationId)
+        {
+            Guid organizationGuid = Guid.Empty;
+            bool isIdValid = IsGuidValid(organizationId, ref organizationGuid);
+            if (!isIdValid)
+            {
+                return this.RedirectToAction(nameof(Index));
+            }
+
+            var routes = await organizationService.GetRoutesByOrganizationId(organizationGuid);
+            return View(routes);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Drivers(string organizationId)
+        {
+            Guid organizationGuid = Guid.Empty;
+            bool isIdValid = IsGuidValid(organizationId, ref organizationGuid);
+            if (!isIdValid)
+            {
+                return this.RedirectToAction(nameof(Index));
+            }
+
+            var drivers = await organizationService.GetDriversByOrganizationId(organizationGuid);
+            return View(drivers);
+        }
+
+        [HttpGet]
+
+        public async Task<IActionResult> Vehicles(string organizationId)
+        {
+            Guid organizationGuid = Guid.Empty;
+            bool isIdValid = IsGuidValid(organizationId, ref organizationGuid);
+            if (!isIdValid)
+            {
+                return this.RedirectToAction(nameof(Index));
+            }
+
+            var vehicles = await organizationService.GetVehiclesByOrganizationId(organizationGuid);
+            return View(vehicles);
+        }
+
+        [HttpGet]
+
+        public async Task<IActionResult> Tickets(string organizationId)
+        {
+            Guid organizationGuid = Guid.Empty;
+            bool isIdValid = IsGuidValid(organizationId, ref organizationGuid);
+            if (!isIdValid)
+            {
+                return this.RedirectToAction(nameof(Index));
+            }
+
+            var tickets = await organizationService.GetTicketsByOrganizationId(organizationGuid);
+            return View(tickets);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Schedules(string organizationId)
+        {
+            Guid organizationGuid = Guid.Empty;
+            bool isIdValid = IsGuidValid(organizationId, ref organizationGuid);
+            if (!isIdValid)
+            {
+                return this.RedirectToAction(nameof(Index));
+            }
+
+            var schedules = await organizationService.GetSchedulesByOrganizationId(organizationGuid);
+            return View(schedules);
+        }
     }
 }

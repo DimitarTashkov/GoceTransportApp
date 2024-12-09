@@ -82,8 +82,7 @@
             public const string InvalidOrganizationDetails = "Unexpected error occurred while extracting organization details! Please contact administrator!";
             public const string OrganizationEditFailed = "Unexpected error occurred while updating the organization! Please contact administrator!";
             public const string OrganizationDeleteFailed = "Unexpected error occurred while deleting the organization! Please contact administrator!";
-            public const string OrganizationPurchaseFailed = "There was an error processing your ticket purchase!";
-            public const string OrganizationPurchaseSuccess = "Your ticket(s) have been purchased successfully!";
+
         }
     }
 }

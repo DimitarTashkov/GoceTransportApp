@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.VisualStudio.Web.CodeGenerators.Mvc.Templates.Blazor;
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 using static GoceTransportApp.Common.ErrorMessages.StreetMessages;
@@ -21,11 +22,21 @@ namespace GoceTransportApp.Web.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(AllStreetsSearchFilterViewModel inputModel)
         {
-            var model = await streetService.GetAllStreetsAsync();
+            IEnumerable<StreetDataViewModel> allStreets =
+                await this.streetService.GetAllStreetsAsync(inputModel);
 
-            return View(model);
+            int allStreetsCount = await this.streetService.GetStreetsCountByFilterAsync(inputModel);
+            AllStreetsSearchFilterViewModel viewModel = new AllStreetsSearchFilterViewModel
+            {
+                Streets = allStreets,
+                SearchQuery = inputModel.SearchQuery,
+                CurrentPage = inputModel.CurrentPage,
+                TotalPages = (int)Math.Ceiling((double)allStreetsCount / inputModel.EntitiesPerPage!.Value)
+            };
+
+            return this.View(viewModel);
         }
 
         [HttpGet]

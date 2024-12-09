@@ -1,4 +1,5 @@
-﻿@model IEnumerable<GoceTransportApp.Web.ViewModels.Streets.StreetDataViewModel>
+﻿@using GoceTransportApp.Web.ViewModels.Streets
+@model AllStreetsSearchFilterViewModel
 
 @{
     ViewData["Title"] = "All Streets";
@@ -7,14 +8,56 @@
 <div class="container mt-5">
     <h1 class="text-center mb-4">Streets</h1>
 
+    <form method="get" class="mb-4">
+        <div class="input-group">
+            <input type="text" name="SearchQuery" value="@Model.SearchQuery" class="form-control" placeholder="Search streets..." />
+            <button type="submit" class="btn btn-primary">Search</button>
+        </div>
+    </form>
+
     <div class="mt-4">
         <a asp-action="Create" class="btn btn-success">Add New Street</a>
     </div>
 
     <div class="row mt-4">
-        @foreach (var street in Model)
+        @if (Model.Streets.Any())
         {
-            <partial name="_StreetListPartial" model="street" />
+            @foreach (var street in Model.Streets)
+            {
+                <partial name="_StreetListPartial" model="street" />
+            }
         }
-    </div> 
+        else
+        {
+            <p class="text-center">No streets found.</p>
+        }
+    </div>
+
+    @if (Model.TotalPages > 1)
+    {
+        <nav aria-label="Page navigation" class="mt-4">
+            <ul class="pagination justify-content-center">
+                @if (Model.CurrentPage > 1)
+                {
+                    <li class="page-item">
+                        <a class="page-link" href="?SearchQuery=@Model.SearchQuery&CurrentPage=@(Model.CurrentPage - 1)&EntitiesPerPage=@Model.EntitiesPerPage">Previous</a>
+                    </li>
+                }
+
+                @for (int i = 1; i <= Model.TotalPages; i++)
+                {
+                    <li class="page-item @(Model.CurrentPage == i ? "active" : "")">
+                        <a class="page-link" href="?SearchQuery=@Model.SearchQuery&CurrentPage=@i&EntitiesPerPage=@Model.EntitiesPerPage">@i</a>
+                    </li>
+                }
+
+                @if (Model.CurrentPage < Model.TotalPages)
+                {
+                    <li class="page-item">
+                        <a class="page-link" href="?SearchQuery=@Model.SearchQuery&CurrentPage=@(Model.CurrentPage + 1)&EntitiesPerPage=@Model.EntitiesPerPage">Next</a>
+                    </li>
+                }
+            </ul>
+        </nav>
+    }
 </div>

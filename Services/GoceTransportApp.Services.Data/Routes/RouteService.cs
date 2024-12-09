@@ -115,31 +115,40 @@ namespace GoceTransportApp.Services.Data.Routes
             return result;
         }
 
-        public async Task<IEnumerable<RouteDataViewModel>> SearchForCityAsync(string searchedTerm)
+        public async Task<IEnumerable<RouteDataViewModel>> GetAllRoutesAsync(AllRoutesSearchFilterViewModel inputModel)
         {
-                IEnumerable<RouteDataViewModel> model = await routeReposiory.AllAsNoTracking()
+            IQueryable<Route> allRoutesQuery = routeReposiory
+                .AllAsNoTracking()
                 .Include(c => c.FromCity)
                 .Include(c => c.ToCity)
                 .Include(c => c.FromStreet)
-                .Include(c => c.ToStreet)
-                .Where(c => c.FromCity.Name.Contains(searchedTerm) || c.ToCity.Name.Contains(searchedTerm))
-               .Select(route => ReturnDataViewModel(route))
-               .ToArrayAsync();
+                .Include(c => c.ToStreet);
 
-                return model;
-        }
+            if (!string.IsNullOrEmpty(inputModel.SearchQuery))
+            {
+                allRoutesQuery = allRoutesQuery.Where(r => r.FromCity.Name.Contains(inputModel.SearchQuery) ||
+                                         r.ToCity.Name.Contains(inputModel.SearchQuery) ||
+                                         r.FromStreet.Name.Contains(inputModel.SearchQuery) ||
+                                         r.ToStreet.Name.Contains(inputModel.SearchQuery));
+            }
 
-        public async Task<IEnumerable<RouteDataViewModel>> GetAllRoutesAsync()
-        {
-            IEnumerable<RouteDataViewModel> model = await routeReposiory.AllAsNoTracking()
-                .Include(c => c.FromCity)
-                .Include(c => c.ToCity)
-                .Include(c => c.FromStreet)
-                .Include(c => c.ToStreet)
-               .Select(route => ReturnDataViewModel(route))
-               .ToArrayAsync();
+            if (!string.IsNullOrEmpty(inputModel.DepartingCityFilter))
+            {
+                allRoutesQuery = allRoutesQuery.Where(r => r.FromCity.Name == inputModel.DepartingCityFilter);
+            }
 
-            return model;
+            if (!string.IsNullOrEmpty(inputModel.ArrivingCityFilter))
+            {
+                allRoutesQuery = allRoutesQuery.Where(r => r.ToCity.Name == inputModel.ArrivingCityFilter);
+            }
+
+            allRoutesQuery = allRoutesQuery
+                .Skip((inputModel.EntitiesPerPage.Value * (inputModel.CurrentPage.Value - 1)) * inputModel.EntitiesPerPage.Value)
+                .Take(inputModel.EntitiesPerPage.Value);
+
+            return await allRoutesQuery
+                .Select(r => ReturnDataViewModel(r))
+                .ToArrayAsync();
         }
 
         public async Task<RemoveRouteViewModel> GetRouteForDeletionAsync(Guid id)
@@ -212,6 +221,7 @@ namespace GoceTransportApp.Services.Data.Routes
 
             return viewModel;
         }
+
         private static RouteDetailsViewModel ReturnDetailsViewModel(Route route)
         {
             RouteDetailsViewModel? viewModel = new RouteDetailsViewModel()
@@ -257,5 +267,34 @@ namespace GoceTransportApp.Services.Data.Routes
             return model;
         }
 
+        public async Task<int> GetRoutesCountByFilterAsync(AllRoutesSearchFilterViewModel inputModel)
+        {
+            IQueryable<Route> allRoutesQuery = routeReposiory
+                .AllAsNoTracking()
+                .Include(c => c.FromCity)
+                .Include(c => c.ToCity)
+                .Include(c => c.FromStreet)
+                .Include(c => c.ToStreet);
+
+            if (!string.IsNullOrEmpty(inputModel.SearchQuery))
+            {
+                allRoutesQuery = allRoutesQuery.Where(r => r.FromCity.Name.Contains(inputModel.SearchQuery) ||
+                                         r.ToCity.Name.Contains(inputModel.SearchQuery) ||
+                                         r.FromStreet.Name.Contains(inputModel.SearchQuery) ||
+                                         r.ToStreet.Name.Contains(inputModel.SearchQuery));
+            }
+
+            if (!string.IsNullOrEmpty(inputModel.DepartingCityFilter))
+            {
+                allRoutesQuery = allRoutesQuery.Where(r => r.FromCity.Name == inputModel.DepartingCityFilter);
+            }
+
+            if (!string.IsNullOrEmpty(inputModel.ArrivingCityFilter))
+            {
+                allRoutesQuery = allRoutesQuery.Where(r => r.ToCity.Name == inputModel.ArrivingCityFilter);
+            }
+
+            return await allRoutesQuery.CountAsync();
+        }
     }
 }

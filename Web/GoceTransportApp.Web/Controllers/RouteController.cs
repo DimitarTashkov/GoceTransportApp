@@ -5,6 +5,7 @@ using GoceTransportApp.Web.ViewModels.Routes;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 using static GoceTransportApp.Common.ErrorMessages.RouteMessages;
@@ -22,11 +23,24 @@ namespace GoceTransportApp.Web.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(AllRoutesSearchFilterViewModel inputModel)
         {
-            var model = await routeService.GetAllRoutesAsync();
+            IEnumerable<RouteDataViewModel> allRoutes = await routeService.GetAllRoutesAsync(inputModel);
 
-            return View(model);
+            int allRoutesCount = await routeService.GetRoutesCountByFilterAsync(inputModel);
+
+            AllRoutesSearchFilterViewModel viewModel = new AllRoutesSearchFilterViewModel
+            {
+                Routes = allRoutes,
+                SearchQuery = inputModel.SearchQuery,
+                DepartingCityFilter = inputModel.DepartingCityFilter,
+                ArrivingCityFilter = inputModel.ArrivingCityFilter,
+                CurrentPage = inputModel.CurrentPage,
+                EntitiesPerPage = inputModel.EntitiesPerPage,
+                TotalPages = (int)Math.Ceiling((double)allRoutesCount / inputModel.EntitiesPerPage.Value)
+            };
+
+            return View(viewModel);
         }
 
         [HttpGet]

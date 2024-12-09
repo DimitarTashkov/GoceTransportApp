@@ -1,23 +1,73 @@
-﻿@model IEnumerable<GoceTransportApp.Web.ViewModels.Routes.RouteDataViewModel>
+﻿@using GoceTransportApp.Web.ViewModels.Routes
+@model AllRoutesSearchFilterViewModel
 
 @{
     ViewData["Title"] = "All Routes";
 }
-<div class="mb-4 d-flex justify-content-start">
-    <form asp-action="Filter" method="get" class="d-flex me-1">
-        <input type="text" name="searchTerm" class="form-control me-2" placeholder="Search routes..." />
-        <button type="submit" class="btn btn-primary">Search</button>
+
+<div class="container mt-5">
+    <h1 class="text-center mb-4">Routes</h1>
+
+    <form method="get" class="mb-4">
+        <div class="row g-2">
+            <div class="col-md-4">
+                <input type="text" name="SearchQuery" value="@Model.SearchQuery" class="form-control" placeholder="Search by street or city..." />
+            </div>
+            <div class="col-md-3">
+                <input type="text" name="DepartingCityFilter" value="@Model.DepartingCityFilter" class="form-control" placeholder="Filter by departing city..." />
+            </div>
+            <div class="col-md-3">
+                <input type="text" name="ArrivingCityFilter" value="@Model.ArrivingCityFilter" class="form-control" placeholder="Filter by arriving city..." />
+            </div>
+            <div class="col-md-2">
+                <button type="submit" class="btn btn-primary w-100">Search</button>
+            </div>
+        </div>
     </form>
 
-    <a asp-action="Index" class="btn btn-secondary">Reset</a>
-</div>
+    <div class="mt-4">
+        <a asp-action="Create" class="btn btn-success">Add New Route</a>
+    </div>
 
-<h1 class="mb-4">Discover Routes:</h1> 
-<a asp-action="Create" class="btn btn-primary mb-4">Create New Route</a>
+    <div class="row mt-4">
+        @if (Model.Routes.Any())
+        {
+            @foreach (var route in Model.Routes)
+            {
+                <partial name="_RouteListPartial" model="route" />
+            }
+        }
+        else
+        {
+            <p class="text-center">No routes found.</p>
+        }
+    </div>
 
-<div class="row">
-    @foreach (var route in Model)
+    @if (Model.TotalPages > 1)
     {
-        <partial name="_RouteCardPartial" model="route" />
+        <nav aria-label="Page navigation" class="mt-4">
+            <ul class="pagination justify-content-center">
+                @if (Model.CurrentPage > 1)
+                {
+                    <li class="page-item">
+                        <a class="page-link" href="?SearchQuery=@Model.SearchQuery&DepartingCityFilter=@Model.DepartingCityFilter&ArrivingCityFilter=@Model.ArrivingCityFilter&CurrentPage=@(Model.CurrentPage - 1)&EntitiesPerPage=@Model.EntitiesPerPage">Previous</a>
+                    </li>
+                }
+
+                @for (int i = 1; i <= Model.TotalPages; i++)
+                {
+                    <li class="page-item @(Model.CurrentPage == i ? "active" : "")">
+                        <a class="page-link" href="?SearchQuery=@Model.SearchQuery&DepartingCityFilter=@Model.DepartingCityFilter&ArrivingCityFilter=@Model.ArrivingCityFilter&CurrentPage=@i&EntitiesPerPage=@Model.EntitiesPerPage">@i</a>
+                    </li>
+                }
+
+                @if (Model.CurrentPage < Model.TotalPages)
+                {
+                    <li class="page-item">
+                        <a class="page-link" href="?SearchQuery=@Model.SearchQuery&DepartingCityFilter=@Model.DepartingCityFilter&ArrivingCityFilter=@Model.ArrivingCityFilter&CurrentPage=@(Model.CurrentPage + 1)&EntitiesPerPage=@Model.EntitiesPerPage">Next</a>
+                    </li>
+                }
+            </ul>
+        </nav>
     }
 </div>

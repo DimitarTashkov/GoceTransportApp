@@ -1,4 +1,5 @@
-﻿using GoceTransportApp.Web.ViewModels.Cities;
+﻿using GoceTransportApp.Data.Models;
+using GoceTransportApp.Web.ViewModels.Cities;
 using GoceTransportApp.Web.ViewModels.Streets;
 using System;
 using System.Collections.Generic;
@@ -10,7 +11,7 @@ namespace GoceTransportApp.Services.Data.Cities
 {
     public interface ICityService
     {
-        Task<IEnumerable<CityDataViewModel>> GetAllCitiesAsync();
+        Task<IEnumerable<CityDataViewModel>> GetAllCitiesAsync(AllCitiesSearchFilterViewModel inputModel);
 
         Task<CityDetailsViewModel> GetCityDetailsAsync(Guid id);
 
@@ -29,5 +30,9 @@ namespace GoceTransportApp.Services.Data.Cities
         Task<bool> EditCityAsync(EditCityInputModel inputModel);
 
         Task<bool> DeleteCityAsync(Guid id);
+
+        Task<int> GetCitiesCountByFilterAsync(AllCitiesSearchFilterViewModel inputModel);
+
+        Task<IEnumerable<City>> GetAllCitiesForDropDownsAsync();
     }
 }

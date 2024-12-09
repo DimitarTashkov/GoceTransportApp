@@ -168,9 +168,26 @@ namespace GoceTransportApp.Services.Data.Cities
             return viewModel;
         }
 
-        public async Task<IEnumerable<CityDataViewModel>> GetAllCitiesAsync()
+        public async Task<IEnumerable<CityDataViewModel>> GetAllCitiesAsync(AllCitiesSearchFilterViewModel inputModel)
         {
-            IEnumerable<CityDataViewModel> model = await cityRepository.AllAsNoTracking()
+            IQueryable<City> allCitiesQuery = this.cityRepository
+                .AllAsNoTracking();
+
+            if (!String.IsNullOrWhiteSpace(inputModel.SearchQuery))
+            {
+                allCitiesQuery = allCitiesQuery
+                    .Where(m => m.Name.ToLower().Contains(inputModel.SearchQuery.ToLower()));
+            }
+
+            if (inputModel.CurrentPage.HasValue &&
+                inputModel.EntitiesPerPage.HasValue)
+            {
+                allCitiesQuery = allCitiesQuery
+                    .Skip(inputModel.EntitiesPerPage.Value * (inputModel.CurrentPage.Value - 1))
+                    .Take(inputModel.EntitiesPerPage.Value);
+            }
+
+            IEnumerable<CityDataViewModel> model = await allCitiesQuery
                .Select(c => new CityDataViewModel()
                {
                    Id = c.Id.ToString(),
@@ -275,6 +292,28 @@ namespace GoceTransportApp.Services.Data.Cities
                 .FirstOrDefaultAsync(s => s.Id.ToLower() == id.ToString().ToLower());
 
             return editModel;
+        }
+
+        public async Task<int> GetCitiesCountByFilterAsync(AllCitiesSearchFilterViewModel inputModel)
+        {
+            AllCitiesSearchFilterViewModel inputModelCopy = new AllCitiesSearchFilterViewModel()
+            {
+                CurrentPage = null,
+                EntitiesPerPage = null,
+                SearchQuery = inputModel.SearchQuery,
+            };
+
+            int citiesCount = (await this.GetAllCitiesAsync(inputModelCopy))
+                .Count();
+            return citiesCount;
+        }
+
+        public async Task<IEnumerable<City>> GetAllCitiesForDropDownsAsync()
+        {
+            IEnumerable<City> model = await cityRepository
+                .AllAsNoTracking().ToArrayAsync();
+
+            return model;
         }
 
     }

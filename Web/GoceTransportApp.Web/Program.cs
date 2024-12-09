@@ -12,6 +12,7 @@
     using GoceTransportApp.Services.Data;
     using GoceTransportApp.Services.Data.Cities;
     using GoceTransportApp.Services.Data.Drivers;
+    using GoceTransportApp.Services.Data.Organizations;
     using GoceTransportApp.Services.Data.Routes;
     using GoceTransportApp.Services.Data.Schedules;
     using GoceTransportApp.Services.Data.Streets;
@@ -64,7 +65,6 @@
                     options.Filters.Add(new AutoValidateAntiforgeryTokenAttribute());
                 }).AddRazorRuntimeCompilation();
             services.AddRazorPages();
-            
 
             services.AddDatabaseDeveloperPageExceptionFilter();
 
@@ -86,6 +86,7 @@
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<IScheduleService, ScheduleService>();
             services.AddScoped<ITicketService, TicketService>();
+            services.AddScoped<IOrganizationService, OrganizationService>();
         }
 
         private static void Configure(WebApplication app)
@@ -103,12 +104,12 @@
             if (app.Environment.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-                app.UseStatusCodePagesWithReExecute("/Home/Error");
+                app.UseStatusCodePagesWithReExecute("/Home/Error/{0}");
                 app.UseMigrationsEndPoint();
             }
             else
             {
-                app.UseExceptionHandler("/Home/Error/{0}");
+                app.UseExceptionHandler("/Home/Error");
                 app.UseHsts();
             }
 

@@ -23,11 +23,21 @@ namespace GoceTransportApp.Web.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(AllCitiesSearchFilterViewModel inputModel)
         {
-            var model = await cityService.GetAllCitiesAsync();
+            IEnumerable<CityDataViewModel> allCities =
+                await this.cityService.GetAllCitiesAsync(inputModel);
 
-            return View(model);
+            int allCitiesCount = await this.cityService.GetCitiesCountByFilterAsync(inputModel);
+            AllCitiesSearchFilterViewModel viewModel = new AllCitiesSearchFilterViewModel
+            {
+                Cities = allCities,
+                SearchQuery = inputModel.SearchQuery,
+                CurrentPage = inputModel.CurrentPage,
+                TotalPages = (int)Math.Ceiling((double)allCitiesCount / inputModel.EntitiesPerPage!.Value)
+            };
+
+            return this.View(viewModel);
         }
 
         [HttpGet]

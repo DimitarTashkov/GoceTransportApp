@@ -1,18 +1,18 @@
 ﻿using GoceTransportApp.Data.Common.Repositories;
 using GoceTransportApp.Data.Models;
+using GoceTransportApp.Services.Mapping;
 using GoceTransportApp.Web.ViewModels.Streets;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace GoceTransportApp.Services.Data.Streets
 {
     public class StreetService : IStreetService
     {
-        // TODO: Add all collections so they do not disappear
-
         private readonly IDeletableEntityRepository<Street> streetRepository;
 
         public StreetService(IDeletableEntityRepository<Street> streetRepository)
@@ -65,12 +65,30 @@ namespace GoceTransportApp.Services.Data.Streets
             return result;
         }
 
-        public async Task<IEnumerable<StreetDataViewModel>> GetAllStreetsAsync()
+        public async Task<IEnumerable<StreetDataViewModel>> GetAllStreetsAsync(AllStreetsSearchFilterViewModel inputModel)
         {
-            IEnumerable<StreetDataViewModel> model = await streetRepository.AllAsNoTracking()
+            IQueryable<Street> allStreetsQuery = this.streetRepository
+                .AllAsNoTracking();
+
+            if (!String.IsNullOrWhiteSpace(inputModel.SearchQuery))
+            {
+                allStreetsQuery = allStreetsQuery
+                    .Where(m => m.Name.ToLower().Contains(inputModel.SearchQuery.ToLower()));
+            }
+
+            if (inputModel.CurrentPage.HasValue &&
+                inputModel.EntitiesPerPage.HasValue)
+            {
+                allStreetsQuery = allStreetsQuery
+                    .Skip(inputModel.EntitiesPerPage.Value * (inputModel.CurrentPage.Value - 1))
+                    .Take(inputModel.EntitiesPerPage.Value);
+            }
+
+            IEnumerable<StreetDataViewModel> model = await allStreetsQuery
                 .Select(s => new StreetDataViewModel()
                 {
-                    Id = s.Id.ToString(),
+                    Id = s.Id.ToString()
+                    ,
                     Name = s.Name
                 })
                 .ToArrayAsync();

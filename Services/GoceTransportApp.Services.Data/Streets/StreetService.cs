@@ -112,5 +112,19 @@ namespace GoceTransportApp.Services.Data.Streets
 
             return editModel;
         }
+
+        public async Task<int> GetStreetsCountByFilterAsync(AllStreetsSearchFilterViewModel inputModel)
+        {
+            AllStreetsSearchFilterViewModel inputModelCopy = new AllStreetsSearchFilterViewModel()
+            {
+                CurrentPage = null,
+                EntitiesPerPage = null,
+                SearchQuery = inputModel.SearchQuery,
+            };
+
+            int streetsCount = (await this.GetAllStreetsAsync(inputModelCopy))
+                .Count();
+            return streetsCount;
+        }
     }
 }

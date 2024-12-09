@@ -18,5 +18,6 @@ namespace GoceTransportApp.Services.Data.Streets
         Task<bool> EditStreetAsync(EditStreetInputModel inputModel);
 
         Task<bool> DeleteStreetAsync(Guid id);
+        Task<int> GetStreetsCountByFilterAsync(AllStreetsSearchFilterViewModel inputModel);
     }
 }

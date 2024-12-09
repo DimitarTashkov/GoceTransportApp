@@ -4,11 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GoceTransportApp.Web.ViewModels.Streets
+namespace GoceTransportApp.Web.ViewModels.Cities
 {
-    public class AllStreetsSearchFilterViewModel
+    public class AllCitiesSearchFilterViewModel
     {
-        public IEnumerable<StreetDataViewModel> Streets { get; set; }
+        public IEnumerable<CityDataViewModel> Cities { get; set; }
 
         public string SearchQuery { get; set; }
 

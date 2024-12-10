@@ -8,13 +8,23 @@ Goce Transport app is a modern web application for local transport visualization
 - [Features](#features)
 - [Installation](#installation)
 - [Usage](#usage)
-- [Contributing](#contributing)
-- [License](#license)
-- [Acknowledgements](#acknowledgements)
 
 ## Description
 
 My app offers intuitive design for transport companies, seeking advertisement and digital availability within the app. Business representatives can manage their organization bus lines, routes, schedules, drivers, vehicles and tickets they use to operate. This app should aid the accessibility to information about transport service in Goce Delchev and nearby villages. Users can reassure themselves about changes in bus schedules and routes online, without the need of contacting company individuals. It should help citizens to akcnowledge with bus working hours better.
+## Technologies Used
+
+List the major technologies, frameworks, libraries, and tools used in this project:
+
+- **Programming Languages**: C#
+- **Framework**: ASP.NET Core 8
+- **Database**: SQL Server, SQLite, MSSQL
+- **ORM**: Entity Framework Core
+- **Frontend**: Blazor, Razor Pages, HTML, CSS, Bootstrap
+- **Authentication**: ASP.NET Core Identity
+- **Testing**: xUnit, NUnit,
+- **Others**: Swagger, Web API
+
 ## Features
 
 - Feature 1: Explore all existing routes, provided by organizations

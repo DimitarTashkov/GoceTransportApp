@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 namespace GoceTransportApp.Services.Data.Tickets
 {
@@ -83,10 +84,38 @@ namespace GoceTransportApp.Services.Data.Tickets
             return result;
         }
 
-        public async Task<IEnumerable<TicketDataViewModel>> GetAllTicketsAsync()
+        public async Task<IEnumerable<TicketDataViewModel>> GetAllTicketsAsync(AllTicketsSearchFilterViewModel inputModel)
         {
-            IEnumerable<TicketDataViewModel> model = await ticketRepository.AllAsNoTracking()
-                .Include(r => r.TimeTable)
+            IQueryable<Ticket> query = ticketRepository
+                .AllAsNoTracking()
+                .Include(r => r.Route)
+                .ThenInclude(r => r.FromCity)
+                .Include(r => r.Route)
+                .ThenInclude(r => r.ToCity)
+                .Include(t => t.TimeTable)
+                ;
+
+            if (!string.IsNullOrEmpty(inputModel.SearchQuery))
+            {
+                query = query.Where(t => t.Route.FromCity.Name.Contains(inputModel.SearchQuery) ||
+                                         t.Route.ToCity.Name.Contains(inputModel.SearchQuery));
+            }
+
+            if (inputModel.PriceFrom.HasValue)
+            {
+                query = query.Where(t => t.Price >= inputModel.PriceFrom.Value);
+            }
+
+            if (inputModel.PriceTo.HasValue)
+            {
+                query = query.Where(t => t.Price <= inputModel.PriceTo.Value);
+            }
+
+            query = query
+                    .Skip(inputModel.EntitiesPerPage.Value * (inputModel.CurrentPage.Value - 1))
+                    .Take(inputModel.EntitiesPerPage.Value);
+
+            IEnumerable<TicketDataViewModel> model = await query
               .Select(c => new TicketDataViewModel()
               {
                   Id = c.Id.ToString(),
@@ -211,6 +240,35 @@ namespace GoceTransportApp.Services.Data.Tickets
             await userTicketRepository.SaveChangesAsync();
 
             return true;
+        }
+        public async Task<int> GetTicketsCountByFilterAsync(AllTicketsSearchFilterViewModel inputModel)
+        {
+            IQueryable<Ticket> query = ticketRepository
+               .AllAsNoTracking()
+               .Include(r => r.Route)
+               .ThenInclude(r => r.FromCity)
+               .Include(r => r.Route)
+               .ThenInclude(r => r.ToCity)
+               .Include(t => t.TimeTable)
+               ;
+
+            if (!string.IsNullOrEmpty(inputModel.SearchQuery))
+            {
+                query = query.Where(t => t.Route.FromCity.Name.Contains(inputModel.SearchQuery) ||
+                                         t.Route.ToCity.Name.Contains(inputModel.SearchQuery));
+            }
+
+            if (inputModel.PriceFrom.HasValue)
+            {
+                query = query.Where(t => t.Price >= inputModel.PriceFrom.Value);
+            }
+
+            if (inputModel.PriceTo.HasValue)
+            {
+                query = query.Where(t => t.Price <= inputModel.PriceTo.Value);
+            }
+
+            return await query.CountAsync();
         }
     }
 }

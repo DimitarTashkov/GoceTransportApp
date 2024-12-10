@@ -7,6 +7,7 @@ using System;
 using GoceTransportApp.Web.ViewModels.Tickets;
 
 using static GoceTransportApp.Common.ErrorMessages.TicketMessages;
+using System.Collections.Generic;
 
 namespace GoceTransportApp.Web.Controllers
 {
@@ -20,11 +21,25 @@ namespace GoceTransportApp.Web.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(AllTicketsSearchFilterViewModel inputModel)
         {
-            var model = await ticketService.GetAllTicketsAsync();
+            IEnumerable<TicketDataViewModel> allTickets =
+            await ticketService.GetAllTicketsAsync(inputModel);
 
-            return View(model);
+            int allTicketsCount = await ticketService.GetTicketsCountByFilterAsync(inputModel);
+
+            AllTicketsSearchFilterViewModel viewModel = new AllTicketsSearchFilterViewModel
+            {
+                Tickets = allTickets,
+                SearchQuery = inputModel.SearchQuery,
+                PriceFrom = inputModel.PriceFrom,
+                PriceTo = inputModel.PriceTo,
+                CurrentPage = inputModel.CurrentPage,
+                EntitiesPerPage = inputModel.EntitiesPerPage,
+                TotalPages = (int)Math.Ceiling((double)allTicketsCount / inputModel.EntitiesPerPage.Value)
+            };
+
+            return this.View(viewModel);
         }
 
         [HttpGet]

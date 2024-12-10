@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 namespace GoceTransportApp.Data.Models
 {
     [PrimaryKey(nameof(CustomerId), nameof(TicketId))]
-    public class UserTicket : BaseDeletableModel<Guid>
+    public class UserTicket : IDeletableEntity
     {
         [Required]
         public string CustomerId { get; set; }
@@ -27,5 +27,9 @@ namespace GoceTransportApp.Data.Models
 
         [Required]
         public int AvailableTickets { get; set; }
+
+        public bool IsDeleted { get; set; }
+
+        public DateTime? DeletedOn { get; set; }
     }
 }

@@ -7,7 +7,7 @@
     using System.ComponentModel.DataAnnotations.Schema;
 
     [PrimaryKey(nameof(CityId), nameof(StreetId))]
-    public class CityStreet : BaseDeletableModel<Guid>
+    public class CityStreet : IDeletableEntity
     {
         [Required]
         public Guid CityId { get; set; }
@@ -20,5 +20,9 @@
 
         [ForeignKey(nameof(StreetId))]
         public Street Street { get; set; } = null!;
+
+        public bool IsDeleted { get; set; }
+
+        public DateTime? DeletedOn { get; set; }
     }
 }

@@ -4,6 +4,7 @@ using GoceTransportApp.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GoceTransportApp.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20241210190833_changeCityStreetInterfaceImplementation")]
+    partial class changeCityStreetInterfaceImplementation
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -364,9 +367,9 @@ namespace GoceTransportApp.Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("7fb75405-1620-48d0-9042-045aaa310d76"),
+                            Id = new Guid("fe85e70b-8c1a-4bbb-aba6-85c6724786e2"),
                             Address = "123 Main St, Springfield",
-                            CreatedOn = new DateTime(2024, 12, 10, 21, 10, 35, 180, DateTimeKind.Local).AddTicks(7612),
+                            CreatedOn = new DateTime(2024, 12, 10, 21, 8, 32, 223, DateTimeKind.Local).AddTicks(5912),
                             FounderId = "4b5ab8a3-7604-447a-a603-f8e97e45fb61",
                             ImageUrl = "../../images/no-organization-image",
                             IsDeleted = false,
@@ -375,9 +378,9 @@ namespace GoceTransportApp.Data.Migrations
                         },
                         new
                         {
-                            Id = new Guid("14ead5ad-7377-491e-8c21-f64636666c7d"),
+                            Id = new Guid("8a2a2be4-3a63-467e-ad81-3378d221c4b1"),
                             Address = "456 Elm St, Shelbyville",
-                            CreatedOn = new DateTime(2024, 12, 10, 21, 10, 35, 180, DateTimeKind.Local).AddTicks(7675),
+                            CreatedOn = new DateTime(2024, 12, 10, 21, 8, 32, 223, DateTimeKind.Local).AddTicks(5980),
                             FounderId = "a982c9b9-c1bc-4a5b-a89a-4c53a701c526",
                             ImageUrl = "../../images/no-organization-image",
                             IsDeleted = false,
@@ -386,9 +389,9 @@ namespace GoceTransportApp.Data.Migrations
                         },
                         new
                         {
-                            Id = new Guid("f598d81f-7a76-4929-ab19-47e7df16b186"),
+                            Id = new Guid("9cd114f9-aa6f-4475-8a47-ae96ee8757fe"),
                             Address = "789 Oak St, Ogdenville",
-                            CreatedOn = new DateTime(2024, 12, 10, 21, 10, 35, 180, DateTimeKind.Local).AddTicks(7684),
+                            CreatedOn = new DateTime(2024, 12, 10, 21, 8, 32, 223, DateTimeKind.Local).AddTicks(6008),
                             FounderId = "c40f52d6-d2cc-4379-8acf-782558dba84c",
                             ImageUrl = "../../images/no-organization-image",
                             IsDeleted = false,
@@ -397,9 +400,9 @@ namespace GoceTransportApp.Data.Migrations
                         },
                         new
                         {
-                            Id = new Guid("6b4d82c9-e6d8-4d92-b172-c24c8548a74a"),
+                            Id = new Guid("9ef2c95b-b71a-4c20-9ef8-2c118ba4d666"),
                             Address = "321 Pine St, North Haverbrook",
-                            CreatedOn = new DateTime(2024, 12, 10, 21, 10, 35, 180, DateTimeKind.Local).AddTicks(7691),
+                            CreatedOn = new DateTime(2024, 12, 10, 21, 8, 32, 223, DateTimeKind.Local).AddTicks(6016),
                             FounderId = "00591d7b-5bf5-475b-ac85-4a2467481881",
                             ImageUrl = "../../images/no-organization-image",
                             IsDeleted = false,
@@ -408,9 +411,9 @@ namespace GoceTransportApp.Data.Migrations
                         },
                         new
                         {
-                            Id = new Guid("3cb689f3-e38d-4ae4-be46-4c8fbe3c1b33"),
+                            Id = new Guid("032f645f-dfc1-40a0-b7a3-4069718a7f9a"),
                             Address = "654 Maple St, Capitol City",
-                            CreatedOn = new DateTime(2024, 12, 10, 21, 10, 35, 180, DateTimeKind.Local).AddTicks(7702),
+                            CreatedOn = new DateTime(2024, 12, 10, 21, 8, 32, 223, DateTimeKind.Local).AddTicks(6039),
                             FounderId = "6b040313-77f4-49b0-b3d3-b25de95eb408",
                             ImageUrl = "../../images/no-organization-image",
                             IsDeleted = false,
@@ -692,11 +695,20 @@ namespace GoceTransportApp.Data.Migrations
                     b.Property<int>("AvailableTickets")
                         .HasColumnType("int");
 
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("datetime2");
+
                     b.Property<DateTime?>("DeletedOn")
                         .HasColumnType("datetime2");
 
+                    b.Property<Guid>("Id")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
+
+                    b.Property<DateTime?>("ModifiedOn")
+                        .HasColumnType("datetime2");
 
                     b.HasKey("CustomerId", "TicketId");
 

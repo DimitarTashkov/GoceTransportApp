@@ -4,6 +4,7 @@ using GoceTransportApp.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GoceTransportApp.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20241210183127_seedCitiesStreetsUsers")]
+    partial class seedCitiesStreetsUsers
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -154,6 +157,98 @@ namespace GoceTransportApp.Data.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "4b5ab8a3-7604-447a-a603-f8e97e45fb61",
+                            AccessFailedCount = 0,
+                            City = "Gotse Delchev",
+                            ConcurrencyStamp = "5d10b091-c232-450f-a0bc-c55af50485dd",
+                            CreatedOn = new DateTime(2024, 12, 10, 20, 31, 26, 963, DateTimeKind.Local).AddTicks(510),
+                            Email = "user1@example.com",
+                            EmailConfirmed = false,
+                            FirstName = "Alice",
+                            IsDeleted = false,
+                            LastName = "Smith",
+                            LockoutEnabled = false,
+                            PhoneNumberConfirmed = false,
+                            ProfilePictureUrl = "../../images/no-profile-image",
+                            TwoFactorEnabled = false,
+                            UserName = "user1"
+                        },
+                        new
+                        {
+                            Id = "a982c9b9-c1bc-4a5b-a89a-4c53a701c526",
+                            AccessFailedCount = 0,
+                            City = "Mosomishte",
+                            ConcurrencyStamp = "3cf866a1-e9cd-499f-8220-36e3fecfe7a3",
+                            CreatedOn = new DateTime(2024, 12, 10, 20, 31, 26, 963, DateTimeKind.Local).AddTicks(610),
+                            Email = "user2@example.com",
+                            EmailConfirmed = false,
+                            FirstName = "Bob",
+                            IsDeleted = false,
+                            LastName = "Johnson",
+                            LockoutEnabled = false,
+                            PhoneNumberConfirmed = false,
+                            ProfilePictureUrl = "../../images/no-profile-image",
+                            TwoFactorEnabled = false,
+                            UserName = "user2"
+                        },
+                        new
+                        {
+                            Id = "c40f52d6-d2cc-4379-8acf-782558dba84c",
+                            AccessFailedCount = 0,
+                            City = "Borovo",
+                            ConcurrencyStamp = "85575b6a-1ad3-46cf-9f45-c6711d01d4f1",
+                            CreatedOn = new DateTime(2024, 12, 10, 20, 31, 26, 963, DateTimeKind.Local).AddTicks(653),
+                            Email = "user3@example.com",
+                            EmailConfirmed = false,
+                            FirstName = "Carol",
+                            IsDeleted = false,
+                            LastName = "Taylor",
+                            LockoutEnabled = false,
+                            PhoneNumberConfirmed = false,
+                            ProfilePictureUrl = "../../images/no-profile-image",
+                            TwoFactorEnabled = false,
+                            UserName = "user3"
+                        },
+                        new
+                        {
+                            Id = "00591d7b-5bf5-475b-ac85-4a2467481881",
+                            AccessFailedCount = 0,
+                            City = "Lqski",
+                            ConcurrencyStamp = "d80d2cce-3bfd-412b-bb92-80bb374de37b",
+                            CreatedOn = new DateTime(2024, 12, 10, 20, 31, 26, 963, DateTimeKind.Local).AddTicks(669),
+                            Email = "user4@example.com",
+                            EmailConfirmed = false,
+                            FirstName = "David",
+                            IsDeleted = false,
+                            LastName = "Brown",
+                            LockoutEnabled = false,
+                            PhoneNumberConfirmed = false,
+                            ProfilePictureUrl = "../../images/no-profile-image",
+                            TwoFactorEnabled = false,
+                            UserName = "user4"
+                        },
+                        new
+                        {
+                            Id = "6b040313-77f4-49b0-b3d3-b25de95eb408",
+                            AccessFailedCount = 0,
+                            City = "Mosomishte",
+                            ConcurrencyStamp = "9ba962c9-ae95-4f3b-8a01-fe1338f5b730",
+                            CreatedOn = new DateTime(2024, 12, 10, 20, 31, 26, 963, DateTimeKind.Local).AddTicks(689),
+                            Email = "user5@example.com",
+                            EmailConfirmed = false,
+                            FirstName = "Eve",
+                            IsDeleted = false,
+                            LastName = "Davis",
+                            LockoutEnabled = false,
+                            PhoneNumberConfirmed = false,
+                            ProfilePictureUrl = "../../images/no-profile-image",
+                            TwoFactorEnabled = false,
+                            UserName = "user5"
+                        });
                 });
 
             modelBuilder.Entity("GoceTransportApp.Data.Models.City", b =>
@@ -194,6 +289,53 @@ namespace GoceTransportApp.Data.Migrations
                     b.HasIndex("IsDeleted");
 
                     b.ToTable("Cities");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("3796f88d-d00b-4d50-9b53-7e1a9bcfee43"),
+                            CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            IsDeleted = false,
+                            Name = "Springfield",
+                            State = "Illinois",
+                            ZipCode = "62704"
+                        },
+                        new
+                        {
+                            Id = new Guid("463fa98d-d831-4b20-a0d5-9e2c97e639b1"),
+                            CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            IsDeleted = false,
+                            Name = "Shelbyville",
+                            State = "Illinois",
+                            ZipCode = "62705"
+                        },
+                        new
+                        {
+                            Id = new Guid("e471b8cb-70d6-4be3-9d01-c148188ba7c5"),
+                            CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            IsDeleted = false,
+                            Name = "Ogdenville",
+                            State = "Indiana",
+                            ZipCode = "46123"
+                        },
+                        new
+                        {
+                            Id = new Guid("f70ac745-cd51-4813-92a2-8d066d5147d7"),
+                            CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            IsDeleted = false,
+                            Name = "North Haverbrook",
+                            State = "Indiana",
+                            ZipCode = "46124"
+                        },
+                        new
+                        {
+                            Id = new Guid("a8789eb6-4fea-4f81-a4cb-d15771913a83"),
+                            CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            IsDeleted = false,
+                            Name = "Capitol City",
+                            State = "Illinois",
+                            ZipCode = "62706"
+                        });
                 });
 
             modelBuilder.Entity("GoceTransportApp.Data.Models.CityStreet", b =>
@@ -204,11 +346,20 @@ namespace GoceTransportApp.Data.Migrations
                     b.Property<Guid>("StreetId")
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("datetime2");
+
                     b.Property<DateTime?>("DeletedOn")
                         .HasColumnType("datetime2");
 
+                    b.Property<Guid>("Id")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
+
+                    b.Property<DateTime?>("ModifiedOn")
+                        .HasColumnType("datetime2");
 
                     b.HasKey("CityId", "StreetId");
 
@@ -360,63 +511,6 @@ namespace GoceTransportApp.Data.Migrations
                     b.HasIndex("IsDeleted");
 
                     b.ToTable("Organizations");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = new Guid("7fb75405-1620-48d0-9042-045aaa310d76"),
-                            Address = "123 Main St, Springfield",
-                            CreatedOn = new DateTime(2024, 12, 10, 21, 10, 35, 180, DateTimeKind.Local).AddTicks(7612),
-                            FounderId = "4b5ab8a3-7604-447a-a603-f8e97e45fb61",
-                            ImageUrl = "../../images/no-organization-image",
-                            IsDeleted = false,
-                            Name = "City Transport Co.",
-                            Phone = "+1 555-1234"
-                        },
-                        new
-                        {
-                            Id = new Guid("14ead5ad-7377-491e-8c21-f64636666c7d"),
-                            Address = "456 Elm St, Shelbyville",
-                            CreatedOn = new DateTime(2024, 12, 10, 21, 10, 35, 180, DateTimeKind.Local).AddTicks(7675),
-                            FounderId = "a982c9b9-c1bc-4a5b-a89a-4c53a701c526",
-                            ImageUrl = "../../images/no-organization-image",
-                            IsDeleted = false,
-                            Name = "Express Logistics",
-                            Phone = "+1 555-5678"
-                        },
-                        new
-                        {
-                            Id = new Guid("f598d81f-7a76-4929-ab19-47e7df16b186"),
-                            Address = "789 Oak St, Ogdenville",
-                            CreatedOn = new DateTime(2024, 12, 10, 21, 10, 35, 180, DateTimeKind.Local).AddTicks(7684),
-                            FounderId = "c40f52d6-d2cc-4379-8acf-782558dba84c",
-                            ImageUrl = "../../images/no-organization-image",
-                            IsDeleted = false,
-                            Name = "Safe Travels",
-                            Phone = "+1 555-9012"
-                        },
-                        new
-                        {
-                            Id = new Guid("6b4d82c9-e6d8-4d92-b172-c24c8548a74a"),
-                            Address = "321 Pine St, North Haverbrook",
-                            CreatedOn = new DateTime(2024, 12, 10, 21, 10, 35, 180, DateTimeKind.Local).AddTicks(7691),
-                            FounderId = "00591d7b-5bf5-475b-ac85-4a2467481881",
-                            ImageUrl = "../../images/no-organization-image",
-                            IsDeleted = false,
-                            Name = "Urban Express",
-                            Phone = "+1 555-3456"
-                        },
-                        new
-                        {
-                            Id = new Guid("3cb689f3-e38d-4ae4-be46-4c8fbe3c1b33"),
-                            Address = "654 Maple St, Capitol City",
-                            CreatedOn = new DateTime(2024, 12, 10, 21, 10, 35, 180, DateTimeKind.Local).AddTicks(7702),
-                            FounderId = "6b040313-77f4-49b0-b3d3-b25de95eb408",
-                            ImageUrl = "../../images/no-organization-image",
-                            IsDeleted = false,
-                            Name = "Comfy Rides",
-                            Phone = "+1 555-7890"
-                        });
                 });
 
             modelBuilder.Entity("GoceTransportApp.Data.Models.Report", b =>
@@ -630,6 +724,43 @@ namespace GoceTransportApp.Data.Migrations
                     b.HasIndex("IsDeleted");
 
                     b.ToTable("Streets");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("48e9172c-fc16-4458-a9e7-e336e7b4398c"),
+                            CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            IsDeleted = false,
+                            Name = "Qntra"
+                        },
+                        new
+                        {
+                            Id = new Guid("1e2f6188-ea24-485a-8ae9-0ef2d4a76184"),
+                            CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            IsDeleted = false,
+                            Name = "Tsaritsa Joanna"
+                        },
+                        new
+                        {
+                            Id = new Guid("466559a3-6508-4dc8-a9cb-22783cbe74a0"),
+                            CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            IsDeleted = false,
+                            Name = "Dimitar Talev"
+                        },
+                        new
+                        {
+                            Id = new Guid("13bee015-1bab-434f-a1d2-be551805a887"),
+                            CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            IsDeleted = false,
+                            Name = "Polkovnik Drangov"
+                        },
+                        new
+                        {
+                            Id = new Guid("e6c7ece3-710d-41f9-bbce-93e3d6a6aa0e"),
+                            CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            IsDeleted = false,
+                            Name = "Marica"
+                        });
                 });
 
             modelBuilder.Entity("GoceTransportApp.Data.Models.Ticket", b =>
@@ -692,11 +823,20 @@ namespace GoceTransportApp.Data.Migrations
                     b.Property<int>("AvailableTickets")
                         .HasColumnType("int");
 
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("datetime2");
+
                     b.Property<DateTime?>("DeletedOn")
                         .HasColumnType("datetime2");
 
+                    b.Property<Guid>("Id")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
+
+                    b.Property<DateTime?>("ModifiedOn")
+                        .HasColumnType("datetime2");
 
                     b.HasKey("CustomerId", "TicketId");
 

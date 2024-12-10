@@ -8,6 +8,8 @@ using GoceTransportApp.Web.ViewModels.Tickets;
 
 using static GoceTransportApp.Common.ErrorMessages.TicketMessages;
 using System.Collections.Generic;
+using GoceTransportApp.Data.Common.Repositories;
+using GoceTransportApp.Data.Models;
 
 namespace GoceTransportApp.Web.Controllers
 {
@@ -15,7 +17,8 @@ namespace GoceTransportApp.Web.Controllers
     {
         private readonly ITicketService ticketService;
 
-        public TicketController(ITicketService ticketService)
+        public TicketController(ITicketService ticketService, IDeletableEntityRepository<Organization> organizationRepository)
+            : base(organizationRepository)
         {
             this.ticketService = ticketService;
         }

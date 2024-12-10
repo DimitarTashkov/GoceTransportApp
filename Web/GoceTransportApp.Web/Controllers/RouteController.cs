@@ -1,4 +1,6 @@
-﻿using GoceTransportApp.Services.Data.Cities;
+﻿using GoceTransportApp.Data.Common.Repositories;
+using GoceTransportApp.Data.Models;
+using GoceTransportApp.Services.Data.Cities;
 using GoceTransportApp.Services.Data.Routes;
 using GoceTransportApp.Web.ViewModels.Cities;
 using GoceTransportApp.Web.ViewModels.Routes;
@@ -17,7 +19,8 @@ namespace GoceTransportApp.Web.Controllers
     {
         private readonly IRouteService routeService;
 
-        public RouteController(IRouteService routeService)
+        public RouteController(IRouteService routeService, IDeletableEntityRepository<Organization> organizationRepository)
+            : base(organizationRepository)
         {
             this.routeService = routeService;
         }

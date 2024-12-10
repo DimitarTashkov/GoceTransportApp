@@ -10,6 +10,8 @@
     using System.Threading.Tasks;
     using System;
     using GoceTransportApp.Web.ViewModels.Users;
+    using GoceTransportApp.Data.Common.Repositories;
+    using GoceTransportApp.Data.Models;
 
     [Authorize(Roles = GlobalConstants.AdministratorRoleName)]
     [Area(GlobalConstants.AdministratorArea)]
@@ -17,8 +19,8 @@
     {
         private readonly IUserService userService;
 
-        public UserAdministrationController(IUserService userService)
-            : base()
+        public UserAdministrationController(IUserService userService, IDeletableEntityRepository<Organization> organizationRepository)
+            : base(organizationRepository)
         {
             this.userService = userService;
         }

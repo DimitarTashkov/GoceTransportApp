@@ -9,6 +9,8 @@ using GoceTransportApp.Web.ViewModels.Cities;
 
 using static GoceTransportApp.Common.ErrorMessages.CityMessages;
 using System.Collections.Generic;
+using GoceTransportApp.Data.Common.Repositories;
+using GoceTransportApp.Data.Models;
 
 namespace GoceTransportApp.Web.Controllers
 {
@@ -17,7 +19,8 @@ namespace GoceTransportApp.Web.Controllers
     {
         private readonly ICityService cityService;
 
-        public CityController(ICityService cityService)
+        public CityController(ICityService cityService, IDeletableEntityRepository<Organization> organizationRepository)
+            : base(organizationRepository)
         {
             this.cityService = cityService;
         }

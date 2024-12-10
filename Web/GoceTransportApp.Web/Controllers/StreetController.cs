@@ -1,4 +1,6 @@
-﻿using GoceTransportApp.Services.Data.Streets;
+﻿using GoceTransportApp.Data.Common.Repositories;
+using GoceTransportApp.Data.Models;
+using GoceTransportApp.Services.Data.Streets;
 using GoceTransportApp.Web.ViewModels.Streets;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -16,7 +18,8 @@ namespace GoceTransportApp.Web.Controllers
     {
         private readonly IStreetService streetService;
 
-        public StreetController(IStreetService streetService)
+        public StreetController(IStreetService streetService, IDeletableEntityRepository<Organization> organizationRepository)
+            : base(organizationRepository)
         {
             this.streetService = streetService;
         }

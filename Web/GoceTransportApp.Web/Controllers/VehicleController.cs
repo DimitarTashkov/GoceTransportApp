@@ -9,6 +9,8 @@ using GoceTransportApp.Web.ViewModels.Vehicles;
 using static GoceTransportApp.Common.ErrorMessages.VehicleMessages;
 using GoceTransportApp.Web.ViewModels.Streets;
 using System.Collections.Generic;
+using GoceTransportApp.Data.Common.Repositories;
+using GoceTransportApp.Data.Models;
 
 
 namespace GoceTransportApp.Web.Controllers
@@ -17,7 +19,8 @@ namespace GoceTransportApp.Web.Controllers
     {
         private readonly IVehicleService vehicleService;
 
-        public VehicleController(IVehicleService vehicleService)
+        public VehicleController(IVehicleService vehicleService, IDeletableEntityRepository<Organization> organizationRepository)
+            : base(organizationRepository)
         {
             this.vehicleService = vehicleService;
         }

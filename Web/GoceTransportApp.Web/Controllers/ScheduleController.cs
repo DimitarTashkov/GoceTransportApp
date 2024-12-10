@@ -6,6 +6,8 @@ using System;
 
 using static GoceTransportApp.Common.ErrorMessages.ScheduleMessages;
 using GoceTransportApp.Web.ViewModels.Schedules;
+using GoceTransportApp.Data.Common.Repositories;
+using GoceTransportApp.Data.Models;
 
 namespace GoceTransportApp.Web.Controllers
 {
@@ -13,7 +15,8 @@ namespace GoceTransportApp.Web.Controllers
     {
         private readonly IScheduleService scheduleService;
 
-        public ScheduleController(IScheduleService scheduleService)
+        public ScheduleController(IScheduleService scheduleService, IDeletableEntityRepository<Organization> organizationRepository)
+            : base(organizationRepository)
         {
             this.scheduleService = scheduleService;
         }

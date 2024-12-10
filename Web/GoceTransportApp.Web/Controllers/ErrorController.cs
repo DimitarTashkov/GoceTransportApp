@@ -6,7 +6,7 @@ using System.Diagnostics;
 
 namespace GoceTransportApp.Web.Controllers
 {
-    public class ErrorController : BaseController
+    public class ErrorController : Controller
     {
         [Route("/Error/500")]
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

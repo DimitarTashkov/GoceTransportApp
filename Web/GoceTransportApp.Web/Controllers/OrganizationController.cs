@@ -7,6 +7,8 @@ using System;
 using GoceTransportApp.Web.ViewModels.Organizations;
 
 using static GoceTransportApp.Common.ErrorMessages.OrganizationMessages;
+using GoceTransportApp.Data.Common.Repositories;
+using GoceTransportApp.Data.Models;
 
 namespace GoceTransportApp.Web.Controllers
 {
@@ -14,7 +16,8 @@ namespace GoceTransportApp.Web.Controllers
     {
         private readonly IOrganizationService organizationService;
 
-        public OrganizationController(IOrganizationService organizationService)
+        public OrganizationController(IOrganizationService organizationService, IDeletableEntityRepository<Organization> organizationRepository)
+            : base(organizationRepository)
         {
             this.organizationService = organizationService;
         }

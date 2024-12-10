@@ -8,6 +8,8 @@ using System;
 using GoceTransportApp.Web.ViewModels.Drivers;
 
 using static GoceTransportApp.Common.ErrorMessages.DriverMessages;
+using GoceTransportApp.Data.Common.Repositories;
+using GoceTransportApp.Data.Models;
 
 namespace GoceTransportApp.Web.Controllers
 {
@@ -16,7 +18,8 @@ namespace GoceTransportApp.Web.Controllers
     {
         private IDriverService driverService;
 
-        public DriverController(IDriverService driverService)
+        public DriverController(IDriverService driverService, IDeletableEntityRepository<Organization> organizationRepository)
+            : base(organizationRepository)
         {
             this.driverService = driverService;
         }

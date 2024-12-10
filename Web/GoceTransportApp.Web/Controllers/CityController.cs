@@ -8,6 +8,8 @@ using GoceTransportApp.Services.Data.Cities;
 using GoceTransportApp.Web.ViewModels.Cities;
 
 using static GoceTransportApp.Common.ErrorMessages.CityMessages;
+using static GoceTransportApp.Common.GlobalConstants;
+
 using System.Collections.Generic;
 using GoceTransportApp.Data.Common.Repositories;
 using GoceTransportApp.Data.Models;
@@ -47,7 +49,6 @@ namespace GoceTransportApp.Web.Controllers
         public async Task<IActionResult> Create()
         {
             CityInputModel model = new CityInputModel();
-            // TODO: Check if the user has permissions to create streets
 
             return View(model);
         }
@@ -66,9 +67,9 @@ namespace GoceTransportApp.Web.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = AdministratorRoleName)]
         public async Task<IActionResult> Edit(string? id)
         {
-
             Guid cityGuid = Guid.Empty;
             bool isIdValid = IsGuidValid(id, ref cityGuid);
 
@@ -89,6 +90,7 @@ namespace GoceTransportApp.Web.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = AdministratorRoleName)]
         public async Task<IActionResult> Edit(EditCityInputModel formModel)
         {
             if (!ModelState.IsValid)
@@ -110,6 +112,7 @@ namespace GoceTransportApp.Web.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = AdministratorRoleName)]
         public async Task<IActionResult> Delete(string? id)
         {
             Guid streetGuid = Guid.Empty;

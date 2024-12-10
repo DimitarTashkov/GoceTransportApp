@@ -10,9 +10,12 @@ using static GoceTransportApp.Common.ErrorMessages.TicketMessages;
 using System.Collections.Generic;
 using GoceTransportApp.Data.Common.Repositories;
 using GoceTransportApp.Data.Models;
+using Microsoft.AspNetCore.Authorization;
+using System.Security.Claims;
 
 namespace GoceTransportApp.Web.Controllers
 {
+    [Authorize]
     public class TicketController : BaseController
     {
         private readonly ITicketService ticketService;
@@ -46,9 +49,17 @@ namespace GoceTransportApp.Web.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Create()
+        public async Task<IActionResult> Create(string organizationId)
         {
+            string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            if (!await this.HasUserCreatedOrganizationAsync(userId, organizationId))
+            {
+                return RedirectToAction("Tickets", "Organization", new { id = organizationId });
+            }
+
             TicketInputModel model = new TicketInputModel();
+            model.OrganizationId = organizationId;
 
             return View(model);
         }
@@ -56,6 +67,13 @@ namespace GoceTransportApp.Web.Controllers
         [HttpPost]
         public async Task<IActionResult> Create(TicketInputModel model)
         {
+            string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            if (!await this.HasUserCreatedOrganizationAsync(userId, model.OrganizationId))
+            {
+                return RedirectToAction("Tickets", "Organization", new { id = model.OrganizationId });
+            }
+
             if (!ModelState.IsValid)
             {
                 return View(model);
@@ -63,11 +81,11 @@ namespace GoceTransportApp.Web.Controllers
 
             await ticketService.CreateAsync(model);
 
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction("Tickets", "Organization", new { id = model.OrganizationId });
         }
 
         [HttpGet]
-        public async Task<IActionResult> Edit(string? id)
+        public async Task<IActionResult> Edit(string? id, string organizationId)
         {
 
             Guid scheduleGuid = Guid.Empty;
@@ -75,7 +93,7 @@ namespace GoceTransportApp.Web.Controllers
 
             if (!isIdValid)
             {
-                return this.RedirectToAction(nameof(Index));
+                return RedirectToAction("Tickets", "Organization", new { id = organizationId });
             }
 
             EditTicketInputModel? formModel = await this.ticketService
@@ -83,7 +101,14 @@ namespace GoceTransportApp.Web.Controllers
 
             if (formModel == null)
             {
-                return this.RedirectToAction(nameof(Index));
+                return RedirectToAction("Tickets", "Organization", new { id = formModel.OrganizationId });
+            }
+
+            string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            if (!await this.HasUserCreatedOrganizationAsync(userId, formModel.OrganizationId))
+            {
+                return RedirectToAction("Tickets", "Organization", new { id = formModel.OrganizationId });
             }
 
             return this.View(formModel);
@@ -92,6 +117,13 @@ namespace GoceTransportApp.Web.Controllers
         [HttpPost]
         public async Task<IActionResult> Edit(EditTicketInputModel formModel)
         {
+            string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            if (!await this.HasUserCreatedOrganizationAsync(userId, formModel.OrganizationId))
+            {
+                return RedirectToAction("Tickets", "Organization", new { id = formModel.OrganizationId });
+            }
+
             if (!ModelState.IsValid)
             {
                 return this.View(formModel);
@@ -107,17 +139,17 @@ namespace GoceTransportApp.Web.Controllers
                 return this.View(formModel);
             }
 
-            return this.RedirectToAction(nameof(Index));
+            return RedirectToAction("Tickets", "Organization", new { id = formModel.OrganizationId });
         }
 
         [HttpGet]
-        public async Task<IActionResult> Delete(string? id)
+        public async Task<IActionResult> Delete(string? id, string organizationId)
         {
             Guid ticketGuid = Guid.Empty;
             bool isIdValid = IsGuidValid(id, ref ticketGuid);
             if (!isIdValid)
             {
-                return this.RedirectToAction(nameof(Index));
+                return RedirectToAction("Tickets", "Organization", new { id = organizationId });
             }
 
             RemoveTicketViewModel? model = await ticketService
@@ -125,7 +157,14 @@ namespace GoceTransportApp.Web.Controllers
 
             if (model == null)
             {
-                return this.RedirectToAction(nameof(Index));
+                return RedirectToAction("Tickets", "Organization", new { id = model.OrganizationId });
+            }
+
+            string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            if (!await this.HasUserCreatedOrganizationAsync(userId, model.OrganizationId))
+            {
+                return RedirectToAction("Tickets", "Organization", new { id = model.OrganizationId });
             }
 
             return View(model);
@@ -134,6 +173,13 @@ namespace GoceTransportApp.Web.Controllers
         [HttpPost]
         public async Task<IActionResult> Delete(RemoveTicketViewModel formModel)
         {
+            string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            if (!await this.HasUserCreatedOrganizationAsync(userId, formModel.OrganizationId))
+            {
+                return RedirectToAction("Tickets", "Organization", new { id = formModel.OrganizationId });
+            }
+
             if (!ModelState.IsValid)
             {
                 return this.View(formModel);
@@ -149,17 +195,17 @@ namespace GoceTransportApp.Web.Controllers
                 return this.View(formModel);
             }
 
-            return this.RedirectToAction(nameof(Index));
+            return RedirectToAction("Tickets", "Organization", new { id = formModel.OrganizationId });
         }
 
         [HttpGet]
-        public async Task<IActionResult> Details(string? id)
+        public async Task<IActionResult> Details(string? id, string organizationId)
         {
             Guid ticketGuid = Guid.Empty;
             bool isIdValid = IsGuidValid(id, ref ticketGuid);
             if (!isIdValid)
             {
-                return this.RedirectToAction(nameof(Index));
+                return RedirectToAction("Tickets", "Organization", new { id = organizationId });
             }
 
             TicketDetailsViewModel? model = await ticketService
@@ -169,21 +215,21 @@ namespace GoceTransportApp.Web.Controllers
             {
                 TempData[nameof(InvalidTicketDetails)] = InvalidTicketDetails;
 
-                return this.RedirectToAction(nameof(Index));
+                return RedirectToAction("Tickets", "Organization", new { id = organizationId });
             }
 
             return View(model);
         }
 
         [HttpGet]
-        public async Task<IActionResult> Purchase(string? id)
+        public async Task<IActionResult> Purchase(string? id, string organizationId)
         {
             Guid ticketGuid = Guid.Empty;
             bool isIdValid = IsGuidValid(id, ref ticketGuid);
 
             if (!isIdValid)
             {
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction("Tickets", "Organization", new { id = organizationId });
             }
 
             TicketDetailsViewModel model = await ticketService.GetTicketDetailsAsync(ticketGuid);
@@ -191,20 +237,25 @@ namespace GoceTransportApp.Web.Controllers
             if (model == null)
             {
                 TempData[nameof(InvalidTicketDetails)] = InvalidTicketDetails;
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction("Tickets", "Organization", new { id = organizationId });
             }
 
-            // Add a property to the model to store the number of tickets the user wants to buy
-            model.QuantityToBuy = 1; // Default to 1 ticket
+            model.QuantityToBuy = 1;
             return View(model);
         }
 
         [HttpPost]
         public async Task<IActionResult> Purchase(TicketDetailsViewModel model)
         {
+            if (!ModelState.IsValid)
+            {
+                return RedirectToAction("Tickets", "Organization", new { id = model.OrganizationId });
+
+            }
+
             if (model.QuantityToBuy <= 0)
             {
-                ModelState.AddModelError("", "Please select a valid number of tickets.");
+                ModelState.AddModelError("InvalidQuantity", "Please select a valid number of tickets.");
                 return View(model);
             }
 
@@ -213,7 +264,7 @@ namespace GoceTransportApp.Web.Controllers
 
             if (!isIdValid)
             {
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction("Tickets", "Organization", new { id = model.OrganizationId });
             }
 
             var purchaseSuccess = await ticketService.BuyTicketsAsync(ticketGuid, model.QuantityToBuy);
@@ -225,7 +276,7 @@ namespace GoceTransportApp.Web.Controllers
             }
 
             TempData[nameof(TicketPurchaseSuccess)] = TicketPurchaseSuccess;
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction("Tickets", "Organization", new { id = model.OrganizationId });
         }
     }
 }

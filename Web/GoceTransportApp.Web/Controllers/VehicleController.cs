@@ -11,10 +11,13 @@ using GoceTransportApp.Web.ViewModels.Streets;
 using System.Collections.Generic;
 using GoceTransportApp.Data.Common.Repositories;
 using GoceTransportApp.Data.Models;
+using Microsoft.AspNetCore.Authorization;
+using System.Security.Claims;
 
 
 namespace GoceTransportApp.Web.Controllers
 {
+    [Authorize]
     public class VehicleController : BaseController
     {
         private readonly IVehicleService vehicleService;
@@ -44,9 +47,17 @@ namespace GoceTransportApp.Web.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Create()
+        public async Task<IActionResult> Create(string organizationId)
         {
+            string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            if (!await this.HasUserCreatedOrganizationAsync(userId, organizationId))
+            {
+                return RedirectToAction("Vehicles", "Organization", new { id = organizationId });
+            }
+
             VehicleInputModel model = new VehicleInputModel();
+            model.OrganizationId = organizationId;
 
             return View(model);
         }
@@ -54,6 +65,13 @@ namespace GoceTransportApp.Web.Controllers
         [HttpPost]
         public async Task<IActionResult> Create(VehicleInputModel model)
         {
+            string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            if (!await this.HasUserCreatedOrganizationAsync(userId, model.OrganizationId))
+            {
+                return RedirectToAction("Vehicles", "Organization", new { id = model.OrganizationId });
+            }
+
             if (!ModelState.IsValid)
             {
                 return View(model);
@@ -61,11 +79,11 @@ namespace GoceTransportApp.Web.Controllers
 
             await vehicleService.CreateAsync(model);
 
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction("Vehicles", "Organization", new { id = model.OrganizationId });
         }
 
         [HttpGet]
-        public async Task<IActionResult> Edit(string? id)
+        public async Task<IActionResult> Edit(string? id, string organizationId)
         {
 
             Guid vehicleGuid = Guid.Empty;
@@ -73,7 +91,7 @@ namespace GoceTransportApp.Web.Controllers
 
             if (!isIdValid)
             {
-                return this.RedirectToAction(nameof(Index));
+                return RedirectToAction("Vehicles", "Organization", new { id = organizationId });
             }
 
             EditVehicleInputModel? formModel = await this.vehicleService
@@ -81,7 +99,14 @@ namespace GoceTransportApp.Web.Controllers
 
             if (formModel == null)
             {
-                return this.RedirectToAction(nameof(Index));
+                return RedirectToAction("Vehicles", "Organization", new { id = formModel.OrganizationId });
+            }
+
+            string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            if (!await this.HasUserCreatedOrganizationAsync(userId, formModel.OrganizationId))
+            {
+                return RedirectToAction("Vehicles", "Organization", new { id = formModel.OrganizationId });
             }
 
             return this.View(formModel);
@@ -90,6 +115,13 @@ namespace GoceTransportApp.Web.Controllers
         [HttpPost]
         public async Task<IActionResult> Edit(EditVehicleInputModel formModel)
         {
+            string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            if (!await this.HasUserCreatedOrganizationAsync(userId, formModel.OrganizationId))
+            {
+                return RedirectToAction("Vehicles", "Organization", new { id = formModel.OrganizationId });
+            }
+
             if (!ModelState.IsValid)
             {
                 return this.View(formModel);
@@ -105,17 +137,17 @@ namespace GoceTransportApp.Web.Controllers
                 return this.View(formModel);
             }
 
-            return this.RedirectToAction(nameof(Index));
+            return RedirectToAction("Vehicles", "Organization", new { id = formModel.OrganizationId });
         }
 
         [HttpGet]
-        public async Task<IActionResult> Delete(string? id)
+        public async Task<IActionResult> Delete(string? id, string organizationId)
         {
             Guid vehicleGuid = Guid.Empty;
             bool isIdValid = IsGuidValid(id, ref vehicleGuid);
             if (!isIdValid)
             {
-                return this.RedirectToAction(nameof(Index));
+                return RedirectToAction("Vehicles", "Organization", new { id = organizationId });
             }
 
             RemoveVehicleViewModel? model = await vehicleService
@@ -123,7 +155,14 @@ namespace GoceTransportApp.Web.Controllers
 
             if (model == null)
             {
-                return this.RedirectToAction(nameof(Index));
+                return RedirectToAction("Vehicles", "Organization", new { id = organizationId });
+            }
+
+            string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            if (!await this.HasUserCreatedOrganizationAsync(userId, model.OrganizationId))
+            {
+                return RedirectToAction("Vehicles", "Organization", new { id = model.OrganizationId });
             }
 
             return View(model);
@@ -132,6 +171,13 @@ namespace GoceTransportApp.Web.Controllers
         [HttpPost]
         public async Task<IActionResult> Delete(RemoveVehicleViewModel formModel)
         {
+            string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            if (!await this.HasUserCreatedOrganizationAsync(userId, formModel.OrganizationId))
+            {
+                return RedirectToAction("Vehicles", "Organization", new { id = formModel.OrganizationId });
+            }
+
             if (!ModelState.IsValid)
             {
                 return this.View(formModel);
@@ -147,17 +193,17 @@ namespace GoceTransportApp.Web.Controllers
                 return this.View(formModel);
             }
 
-            return this.RedirectToAction(nameof(Index));
+            return RedirectToAction("Vehicles", "Organization", new { id = formModel.OrganizationId });
         }
 
         [HttpGet]
-        public async Task<IActionResult> Details(string? id)
+        public async Task<IActionResult> Details(string? id, string organizationId)
         {
             Guid vehicleGuid = Guid.Empty;
             bool isIdValid = IsGuidValid(id, ref vehicleGuid);
             if (!isIdValid)
             {
-                return this.RedirectToAction(nameof(Index));
+                return RedirectToAction("Vehicles", "Organization", new { id = organizationId });
             }
 
             VehicleDetailsViewModel? model = await vehicleService
@@ -167,7 +213,7 @@ namespace GoceTransportApp.Web.Controllers
             {
                 TempData[nameof(InvalidVehicleDetails)] = InvalidVehicleDetails;
 
-                return this.RedirectToAction(nameof(Index));
+                return RedirectToAction("Vehicles", "Organization", new { id = organizationId });
             }
 
             return View(model);

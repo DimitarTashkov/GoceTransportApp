@@ -9,9 +9,12 @@ using GoceTransportApp.Web.ViewModels.Organizations;
 using static GoceTransportApp.Common.ErrorMessages.OrganizationMessages;
 using GoceTransportApp.Data.Common.Repositories;
 using GoceTransportApp.Data.Models;
+using Microsoft.AspNetCore.Authorization;
+using System.Security.Claims;
 
 namespace GoceTransportApp.Web.Controllers
 {
+    [Authorize]
     public class OrganizationController : BaseController
     {
         private readonly IOrganizationService organizationService;
@@ -33,6 +36,7 @@ namespace GoceTransportApp.Web.Controllers
         [HttpGet]
         public async Task<IActionResult> Create()
         {
+
             OrganizationInputModel model = new OrganizationInputModel();
 
             return View(model);
@@ -62,6 +66,12 @@ namespace GoceTransportApp.Web.Controllers
             {
                 return this.RedirectToAction(nameof(Index));
             }
+            string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            if (!await this.HasUserCreatedOrganizationAsync(userId, id))
+            {
+                return RedirectToAction(nameof(Index));
+            }
 
             EditOrganizationInputModel? formModel = await this.organizationService
                 .GetOrganizationForEditAsync(organizationGuid);
@@ -77,6 +87,13 @@ namespace GoceTransportApp.Web.Controllers
         [HttpPost]
         public async Task<IActionResult> Edit(EditOrganizationInputModel formModel)
         {
+            string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            if (!await this.HasUserCreatedOrganizationAsync(userId, formModel.Id))
+            {
+                return RedirectToAction(nameof(Index));
+            }
+
             if (!ModelState.IsValid)
             {
                 return this.View(formModel);
@@ -105,6 +122,13 @@ namespace GoceTransportApp.Web.Controllers
                 return this.RedirectToAction(nameof(Index));
             }
 
+            string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            if (!await this.HasUserCreatedOrganizationAsync(userId, id))
+            {
+                return RedirectToAction(nameof(Index));
+            }
+
             RemoveOrganizationViewModel? model = await organizationService
                 .GetOrganizationForDeletionAsync(organizationGuid);
 
@@ -119,6 +143,13 @@ namespace GoceTransportApp.Web.Controllers
         [HttpPost]
         public async Task<IActionResult> Delete(RemoveOrganizationViewModel formModel)
         {
+            string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            if (!await this.HasUserCreatedOrganizationAsync(userId, formModel.Id))
+            {
+                return RedirectToAction(nameof(Index));
+            }
+
             if (!ModelState.IsValid)
             {
                 return this.View(formModel);

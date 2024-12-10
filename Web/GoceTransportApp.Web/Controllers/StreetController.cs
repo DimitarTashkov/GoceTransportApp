@@ -10,6 +10,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 
 using static GoceTransportApp.Common.ErrorMessages.StreetMessages;
+using static GoceTransportApp.Common.GlobalConstants;
 
 namespace GoceTransportApp.Web.Controllers
 {
@@ -65,6 +66,8 @@ namespace GoceTransportApp.Web.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = AdministratorRoleName)]
+
         public async Task<IActionResult> Edit(string? id)
         {
 
@@ -88,6 +91,8 @@ namespace GoceTransportApp.Web.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = AdministratorRoleName)]
+
         public async Task<IActionResult> Edit(EditStreetInputModel formModel)
         {
             if (!ModelState.IsValid)
@@ -109,6 +114,8 @@ namespace GoceTransportApp.Web.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = AdministratorRoleName)]
+
         public async Task<IActionResult> Delete(string? id)
         {
             Guid streetGuid = Guid.Empty;

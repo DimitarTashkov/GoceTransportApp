@@ -1,6 +1,7 @@
 ﻿using GoceTransportApp.Data.Common.Repositories;
 using GoceTransportApp.Data.Models;
 using GoceTransportApp.Services.Data.Cities;
+using GoceTransportApp.Services.Data.Organizations;
 using GoceTransportApp.Services.Data.Routes;
 using GoceTransportApp.Web.ViewModels.Cities;
 using GoceTransportApp.Web.ViewModels.Routes;
@@ -8,6 +9,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
+using System.Security.Claims;
 using System.Threading.Tasks;
 
 using static GoceTransportApp.Common.ErrorMessages.RouteMessages;
@@ -47,10 +49,17 @@ namespace GoceTransportApp.Web.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Create()
+        public async Task<IActionResult> Create(string organizationId)
         {
+            string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            if (!await this.HasUserCreatedOrganizationAsync(userId, organizationId))
+            {
+                return RedirectToAction("Routes", "Organization", new { id = organizationId });
+            }
+
             RouteInputModel model = new RouteInputModel();
-            // TODO: Check if the user has permissions to create, edit, delete/archive routes
+            model.OrganizationId = organizationId;
 
             return View(model);
         }
@@ -58,6 +67,13 @@ namespace GoceTransportApp.Web.Controllers
         [HttpPost]
         public async Task<IActionResult> Create(RouteInputModel model)
         {
+            string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            if (!await this.HasUserCreatedOrganizationAsync(userId, model.OrganizationId))
+            {
+                return RedirectToAction("Routes", "Organization", new { id = model.OrganizationId });
+            }
+
             if (!ModelState.IsValid)
             {
                 return View(model);
@@ -65,11 +81,11 @@ namespace GoceTransportApp.Web.Controllers
 
             await routeService.CreateAsync(model);
 
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction("Routes", "Organization", new { id = model.OrganizationId });
         }
 
         [HttpGet]
-        public async Task<IActionResult> Edit(string? id)
+        public async Task<IActionResult> Edit(string? id, string organizationId)
         {
 
             Guid routeGuid = Guid.Empty;
@@ -77,15 +93,24 @@ namespace GoceTransportApp.Web.Controllers
 
             if (!isIdValid)
             {
-                return this.RedirectToAction(nameof(Index));
+                return RedirectToAction("Routes", "Organization", new { id = organizationId });
+
             }
 
             EditRouteInputModel? formModel = await this.routeService
                 .GetRouteForEditAsync(routeGuid);
 
+
             if (formModel == null)
             {
-                return this.RedirectToAction(nameof(Index));
+                return RedirectToAction("Routes", "Organization", new { id = formModel.OrganizationId });
+
+            }
+
+            string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            if (!await this.HasUserCreatedOrganizationAsync(userId, formModel.OrganizationId))
+            {
+                return RedirectToAction("Routes", "Organization", new { id = formModel.OrganizationId });
             }
 
             return this.View(formModel);
@@ -94,9 +119,15 @@ namespace GoceTransportApp.Web.Controllers
         [HttpPost]
         public async Task<IActionResult> Edit(EditRouteInputModel formModel)
         {
+            string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            if (!await this.HasUserCreatedOrganizationAsync(userId, formModel.OrganizationId))
+            {
+                return RedirectToAction("Routes", "Organization", new { id = formModel.OrganizationId });
+            }
+
             if (!ModelState.IsValid)
             {
-                return this.View(formModel);
+                return RedirectToAction("Routes", "Organization", new { id = formModel.OrganizationId });
             }
 
             bool isUpdated = await this.routeService
@@ -109,17 +140,17 @@ namespace GoceTransportApp.Web.Controllers
                 return this.View(formModel);
             }
 
-            return this.RedirectToAction(nameof(Index));
+            return RedirectToAction("Routes", "Organization", new { id = formModel.OrganizationId });
         }
 
         [HttpGet]
-        public async Task<IActionResult> Delete(string? id)
+        public async Task<IActionResult> Delete(string? id, string organizationId)
         {
             Guid routeGuid = Guid.Empty;
             bool isIdValid = IsGuidValid(id, ref routeGuid);
             if (!isIdValid)
             {
-                return this.RedirectToAction(nameof(Index));
+                return RedirectToAction("Routes", "Organization", new { id = organizationId });
             }
 
             RemoveRouteViewModel? model = await routeService
@@ -129,7 +160,14 @@ namespace GoceTransportApp.Web.Controllers
             {
                 TempData[nameof(RouteDeleteFailed)] = RouteDeleteFailed;
 
-                return this.RedirectToAction("Index");
+                return RedirectToAction("Routes", "Organization", new { id = model.OrganizationId });
+
+            }
+
+            string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            if (!await this.HasUserCreatedOrganizationAsync(userId, model.OrganizationId))
+            {
+                return RedirectToAction("Routes", "Organization",new { id = model.OrganizationId });
             }
 
             return View(model);
@@ -138,6 +176,12 @@ namespace GoceTransportApp.Web.Controllers
         [HttpPost]
         public async Task<IActionResult> Delete(RemoveRouteViewModel formModel)
         {
+            string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            if (!await this.HasUserCreatedOrganizationAsync(userId, formModel.OrganizationId))
+            {
+                return RedirectToAction("Routes", "Organization", new { id = formModel.OrganizationId });
+            }
+
             if (!ModelState.IsValid)
             {
                 return this.View(formModel);
@@ -153,7 +197,8 @@ namespace GoceTransportApp.Web.Controllers
                 return this.View(formModel);
             }
 
-            return this.RedirectToAction(nameof(Index));
+            return RedirectToAction("Routes", "Organization", new { id = formModel.OrganizationId });
+
         }
 
         [HttpPost]
@@ -178,13 +223,13 @@ namespace GoceTransportApp.Web.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Details(string? id)
+        public async Task<IActionResult> Details(string? id, string organizationId)
         {
             Guid routeGuid = Guid.Empty;
             bool isIdValid = IsGuidValid(id, ref routeGuid);
             if (!isIdValid)
             {
-                return this.RedirectToAction(nameof(Index));
+                return RedirectToAction("Routes", "Organization", new { id = organizationId });
             }
 
             RouteDetailsViewModel? model = await routeService
@@ -194,7 +239,7 @@ namespace GoceTransportApp.Web.Controllers
             {
                 TempData[nameof(InvalidRouteDetails)] = InvalidRouteDetails;
 
-                return this.RedirectToAction("Index");
+                return RedirectToAction("Routes", "Organization", new { id = organizationId});
             }
 
             return View(model);

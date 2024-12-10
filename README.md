@@ -43,3 +43,6 @@ To install and set up the project locally, follow these steps:
 1. Clone this repository:
    ```bash
    git clone https://github.com/DimitarTashkov/GoceTransportApp.git
+   ```
+2 Adjust connection string for local database in GoceTransport.Web.appsettings.json
+3. Configure CORS local host support. After every clone and build this application changes its localhost port, making it impossible to communicate with the Web API. Check your port and change mine in GoceTranpsort.WebAPI.appsettings.json

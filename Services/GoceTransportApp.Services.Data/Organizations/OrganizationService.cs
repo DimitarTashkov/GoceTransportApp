@@ -108,6 +108,7 @@ namespace GoceTransportApp.Services.Data.Organizations
                     Id = o.Id.ToString(),
                     FirstName = o.FirstName,
                     LastName = o.LastName,
+                    OrganizationId = o.OrganizationId.ToString(),
                 })
                 .ToArrayAsync();
 
@@ -198,6 +199,7 @@ namespace GoceTransportApp.Services.Data.Organizations
                     ArrivingCity = route.ToCity.Name,
                     DepartingStreet = route.FromStreet.Name,
                     ArrivingStreet = route.ToStreet.Name,
+                    OrganizationId = route.OrganizationId.ToString(),
                 })
                 .ToArrayAsync();
 
@@ -259,6 +261,7 @@ namespace GoceTransportApp.Services.Data.Organizations
                  Type = c.Type,
                  Manufacturer = c.Manufacturer,
                  Model = c.Model,
+                 OrganizationId = c.OrganizationId.ToString(),
              })
              .ToArrayAsync();
 

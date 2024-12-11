@@ -123,18 +123,21 @@ namespace GoceTransportApp.Services.Data.Organizations
 
             if (organization != null)
             {
-                viewModel.Id = organization.Id.ToString();
-                viewModel.Name = organization.Name;
-                viewModel.Address = organization.Address;
-                viewModel.Phone = organization.Phone;
-                viewModel.FounderId = organization.FounderId;
-                viewModel.OrganizationMessages = organization.OrganizationMessages;
-                viewModel.OrganizationDrivers = organization.OrganizationDrivers;
-                viewModel.OrganizationRoutes = organization.OrganizationRoutes;
-                viewModel.OrganizationReports = organization.OrganizationReports;
-                viewModel.OrganizationSchedules = organization.OrganizationSchedules;
-                viewModel.OrganizationTickets = organization.OrganizationTickets;
-                viewModel.OrganizationVehicles = organization.OrganizationVehicles;
+                viewModel = new OrganizationDetailsViewModel()
+                {
+                    Id = organization.Id.ToString(),
+                    Name = organization.Name,
+                    Address = organization.Address,
+                    Phone = organization.Phone,
+                    FounderId = organization.FounderId,
+                    OrganizationMessages = organization.OrganizationMessages,
+                    OrganizationDrivers = organization.OrganizationDrivers,
+                    OrganizationRoutes = organization.OrganizationRoutes,
+                    OrganizationReports = organization.OrganizationReports,
+                    OrganizationSchedules = organization.OrganizationSchedules,
+                    OrganizationTickets = organization.OrganizationTickets,
+                    OrganizationVehicles = organization.OrganizationVehicles,
+                };
             }
 
             return viewModel;

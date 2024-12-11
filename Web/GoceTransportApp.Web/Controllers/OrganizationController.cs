@@ -36,8 +36,10 @@ namespace GoceTransportApp.Web.Controllers
         [HttpGet]
         public async Task<IActionResult> Create()
         {
+            string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
             OrganizationInputModel model = new OrganizationInputModel();
+            model.FounderId = userId;
 
             return View(model);
         }

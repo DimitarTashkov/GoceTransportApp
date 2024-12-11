@@ -1,5 +1,14 @@
-﻿@model GoceTransportApp.Web.ViewModels.Tickets.TicketDataViewModel
-
+﻿@using System.Security.Claims
+@using GoceTransportApp.Services.Data.Users
+@using static GoceTransportApp.Common.GlobalConstants
+@model GoceTransportApp.Web.ViewModels.Tickets.TicketDataViewModel
+@inject IUserService userService
+@{
+    var organizationId = Model.OrganizationId;
+    var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+    var isFounder = await userService.HasUserCreatedOrganizationAsync(userId, organizationId);
+    var isAdmin = User.IsInRole(AdministratorRoleName);
+}
 <div class="col-md-4 mb-4">
     <div class="card shadow-sm">
         <div class="card-body">
@@ -12,14 +21,17 @@
                 <strong>Arrival:</strong> @Model.ArrivingTime <br />
             </p>
             <div class="d-flex justify-content-between">
+                @if (isFounder || isAdmin)
+                {
+                    <a asp-action="Edit" asp-controller="Ticket" asp-route-id="@Model.Id" asp-route-organizationId="@Model.OrganizationId" class="btn btn-warning btn-sm">
+                        <i class="fas fa-edit"></i> Edit
+                    </a>
+                    <a asp-action="Delete" asp-controller="Ticket" asp-route-id="@Model.Id" asp-route-organizationId="@Model.OrganizationId" class="btn btn-danger btn-sm">
+                        <i class="fas fa-trash"></i> Delete
+                    </a>
+                }
                 <a asp-action="Details" asp-controller="Ticket" asp-route-id="@Model.Id" asp-route-organizationId="@Model.OrganizationId" class="btn btn-info btn-sm">
                     <i class="fas fa-info-circle"></i> Details
-                </a>
-                <a asp-action="Edit" asp-controller="Ticket" asp-route-id="@Model.Id" asp-route-organizationId="@Model.OrganizationId" class="btn btn-warning btn-sm">
-                    <i class="fas fa-edit"></i> Edit
-                </a>
-                <a asp-action="Delete" asp-controller="Ticket" asp-route-id="@Model.Id" asp-route-organizationId="@Model.OrganizationId" class="btn btn-danger btn-sm">
-                    <i class="fas fa-trash"></i> Delete
                 </a>
             </div>
         </div>

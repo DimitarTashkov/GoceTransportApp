@@ -1,5 +1,14 @@
-﻿@model GoceTransportApp.Web.ViewModels.Tickets.TicketDetailsViewModel
-
+﻿@using System.Security.Claims
+@using GoceTransportApp.Services.Data.Users
+@using static GoceTransportApp.Common.GlobalConstants
+@model GoceTransportApp.Web.ViewModels.Tickets.TicketDetailsViewModel
+@inject IUserService userService
+@{
+    var organizationId = Model.OrganizationId;
+    var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+    var isFounder = await userService.HasUserCreatedOrganizationAsync(userId, organizationId);
+    var isAdmin = User.IsInRole(AdministratorRoleName);
+}
 <div class="card shadow-sm mx-auto" style="max-width: 800px;">
     <div class="card-body">
         <h5 class="card-title"><i class="fas fa-ticket-alt"></i> Ticket Details</h5>
@@ -15,12 +24,15 @@
             <strong>Available Tickets:</strong> @Model.AvailableTickets <br />
         </p>
         <div class="d-flex justify-content-between">
-            <a asp-action="Edit" asp-controller="Ticket" asp-route-id="@Model.Id" asp-route-organizationId="@Model.OrganizationId" class="btn btn-warning">
-                <i class="fas fa-edit"></i> Edit
-            </a>
-            <a asp-action="Delete" asp-controller="Ticket" asp-route-id="@Model.Id" asp-route-organizationId="@Model.OrganizationId" class="btn btn-danger">
-                <i class="fas fa-trash"></i> Delete
-            </a>
+            @if (isFounder || isAdmin)
+            {
+                <a asp-action="Edit" asp-controller="Ticket" asp-route-id="@Model.Id" asp-route-organizationId="@Model.OrganizationId" class="btn btn-warning">
+                    <i class="fas fa-edit"></i> Edit
+                </a>
+                <a asp-action="Delete" asp-controller="Ticket" asp-route-id="@Model.Id" asp-route-organizationId="@Model.OrganizationId" class="btn btn-danger">
+                    <i class="fas fa-trash"></i> Delete
+                </a>
+            }
             <a asp-action="Tickets" asp-controller="Organization" asp-route-organizationId="@Model.OrganizationId" class="btn btn-secondary">
                 <i class="fas fa-arrow-left"></i> Back
             </a>

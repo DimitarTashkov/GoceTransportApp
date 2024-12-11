@@ -15,13 +15,13 @@
             <strong>Available Tickets:</strong> @Model.AvailableTickets <br />
         </p>
         <div class="d-flex justify-content-between">
-            <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-warning">
+            <a asp-action="Edit" asp-controller="Ticket" asp-route-id="@Model.Id" asp-route-organizationId="@Model.OrganizationId" class="btn btn-warning">
                 <i class="fas fa-edit"></i> Edit
             </a>
-            <a asp-action="Delete" asp-route-id="@Model.Id" class="btn btn-danger">
+            <a asp-action="Delete" asp-controller="Ticket" asp-route-id="@Model.Id" asp-route-organizationId="@Model.OrganizationId" class="btn btn-danger">
                 <i class="fas fa-trash"></i> Delete
             </a>
-            <a asp-action="Index" class="btn btn-secondary">
+            <a asp-action="Tickets" asp-controller="Organization" asp-route-organizationId="@Model.OrganizationId" class="btn btn-secondary">
                 <i class="fas fa-arrow-left"></i> Back
             </a>
         </div>

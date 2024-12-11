@@ -101,6 +101,7 @@ namespace GoceTransportApp.Services.Data.Drivers
                   Id = c.Id.ToString(),
                   FirstName = c.FirstName,
                   LastName = c.LastName,
+                  OrganizationId = c.OrganizationId.ToString(),
               })
               .ToArrayAsync();
 

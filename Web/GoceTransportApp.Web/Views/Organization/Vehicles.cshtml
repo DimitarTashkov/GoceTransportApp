@@ -1,0 +1,21 @@
+﻿@model IEnumerable<GoceTransportApp.Web.ViewModels.Vehicles.VehicleDataViewModel>
+
+@{
+    ViewData["Title"] = "Vehicles for Organization";
+}
+
+<div class="container mt-5">
+    <h1 class="text-center mb-4">Vehicles</h1>
+
+    @if (!Model.Any())
+    {
+        <p>No vehicles found for this organization.</p>
+    }
+
+    <div class="row">
+        @foreach (var vehicle in Model)
+        {
+            <partial name="_VehicleCard" model="vehicle" />
+        }
+    </div>
+</div>

@@ -1,0 +1,21 @@
+﻿@model IEnumerable<GoceTransportApp.Web.ViewModels.Drivers.DriverDataViewModel>
+
+@{
+    ViewData["Title"] = "Drivers for Organization";
+}
+
+<div class="container mt-5">
+    <h1 class="text-center mb-4">Drivers</h1>
+
+    @if (!Model.Any())
+    {
+        <p>No drivers found for this organization.</p>
+    }
+
+    <div class="row">
+        @foreach (var driver in Model)
+        {
+            <partial name="_DriverCardPartial" model="driver" />
+        }
+    </div>
+</div>

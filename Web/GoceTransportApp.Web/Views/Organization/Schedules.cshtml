@@ -1,0 +1,21 @@
+﻿@model IEnumerable<GoceTransportApp.Web.ViewModels.Schedules.ScheduleDataViewModel>
+
+@{
+    ViewData["Title"] = "Schedules for Organization";
+}
+
+<div class="container mt-5">
+    <h1 class="text-center mb-4">Schedules</h1>
+
+    @if (!Model.Any())
+    {
+        <p>No schedules found for this organization.</p>
+    }
+
+    <div class="row">
+        @foreach (var schedule in Model)
+        {
+            <partial name="_ScheduleCard" model="schedule" />
+        }
+    </div>
+</div>

@@ -1,0 +1,21 @@
+﻿@model IEnumerable<GoceTransportApp.Web.ViewModels.Tickets.TicketDataViewModel>
+
+@{
+    ViewData["Title"] = "Tickets for Organization";
+}
+
+<div class="container mt-5">
+    <h1 class="text-center mb-4">Tickets</h1>
+
+    @if (!Model.Any())
+    {
+        <p>No tickets found for this organization.</p>
+    }
+
+    <div class="row">
+        @foreach (var ticket in Model)
+        {
+            <partial name="_TicketCardPartial" model="ticket" />
+        }
+    </div>
+</div>

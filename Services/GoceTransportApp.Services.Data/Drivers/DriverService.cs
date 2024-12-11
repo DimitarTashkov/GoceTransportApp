@@ -51,16 +51,19 @@ namespace GoceTransportApp.Services.Data.Drivers
             DriverDetailsViewModel viewModel = null;
 
             Driver? driver = await driverRepository.AllAsNoTracking()
+                .Include(o => o.Organization)
                 .FirstOrDefaultAsync(d => d.Id == id);
             if (driver != null)
             {
                 viewModel = new DriverDetailsViewModel()
                 {
+                    Id = driver.Id.ToString(),
                     FirstName = driver.FirstName,
                     LastName = driver.LastName,
                     Age = driver.Age,
                     DrivingExperience = driver.Experience.ToString(),
                     OrganizationId = driver.ToString(),
+                    OrganizationName = driver.Organization.Name,
                 };
             }
 

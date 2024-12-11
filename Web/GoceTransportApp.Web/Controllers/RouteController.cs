@@ -56,7 +56,7 @@ namespace GoceTransportApp.Web.Controllers
 
             if (!await this.HasUserCreatedOrganizationAsync(userId, organizationId))
             {
-                return RedirectToAction("Routes", "Organization", new { id = organizationId });
+                return RedirectToAction("Routes", "Organization", new { organizationId = organizationId });
             }
 
             RouteInputModel model = new RouteInputModel();

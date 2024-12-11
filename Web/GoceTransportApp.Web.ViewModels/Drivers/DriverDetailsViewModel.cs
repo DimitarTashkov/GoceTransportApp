@@ -21,5 +21,7 @@ namespace GoceTransportApp.Web.ViewModels.Drivers
 
         public string OrganizationId { get; set; } = null!;
 
+        public string OrganizationName { get; set; } = null!;
+
     }
 }

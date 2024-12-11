@@ -27,6 +27,7 @@ namespace GoceTransportApp.Web.Controllers
         }
 
         [HttpGet]
+        [AllowAnonymous]
         public async Task<IActionResult> Index(AllTicketsSearchFilterViewModel inputModel)
         {
             IEnumerable<TicketDataViewModel> allTickets =
@@ -199,6 +200,7 @@ namespace GoceTransportApp.Web.Controllers
         }
 
         [HttpGet]
+        [AllowAnonymous]
         public async Task<IActionResult> Details(string? id, string organizationId)
         {
             Guid ticketGuid = Guid.Empty;

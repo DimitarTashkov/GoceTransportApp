@@ -25,6 +25,7 @@ namespace GoceTransportApp.Web.Controllers
         }
 
         [HttpGet]
+        [AllowAnonymous]
         public async Task<IActionResult> Index()
         {
             var model = await scheduleService.GetAllSchedulesAsync();
@@ -179,6 +180,7 @@ namespace GoceTransportApp.Web.Controllers
         }
 
         [HttpGet]
+        [AllowAnonymous]
         public async Task<IActionResult> Details(string? id, string organizationId)
         {
             Guid scheduleGuid = Guid.Empty;

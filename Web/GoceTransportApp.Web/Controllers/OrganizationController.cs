@@ -30,6 +30,7 @@ namespace GoceTransportApp.Web.Controllers
         }
 
         [HttpGet]
+        [AllowAnonymous]
         public async Task<IActionResult> Index()
         {
             var model = await organizationService.GetAllOrganizationsAsync();
@@ -175,6 +176,7 @@ namespace GoceTransportApp.Web.Controllers
         }
 
         [HttpGet]
+        [AllowAnonymous]
         public async Task<IActionResult> Details(string? id)
         {
             Guid organizationGuid = Guid.Empty;
@@ -198,6 +200,7 @@ namespace GoceTransportApp.Web.Controllers
         }
 
         [HttpGet]
+        [AllowAnonymous]
         public async Task<IActionResult> Routes(string organizationId)
         {
             Guid organizationGuid = Guid.Empty;
@@ -219,6 +222,7 @@ namespace GoceTransportApp.Web.Controllers
         }
 
         [HttpGet]
+        [AllowAnonymous]
         public async Task<IActionResult> Drivers(string organizationId)
         {
             Guid organizationGuid = Guid.Empty;
@@ -240,6 +244,7 @@ namespace GoceTransportApp.Web.Controllers
         }
 
         [HttpGet]
+        [AllowAnonymous]
 
         public async Task<IActionResult> Vehicles(string organizationId)
         {
@@ -262,6 +267,7 @@ namespace GoceTransportApp.Web.Controllers
         }
 
         [HttpGet]
+        [AllowAnonymous]
 
         public async Task<IActionResult> Tickets(string organizationId)
         {
@@ -283,6 +289,7 @@ namespace GoceTransportApp.Web.Controllers
         }
 
         [HttpGet]
+        [AllowAnonymous]
         public async Task<IActionResult> Schedules(string organizationId)
         {
             Guid organizationGuid = Guid.Empty;

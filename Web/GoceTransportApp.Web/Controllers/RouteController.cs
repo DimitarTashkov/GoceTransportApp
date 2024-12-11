@@ -28,6 +28,7 @@ namespace GoceTransportApp.Web.Controllers
         }
 
         [HttpGet]
+        [AllowAnonymous]
         public async Task<IActionResult> Index(AllRoutesSearchFilterViewModel inputModel)
         {
             IEnumerable<RouteDataViewModel> allRoutes = await routeService.GetAllRoutesAsync(inputModel);
@@ -223,6 +224,7 @@ namespace GoceTransportApp.Web.Controllers
         }
 
         [HttpGet]
+        [AllowAnonymous]
         public async Task<IActionResult> Details(string? id, string organizationId)
         {
             Guid routeGuid = Guid.Empty;

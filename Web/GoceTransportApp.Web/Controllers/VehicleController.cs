@@ -197,6 +197,7 @@ namespace GoceTransportApp.Web.Controllers
         }
 
         [HttpGet]
+        [AllowAnonymous]
         public async Task<IActionResult> Details(string? id, string organizationId)
         {
             Guid vehicleGuid = Guid.Empty;

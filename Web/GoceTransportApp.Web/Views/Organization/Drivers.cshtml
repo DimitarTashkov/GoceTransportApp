@@ -1,4 +1,4 @@
-﻿@model IEnumerable<GoceTransportApp.Web.ViewModels.Drivers.DriverDataViewModel>
+﻿@model GoceTransportApp.Web.ViewModels.Drivers.DriversForOrganizationViewModel
 
 @{
     ViewData["Title"] = "Drivers for Organization";
@@ -6,14 +6,16 @@
 
 <div class="container mt-5">
     <h1 class="text-center mb-4">Drivers</h1>
+    <a asp-action="Create" asp-controller="Driver" asp-route-organizationId="@Model.OrganizationId" class="btn btn-success">Add New Driver</a>
 
-    @if (!Model.Any())
+
+    @if (!Model.Drivers.Any())
     {
         <p>No drivers found for this organization.</p>
     }
 
     <div class="row">
-        @foreach (var driver in Model)
+        @foreach (var driver in Model.Drivers)
         {
             <partial name="_DriverCardPartial" model="driver" />
         }

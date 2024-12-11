@@ -1,4 +1,4 @@
-﻿@model IEnumerable<GoceTransportApp.Web.ViewModels.Schedules.ScheduleDataViewModel>
+﻿@model GoceTransportApp.Web.ViewModels.Schedules.SchedulesForOrganizationViewModel
 
 @{
     ViewData["Title"] = "Schedules for Organization";
@@ -6,14 +6,16 @@
 
 <div class="container mt-5">
     <h1 class="text-center mb-4">Schedules</h1>
+    <a asp-action="Create" asp-controller="Schedule" asp-route-organizationId="@Model.OrganizationId" class="btn btn-success">Add New Schedule</a>
 
-    @if (!Model.Any())
+
+    @if (!Model.Schedules.Any())
     {
         <p>No schedules found for this organization.</p>
     }
 
     <div class="row">
-        @foreach (var schedule in Model)
+        @foreach (var schedule in Model.Schedules)
         {
             <partial name="_ScheduleCard" model="schedule" />
         }

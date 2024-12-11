@@ -235,6 +235,7 @@ namespace GoceTransportApp.Services.Data.Routes
                 Distance = route.Distance,
                 Duration = route.Duration,
                 Organization = route.Organization.Name,
+                OrganizationId = route.OrganizationId.ToString(),
             };
 
             return viewModel;
@@ -249,6 +250,7 @@ namespace GoceTransportApp.Services.Data.Routes
                 ArrivingCity = route.ToCity.Name,
                 DepartingStreet = route.FromStreet.Name,
                 ArrivingStreet = route.ToStreet.Name,
+                OrganizationId = route.OrganizationId.ToString(),
             };
 
             return viewModel;

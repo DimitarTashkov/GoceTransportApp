@@ -1,4 +1,5 @@
-﻿using GoceTransportApp.Data.Models;
+﻿using GoceTransportApp.Data.Common.Repositories;
+using GoceTransportApp.Data.Models;
 using GoceTransportApp.Web.ViewModels.Users;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -14,12 +15,15 @@ namespace GoceTransportApp.Services.Data.Users
     {
         private readonly UserManager<ApplicationUser> userManager;
         private readonly RoleManager<ApplicationRole> roleManager;
+        private readonly IDeletableEntityRepository<Organization> organizationRepository;
 
         public UserService(UserManager<ApplicationUser> userManager,
-            RoleManager<ApplicationRole> roleManager)
+            RoleManager<ApplicationRole> roleManager,
+            IDeletableEntityRepository<Organization> organizationRepository)
         {
             this.userManager = userManager;
             this.roleManager = roleManager;
+            this.organizationRepository = organizationRepository;
         }
 
         public async Task<IEnumerable<AllUsersViewModel>> GetAllUsersAsync()
@@ -122,6 +126,17 @@ namespace GoceTransportApp.Services.Data.Users
             }
 
             return true;
+        }
+
+        public async Task<bool> HasUserCreatedOrganizationAsync(string userId, string organizationId)
+        {
+            if (string.IsNullOrEmpty(userId) || string.IsNullOrEmpty(organizationId))
+            {
+                return false;
+            }
+
+            return await organizationRepository.AllAsNoTracking()
+                .AnyAsync(o => o.Id == Guid.Parse(organizationId) && o.FounderId == userId);
         }
     }
 }

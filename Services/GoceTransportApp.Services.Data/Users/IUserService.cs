@@ -18,5 +18,6 @@ namespace GoceTransportApp.Services.Data.Users
         Task<bool> RemoveUserRoleAsync(Guid userId, string roleName);
 
         Task<bool> DeleteUserAsync(Guid userId);
+        Task<bool> HasUserCreatedOrganizationAsync(string userId, string organizationId);
     }
 }

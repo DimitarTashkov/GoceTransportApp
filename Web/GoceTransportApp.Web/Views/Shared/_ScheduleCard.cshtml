@@ -1,5 +1,14 @@
-﻿@model GoceTransportApp.Web.ViewModels.Schedules.ScheduleDataViewModel
-
+﻿@using GoceTransportApp.Services.Data.Users
+@using System.Security.Claims
+@using static GoceTransportApp.Common.GlobalConstants
+@model GoceTransportApp.Web.ViewModels.Schedules.ScheduleDataViewModel
+@inject IUserService userService
+@{
+    var organizationId = Model.OrganizationId;
+    var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+    var isFounder = await userService.HasUserCreatedOrganizationAsync(userId, organizationId);
+    var isAdmin = User.IsInRole(AdministratorRoleName);
+}
 <div class="col-md-4">
     <div class="card mb-4 shadow-sm">
         <div class="card-body">
@@ -13,14 +22,17 @@
                 <strong>To:</strong> @Model.ToCity
             </p>
             <div class="d-flex justify-content-between">
+                @if (isFounder || isAdmin)
+                {
+                    <a asp-action="Edit" asp-controller="Schedule" asp-route-id="@Model.Id" asp-route-organizationId="@Model.OrganizationId" class="btn btn-warning btn-sm">
+                        <i class="fas fa-edit"></i> Edit
+                    </a>
+                    <a asp-action="Delete" asp-controller="Schedule" asp-route-id="@Model.Id" asp-route-organizationId="@Model.OrganizationId" class="btn btn-danger btn-sm">
+                        <i class="fas fa-trash-alt"></i> Delete
+                    </a>
+                }
                 <a asp-action="Details" asp-controller="Schedule" asp-route-id="@Model.Id" asp-route-organizationId="@Model.OrganizationId" class="btn btn-info btn-sm">
                     <i class="fas fa-info-circle"></i> Details
-                </a>
-                <a asp-action="Edit" asp-controller="Schedule" asp-route-id="@Model.Id" asp-route-organizationId="@Model.OrganizationId" class="btn btn-warning btn-sm">
-                    <i class="fas fa-edit"></i> Edit
-                </a>
-                <a asp-action="Delete" asp-controller="Schedule" asp-route-id="@Model.Id" asp-route-organizationId="@Model.OrganizationId" class="btn btn-danger btn-sm">
-                    <i class="fas fa-trash-alt"></i> Delete
                 </a>
             </div>
         </div>

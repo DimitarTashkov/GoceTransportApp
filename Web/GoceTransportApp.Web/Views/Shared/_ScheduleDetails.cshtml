@@ -1,5 +1,14 @@
-﻿@model GoceTransportApp.Web.ViewModels.Schedules.ScheduleDetailsViewModel
-
+﻿@using GoceTransportApp.Services.Data.Users
+@using System.Security.Claims
+@using static GoceTransportApp.Common.GlobalConstants
+@model GoceTransportApp.Web.ViewModels.Schedules.ScheduleDetailsViewModel
+@inject IUserService userService
+@{
+    var organizationId = Model.OrganizationId;
+    var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+    var isFounder = await userService.HasUserCreatedOrganizationAsync(userId, organizationId);
+    var isAdmin = User.IsInRole(AdministratorRoleName);
+}
 <div class="card shadow-sm mx-auto" style="max-width: 600px;">
     <div class="card-body">
         <h5 class="card-title">
@@ -13,12 +22,15 @@
             <strong>Vehicle:</strong> @Model.VehicleNumber <br />
             <strong>Organization:</strong> @Model.OrganizationName
         </p>
-        <a asp-action="Edit" asp-controller="Schedule" asp-route-id="@Model.Id" asp-route-organizationId="@Model.OrganizationId" class="btn btn-warning">
-            <i class="fas fa-edit"></i> Edit
-        </a>
-        <a asp-action="Delete" asp-controller="Schedule" asp-route-id="@Model.Id" asp-route-organizationId="@Model.OrganizationId" class="btn btn-danger">
-            <i class="fas fa-trash-alt"></i> Delete
-        </a>
+        @if (isFounder || isAdmin)
+        {
+            <a asp-action="Edit" asp-controller="Schedule" asp-route-id="@Model.Id" asp-route-organizationId="@Model.OrganizationId" class="btn btn-warning">
+                <i class="fas fa-edit"></i> Edit
+            </a>
+            <a asp-action="Delete" asp-controller="Schedule" asp-route-id="@Model.Id" asp-route-organizationId="@Model.OrganizationId" class="btn btn-danger">
+                <i class="fas fa-trash-alt"></i> Delete
+            </a>
+        }
         <a asp-action="Schedules" asp-controller="Organization" asp-route-organizationId="@Model.OrganizationId" class="btn btn-light">Back to List</a>
 
     </div>

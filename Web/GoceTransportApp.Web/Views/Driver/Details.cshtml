@@ -1,5 +1,14 @@
-﻿@model GoceTransportApp.Web.ViewModels.Drivers.DriverDetailsViewModel
-
+﻿@using GoceTransportApp.Services.Data.Users
+@using System.Security.Claims
+@using static GoceTransportApp.Common.GlobalConstants
+@model GoceTransportApp.Web.ViewModels.Drivers.DriverDetailsViewModel
+@inject IUserService userService
+@{
+    var organizationId = Model.OrganizationId;
+    var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+    var isFounder = await userService.HasUserCreatedOrganizationAsync(userId, organizationId);
+    var isAdmin = User.IsInRole(AdministratorRoleName);
+}
 @{
     ViewData["Title"] = "Driver Details";
 }
@@ -7,5 +16,9 @@
 <h1 class="mb-4">Driver Details</h1>
 
 <partial name="_DriverDetailsPartial" model="Model" />
-
-<a asp-action="Drivers" asp-controller="Driver" asp-route-organizationId="@Model.OrganizationId" class="btn btn-secondary mt-4">Back to List</a>
+@if (isFounder || isAdmin)
+{
+    <a asp-action="Edit" asp-controller="Driver" asp-route-id="@Model.Id" asp-route-organizationId="@Model.OrganizationId" class="btn btn-warning btn-sm">Edit</a>
+    <a asp-action="Delete" asp-controller="Driver" asp-route-id="@Model.Id" asp-route-organizationId="@Model.OrganizationId" class="btn btn-danger btn-sm">Delete</a>
+}
+<a asp-action="Drivers" asp-controller="Organization" asp-route-organizationId="@Model.OrganizationId" class="btn btn-secondary mt-4">Back to List</a>

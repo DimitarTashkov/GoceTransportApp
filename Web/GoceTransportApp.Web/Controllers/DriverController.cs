@@ -40,7 +40,7 @@ namespace GoceTransportApp.Web.Controllers
         {
             string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
-            if (!await this.HasUserCreatedOrganizationAsync(userId, organizationId))
+            if (!await this.HasUserCreatedOrganizationAsync(userId, organizationId) && !User.IsInRole(AdministratorRoleName))
             {
                 return RedirectToAction("Drivers", "Organization", new { organizationId = organizationId });
             }
@@ -56,7 +56,7 @@ namespace GoceTransportApp.Web.Controllers
         {
             string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
-            if (!await this.HasUserCreatedOrganizationAsync(userId, model.OrganizationId) || !User.IsInRole(AdministratorRoleName))
+            if (!await this.HasUserCreatedOrganizationAsync(userId, model.OrganizationId) && !User.IsInRole(AdministratorRoleName))
             {
                 return RedirectToAction("Drivers", "Organization", new { organizationId = model.OrganizationId });
             }
@@ -94,7 +94,7 @@ namespace GoceTransportApp.Web.Controllers
 
             string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
-            if (!await this.HasUserCreatedOrganizationAsync(userId, formModel.OrganizationId) || !User.IsInRole(AdministratorRoleName))
+            if (!await this.HasUserCreatedOrganizationAsync(userId, formModel.OrganizationId) && !User.IsInRole(AdministratorRoleName))
             {
                 return RedirectToAction("Drivers", "Organization", new { organizationId = formModel.OrganizationId });
             }
@@ -107,7 +107,7 @@ namespace GoceTransportApp.Web.Controllers
         {
             string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
-            if (!await this.HasUserCreatedOrganizationAsync(userId, formModel.OrganizationId) || !User.IsInRole(AdministratorRoleName))
+            if (!await this.HasUserCreatedOrganizationAsync(userId, formModel.OrganizationId) && !User.IsInRole(AdministratorRoleName))
             {
                 return RedirectToAction("Drivers", "Organization", new { organizationId = formModel.OrganizationId });
             }
@@ -150,7 +150,7 @@ namespace GoceTransportApp.Web.Controllers
 
             string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
-            if (!await this.HasUserCreatedOrganizationAsync(userId, model.OrganizationId) || !User.IsInRole(AdministratorRoleName))
+            if (!await this.HasUserCreatedOrganizationAsync(userId, model.OrganizationId) && !User.IsInRole(AdministratorRoleName))
             {
                 return RedirectToAction("Drivers", "Organization", new { organizationId = model.OrganizationId });
             }
@@ -162,7 +162,7 @@ namespace GoceTransportApp.Web.Controllers
         public async Task<IActionResult> Delete(RemoveDriverViewModel formModel)
         {
             string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            if (!await this.HasUserCreatedOrganizationAsync(userId, formModel.OrganizationId) || !User.IsInRole(AdministratorRoleName))
+            if (!await this.HasUserCreatedOrganizationAsync(userId, formModel.OrganizationId) && !User.IsInRole(AdministratorRoleName))
             {
                 return RedirectToAction("Drivers", "Organization", new { organizationId = formModel.OrganizationId });
             }

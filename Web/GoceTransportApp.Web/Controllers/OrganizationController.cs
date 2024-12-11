@@ -76,7 +76,7 @@ namespace GoceTransportApp.Web.Controllers
             }
             string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
-            if (!await this.HasUserCreatedOrganizationAsync(userId, id) || !User.IsInRole(AdministratorRoleName))
+            if (!await this.HasUserCreatedOrganizationAsync(userId, id) && !User.IsInRole(AdministratorRoleName))
             {
                 return RedirectToAction(nameof(Index));
             }
@@ -97,7 +97,7 @@ namespace GoceTransportApp.Web.Controllers
         {
             string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
-            if (!await this.HasUserCreatedOrganizationAsync(userId, formModel.Id) || !User.IsInRole(AdministratorRoleName))
+            if (!await this.HasUserCreatedOrganizationAsync(userId, formModel.Id) && !User.IsInRole(AdministratorRoleName))
             {
                 return RedirectToAction(nameof(Index));
             }
@@ -132,7 +132,7 @@ namespace GoceTransportApp.Web.Controllers
 
             string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
-            if (!await this.HasUserCreatedOrganizationAsync(userId, id) || !User.IsInRole(AdministratorRoleName))
+            if (!await this.HasUserCreatedOrganizationAsync(userId, id) && !User.IsInRole(AdministratorRoleName))
             {
                 return RedirectToAction(nameof(Index));
             }
@@ -153,7 +153,7 @@ namespace GoceTransportApp.Web.Controllers
         {
             string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
-            if (!await this.HasUserCreatedOrganizationAsync(userId, formModel.Id) || !User.IsInRole(AdministratorRoleName))
+            if (!await this.HasUserCreatedOrganizationAsync(userId, formModel.Id) && !User.IsInRole(AdministratorRoleName))
             {
                 return RedirectToAction(nameof(Index));
             }

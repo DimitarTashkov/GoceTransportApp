@@ -40,7 +40,7 @@ namespace GoceTransportApp.Web.Controllers
 
             if (!await this.HasUserCreatedOrganizationAsync(userId, organizationId))
             {
-                return RedirectToAction("Drivers", "Organization", new { id = organizationId });
+                return RedirectToAction("Drivers", "Organization", new { organizationId = organizationId });
             }
 
             DriverInputModel model = new DriverInputModel();
@@ -56,7 +56,7 @@ namespace GoceTransportApp.Web.Controllers
 
             if (!await this.HasUserCreatedOrganizationAsync(userId, model.OrganizationId))
             {
-                return RedirectToAction("Drivers", "Organization", new { id = model.OrganizationId });
+                return RedirectToAction("Drivers", "Organization", new { organizationId = model.OrganizationId });
             }
 
             if (!ModelState.IsValid)
@@ -66,7 +66,7 @@ namespace GoceTransportApp.Web.Controllers
 
             await driverService.CreateAsync(model);
 
-            return RedirectToAction("Drivers", "Organization", new { id = model.OrganizationId });
+            return RedirectToAction("Drivers", "Organization", new { organizationId = model.OrganizationId });
         }
 
         [HttpGet]
@@ -78,7 +78,7 @@ namespace GoceTransportApp.Web.Controllers
 
             if (!isIdValid)
             {
-                return RedirectToAction("Drivers", "Organization", new { id = organizationId });
+                return RedirectToAction("Drivers", "Organization", new { organizationId = organizationId });
             }
 
             EditDriverInputModel? formModel = await this.driverService
@@ -86,7 +86,7 @@ namespace GoceTransportApp.Web.Controllers
 
             if (formModel == null)
             {
-                return RedirectToAction("Drivers", "Organization", new { id = formModel.OrganizationId });
+                return RedirectToAction("Drivers", "Organization", new { organizationId = formModel.OrganizationId });
 
             }
 
@@ -94,7 +94,7 @@ namespace GoceTransportApp.Web.Controllers
 
             if (!await this.HasUserCreatedOrganizationAsync(userId, formModel.OrganizationId))
             {
-                return RedirectToAction("Drivers", "Organization", new { id = formModel.OrganizationId });
+                return RedirectToAction("Drivers", "Organization", new { organizationId = formModel.OrganizationId });
             }
 
             return this.View(formModel);
@@ -107,7 +107,7 @@ namespace GoceTransportApp.Web.Controllers
 
             if (!await this.HasUserCreatedOrganizationAsync(userId, formModel.OrganizationId))
             {
-                return RedirectToAction("Drivers", "Organization", new { id = formModel.OrganizationId });
+                return RedirectToAction("Drivers", "Organization", new { organizationId = formModel.OrganizationId });
             }
 
             if (!ModelState.IsValid)
@@ -125,7 +125,7 @@ namespace GoceTransportApp.Web.Controllers
                 return this.View(formModel);
             }
 
-            return RedirectToAction("Drivers", "Organization", new { id = formModel.OrganizationId });
+            return RedirectToAction("Drivers", "Organization", new { organizationId = formModel.OrganizationId });
         }
 
         [HttpGet]
@@ -143,14 +143,14 @@ namespace GoceTransportApp.Web.Controllers
 
             if (model == null)
             {
-                return RedirectToAction("Drivers", "Organization", new { id = organizationId });
+                return RedirectToAction("Drivers", "Organization", new { organizationId = organizationId });
             }
 
             string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
             if (!await this.HasUserCreatedOrganizationAsync(userId, model.OrganizationId))
             {
-                return RedirectToAction("Drivers", "Organization", new { id = model.OrganizationId });
+                return RedirectToAction("Drivers", "Organization", new { organizationId = model.OrganizationId });
             }
 
             return View(model);
@@ -162,7 +162,7 @@ namespace GoceTransportApp.Web.Controllers
             string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             if (!await this.HasUserCreatedOrganizationAsync(userId, formModel.OrganizationId))
             {
-                return RedirectToAction("Drivers", "Organization", new { id = formModel.OrganizationId });
+                return RedirectToAction("Drivers", "Organization", new { organizationId = formModel.OrganizationId });
             }
 
             if (!ModelState.IsValid)
@@ -180,7 +180,7 @@ namespace GoceTransportApp.Web.Controllers
                 return this.View(formModel);
             }
 
-            return RedirectToAction("Drivers", "Organization", new { id = formModel.OrganizationId });
+            return RedirectToAction("Drivers", "Organization", new { organizationId = formModel.OrganizationId });
         }
 
         [HttpGet]
@@ -190,7 +190,7 @@ namespace GoceTransportApp.Web.Controllers
             bool isIdValid = IsGuidValid(id, ref driverGuid);
             if (!isIdValid)
             {
-                return RedirectToAction("Drivers", "Organization", new { id = organizationId });
+                return RedirectToAction("Drivers", "Organization", new { organizationId = organizationId });
             }
 
             DriverDetailsViewModel? model = await driverService
@@ -200,7 +200,7 @@ namespace GoceTransportApp.Web.Controllers
             {
                 TempData[nameof(InvalidDriverDetails)] = InvalidDriverDetails;
 
-                return RedirectToAction("Drivers", "Organization", new { id = organizationId });
+                return RedirectToAction("Drivers", "Organization", new { organizationId = organizationId });
             }
 
             return View(model);

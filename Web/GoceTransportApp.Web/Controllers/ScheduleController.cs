@@ -39,7 +39,7 @@ namespace GoceTransportApp.Web.Controllers
 
             if (!await this.HasUserCreatedOrganizationAsync(userId, organizationId))
             {
-                return RedirectToAction("Schedules", "Organization", new { id = organizationId });
+                return RedirectToAction("Schedules", "Organization", new { organizationId = organizationId });
             }
 
             ScheduleInputModel model = new ScheduleInputModel();
@@ -55,7 +55,7 @@ namespace GoceTransportApp.Web.Controllers
 
             if (!await this.HasUserCreatedOrganizationAsync(userId, model.OrganizationId))
             {
-                return RedirectToAction("Schedules", "Organization", new { id = model.OrganizationId });
+                return RedirectToAction("Schedules", "Organization", new { organizationId = model.OrganizationId });
             }
 
             if (!ModelState.IsValid)
@@ -65,7 +65,7 @@ namespace GoceTransportApp.Web.Controllers
 
             await scheduleService.CreateAsync(model);
 
-            return RedirectToAction("Schedules", "Organization", new { id = model.OrganizationId });
+            return RedirectToAction("Schedules", "Organization", new { organizationId = model.OrganizationId });
         }
 
         [HttpGet]
@@ -77,7 +77,7 @@ namespace GoceTransportApp.Web.Controllers
 
             if (!isIdValid)
             {
-                return RedirectToAction("Schedules", "Organization", new { id = organizationId });
+                return RedirectToAction("Schedules", "Organization", new { organizationId = organizationId });
             }
 
             EditScheduleInputModel? formModel = await this.scheduleService
@@ -85,13 +85,13 @@ namespace GoceTransportApp.Web.Controllers
 
             if (formModel == null)
             {
-                return RedirectToAction("Schedules", "Organization", new { id = organizationId });
+                return RedirectToAction("Schedules", "Organization", new { organizationId = organizationId });
             }
 
             string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             if (!await this.HasUserCreatedOrganizationAsync(userId, formModel.OrganizationId))
             {
-                return RedirectToAction("Schedules", "Organization", new { id = formModel.OrganizationId });
+                return RedirectToAction("Schedules", "Organization", new { organizationId = formModel.OrganizationId });
             }
 
             return this.View(formModel);
@@ -103,7 +103,7 @@ namespace GoceTransportApp.Web.Controllers
             string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             if (!await this.HasUserCreatedOrganizationAsync(userId, formModel.OrganizationId))
             {
-                return RedirectToAction("Schedules", "Organization", new { id = formModel.OrganizationId });
+                return RedirectToAction("Schedules", "Organization", new { organizationId = formModel.OrganizationId });
             }
 
             if (!ModelState.IsValid)
@@ -121,7 +121,7 @@ namespace GoceTransportApp.Web.Controllers
                 return this.View(formModel);
             }
 
-            return RedirectToAction("Schedules", "Organization", new { id = formModel.OrganizationId });
+            return RedirectToAction("Schedules", "Organization", new { organizationId = formModel.OrganizationId });
         }
 
         [HttpGet]
@@ -131,7 +131,7 @@ namespace GoceTransportApp.Web.Controllers
             bool isIdValid = IsGuidValid(id, ref scheduleGuid);
             if (!isIdValid)
             {
-                return RedirectToAction("Schedules", "Organization", new { id = organizationId });
+                return RedirectToAction("Schedules", "Organization", new { organizationId = organizationId });
             }
 
             RemoveScheduleViewModel? model = await scheduleService
@@ -139,13 +139,13 @@ namespace GoceTransportApp.Web.Controllers
 
             if (model == null)
             {
-                return RedirectToAction("Schedules", "Organization", new { id = organizationId });
+                return RedirectToAction("Schedules", "Organization", new { organizationId = organizationId });
             }
 
             string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             if (!await this.HasUserCreatedOrganizationAsync(userId, model.OrganizationId))
             {
-                return RedirectToAction("Schedules", "Organization", new { id = model.OrganizationId });
+                return RedirectToAction("Schedules", "Organization", new { organizationId = model.OrganizationId });
             }
 
             return View(model);
@@ -157,7 +157,7 @@ namespace GoceTransportApp.Web.Controllers
             string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             if (!await this.HasUserCreatedOrganizationAsync(userId, formModel.OrganizationId))
             {
-                return RedirectToAction("Schedules", "Organization", new { id = formModel.OrganizationId });
+                return RedirectToAction("Schedules", "Organization", new { organizationId = formModel.OrganizationId });
             }
 
             if (!ModelState.IsValid)
@@ -175,7 +175,7 @@ namespace GoceTransportApp.Web.Controllers
                 return this.View(formModel);
             }
 
-            return RedirectToAction("Schedules", "Organization", new { id = formModel.OrganizationId });
+            return RedirectToAction("Schedules", "Organization", new { organizationId = formModel.OrganizationId });
         }
 
         [HttpGet]
@@ -185,7 +185,7 @@ namespace GoceTransportApp.Web.Controllers
             bool isIdValid = IsGuidValid(id, ref scheduleGuid);
             if (!isIdValid)
             {
-                return RedirectToAction("Schedules", "Organization", new { id = organizationId });
+                return RedirectToAction("Schedules", "Organization", new { organizationId = organizationId });
 
             }
 
@@ -196,7 +196,7 @@ namespace GoceTransportApp.Web.Controllers
             {
                 TempData[nameof(InvalidScheduleDetails)] = InvalidScheduleDetails;
 
-                return RedirectToAction("Schedules", "Organization", new { id = model.OrganizationId });
+                return RedirectToAction("Schedules", "Organization", new { organizationId = model.OrganizationId });
             }
 
             return View(model);

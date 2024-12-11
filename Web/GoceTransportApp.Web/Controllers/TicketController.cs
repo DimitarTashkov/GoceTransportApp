@@ -55,7 +55,7 @@ namespace GoceTransportApp.Web.Controllers
 
             if (!await this.HasUserCreatedOrganizationAsync(userId, organizationId))
             {
-                return RedirectToAction("Tickets", "Organization", new { id = organizationId });
+                return RedirectToAction("Tickets", "Organization", new { organizationId = organizationId });
             }
 
             TicketInputModel model = new TicketInputModel();
@@ -71,7 +71,7 @@ namespace GoceTransportApp.Web.Controllers
 
             if (!await this.HasUserCreatedOrganizationAsync(userId, model.OrganizationId))
             {
-                return RedirectToAction("Tickets", "Organization", new { id = model.OrganizationId });
+                return RedirectToAction("Tickets", "Organization", new { organizationId = model.OrganizationId });
             }
 
             if (!ModelState.IsValid)
@@ -81,7 +81,7 @@ namespace GoceTransportApp.Web.Controllers
 
             await ticketService.CreateAsync(model);
 
-            return RedirectToAction("Tickets", "Organization", new { id = model.OrganizationId });
+            return RedirectToAction("Tickets", "Organization", new { organizationId = model.OrganizationId });
         }
 
         [HttpGet]
@@ -93,7 +93,7 @@ namespace GoceTransportApp.Web.Controllers
 
             if (!isIdValid)
             {
-                return RedirectToAction("Tickets", "Organization", new { id = organizationId });
+                return RedirectToAction("Tickets", "Organization", new { organizationId = organizationId });
             }
 
             EditTicketInputModel? formModel = await this.ticketService
@@ -101,14 +101,14 @@ namespace GoceTransportApp.Web.Controllers
 
             if (formModel == null)
             {
-                return RedirectToAction("Tickets", "Organization", new { id = formModel.OrganizationId });
+                return RedirectToAction("Tickets", "Organization", new { organizationId = formModel.OrganizationId });
             }
 
             string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
             if (!await this.HasUserCreatedOrganizationAsync(userId, formModel.OrganizationId))
             {
-                return RedirectToAction("Tickets", "Organization", new { id = formModel.OrganizationId });
+                return RedirectToAction("Tickets", "Organization", new { organizationId = formModel.OrganizationId });
             }
 
             return this.View(formModel);
@@ -121,7 +121,7 @@ namespace GoceTransportApp.Web.Controllers
 
             if (!await this.HasUserCreatedOrganizationAsync(userId, formModel.OrganizationId))
             {
-                return RedirectToAction("Tickets", "Organization", new { id = formModel.OrganizationId });
+                return RedirectToAction("Tickets", "Organization", new { organizationId = formModel.OrganizationId });
             }
 
             if (!ModelState.IsValid)
@@ -139,7 +139,7 @@ namespace GoceTransportApp.Web.Controllers
                 return this.View(formModel);
             }
 
-            return RedirectToAction("Tickets", "Organization", new { id = formModel.OrganizationId });
+            return RedirectToAction("Tickets", "Organization", new { organizationId = formModel.OrganizationId });
         }
 
         [HttpGet]
@@ -149,7 +149,7 @@ namespace GoceTransportApp.Web.Controllers
             bool isIdValid = IsGuidValid(id, ref ticketGuid);
             if (!isIdValid)
             {
-                return RedirectToAction("Tickets", "Organization", new { id = organizationId });
+                return RedirectToAction("Tickets", "Organization", new { organizationId = organizationId });
             }
 
             RemoveTicketViewModel? model = await ticketService
@@ -157,14 +157,14 @@ namespace GoceTransportApp.Web.Controllers
 
             if (model == null)
             {
-                return RedirectToAction("Tickets", "Organization", new { id = model.OrganizationId });
+                return RedirectToAction("Tickets", "Organization", new { organizationId = model.OrganizationId });
             }
 
             string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
             if (!await this.HasUserCreatedOrganizationAsync(userId, model.OrganizationId))
             {
-                return RedirectToAction("Tickets", "Organization", new { id = model.OrganizationId });
+                return RedirectToAction("Tickets", "Organization", new { organizationId = model.OrganizationId });
             }
 
             return View(model);
@@ -177,7 +177,7 @@ namespace GoceTransportApp.Web.Controllers
 
             if (!await this.HasUserCreatedOrganizationAsync(userId, formModel.OrganizationId))
             {
-                return RedirectToAction("Tickets", "Organization", new { id = formModel.OrganizationId });
+                return RedirectToAction("Tickets", "Organization", new { organizationId = formModel.OrganizationId });
             }
 
             if (!ModelState.IsValid)
@@ -195,7 +195,7 @@ namespace GoceTransportApp.Web.Controllers
                 return this.View(formModel);
             }
 
-            return RedirectToAction("Tickets", "Organization", new { id = formModel.OrganizationId });
+            return RedirectToAction("Tickets", "Organization", new { organizationId = formModel.OrganizationId });
         }
 
         [HttpGet]
@@ -205,7 +205,7 @@ namespace GoceTransportApp.Web.Controllers
             bool isIdValid = IsGuidValid(id, ref ticketGuid);
             if (!isIdValid)
             {
-                return RedirectToAction("Tickets", "Organization", new { id = organizationId });
+                return RedirectToAction("Tickets", "Organization", new { organizationId = organizationId });
             }
 
             TicketDetailsViewModel? model = await ticketService
@@ -215,7 +215,7 @@ namespace GoceTransportApp.Web.Controllers
             {
                 TempData[nameof(InvalidTicketDetails)] = InvalidTicketDetails;
 
-                return RedirectToAction("Tickets", "Organization", new { id = organizationId });
+                return RedirectToAction("Tickets", "Organization", new { organizationId = organizationId });
             }
 
             return View(model);
@@ -229,7 +229,7 @@ namespace GoceTransportApp.Web.Controllers
 
             if (!isIdValid)
             {
-                return RedirectToAction("Tickets", "Organization", new { id = organizationId });
+                return RedirectToAction("Tickets", "Organization", new { organizationId = organizationId });
             }
 
             TicketDetailsViewModel model = await ticketService.GetTicketDetailsAsync(ticketGuid);
@@ -237,7 +237,7 @@ namespace GoceTransportApp.Web.Controllers
             if (model == null)
             {
                 TempData[nameof(InvalidTicketDetails)] = InvalidTicketDetails;
-                return RedirectToAction("Tickets", "Organization", new { id = organizationId });
+                return RedirectToAction("Tickets", "Organization", new { organizationId = organizationId });
             }
 
             model.QuantityToBuy = 1;
@@ -249,7 +249,7 @@ namespace GoceTransportApp.Web.Controllers
         {
             if (!ModelState.IsValid)
             {
-                return RedirectToAction("Tickets", "Organization", new { id = model.OrganizationId });
+                return RedirectToAction("Tickets", "Organization", new { organizationId = model.OrganizationId });
 
             }
 
@@ -264,7 +264,7 @@ namespace GoceTransportApp.Web.Controllers
 
             if (!isIdValid)
             {
-                return RedirectToAction("Tickets", "Organization", new { id = model.OrganizationId });
+                return RedirectToAction("Tickets", "Organization", new { organizationId = model.OrganizationId });
             }
 
             var purchaseSuccess = await ticketService.BuyTicketsAsync(ticketGuid, model.QuantityToBuy);
@@ -276,7 +276,7 @@ namespace GoceTransportApp.Web.Controllers
             }
 
             TempData[nameof(TicketPurchaseSuccess)] = TicketPurchaseSuccess;
-            return RedirectToAction("Tickets", "Organization", new { id = model.OrganizationId });
+            return RedirectToAction("Tickets", "Organization", new { organizationId = model.OrganizationId });
         }
     }
 }

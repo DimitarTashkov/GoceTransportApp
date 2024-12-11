@@ -7,7 +7,7 @@ using GoceTransportApp.Services.Data.Vehicles;
 using GoceTransportApp.Web.ViewModels.Vehicles;
 
 using static GoceTransportApp.Common.ErrorMessages.VehicleMessages;
-using GoceTransportApp.Web.ViewModels.Streets;
+using static GoceTransportApp.Common.GlobalConstants;
 using System.Collections.Generic;
 using GoceTransportApp.Data.Common.Repositories;
 using GoceTransportApp.Data.Models;
@@ -52,7 +52,7 @@ namespace GoceTransportApp.Web.Controllers
         {
             string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
-            if (!await this.HasUserCreatedOrganizationAsync(userId, organizationId))
+            if (!await this.HasUserCreatedOrganizationAsync(userId, organizationId) || !User.IsInRole(AdministratorRoleName))
             {
                 return RedirectToAction("Vehicles", "Organization", new { organizationId = organizationId });
             }
@@ -71,7 +71,7 @@ namespace GoceTransportApp.Web.Controllers
         {
             string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
-            if (!await this.HasUserCreatedOrganizationAsync(userId, model.OrganizationId))
+            if (!await this.HasUserCreatedOrganizationAsync(userId, model.OrganizationId) || !User.IsInRole(AdministratorRoleName))
             {
                 return RedirectToAction("Vehicles", "Organization", new { organizationId = model.OrganizationId });
             }
@@ -108,7 +108,7 @@ namespace GoceTransportApp.Web.Controllers
 
             string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
-            if (!await this.HasUserCreatedOrganizationAsync(userId, formModel.OrganizationId))
+            if (!await this.HasUserCreatedOrganizationAsync(userId, formModel.OrganizationId) || !User.IsInRole(AdministratorRoleName))
             {
                 return RedirectToAction("Vehicles", "Organization", new { organizationId = formModel.OrganizationId });
             }
@@ -125,7 +125,7 @@ namespace GoceTransportApp.Web.Controllers
             {
                 return this.View(formModel);
             }
-            if (!await this.HasUserCreatedOrganizationAsync(userId, formModel.OrganizationId))
+            if (!await this.HasUserCreatedOrganizationAsync(userId, formModel.OrganizationId) || !User.IsInRole(AdministratorRoleName))
             {
                 return RedirectToAction("Vehicles", "Organization", new { organizationId = formModel.OrganizationId });
             }
@@ -163,7 +163,7 @@ namespace GoceTransportApp.Web.Controllers
 
             string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
-            if (!await this.HasUserCreatedOrganizationAsync(userId, model.OrganizationId))
+            if (!await this.HasUserCreatedOrganizationAsync(userId, model.OrganizationId) || !User.IsInRole(AdministratorRoleName))
             {
                 return RedirectToAction("Vehicles", "Organization", new { organizationId = model.OrganizationId });
             }
@@ -181,7 +181,7 @@ namespace GoceTransportApp.Web.Controllers
                 return this.View(formModel);
             }
 
-            if (!await this.HasUserCreatedOrganizationAsync(userId, formModel.OrganizationId))
+            if (!await this.HasUserCreatedOrganizationAsync(userId, formModel.OrganizationId) || !User.IsInRole(AdministratorRoleName))
             {
                 return RedirectToAction("Vehicles", "Organization", new { organizationId = formModel.OrganizationId });
             }

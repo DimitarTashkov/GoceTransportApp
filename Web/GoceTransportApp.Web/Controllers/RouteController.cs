@@ -13,6 +13,7 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 
 using static GoceTransportApp.Common.ErrorMessages.RouteMessages;
+using static GoceTransportApp.Common.GlobalConstants;
 
 namespace GoceTransportApp.Web.Controllers
 {
@@ -54,7 +55,7 @@ namespace GoceTransportApp.Web.Controllers
         {
             string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
-            if (!await this.HasUserCreatedOrganizationAsync(userId, organizationId))
+            if (!await this.HasUserCreatedOrganizationAsync(userId, organizationId) || !User.IsInRole(AdministratorRoleName))
             {
                 return RedirectToAction("Routes", "Organization", new { organizationId = organizationId });
             }
@@ -70,7 +71,7 @@ namespace GoceTransportApp.Web.Controllers
         {
             string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
-            if (!await this.HasUserCreatedOrganizationAsync(userId, model.OrganizationId))
+            if (!await this.HasUserCreatedOrganizationAsync(userId, model.OrganizationId) || !User.IsInRole(AdministratorRoleName))
             {
                 return RedirectToAction("Routes", "Organization", new { organizationId = model.OrganizationId });
             }
@@ -109,7 +110,7 @@ namespace GoceTransportApp.Web.Controllers
             }
 
             string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            if (!await this.HasUserCreatedOrganizationAsync(userId, formModel.OrganizationId))
+            if (!await this.HasUserCreatedOrganizationAsync(userId, formModel.OrganizationId) || !User.IsInRole(AdministratorRoleName))
             {
                 return RedirectToAction("Routes", "Organization", new { organizationId = formModel.OrganizationId });
             }
@@ -121,7 +122,7 @@ namespace GoceTransportApp.Web.Controllers
         public async Task<IActionResult> Edit(EditRouteInputModel formModel)
         {
             string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            if (!await this.HasUserCreatedOrganizationAsync(userId, formModel.OrganizationId))
+            if (!await this.HasUserCreatedOrganizationAsync(userId, formModel.OrganizationId) || !User.IsInRole(AdministratorRoleName))
             {
                 return RedirectToAction("Routes", "Organization", new { organizationId = formModel.OrganizationId });
             }
@@ -166,7 +167,7 @@ namespace GoceTransportApp.Web.Controllers
             }
 
             string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            if (!await this.HasUserCreatedOrganizationAsync(userId, model.OrganizationId))
+            if (!await this.HasUserCreatedOrganizationAsync(userId, model.OrganizationId) || !User.IsInRole(AdministratorRoleName))
             {
                 return RedirectToAction("Routes", "Organization",new { organizationId = model.OrganizationId });
             }
@@ -178,7 +179,7 @@ namespace GoceTransportApp.Web.Controllers
         public async Task<IActionResult> Delete(RemoveRouteViewModel formModel)
         {
             string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            if (!await this.HasUserCreatedOrganizationAsync(userId, formModel.OrganizationId))
+            if (!await this.HasUserCreatedOrganizationAsync(userId, formModel.OrganizationId) || !User.IsInRole(AdministratorRoleName))
             {
                 return RedirectToAction("Routes", "Organization", new { organizationId = formModel.OrganizationId });
             }

@@ -7,6 +7,7 @@ using System;
 using GoceTransportApp.Web.ViewModels.Organizations;
 
 using static GoceTransportApp.Common.ErrorMessages.OrganizationMessages;
+using static GoceTransportApp.Common.GlobalConstants;
 using GoceTransportApp.Data.Common.Repositories;
 using GoceTransportApp.Data.Models;
 using Microsoft.AspNetCore.Authorization;
@@ -75,7 +76,7 @@ namespace GoceTransportApp.Web.Controllers
             }
             string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
-            if (!await this.HasUserCreatedOrganizationAsync(userId, id))
+            if (!await this.HasUserCreatedOrganizationAsync(userId, id) || !User.IsInRole(AdministratorRoleName))
             {
                 return RedirectToAction(nameof(Index));
             }
@@ -96,7 +97,7 @@ namespace GoceTransportApp.Web.Controllers
         {
             string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
-            if (!await this.HasUserCreatedOrganizationAsync(userId, formModel.Id))
+            if (!await this.HasUserCreatedOrganizationAsync(userId, formModel.Id) || !User.IsInRole(AdministratorRoleName))
             {
                 return RedirectToAction(nameof(Index));
             }
@@ -131,7 +132,7 @@ namespace GoceTransportApp.Web.Controllers
 
             string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
-            if (!await this.HasUserCreatedOrganizationAsync(userId, id))
+            if (!await this.HasUserCreatedOrganizationAsync(userId, id) || !User.IsInRole(AdministratorRoleName))
             {
                 return RedirectToAction(nameof(Index));
             }
@@ -152,7 +153,7 @@ namespace GoceTransportApp.Web.Controllers
         {
             string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
-            if (!await this.HasUserCreatedOrganizationAsync(userId, formModel.Id))
+            if (!await this.HasUserCreatedOrganizationAsync(userId, formModel.Id) || !User.IsInRole(AdministratorRoleName))
             {
                 return RedirectToAction(nameof(Index));
             }

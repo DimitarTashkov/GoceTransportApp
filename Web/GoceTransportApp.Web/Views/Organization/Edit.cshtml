@@ -8,6 +8,8 @@
 <div class="card shadow-sm p-4" style="max-width: 600px; margin: auto;">
     <form asp-action="Edit" method="post">
         <input type="hidden" asp-for="Id" />
+        <input type="hidden" asp-for="FounderId" />
+
         <div class="form-group">
             <label asp-for="Name"></label>
             <input asp-for="Name" class="form-control" />

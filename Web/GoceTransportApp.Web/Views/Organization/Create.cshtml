@@ -7,6 +7,7 @@
 
 <div class="card shadow-sm p-4" style="max-width: 600px; margin: auto;">
     <form asp-action="Create" method="post">
+    <input asp-for="FounderId" type="hidden" />
         <div class="form-group">
             <label asp-for="Name"></label>
             <input asp-for="Name" class="form-control" />

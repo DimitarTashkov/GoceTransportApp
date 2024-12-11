@@ -1,9 +1,41 @@
-﻿@using GoceTransportApp.Common
-@{
-    this.ViewData["Title"] = "Home Page";
+﻿@{
+    ViewData["Title"] = "Home";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome to @GlobalConstants.SystemName!</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<div class="container mt-5">
+    <h1 class="text-center mb-4">Welcome to GoceTransportApp</h1>
+    <p class="text-center">Navigate to explore all routes, schedules, and organizations available in the system.</p>
+
+    <div class="row mt-4 justify-content-center">
+
+        <div class="col-md-4">
+            <div class="card text-center shadow-lg">
+                <div class="card-body">
+                    <h5 class="card-title">Explore Routes</h5>
+                    <p class="card-text">Discover all available routes in the system.</p>
+                    <a asp-controller="Route" asp-action="Index" class="btn btn-primary">Explore All Routes</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card text-center shadow-lg">
+                <div class="card-body">
+                    <h5 class="card-title">Explore Schedules</h5>
+                    <p class="card-text">View the schedules for all available routes.</p>
+                    <a asp-controller="Schedule" asp-action="Index" class="btn btn-primary">Explore All Schedules</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card text-center shadow-lg">
+                <div class="card-body">
+                    <h5 class="card-title">Explore Organizations</h5>
+                    <p class="card-text">Browse through the organizations that manage these routes.</p>
+                    <a asp-controller="Organization" asp-action="Index" class="btn btn-primary">Explore All Organizations</a>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>

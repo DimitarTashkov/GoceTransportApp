@@ -21,9 +21,11 @@ namespace GoceTransportApp.Web.ViewModels.Organizations
 
         [Required(ErrorMessage = OrganizationNameRequired)]
         [MaxLength(MaxNameLength)]
+        [MinLength(MinNameLength)]
         public string Name { get; set; } = null!;
 
         [MaxLength(MaxAddressLength)]
+        [MinLength(MinAddressLength)]
         public string Address { get; set; }
 
         [DefaultValue(DefaultOrganizationImageUrl)]
@@ -33,6 +35,8 @@ namespace GoceTransportApp.Web.ViewModels.Organizations
         public string FounderId { get; set; }
 
         [MaxLength(MaxPhoneNumberLength)]
+        [MinLength(MinPhoneNumberLength)]
+
         public string Phone { get; set; }
 
         public HashSet<Route> OrganizationRoutes { get; set; }

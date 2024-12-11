@@ -17,6 +17,8 @@
 
         <form asp-action="Delete" method="post">
             <input type="hidden" asp-for="Id" />
+            <input asp-for="OrganizationId" type="hidden" />
+
             <button type="submit" class="btn btn-danger">Delete</button>
             <a asp-action="Index" class="btn btn-secondary">Cancel</a>
         </form>

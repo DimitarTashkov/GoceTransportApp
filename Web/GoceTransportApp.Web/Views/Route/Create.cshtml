@@ -10,7 +10,8 @@
 <h1>Create New Route</h1>
 
 <form asp-action="Create" method="post" class="needs-validation" novalidate>
-    <!-- From City -->
+    <input asp-for="OrganizationId" type="hidden" />
+
     <div class="mb-3">
         <label asp-for="FromCityId" class="form-label">From City</label>
         <select id="fromCity" asp-for="FromCityId" asp-items="@(new SelectList(cities, "Id", "Name"))" class="form-select" onchange="loadStreets('fromCity', 'fromStreet')">
@@ -19,7 +20,6 @@
         <span asp-validation-for="FromCityId" class="text-danger"></span>
     </div>
 
-    <!-- From Street -->
     <div class="mb-3">
         <label asp-for="FromStreetId" class="form-label">From Street</label>
         <select id="fromStreet" asp-for="FromStreetId" class="form-select">
@@ -28,7 +28,6 @@
         <span asp-validation-for="FromStreetId" class="text-danger"></span>
     </div>
 
-    <!-- To City -->
     <div class="mb-3">
         <label asp-for="ToCityId" class="form-label">To City</label>
         <select id="toCity" asp-for="ToCityId" asp-items="@(new SelectList(cities, "Id", "Name"))" class="form-select" onchange="loadStreets('toCity', 'toStreet')">
@@ -37,7 +36,6 @@
         <span asp-validation-for="ToCityId" class="text-danger"></span>
     </div>
 
-    <!-- To Street -->
     <div class="mb-3">
         <label asp-for="ToStreetId" class="form-label">To Street</label>
         <select id="toStreet" asp-for="ToStreetId" class="form-select">
@@ -46,14 +44,12 @@
         <span asp-validation-for="ToStreetId" class="text-danger"></span>
     </div>
 
-    <!-- Distance -->
     <div class="mb-3">
         <label asp-for="Distance" class="form-label">Distance</label>
         <input asp-for="Distance" class="form-control" />
         <span asp-validation-for="Distance" class="text-danger"></span>
     </div>
 
-    <!-- Duration -->
     <div class="mb-3">
         <label asp-for="Duration" class="form-label">Duration</label>
         <input asp-for="Duration" class="form-control" />

@@ -21,6 +21,8 @@
 
         <form asp-action="Delete" method="post">
             <input type="hidden" asp-for="Id" />
+            <input asp-for="OrganizationId" type="hidden" />
+
             <div class="d-flex justify-content-between">
                 <button type="submit" class="btn btn-danger">
                     <i class="fas fa-trash-alt"></i> Confirm Delete

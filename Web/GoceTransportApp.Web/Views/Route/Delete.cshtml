@@ -14,6 +14,8 @@
             <strong>Arriving Street:</strong> @Model.ArrivingStreet
         </p>
         <form asp-action="Delete" method="post">
+            <input asp-for="OrganizationId" type="hidden" />
+
             <input type="hidden" asp-for="Id" />
             <button type="submit" class="btn btn-danger">Confirm Delete</button>
             <p class="text-danger">NOTE: Deleting route is irreversible process and cannot be restored in the future!</p>

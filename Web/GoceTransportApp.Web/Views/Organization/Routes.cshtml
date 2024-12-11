@@ -1,4 +1,4 @@
-﻿@model IEnumerable<GoceTransportApp.Web.ViewModels.Routes.RouteDataViewModel>
+﻿@model GoceTransportApp.Web.ViewModels.Routes.RoutesForOrganizationViewModel
 
 @{
     ViewData["Title"] = "Routes for Organization";
@@ -7,13 +7,17 @@
 <div class="container mt-5">
     <h1 class="text-center mb-4">Routes</h1>
 
-    @if (!Model.Any())
+    <div class="mt-4">
+        <a asp-action="Create" asp-controller="Route" asp-route-organizationId="@Model.OrganizationId" class="btn btn-success">Add New Route</a>
+    </div>
+
+    @if (!Model.Routes.Any())
     {
         <p>No routes found for this organization.</p>
     }
 
     <div class="row">
-        @foreach (var route in Model)
+        @foreach (var route in Model.Routes)
         {
             <partial name="_RouteCardPartial" model="route" />
         }

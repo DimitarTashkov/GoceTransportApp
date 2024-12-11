@@ -10,6 +10,8 @@
     <div class="card-body">
         <form asp-action="Edit" method="post" class="needs-validation" novalidate>
             <input type="hidden" asp-for="Id" />
+            <input asp-for="OrganizationId" type="hidden" />
+
 
             <div class="mb-3">
                 <label asp-for="FirstName" class="form-label">First Name</label>

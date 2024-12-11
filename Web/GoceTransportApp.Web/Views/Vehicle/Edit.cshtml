@@ -9,65 +9,52 @@
 <div class="card shadow">
     <div class="card-body">
         <form asp-action="Edit" method="post" class="needs-validation" novalidate>
-            <!-- Hidden ID -->
             <input type="hidden" asp-for="Id" />
+            <input asp-for="OrganizationId" type="hidden" />
 
-            <!-- Vehicle Number -->
+
             <div class="mb-3">
                 <label asp-for="Number" class="form-label">Number</label>
                 <input asp-for="Number" class="form-control" />
                 <span asp-validation-for="Number" class="text-danger"></span>
             </div>
 
-            <!-- Type -->
             <div class="mb-3">
                 <label asp-for="Type" class="form-label">Type</label>
                 <input asp-for="Type" class="form-control" />
                 <span asp-validation-for="Type" class="text-danger"></span>
             </div>
 
-            <!-- Manufacturer -->
             <div class="mb-3">
                 <label asp-for="Manufacturer" class="form-label">Manufacturer</label>
                 <input asp-for="Manufacturer" class="form-control" />
                 <span asp-validation-for="Manufacturer" class="text-danger"></span>
             </div>
 
-            <!-- Model -->
             <div class="mb-3">
                 <label asp-for="Model" class="form-label">Model</label>
                 <input asp-for="Model" class="form-control" />
                 <span asp-validation-for="Model" class="text-danger"></span>
             </div>
 
-            <!-- Capacity -->
             <div class="mb-3">
                 <label asp-for="Capacity" class="form-label">Capacity</label>
                 <input asp-for="Capacity" class="form-control" />
                 <span asp-validation-for="Capacity" class="text-danger"></span>
             </div>
 
-            <!-- Fuel Consumption -->
             <div class="mb-3">
                 <label asp-for="FuelConsumption" class="form-label">Fuel Consumption</label>
                 <input asp-for="FuelConsumption" class="form-control" />
                 <span asp-validation-for="FuelConsumption" class="text-danger"></span>
             </div>
 
-            <!-- Status -->
             <div class="mb-3">
                 <label asp-for="Status" class="form-label">Status</label>
                 <select asp-for="Status" class="form-select" asp-items="Html.GetEnumSelectList<GoceTransportApp.Data.Models.Enumerations.VehicleStatus>()">
                     <option value="">Select Status</option>
                 </select>
                 <span asp-validation-for="Status" class="text-danger"></span>
-            </div>
-
-            <!-- Organization ID -->
-            <div class="mb-3">
-                <label asp-for="OrganizationId" class="form-label">Organization ID</label>
-                <input asp-for="OrganizationId" class="form-control" />
-                <span asp-validation-for="OrganizationId" class="text-danger"></span>
             </div>
 
             <button type="submit" class="btn btn-success">Update</button>

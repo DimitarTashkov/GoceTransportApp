@@ -9,6 +9,8 @@
 <div class="card shadow-sm mx-auto" style="max-width: 600px;">
     <div class="card-body">
         <form asp-action="Create">
+            <input asp-for="OrganizationId" type="hidden" />
+
             <div class="mb-3">
                 <label asp-for="Day" class="form-label"><i class="fas fa-calendar-day"></i> Day</label>
                 <input asp-for="Day" type="text" class="form-control datetimepicker" placeholder="Select a day" />

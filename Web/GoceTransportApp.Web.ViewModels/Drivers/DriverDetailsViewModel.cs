@@ -17,8 +17,6 @@ namespace GoceTransportApp.Web.ViewModels.Drivers
 
         public int? Age { get; set; }
 
-        public string AvatarUrl { get; set; } = null!;
-
         public string DrivingExperience { get; set; } = null!;
 
         public string OrganizationId { get; set; } = null!;

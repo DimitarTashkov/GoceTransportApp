@@ -24,10 +24,6 @@
         public string Address { get; set; }
 
         [Required]
-        [DefaultValue(DefaultOrganizationImageUrl)]
-        public string ImageUrl { get; set; } = null!;
-
-        [Required]
         public string FounderId { get; set; }
 
         [ForeignKey(nameof(FounderId))]

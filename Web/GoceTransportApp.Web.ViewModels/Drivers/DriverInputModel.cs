@@ -25,7 +25,6 @@ namespace GoceTransportApp.Web.ViewModels.Drivers
 
         public int? Age { get; set; }
 
-        public string AvatarUrl { get; set; }
 
         [Required(ErrorMessage = DriverExperienceRequired)]
         public string DrivingExperience { get; set; } = null!;

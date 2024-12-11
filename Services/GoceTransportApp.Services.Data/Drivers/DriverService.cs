@@ -37,7 +37,6 @@ namespace GoceTransportApp.Services.Data.Drivers
                 FirstName = inputModel.FirstName,
                 LastName = inputModel.LastName,
                 Age = inputModel.Age,
-                AvatarUrl = inputModel.AvatarUrl,
                 Experience = experience,
                 CreatedOn = DateTime.UtcNow,
                 OrganizationId = Guid.Parse(inputModel.OrganizationId)
@@ -58,7 +57,6 @@ namespace GoceTransportApp.Services.Data.Drivers
                 viewModel.FirstName = driver.FirstName;
                 viewModel.LastName = driver.LastName;
                 viewModel.Age = driver.Age;
-                viewModel.AvatarUrl = driver.AvatarUrl;
                 viewModel.DrivingExperience = driver.Experience.ToString();
                 viewModel.OrganizationId = driver.ToString();
             }
@@ -83,7 +81,6 @@ namespace GoceTransportApp.Services.Data.Drivers
             driver.FirstName = inputModel.FirstName;
             driver.LastName = inputModel.LastName;
             driver.Age = inputModel.Age;
-            driver.AvatarUrl = inputModel.AvatarUrl;
             driver.Experience = experience;
             driver.ModifiedOn = DateTime.UtcNow;
             driver.OrganizationId = Guid.Parse(inputModel.OrganizationId);
@@ -131,7 +128,6 @@ namespace GoceTransportApp.Services.Data.Drivers
                   FirstName = driver.FirstName,
                   LastName = driver.LastName,
                   Age = driver.Age,
-                  AvatarUrl = driver.AvatarUrl,
                   DrivingExperience = driver.Experience.ToString(),
               })
               .FirstOrDefaultAsync(s => s.Id.ToLower() == id.ToString().ToLower());

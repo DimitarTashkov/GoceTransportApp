@@ -30,12 +30,6 @@
             </div>
 
             <div class="mb-3">
-                <label asp-for="AvatarUrl" class="form-label">Avatar URL</label>
-                <input asp-for="AvatarUrl" class="form-control" />
-                <span asp-validation-for="AvatarUrl" class="text-danger"></span>
-            </div>
-
-            <div class="mb-3">
                 <label asp-for="DrivingExperience" class="form-label">Driving Experience</label>
                 <select asp-for="DrivingExperience" class="form-select" asp-items="Html.GetEnumSelectList<GoceTransportApp.Data.Models.Enumerations.DriverExperience>()">
                     <option value="">Select Experience</option>

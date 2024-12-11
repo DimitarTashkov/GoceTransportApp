@@ -26,9 +26,6 @@ namespace GoceTransportApp.Web.ViewModels.Organizations
         [MinLength(MinAddressLength)]
         public string Address { get; set; }
 
-        [DefaultValue(DefaultOrganizationImageUrl)]
-        public string ImageUrl { get; set; }
-
         [Required]
         public string FounderId { get; set; }
 

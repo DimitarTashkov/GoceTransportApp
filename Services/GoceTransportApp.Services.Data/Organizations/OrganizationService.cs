@@ -50,7 +50,6 @@ namespace GoceTransportApp.Services.Data.Organizations
                 Address = inputModel.Address,
                 Phone = inputModel.Phone,
                 FounderId = inputModel.FounderId,
-                ImageUrl = inputModel.ImageUrl,
                 CreatedOn = DateTime.UtcNow,
             };
 
@@ -70,7 +69,6 @@ namespace GoceTransportApp.Services.Data.Organizations
             organization.Name = inputModel.Name;
             organization.Address = inputModel.Address;
             organization.Phone = inputModel.Phone;
-            organization.ImageUrl = inputModel.ImageUrl;
             organization.FounderId = inputModel.FounderId;
             organization.OrganizationMessages = inputModel.OrganizationMessages;
             organization.OrganizationDrivers = inputModel.OrganizationDrivers;
@@ -94,7 +92,6 @@ namespace GoceTransportApp.Services.Data.Organizations
                   Id = c.Id.ToString(),
                   Name = c.Name,
                   Address = c.Address,
-                  ImageUrl = c.ImageUrl,
                   FounderId = c.FounderId
               })
               .ToArrayAsync();
@@ -131,7 +128,6 @@ namespace GoceTransportApp.Services.Data.Organizations
                 viewModel.Address = organization.Address;
                 viewModel.Phone = organization.Phone;
                 viewModel.FounderId = organization.FounderId;
-                viewModel.ImageUrl = organization.ImageUrl;
                 viewModel.OrganizationMessages = organization.OrganizationMessages;
                 viewModel.OrganizationDrivers = organization.OrganizationDrivers;
                 viewModel.OrganizationRoutes = organization.OrganizationRoutes;
@@ -153,7 +149,6 @@ namespace GoceTransportApp.Services.Data.Organizations
                     Id = organization.Id.ToString(),
                     Name = organization.Name,
                     Address = organization.Address,
-                    ImageUrl = organization.ImageUrl,
                     FounderId = organization.FounderId,
                     FounderName = organization.Founder.UserName,
                 })
@@ -170,7 +165,6 @@ namespace GoceTransportApp.Services.Data.Organizations
                    Id = organization.Id.ToString(),
                    Name = organization.Name,
                    Address = organization.Address,
-                   ImageUrl = organization.ImageUrl,
                    Phone = organization.Phone,
                    FounderId = organization.FounderId,
                    OrganizationDrivers = organization.OrganizationDrivers,

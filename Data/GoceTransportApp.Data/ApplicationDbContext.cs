@@ -229,7 +229,6 @@
                     Id = Guid.NewGuid(),
                     Name = "City Transport Co.",
                     Address = "123 Main St, Springfield",
-                    ImageUrl = DefaultOrganizationImageUrl,
                     FounderId = "4b5ab8a3-7604-447a-a603-f8e97e45fb61",
                     Phone = "+1 555-1234",
                     CreatedOn = DateTime.Now
@@ -239,7 +238,6 @@
             Id = Guid.NewGuid(),
             Name = "Express Logistics",
             Address = "456 Elm St, Shelbyville",
-            ImageUrl = DefaultOrganizationImageUrl,
             FounderId = "a982c9b9-c1bc-4a5b-a89a-4c53a701c526",
             Phone = "+1 555-5678",
             CreatedOn = DateTime.Now
@@ -249,7 +247,6 @@
             Id = Guid.NewGuid(),
             Name = "Safe Travels",
             Address = "789 Oak St, Ogdenville",
-            ImageUrl = DefaultOrganizationImageUrl,
             FounderId = "c40f52d6-d2cc-4379-8acf-782558dba84c",
             Phone = "+1 555-9012",
             CreatedOn = DateTime.Now
@@ -259,7 +256,6 @@
             Id = Guid.NewGuid(),
             Name = "Urban Express",
             Address = "321 Pine St, North Haverbrook",
-            ImageUrl = DefaultOrganizationImageUrl,
             FounderId = "00591d7b-5bf5-475b-ac85-4a2467481881",
             Phone = "+1 555-3456",
             CreatedOn = DateTime.Now
@@ -269,7 +265,6 @@
             Id = Guid.NewGuid(),
             Name = "Comfy Rides",
             Address = "654 Maple St, Capitol City",
-            ImageUrl = DefaultOrganizationImageUrl,
             FounderId = "6b040313-77f4-49b0-b3d3-b25de95eb408",
             Phone = "+1 555-7890",
             CreatedOn = DateTime.Now

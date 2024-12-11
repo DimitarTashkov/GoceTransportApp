@@ -18,5 +18,7 @@ namespace GoceTransportApp.Web.ViewModels.Vehicles
         public string Manufacturer { get; set; } = null!;
 
         public string Model { get; set; } = null!;
+
+        public string OrganizationId { get; set; }
     }
 }

@@ -108,6 +108,7 @@ namespace GoceTransportApp.Services.Data.Vehicles
                   Type = c.Type,
                   Manufacturer = c.Manufacturer,
                   Model = c.Model,
+                  OrganizationId = c.OrganizationId.ToString(),
               })
               .ToArrayAsync();
 

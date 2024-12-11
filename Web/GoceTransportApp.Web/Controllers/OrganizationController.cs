@@ -11,6 +11,10 @@ using GoceTransportApp.Data.Common.Repositories;
 using GoceTransportApp.Data.Models;
 using Microsoft.AspNetCore.Authorization;
 using System.Security.Claims;
+using GoceTransportApp.Web.ViewModels.Routes;
+using GoceTransportApp.Web.ViewModels.Schedules;
+using GoceTransportApp.Web.ViewModels.Tickets;
+using GoceTransportApp.Web.ViewModels.Drivers;
 
 namespace GoceTransportApp.Web.Controllers
 {
@@ -204,7 +208,14 @@ namespace GoceTransportApp.Web.Controllers
             }
 
             var routes = await organizationService.GetRoutesByOrganizationId(organizationGuid);
-            return View(routes);
+
+            var viewModel = new RoutesForOrganizationViewModel
+            {
+                OrganizationId = organizationId,
+                Routes = routes
+            };
+
+            return View(viewModel);
         }
 
         [HttpGet]
@@ -218,7 +229,14 @@ namespace GoceTransportApp.Web.Controllers
             }
 
             var drivers = await organizationService.GetDriversByOrganizationId(organizationGuid);
-            return View(drivers);
+
+            var viewModel = new DriversForOrganizationViewModel
+            {
+                OrganizationId = organizationId,
+                Drivers = drivers
+            };
+
+            return View(viewModel);
         }
 
         [HttpGet]
@@ -233,7 +251,14 @@ namespace GoceTransportApp.Web.Controllers
             }
 
             var vehicles = await organizationService.GetVehiclesByOrganizationId(organizationGuid);
-            return View(vehicles);
+
+            var viewModel = new VehiclesForOrganizationViewModel
+            {
+                OrganizationId = organizationId,
+                Vehicles = vehicles
+            };
+
+            return View(viewModel);
         }
 
         [HttpGet]
@@ -248,7 +273,13 @@ namespace GoceTransportApp.Web.Controllers
             }
 
             var tickets = await organizationService.GetTicketsByOrganizationId(organizationGuid);
-            return View(tickets);
+            var viewModel = new TicketsForOrganizationViewModel
+            {
+                OrganizationId = organizationId,
+                Tickets = tickets
+            };
+
+            return View(viewModel);
         }
 
         [HttpGet]
@@ -262,7 +293,13 @@ namespace GoceTransportApp.Web.Controllers
             }
 
             var schedules = await organizationService.GetSchedulesByOrganizationId(organizationGuid);
-            return View(schedules);
+            var viewModel = new SchedulesForOrganizationViewModel
+            {
+                OrganizationId = organizationId,
+                Schedules = schedules
+            };
+
+            return View(viewModel);
         }
     }
 }

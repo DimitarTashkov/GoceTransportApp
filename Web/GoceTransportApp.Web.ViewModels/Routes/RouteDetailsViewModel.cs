@@ -20,6 +20,9 @@ namespace GoceTransportApp.Web.ViewModels.Routes
 
         public string Organization { get; set; }
 
+        public string OrganizationId { get; set; }
+
+
         public double Distance { get; set; }
 
         public double Duration { get; set; }

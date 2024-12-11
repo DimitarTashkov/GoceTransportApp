@@ -13,6 +13,7 @@ using GoceTransportApp.Data.Common.Repositories;
 using GoceTransportApp.Data.Models;
 using Microsoft.AspNetCore.Authorization;
 using System.Security.Claims;
+using GoceTransportApp.Data.Models.Enumerations;
 
 
 namespace GoceTransportApp.Web.Controllers
@@ -56,8 +57,11 @@ namespace GoceTransportApp.Web.Controllers
                 return RedirectToAction("Vehicles", "Organization", new { organizationId = organizationId });
             }
 
-            VehicleInputModel model = new VehicleInputModel();
-            model.OrganizationId = organizationId;
+            VehicleInputModel model = new VehicleInputModel
+            {
+                OrganizationId = organizationId,
+                Status = VehicleStatus.Available.ToString() 
+            };
 
             return View(model);
         }
@@ -117,14 +121,13 @@ namespace GoceTransportApp.Web.Controllers
         {
             string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
-            if (!await this.HasUserCreatedOrganizationAsync(userId, formModel.OrganizationId))
-            {
-                return RedirectToAction("Vehicles", "Organization", new { organizationId = formModel.OrganizationId });
-            }
-
             if (!ModelState.IsValid)
             {
                 return this.View(formModel);
+            }
+            if (!await this.HasUserCreatedOrganizationAsync(userId, formModel.OrganizationId))
+            {
+                return RedirectToAction("Vehicles", "Organization", new { organizationId = formModel.OrganizationId });
             }
 
             bool isUpdated = await this.vehicleService
@@ -173,14 +176,14 @@ namespace GoceTransportApp.Web.Controllers
         {
             string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
-            if (!await this.HasUserCreatedOrganizationAsync(userId, formModel.OrganizationId))
-            {
-                return RedirectToAction("Vehicles", "Organization", new { organizationId = formModel.OrganizationId });
-            }
-
             if (!ModelState.IsValid)
             {
                 return this.View(formModel);
+            }
+
+            if (!await this.HasUserCreatedOrganizationAsync(userId, formModel.OrganizationId))
+            {
+                return RedirectToAction("Vehicles", "Organization", new { organizationId = formModel.OrganizationId });
             }
 
             bool isDeleted = await this.vehicleService

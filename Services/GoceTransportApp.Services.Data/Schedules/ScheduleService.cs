@@ -186,17 +186,20 @@ namespace GoceTransportApp.Services.Data.Schedules
                 .FirstOrDefaultAsync(d => d.Id == id);
             if (schedule != null)
             {
-                viewModel.Id = schedule.Id.ToString();
-                viewModel.Day = schedule.Day.ToString();
-                viewModel.Departing = schedule.Departure.ToString();
-                viewModel.Arriving = schedule.Arrival.ToString();
-                viewModel.VehicleNumber = schedule.Vehicle.Number;
-                viewModel.FromCity = schedule.Route.FromCity.Name;
-                viewModel.ToCity = schedule.Route.ToCity.Name;
-                viewModel.FromStreet = schedule.Route.FromStreet.Name;
-                viewModel.ToStreet = schedule.Route.ToStreet.Name;
-                viewModel.OrganizationId = schedule.OrganizationId.ToString();
-                viewModel.OrganizationName = schedule.Organization.Name;
+                viewModel = new ScheduleDetailsViewModel()
+                {
+                    Id = schedule.Id.ToString(),
+                    Day = schedule.Day.ToString(),
+                    Departing = schedule.Departure.ToString(),
+                    Arriving = schedule.Arrival.ToString(),
+                    VehicleNumber = schedule.Vehicle.Number,
+                    FromCity = schedule.Route.FromCity.Name,
+                    ToCity = schedule.Route.ToCity.Name,
+                    FromStreet = schedule.Route.FromStreet.Name,
+                    ToStreet = schedule.Route.ToStreet.Name,
+                    OrganizationId = schedule.OrganizationId.ToString(),
+                    OrganizationName = schedule.Organization.Name,
+                };
             }
 
             return viewModel;

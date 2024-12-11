@@ -61,6 +61,7 @@ namespace GoceTransportApp.Services.Data.Routes
                 ToCityId = Guid.Parse(inputModel.ToCityId),
                 FromStreetId = Guid.Parse(inputModel.FromStreetId),
                 ToStreetId = Guid.Parse(inputModel.ToStreetId),
+                OrganizationId = Guid.Parse(inputModel.OrganizationId),
                 CreatedOn = DateTime.UtcNow,
             };
 

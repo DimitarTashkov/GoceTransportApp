@@ -203,18 +203,21 @@ namespace GoceTransportApp.Services.Data.Tickets
 
             if (ticket != null)
             {
-                viewModel.Id = ticket.Id.ToString();
-                viewModel.IssuedDate = ticket.IssuedDate.ToString();
-                viewModel.ExpiryDate = ticket.ExpiryDate.ToString();
-                viewModel.ArrivingTime = ticket.TimeTable.Arrival.ToString();
-                viewModel.DepartingTime = ticket.TimeTable.Departure.ToString();
-                viewModel.FromCity = ticket.Route.FromCity.Name;
-                viewModel.ToCity = ticket.Route.ToCity.Name;
-                viewModel.FromStreet = ticket.Route.FromStreet.Name;
-                viewModel.ToStreet = ticket.Route.ToStreet.Name;
-                viewModel.OrganizationId = ticket.OrganizationId.ToString();
-                viewModel.OrganizationName = ticket.Organization.Name;
-                viewModel.AvailableTickets = userTicket.AvailableTickets;
+                viewModel = new TicketDetailsViewModel()
+                {
+                    Id = ticket.Id.ToString(),
+                    IssuedDate = ticket.IssuedDate.ToString(),
+                    ExpiryDate = ticket.ExpiryDate.ToString(),
+                    ArrivingTime = ticket.TimeTable.Arrival.ToString(),
+                    DepartingTime = ticket.TimeTable.Departure.ToString(),
+                    FromCity = ticket.Route.FromCity.Name,
+                    ToCity = ticket.Route.ToCity.Name,
+                    FromStreet = ticket.Route.FromStreet.Name,
+                    ToStreet = ticket.Route.ToStreet.Name,
+                    OrganizationId = ticket.OrganizationId.ToString(),
+                    OrganizationName = ticket.Organization.Name,
+                    AvailableTickets = userTicket.AvailableTickets,
+                };
             }
 
             return viewModel;
@@ -241,6 +244,7 @@ namespace GoceTransportApp.Services.Data.Tickets
 
             return true;
         }
+
         public async Task<int> GetTicketsCountByFilterAsync(AllTicketsSearchFilterViewModel inputModel)
         {
             IQueryable<Ticket> query = ticketRepository

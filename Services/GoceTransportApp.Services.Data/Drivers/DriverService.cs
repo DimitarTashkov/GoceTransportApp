@@ -54,11 +54,14 @@ namespace GoceTransportApp.Services.Data.Drivers
                 .FirstOrDefaultAsync(d => d.Id == id);
             if (driver != null)
             {
-                viewModel.FirstName = driver.FirstName;
-                viewModel.LastName = driver.LastName;
-                viewModel.Age = driver.Age;
-                viewModel.DrivingExperience = driver.Experience.ToString();
-                viewModel.OrganizationId = driver.ToString();
+                viewModel = new DriverDetailsViewModel()
+                {
+                    FirstName = driver.FirstName,
+                    LastName = driver.LastName,
+                    Age = driver.Age,
+                    DrivingExperience = driver.Experience.ToString(),
+                    OrganizationId = driver.ToString(),
+                };
             }
 
             return viewModel;

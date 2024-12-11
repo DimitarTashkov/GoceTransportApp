@@ -180,14 +180,17 @@ namespace GoceTransportApp.Services.Data.Vehicles
                 .FirstOrDefaultAsync(d => d.Id == id);
             if (vehicle != null)
             {
-                viewModel.Number = vehicle.Number;
-                viewModel.Type = vehicle.Type;
-                viewModel.Manufacturer = vehicle.Manufacturer;
-                viewModel.Model = vehicle.Model;
-                viewModel.Capacity = vehicle.Capacity;
-                viewModel.FuelConsumption = vehicle.FuelConsumption;
-                viewModel.Status = vehicle.VehicleStatus.ToString();
-                viewModel.OrganizationId = vehicle.ToString();
+                viewModel = new VehicleDetailsViewModel()
+                {
+                    Number = vehicle.Number,
+                    Type = vehicle.Type,
+                    Manufacturer = vehicle.Manufacturer,
+                    Model = vehicle.Model,
+                    Capacity = vehicle.Capacity,
+                    FuelConsumption = vehicle.FuelConsumption,
+                    Status = vehicle.VehicleStatus.ToString(),
+                    OrganizationId = vehicle.ToString(),
+                };
             }
 
             return viewModel;

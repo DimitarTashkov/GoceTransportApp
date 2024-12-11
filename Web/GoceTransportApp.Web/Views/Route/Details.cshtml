@@ -16,8 +16,8 @@
 <partial name="_RouteDetailsPartial" model="Model" />
 
 <div class="mt-4">
-    <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-warning">Edit</a>
-    <a asp-action="Delete" asp-route-id="@Model.Id" class="btn btn-danger">Delete</a>
-    <a asp-action="Archive" asp-route-id="@Model.Id" class="btn btn-secondary">Archive</a>
-    <a asp-action="Index" class="btn btn-light">Back to List</a>
+    <a asp-action="Edit" asp-controller="Route" asp-route-id="@Model.Id" asp-route-organizationId="@Model.OrganizationId" class="btn btn-warning">Edit</a>
+    <a asp-action="Delete" asp-controller="Route" asp-route-id="@Model.Id" asp-route-organizationId="@Model.OrganizationId" class="btn btn-danger">Delete</a>
+    <a asp-action="Archive" asp-controller="Route" asp-route-id="@Model.Id" asp-route-organizationId="@Model.OrganizationId" class="btn btn-secondary">Archive</a>
+    <a asp-action="Routes" asp-controller="Organization" asp-route-organizationId="@Model.OrganizationId" class="btn btn-light">Back to List</a>
 </div>

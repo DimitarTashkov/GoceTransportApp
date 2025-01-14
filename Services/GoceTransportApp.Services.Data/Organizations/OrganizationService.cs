@@ -87,12 +87,14 @@ namespace GoceTransportApp.Services.Data.Organizations
         public async Task<IEnumerable<OrganizationDataViewModel>> GetAllOrganizationsAsync()
         {
             IEnumerable<OrganizationDataViewModel> model = await organizationRepository.AllAsNoTracking()
+                .Include(o => o.Founder)
               .Select(c => new OrganizationDataViewModel()
               {
                   Id = c.Id.ToString(),
                   Name = c.Name,
                   Address = c.Address,
-                  FounderId = c.FounderId
+                  FounderId = c.FounderId,
+                  Founder = c.Founder.UserName
               })
               .ToArrayAsync();
 
@@ -120,6 +122,7 @@ namespace GoceTransportApp.Services.Data.Organizations
             OrganizationDetailsViewModel viewModel = null;
 
             Organization? organization = await organizationRepository.AllAsNoTracking()
+                .Include(o => o.Founder)
                 .FirstOrDefaultAsync(d => d.Id == id);
 
             if (organization != null)
@@ -131,6 +134,7 @@ namespace GoceTransportApp.Services.Data.Organizations
                     Address = organization.Address,
                     Phone = organization.Phone,
                     FounderId = organization.FounderId,
+                    Founder = organization.Founder.UserName,
                     OrganizationMessages = organization.OrganizationMessages,
                     OrganizationDrivers = organization.OrganizationDrivers,
                     OrganizationRoutes = organization.OrganizationRoutes,

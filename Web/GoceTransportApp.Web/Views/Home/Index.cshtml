@@ -3,39 +3,116 @@
 }
 
 <div class="container mt-5">
-    <h1 class="text-center mb-4">Welcome to GoceTransportApp</h1>
-    <p class="text-center">Navigate to explore all routes, schedules, and organizations available in the system.</p>
+    <!-- Welcome Section -->
+    <div class="text-center">
+        <h1 class="display-4 fw-bold mb-4 text-primary">Welcome to GoceTransportApp</h1>
+        <p class="h5 text-secondary">Your one-stop platform for routes, schedules, and organizations.</p>
+    </div>
 
-    <div class="row mt-4 justify-content-center">
+    <!-- Highlight Section -->
+    <div class="row mt-5">
+        <!-- Left: Image or Illustration -->
+        <div class="col-md-6 d-flex align-items-center justify-content-center">
+            <img src="https://via.placeholder.com/450x300" alt="Travel Illustration" class="img-fluid rounded shadow-lg" style="opacity: 0.9;">
+        </div>
 
-        <div class="col-md-4">
-            <div class="card text-center shadow-lg">
-                <div class="card-body">
-                    <h5 class="card-title">Explore Routes</h5>
-                    <p class="card-text">Discover all available routes in the system.</p>
-                    <a asp-controller="Route" asp-action="Index" class="btn btn-primary">Explore All Routes</a>
+        <!-- Right: Quick Access Buttons -->
+        <div class="col-md-6">
+            <div class="row g-4">
+                <div class="col-12">
+                    <div class="card border-0 shadow-lg p-3" style="background-color: rgba(0, 123, 255, 0.1);">
+                        <div class="card-body d-flex align-items-center">
+                            <i class="fas fa-route fa-3x text-primary me-4"></i>
+                            <div>
+                                <h4 class="fw-bold text-primary">Explore Routes</h4>
+                                <p class="h6 text-muted">Discover all available travel routes.</p>
+                                <a asp-controller="Route" asp-action="Index" class="btn btn-primary btn-lg hover-animated">View Routes</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-12">
+                    <div class="card border-0 shadow-lg p-3" style="background-color: rgba(40, 167, 69, 0.1);">
+                        <div class="card-body d-flex align-items-center">
+                            <i class="fas fa-clock fa-3x text-success me-4"></i>
+                            <div>
+                                <h4 class="fw-bold text-success">Explore Schedules</h4>
+                                <p class="h6 text-muted">Stay updated with the latest schedules.</p>
+                                <a asp-controller="Schedule" asp-action="Index" class="btn btn-success btn-lg hover-animated">View Schedules</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-12">
+                    <div class="card border-0 shadow-lg p-3" style="background-color: rgba(23, 162, 184, 0.1);">
+                        <div class="card-body d-flex align-items-center">
+                            <i class="fas fa-building fa-3x text-info me-4"></i>
+                            <div>
+                                <h4 class="fw-bold text-info">Explore Organizations</h4>
+                                <p class="h6 text-muted">Browse the organizations managing these routes.</p>
+                                <a asp-controller="Organization" asp-action="Index" class="btn btn-info btn-lg hover-animated">View Organizations</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-12">
+                    <div class="card border-0 shadow-lg p-3" style="background-color: rgba(255, 193, 7, 0.1);">
+                        <div class="card-body d-flex align-items-center">
+                            <i class="fas fa-ticket-alt fa-3x text-warning me-4"></i>
+                            <div>
+                                <h4 class="fw-bold text-warning">View Tickets</h4>
+                                <p class="h6 text-muted">Check and book your tickets easily.</p>
+                                <a asp-controller="Ticket" asp-action="Index" class="btn btn-warning btn-lg hover-animated">View Tickets</a>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
+    </div>
 
+    <!-- Info Cards Section -->
+    <div class="row mt-5 g-4">
         <div class="col-md-4">
-            <div class="card text-center shadow-lg">
+            <div class="card border-0 shadow-lg h-100 text-center p-3" style="background-color: rgba(108, 117, 125, 0.1);">
                 <div class="card-body">
-                    <h5 class="card-title">Explore Schedules</h5>
-                    <p class="card-text">View the schedules for all available routes.</p>
-                    <a asp-controller="Schedule" asp-action="Index" class="btn btn-primary">Explore All Schedules</a>
+                    <h4 class="fw-bold text-secondary">About Us</h4>
+                    <p class="h6 text-muted">Learn more about GoceTransportApp and our mission to make travel easier.</p>
+                    <a asp-controller="Home" asp-action="About" class="btn btn-secondary btn-lg hover-animated">Learn More</a>
                 </div>
             </div>
         </div>
-
         <div class="col-md-4">
-            <div class="card text-center shadow-lg">
+            <div class="card border-0 shadow-lg h-100 text-center p-3" style="background-color: rgba(52, 58, 64, 0.1);">
                 <div class="card-body">
-                    <h5 class="card-title">Explore Organizations</h5>
-                    <p class="card-text">Browse through the organizations that manage these routes.</p>
-                    <a asp-controller="Organization" asp-action="Index" class="btn btn-primary">Explore All Organizations</a>
+                    <h4 class="fw-bold text-dark">Contact Us</h4>
+                    <p class="h6 text-muted">Have questions? Get in touch with our support team.</p>
+                    <a asp-controller="Home" asp-action="Contact" class="btn btn-dark btn-lg hover-animated">Contact</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card border-0 shadow-lg h-100 text-center p-3" style="background-color: rgba(255, 99, 132, 0.1);">
+                <div class="card-body">
+                    <h4 class="fw-bold text-danger">Latest Updates</h4>
+                    <p class="h6 text-muted">Stay informed with the latest updates and announcements.</p>
+                    <a asp-controller="Home" asp-action="Updates" class="btn btn-danger btn-lg hover-animated">Read Updates</a>
                 </div>
             </div>
         </div>
     </div>
 </div>
+
+<style>
+    .hover-animated {
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .hover-animated:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+    }
+</style>

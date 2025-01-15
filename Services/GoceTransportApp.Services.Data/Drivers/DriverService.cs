@@ -136,6 +136,7 @@ namespace GoceTransportApp.Services.Data.Drivers
                   LastName = driver.LastName,
                   Age = driver.Age,
                   DrivingExperience = driver.Experience.ToString(),
+                  OrganizationId = driver.OrganizationId.ToString(),
               })
               .FirstOrDefaultAsync(s => s.Id.ToLower() == id.ToString().ToLower());
 

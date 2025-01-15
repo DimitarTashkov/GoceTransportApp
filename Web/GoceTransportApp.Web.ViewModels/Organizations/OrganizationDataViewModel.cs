@@ -18,6 +18,6 @@ namespace GoceTransportApp.Web.ViewModels.Organizations
 
         public string FounderId { get; set; } = null!;
 
-        public string Founder { get; set; }
+        public string Founder { get; set; } = null!;
     }
 }

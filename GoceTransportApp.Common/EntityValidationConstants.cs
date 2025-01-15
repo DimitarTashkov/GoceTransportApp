@@ -34,6 +34,7 @@
             public const int MinAgeLength = 1;
             public const int MaxAgeLength = 100;
         }
+
         public static class VehicleConstants
         {
             public const int MinNumberLength = 4;

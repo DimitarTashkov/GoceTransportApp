@@ -8,12 +8,16 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" asp-append-version="true" />
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
 </head>
-<body class="d-flex flex-column min-vh-100">
+<body class="d-flex flex-column min-vh-100 bg-light">
     <!-- Header (Navbar) -->
     <header>
         <nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top">
             <div class="container">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">@GlobalConstants.SystemName</a>
+                <a class="navbar-brand fw-bold text-uppercase" asp-area="" asp-controller="Home" asp-action="Index">
+
+                    <i class="fas fa-bus-alt"></i> @GlobalConstants.SystemName
+
+                </a>
 
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -22,19 +26,19 @@
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav ms-auto">
                         <li class="nav-item">
-                            <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                            <a class="nav-link fw-semibold text-light" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" asp-area="" asp-controller="Settings" asp-action="Index">Settings</a>
+                            <a class="nav-link fw-semibold text-light" asp-area="" asp-controller="Settings" asp-action="Index">Settings</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                            <a class="nav-link fw-semibold text-light" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" asp-area="" asp-controller="Organization" asp-action="MyOrganizations">My Organizations</a>
+                            <a class="nav-link fw-semibold text-light" asp-area="" asp-controller="Organization" asp-action="MyOrganizations">My Organizations</a>
                         </li>
                         <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="exploreDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <a class="nav-link dropdown-toggle fw-semibold text-light" href="#" id="exploreDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                 Explore
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="exploreDropdown">
@@ -45,10 +49,10 @@
                             </ul>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" asp-area="" asp-controller="Home" asp-action="AboutUs">About Us</a>
+                            <a class="nav-link fw-semibold text-light" asp-area="" asp-controller="Home" asp-action="AboutUs">About Us</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" asp-area="" asp-controller="Home" asp-action="ContactUs">Contact Us</a>
+                            <a class="nav-link fw-semibold text-light" asp-area="" asp-controller="Home" asp-action="ContactUs">Contact Us</a>
                         </li>
                     </ul>
                     <partial name="_LoginPartial" />
@@ -58,7 +62,7 @@
     </header>
 
     <!-- Main Content -->
-    <main class="flex-grow-1 pt-5 mt-5">
+    <main class="flex-grow-1 pt-5 mt-5 mb-5">
         <div class="container">
             <partial name="_CookieConsentPartial" />
             @this.RenderBody()
@@ -66,14 +70,39 @@
     </main>
 
     <!-- Footer -->
-    <footer class="bg-dark text-light text-center py-3 mt-auto">
-        <div class="container">
-            <p class="mb-1">&copy; @DateTime.Now.Year - @GlobalConstants.SystemName</p>
-            <p class="mb-0">
-                <a class="text-light text-decoration-none" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a> |
-                <a class="text-light text-decoration-none" asp-area="" asp-controller="Home" asp-action="AboutUs">About Us</a> |
-                <a class="text-light text-decoration-none" asp-area="" asp-controller="Home" asp-action="ContactUs">Contact Us</a>
-            </p>
+    <footer class="bg-dark text-light py-4 mt-auto">
+
+        <div class="container ">
+            <div class="row">
+                <!-- Navigation Links -->
+                <div class="col-md-3 mb-3">
+                    <h5 class="fw-bold mb-3">Navigation</h5>
+                    <ul class="list-unstyled">
+                        <li><a class="text-light text-decoration-none" asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
+                        <li><a class="text-light text-decoration-none" asp-area="" asp-controller="Settings" asp-action="Index">Settings</a></li>
+                        <li><a class="text-light text-decoration-none" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a></li>
+                        <li><a class="text-light text-decoration-none" asp-area="" asp-controller="Organization" asp-action="MyOrganizations">My Organizations</a></li>
+                        <li><a class="text-light text-decoration-none" asp-area="" asp-controller="Home" asp-action="AboutUs">About Us</a></li>
+                        <li><a class="text-light text-decoration-none" asp-area="" asp-controller="Home" asp-action="ContactUs">Contact Us</a></li>
+                    </ul>
+                </div>
+
+                <!-- Explore Section -->
+                <div class="col-md-3 mb-3">
+                    <h5 class="fw-bold mb-3">Explore</h5>
+                    <ul class="list-unstyled">
+                        <li><a class="text-light text-decoration-none" asp-controller="Route" asp-action="Index">Routes</a></li>
+                        <li><a class="text-light text-decoration-none" asp-controller="Schedule" asp-action="Index">Schedules</a></li>
+                        <li><a class="text-light text-decoration-none" asp-controller="Ticket" asp-action="Index">Tickets</a></li>
+                        <li><a class="text-light text-decoration-none" asp-controller="Organization" asp-action="Index">Organizations</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Copyright Section -->
+        <div class="bg-dark text-center py-2">
+            <p class="mb-0">&copy; @DateTime.Now.Year - @GlobalConstants.SystemName</p>
         </div>
     </footer>
 

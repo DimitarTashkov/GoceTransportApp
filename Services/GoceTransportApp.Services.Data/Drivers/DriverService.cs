@@ -62,7 +62,7 @@ namespace GoceTransportApp.Services.Data.Drivers
                     LastName = driver.LastName,
                     Age = driver.Age,
                     DrivingExperience = driver.Experience.ToString(),
-                    OrganizationId = driver.ToString(),
+                    OrganizationId = driver.OrganizationId.ToString(),
                     OrganizationName = driver.Organization.Name,
                 };
             }

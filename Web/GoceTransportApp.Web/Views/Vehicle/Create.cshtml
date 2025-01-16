@@ -10,6 +10,8 @@
     <div class="card-body">
         <form asp-action="Create" method="post" class="needs-validation" novalidate>
             <input asp-for="OrganizationId" type="hidden" />
+            <input asp-for="Status" type="hidden" />
+
 
             <div class="mb-3">
                 <label asp-for="Number" class="form-label">Number</label>
@@ -45,15 +47,6 @@
                 <label asp-for="FuelConsumption" class="form-label">Fuel Consumption</label>
                 <input asp-for="FuelConsumption" class="form-control" />
                 <span asp-validation-for="FuelConsumption" class="text-danger"></span>
-            </div>
-
-            <div class="mb-3">
-                <label asp-for="Status" class="form-label">Status</label>
-                <select asp-for="Status" class="form-select"
-                        asp-items="Html.GetEnumSelectList<GoceTransportApp.Data.Models.Enumerations.VehicleStatus>()">
-                    <option value="">Select Status</option>
-                </select>
-                <span asp-validation-for="Status" class="text-danger"></span>
             </div>
 
             <button type="submit" class="btn btn-success">Create</button>

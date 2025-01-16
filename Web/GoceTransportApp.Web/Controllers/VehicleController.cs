@@ -67,23 +67,23 @@ namespace GoceTransportApp.Web.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create(VehicleInputModel model)
+        public async Task<IActionResult> Create(VehicleInputModel inputModel)
         {
             string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
-            if (!await this.HasUserCreatedOrganizationAsync(userId, model.OrganizationId) && !User.IsInRole(AdministratorRoleName))
+            if (!await this.HasUserCreatedOrganizationAsync(userId, inputModel.OrganizationId) && !User.IsInRole(AdministratorRoleName))
             {
-                return RedirectToAction("Vehicles", "Organization", new { organizationId = model.OrganizationId });
+                return RedirectToAction("Vehicles", "Organization", new { organizationId = inputModel.OrganizationId });
             }
 
             if (!ModelState.IsValid)
             {
-                return View(model);
+                return View(inputModel);
             }
 
-            await vehicleService.CreateAsync(model);
+            await vehicleService.CreateAsync(inputModel);
 
-            return RedirectToAction("Vehicles", "Organization", new { organizationId = model.OrganizationId });
+            return RedirectToAction("Vehicles", "Organization", new { organizationId = inputModel.OrganizationId });
         }
 
         [HttpGet]

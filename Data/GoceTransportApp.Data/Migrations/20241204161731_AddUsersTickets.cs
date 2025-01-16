@@ -11,15 +11,21 @@ namespace GoceTransportApp.Data.Migrations
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            // Drop the existing foreign key and index that depend on the CustomerId column
+            migrationBuilder.DropForeignKey(
+                name: "FK_Tickets_AspNetUsers_CustomerId",
+                table: "Tickets");
 
             migrationBuilder.DropIndex(
                 name: "IX_Tickets_CustomerId",
                 table: "Tickets");
 
+            // Now, drop the CustomerId column
             migrationBuilder.DropColumn(
                 name: "CustomerId",
                 table: "Tickets");
 
+            // Create the new UsersTickets table
             migrationBuilder.CreateTable(
                 name: "UsersTickets",
                 columns: table => new
@@ -50,6 +56,7 @@ namespace GoceTransportApp.Data.Migrations
                         onDelete: ReferentialAction.Restrict);
                 });
 
+            // Create indexes for the new UsersTickets table
             migrationBuilder.CreateIndex(
                 name: "IX_UsersTickets_IsDeleted",
                 table: "UsersTickets",
@@ -64,9 +71,11 @@ namespace GoceTransportApp.Data.Migrations
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            // Drop the UsersTickets table in the Down migration
             migrationBuilder.DropTable(
                 name: "UsersTickets");
 
+            // Add back the CustomerId column to the Tickets table
             migrationBuilder.AddColumn<string>(
                 name: "CustomerId",
                 table: "Tickets",
@@ -74,11 +83,13 @@ namespace GoceTransportApp.Data.Migrations
                 nullable: false,
                 defaultValue: "");
 
+            // Re-create the index on CustomerId
             migrationBuilder.CreateIndex(
                 name: "IX_Tickets_CustomerId",
                 table: "Tickets",
                 column: "CustomerId");
 
+            // Re-create the foreign key constraint on CustomerId
             migrationBuilder.AddForeignKey(
                 name: "FK_Tickets_AspNetUsers_CustomerId",
                 table: "Tickets",

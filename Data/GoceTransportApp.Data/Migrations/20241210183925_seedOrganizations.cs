@@ -240,17 +240,7 @@ namespace GoceTransportApp.Data.Migrations
                 keyColumn: "Id",
                 keyValue: new Guid("c42a1b2e-afbe-4f81-8d68-aaac514f87af"));
 
-            migrationBuilder.InsertData(
-                table: "AspNetUsers",
-                columns: new[] { "Id", "AccessFailedCount", "City", "ConcurrencyStamp", "CreatedOn", "DeletedOn", "Email", "EmailConfirmed", "FirstName", "IsDeleted", "LastName", "LockoutEnabled", "LockoutEnd", "ModifiedOn", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "ProfilePictureUrl", "SecurityStamp", "TwoFactorEnabled", "UserName" },
-                values: new object[,]
-                {
-                    { "00591d7b-5bf5-475b-ac85-4a2467481881", 0, "Lqski", "d80d2cce-3bfd-412b-bb92-80bb374de37b", new DateTime(2024, 12, 10, 20, 31, 26, 963, DateTimeKind.Local).AddTicks(669), null, "user4@example.com", false, "David", false, "Brown", false, null, null, null, null, null, null, false, "../../images/no-profile-image", null, false, "user4" },
-                    { "4b5ab8a3-7604-447a-a603-f8e97e45fb61", 0, "Gotse Delchev", "5d10b091-c232-450f-a0bc-c55af50485dd", new DateTime(2024, 12, 10, 20, 31, 26, 963, DateTimeKind.Local).AddTicks(510), null, "user1@example.com", false, "Alice", false, "Smith", false, null, null, null, null, null, null, false, "../../images/no-profile-image", null, false, "user1" },
-                    { "6b040313-77f4-49b0-b3d3-b25de95eb408", 0, "Mosomishte", "9ba962c9-ae95-4f3b-8a01-fe1338f5b730", new DateTime(2024, 12, 10, 20, 31, 26, 963, DateTimeKind.Local).AddTicks(689), null, "user5@example.com", false, "Eve", false, "Davis", false, null, null, null, null, null, null, false, "../../images/no-profile-image", null, false, "user5" },
-                    { "a982c9b9-c1bc-4a5b-a89a-4c53a701c526", 0, "Mosomishte", "3cf866a1-e9cd-499f-8220-36e3fecfe7a3", new DateTime(2024, 12, 10, 20, 31, 26, 963, DateTimeKind.Local).AddTicks(610), null, "user2@example.com", false, "Bob", false, "Johnson", false, null, null, null, null, null, null, false, "../../images/no-profile-image", null, false, "user2" },
-                    { "c40f52d6-d2cc-4379-8acf-782558dba84c", 0, "Borovo", "85575b6a-1ad3-46cf-9f45-c6711d01d4f1", new DateTime(2024, 12, 10, 20, 31, 26, 963, DateTimeKind.Local).AddTicks(653), null, "user3@example.com", false, "Carol", false, "Taylor", false, null, null, null, null, null, null, false, "../../images/no-profile-image", null, false, "user3" }
-                });
+           
 
             migrationBuilder.InsertData(
                 table: "Cities",

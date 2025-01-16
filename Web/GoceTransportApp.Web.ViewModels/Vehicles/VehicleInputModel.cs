@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 
 using static GoceTransportApp.Common.EntityValidationConstants.VehicleConstants;
 using static GoceTransportApp.Common.ErrorMessages.VehicleMessages;
+using GoceTransportApp.Web.ViewModels.ValidationAttributes;
 
 
 namespace GoceTransportApp.Web.ViewModels.Vehicles
@@ -18,6 +19,7 @@ namespace GoceTransportApp.Web.ViewModels.Vehicles
         [Required(ErrorMessage = VehicleNumberRequired)]
         [MinLength(MinNumberLength)]
         [MaxLength(MaxNumberLength)]
+        [UniqueVehicleNumber]
         public string Number { get; set; } = null!;
 
         [Required(ErrorMessage = VehicleTypeRequired)]

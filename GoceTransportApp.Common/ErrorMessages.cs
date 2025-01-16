@@ -51,6 +51,7 @@
             public const string VehicleManufacturerRequired = "Vehicle manufacturer is required";
             public const string VehicleModelRequired = "Vehicle model is required";
             public const string VehicleCapacityRequired = "Vehicle capacity is required";
+            public const string VehicleNumberExists = "Vehicle with such number already exists";
 
             public const string InvalidVehicleDetails = "Unexpected error occurred while extracting vehicle details! Please contact administrator!";
 
@@ -64,6 +65,7 @@
             public const string InvalidScheduleDetails = "Unexpected error occurred while extracting schedule details! Please contact administrator!";
             public const string ScheduleEditFailed = "Unexpected error occurred while updating the schedule! Please contact administrator!";
             public const string ScheduleDeleteFailed = "Unexpected error occurred while deleting the schedule! Please contact administrator!";
+            public const string InvalidScheduleDepartureTime = "Departure time must be earlier than arrival time!";
         }
 
         public static class TicketMessages
@@ -73,6 +75,8 @@
             public const string TicketDeleteFailed = "Unexpected error occurred while deleting the ticket! Please contact administrator!";
             public const string TicketPurchaseFailed = "There was an error processing your ticket purchase!";
             public const string TicketPurchaseSuccess = "Your ticket(s) have been purchased successfully!";
+            public const string InvalidTicketIssueTime = "Ticket issued date be earlier than expiry date!";
+
         }
 
         public static class OrganizationMessages

@@ -22,4 +22,9 @@
     </PackageReference>
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\..\Data\GoceTransportApp.Data.Common\GoceTransportApp.Data.Common.csproj" />
+    <ProjectReference Include="..\..\Data\GoceTransportApp.Data.Models\GoceTransportApp.Data.Models.csproj" />
+  </ItemGroup>
+
 </Project>

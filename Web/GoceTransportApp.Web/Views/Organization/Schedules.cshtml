@@ -1,4 +1,15 @@
-﻿@model GoceTransportApp.Web.ViewModels.Schedules.SchedulesForOrganizationViewModel
+﻿@using System.Security.Claims
+@using GoceTransportApp.Services.Data.Users
+@using static GoceTransportApp.Common.GlobalConstants
+@model GoceTransportApp.Web.ViewModels.Schedules.SchedulesForOrganizationViewModel
+@inject IUserService userService
+
+@{
+    var organizationId = Model.OrganizationId;
+    var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+    var isFounder = await userService.HasUserCreatedOrganizationAsync(userId, organizationId);
+    var isAdmin = User.IsInRole(AdministratorRoleName);
+}
 
 @{
     ViewData["Title"] = "Schedules for Organization";
@@ -6,8 +17,10 @@
 
 <div class="container mt-5">
     <h1 class="text-center mb-4">Schedules</h1>
-    <a asp-action="Create" asp-controller="Schedule" asp-route-organizationId="@Model.OrganizationId" class="btn btn-success">Add New Schedule</a>
-
+    @if (isFounder || isAdmin)
+    {
+        <a asp-action="Create" asp-controller="Schedule" asp-route-organizationId="@Model.OrganizationId" class="btn btn-success">Add New Schedule</a>
+    }
 
     @if (!Model.Schedules.Any())
     {

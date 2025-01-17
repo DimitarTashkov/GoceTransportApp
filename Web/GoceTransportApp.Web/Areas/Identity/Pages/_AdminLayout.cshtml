@@ -1,0 +1,77 @@
+﻿@using GoceTransportApp.Common
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@this.ViewData["Title"] - @GlobalConstants.SystemName</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" asp-append-version="true" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+</head>
+<body class="d-flex flex-column min-vh-100 bg-light">
+    <!-- Header (Navbar) -->
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top">
+            <div class="container">
+                <a class="navbar-brand fw-bold text-uppercase" asp-area="" asp-controller="Home" asp-action="Index">
+                    <i class="fas fa-bus-alt"></i> @GlobalConstants.SystemName
+                </a>
+
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav ms-auto">
+                        <li class="nav-item">
+                            <a class="nav-link fw-semibold text-light" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link fw-semibold text-light" asp-area="" asp-controller="Settings" asp-action="Index">Settings</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link fw-semibold text-light" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link fw-semibold text-light" asp-area="" asp-controller="Organization" asp-action="MyOrganizations">My Organizations</a>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle fw-semibold text-light" href="#" id="exploreDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                Explore
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="exploreDropdown">
+                                <li><a class="dropdown-item" asp-controller="Route" asp-action="Index">Routes</a></li>
+                                <li><a class="dropdown-item" asp-controller="Schedule" asp-action="Index">Schedules</a></li>
+                                <li><a class="dropdown-item" asp-controller="Ticket" asp-action="Index">Tickets</a></li>
+                                <li><a class="dropdown-item" asp-controller="Organization" asp-action="Index">Organizations</a></li>
+                            </ul>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link fw-semibold text-light" asp-area="" asp-controller="Home" asp-action="AboutUs">About Us</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link fw-semibold text-light" asp-area="" asp-controller="Home" asp-action="ContactUs">Contact Us</a>
+                        </li>
+                    </ul>
+                    <partial name="_LoginPartial" />
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Main Content -->
+    <main class="flex-grow-1 pt-5 mt-5 mb-5">
+        <div class="container">
+            @this.RenderBody()
+        </div>
+    </main>
+
+    <!-- Admin-Specific Scripts -->
+    <script src="~/lib/jquery/dist/jquery.min.js" asp-append-version="true"></script>
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js" asp-append-version="true"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/dist/jquery.validate.unobtrusive.min.js" asp-append-version="true"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.min.js" asp-append-version="true"></script>
+    @await this.RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

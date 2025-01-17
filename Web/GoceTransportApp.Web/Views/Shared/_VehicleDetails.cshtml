@@ -1,6 +1,6 @@
 ﻿@model GoceTransportApp.Web.ViewModels.Vehicles.VehicleDetailsViewModel
 
-<div class="card shadow">
+<div class="card shadow mb-4">
     <div class="card-body">
         <p><strong>Number:</strong> @Model.Number</p>
         <p><strong>Type:</strong> @Model.Type</p>
@@ -9,6 +9,5 @@
         <p><strong>Capacity:</strong> @Model.Capacity</p>
         <p><strong>Fuel Consumption:</strong> @(Model.FuelConsumption ?? 0) L/100km</p>
         <p><strong>Status:</strong> @Model.Status</p>
-        <p><strong>Organization ID:</strong> @Model.OrganizationId</p>
     </div>
 </div>

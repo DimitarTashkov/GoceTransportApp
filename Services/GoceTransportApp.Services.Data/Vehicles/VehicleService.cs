@@ -190,7 +190,7 @@ namespace GoceTransportApp.Services.Data.Vehicles
                     Capacity = vehicle.Capacity,
                     FuelConsumption = vehicle.FuelConsumption,
                     Status = vehicle.VehicleStatus.ToString(),
-                    OrganizationId = vehicle.ToString(),
+                    OrganizationId = vehicle.OrganizationId.ToString(),
                 };
             }
 

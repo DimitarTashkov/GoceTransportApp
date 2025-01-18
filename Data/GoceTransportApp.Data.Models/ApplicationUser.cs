@@ -62,5 +62,8 @@ namespace GoceTransportApp.Data.Models
 
         public HashSet<Message> UserMessages { get; set; }
         = new HashSet<Message>();
+
+        public HashSet<ContactForm> UserContactForms { get; set; }
+       = new HashSet<ContactForm>();
     }
 }

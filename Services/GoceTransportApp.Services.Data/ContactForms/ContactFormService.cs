@@ -34,7 +34,7 @@ namespace GoceTransportApp.Services
             await contactFormRepository.SaveChangesAsync();
         }
 
-        public async Task<IEnumerable<ContactFormDataViewModel>> GetAll()
+        public async Task<IEnumerable<ContactFormDataViewModel>> GetAllFormsAsync()
         {
             return await contactFormRepository
                 .AllAsNoTracking()
@@ -65,7 +65,7 @@ namespace GoceTransportApp.Services
             return contactForm;
         }
 
-        public async Task DeleteAsync(Guid id)
+        public async Task DeleteFormAsync(Guid id)
         {
             var contactForm = await contactFormRepository.GetByIdAsync(id);
 
@@ -74,6 +74,25 @@ namespace GoceTransportApp.Services
                 await contactFormRepository.DeleteAsync(contactForm);
                 await contactFormRepository.SaveChangesAsync();
             }
+        }
+
+        public async Task<ContactFormDetailsViewModel> GetFormDetailsByIdAsync(Guid id)
+        {
+            var contactForm = await contactFormRepository
+                .AllAsNoTracking()
+                .Where(x => x.Id == id)
+                .Select(x => new ContactFormDetailsViewModel
+                {
+                    Id = x.Id,
+                    Username = x.User.UserName, 
+                    Email = x.Email,
+                    Title = x.Title,
+                    Message = x.Message,
+                    DateSubmitted = x.DateSubmitted,
+                })
+                .FirstOrDefaultAsync();
+
+            return contactForm;
         }
     }
 }

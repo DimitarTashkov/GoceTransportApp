@@ -9,8 +9,10 @@
     using GoceTransportApp.Data.Models;
     using GoceTransportApp.Data.Repositories;
     using GoceTransportApp.Data.Seeding;
+    using GoceTransportApp.Services;
     using GoceTransportApp.Services.Data;
     using GoceTransportApp.Services.Data.Cities;
+    using GoceTransportApp.Services.Data.ContactForms;
     using GoceTransportApp.Services.Data.Drivers;
     using GoceTransportApp.Services.Data.Organizations;
     using GoceTransportApp.Services.Data.Routes;
@@ -87,6 +89,7 @@
             services.AddScoped<IScheduleService, ScheduleService>();
             services.AddScoped<ITicketService, TicketService>();
             services.AddScoped<IOrganizationService, OrganizationService>();
+            services.AddScoped<IContactFormService, ContactFormService>();
         }
 
         private static void Configure(WebApplication app)

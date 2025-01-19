@@ -1,0 +1,14 @@
+﻿@model GoceTransportApp.Web.ViewModels.ContactForms.ContactFormDetailsViewModel
+
+<div class="card">
+    <div class="card-header">
+        <h4>@Model.Title</h4>
+    </div>
+    <div class="card-body">
+        <p><strong>Submitted By:</strong> @Model.Username</p>
+        <p><strong>Email:</strong> @Model.Email</p>
+        <p><strong>Date Submitted:</strong> @Model.DateSubmitted.ToString("f")</p>
+        <p><strong>Message:</strong></p>
+        <p>@Model.Message</p>
+    </div>
+</div>

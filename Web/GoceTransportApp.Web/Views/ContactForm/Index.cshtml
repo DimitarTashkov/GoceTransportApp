@@ -1,0 +1,19 @@
+﻿@model IEnumerable<GoceTransportApp.Web.ViewModels.ContactForms.ContactFormViewModel>
+
+<h1>Contact Forms</h1>
+
+<a asp-action="Create" class="btn btn-primary mb-3">
+    <i class="fas fa-plus"></i> Add Contact Form
+</a>
+
+@if (Model.Routes.Any())
+{
+    @foreach (var route in Model.Routes)
+    {
+      <partial name="_ContactFormDataPartial" model="route" />
+    }
+}
+else
+{
+  <p class="text-center">No routes found.</p>
+}

@@ -1,0 +1,24 @@
+﻿@model GoceTransportApp.Web.ViewModels.ContactForms.ContactFormInputModel
+
+<h1>Contact us</h1>
+
+<form asp-action="Create" method="post">
+    <div class="mb-3">
+        <input asp-for="UserId" type="hidden" />
+
+        <label asp-for="Email" class="form-label"></label>
+        <input asp-for="Email" class="form-control" />
+        <span asp-validation-for="Email" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label asp-for="Title" class="form-label"></label>
+        <input asp-for="Title" class="form-control" />
+        <span asp-validation-for="Title" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label asp-for="Message" class="form-label"></label>
+        <textarea asp-for="Message" class="form-control"></textarea>
+        <span asp-validation-for="Message" class="text-danger"></span>
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+</form>

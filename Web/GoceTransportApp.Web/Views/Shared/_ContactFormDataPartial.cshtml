@@ -1,11 +1,10 @@
-﻿@model IEnumerable<GoceTransportApp.Web.ViewModels.ContactForms.ContactFormViewModel>
+﻿@model IEnumerable<GoceTransportApp.Web.ViewModels.ContactForms.ContactFormDataViewModel>
 
 <table class="table table-striped table-hover">
     <thead>
         <tr>
             <th>#</th>
             <th>Username</th>
-            <th>Email</th>
             <th>Title</th>
             <th>Date Submitted</th>
             <th>Actions</th>
@@ -20,7 +19,6 @@
                 <tr>
                     <td>@index</td>
                     <td>@contactForm.Username</td>
-                    <td>@contactForm.Email</td>
                     <td>@contactForm.Title</td>
                     <td>@contactForm.DateSubmitted.ToString("f")</td>
                     <td>

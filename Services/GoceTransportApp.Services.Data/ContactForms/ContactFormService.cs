@@ -19,11 +19,11 @@ namespace GoceTransportApp.Services
             this.contactFormRepository = contactFormRepository;
         }
 
-        public async Task CreateAsync(ContactFormInputModel model, string userId)
+        public async Task CreateAsync(ContactFormInputModel model)
         {
             var contactForm = new ContactForm
             {
-                UserId = userId,
+                UserId = model.UserId,
                 Email = model.Email,
                 Title = model.Title,
                 Message = model.Message,

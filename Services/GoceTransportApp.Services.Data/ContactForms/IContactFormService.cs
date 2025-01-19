@@ -9,7 +9,7 @@ namespace GoceTransportApp.Services.Data.ContactForms
 {
     public interface IContactFormService
     {
-        Task CreateAsync(ContactFormInputModel model, string userId);
+        Task CreateAsync(ContactFormInputModel model);
 
         Task <IEnumerable<ContactFormDataViewModel>> GetAllFormsAsync();
 

@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace GoceTransportApp.Controllers
 {
+    //TODO: Implement searching, pagination and to display latest forms from top to bottom
     [Authorize]
     public class ContactFormController : Controller
     {
@@ -23,16 +24,21 @@ namespace GoceTransportApp.Controllers
         [HttpGet]
         [Authorize(Roles = GlobalConstants.AdministratorRoleName)]
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            var contactForms = contactFormService.GetAllFormsAsync();
+            var contactForms = await contactFormService.GetAllFormsAsync();
             return View(contactForms);
         }
 
         [HttpGet]
         public IActionResult Create()
         {
-            return View();
+            string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            ContactFormInputModel model = new ContactFormInputModel();
+            model.UserId = userId;
+
+            return View(model);
         }
 
         [HttpPost]
@@ -40,9 +46,7 @@ namespace GoceTransportApp.Controllers
         {
             if (ModelState.IsValid)
             {
-                string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-
-                await contactFormService.CreateAsync(model, userId);
+                await contactFormService.CreateAsync(model);
                 return RedirectToAction(nameof(Index));
             }
 
@@ -68,6 +72,18 @@ namespace GoceTransportApp.Controllers
         {
             await contactFormService.DeleteFormAsync(id);
             return RedirectToAction(nameof(Index));
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Details(Guid id)
+        {
+            var contactForm = await contactFormService.GetFormDetailsByIdAsync(id);
+            if (contactForm == null)
+            {
+                return NotFound();
+            }
+
+            return View(contactForm);
         }
     }
 }

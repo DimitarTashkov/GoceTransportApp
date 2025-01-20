@@ -6,7 +6,9 @@ using GoceTransportApp.Data.Common.Repositories;
 using GoceTransportApp.Data.Models;
 using GoceTransportApp.Services.Data.ContactForms;
 using GoceTransportApp.Web.ViewModels.ContactForms;
+using GoceTransportApp.Web.ViewModels.Routes;
 using Microsoft.EntityFrameworkCore;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 namespace GoceTransportApp.Services
 {
@@ -34,10 +36,25 @@ namespace GoceTransportApp.Services
             await contactFormRepository.SaveChangesAsync();
         }
 
-        public async Task<IEnumerable<ContactFormDataViewModel>> GetAllFormsAsync()
+        public async Task<IEnumerable<ContactFormDataViewModel>> GetAllFormsAsync(AllFormsSearchFilterViewModel inputModel)
         {
-            return await contactFormRepository
-                .AllAsNoTracking()
+            var query = contactFormRepository.AllAsNoTracking();
+
+            if (!string.IsNullOrEmpty(inputModel.SearchQuery))
+            {
+                query = query.Where(x =>
+                    x.Title.Contains(inputModel.SearchQuery) ||
+                    x.Message.Contains(inputModel.SearchQuery) ||
+                    x.User.UserName.Contains(inputModel.SearchQuery) ||
+                    x.Email.Contains(inputModel.SearchQuery));
+            }
+
+            var totalItems = await query.CountAsync();
+
+            var forms = await query
+                .OrderByDescending(x => x.DateSubmitted)
+                .Skip((inputModel.EntitiesPerPage.Value * (inputModel.CurrentPage.Value - 1)) * inputModel.EntitiesPerPage.Value)
+                .Take(inputModel.EntitiesPerPage.Value)
                 .Select(x => new ContactFormDataViewModel
                 {
                     Id = x.Id,
@@ -46,6 +63,8 @@ namespace GoceTransportApp.Services
                     DateSubmitted = x.DateSubmitted,
                 })
                 .ToListAsync();
+
+            return forms;
         }
 
         public async Task<ContactFormDeleteViewModel> GetByIdAsync(Guid id)
@@ -93,6 +112,25 @@ namespace GoceTransportApp.Services
                 .FirstOrDefaultAsync();
 
             return contactForm;
+        }
+
+        public async Task<int> GetFormsCountByFilterAsync(AllFormsSearchFilterViewModel inputModel)
+        {
+            IQueryable<ContactForm> allFormsQuery = contactFormRepository
+                .AllAsNoTracking();
+
+            if (!string.IsNullOrEmpty(inputModel.SearchQuery))
+            {
+                allFormsQuery = allFormsQuery.Where(x =>
+                     x.Title.Contains(inputModel.SearchQuery) ||
+                     x.Message.Contains(inputModel.SearchQuery) ||
+                     x.User.UserName.Contains(inputModel.SearchQuery) ||
+                     x.Email.Contains(inputModel.SearchQuery));
+            }
+
+
+
+            return await allFormsQuery.CountAsync();
         }
     }
 }

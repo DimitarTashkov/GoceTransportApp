@@ -11,7 +11,7 @@ namespace GoceTransportApp.Services.Data.ContactForms
     {
         Task CreateAsync(ContactFormInputModel model);
 
-        Task <IEnumerable<ContactFormDataViewModel>> GetAllFormsAsync();
+        Task<IEnumerable<ContactFormDataViewModel>> GetAllFormsAsync(AllFormsSearchFilterViewModel inputModel);
 
         Task<ContactFormDeleteViewModel> GetByIdAsync(Guid id);
 
@@ -19,5 +19,6 @@ namespace GoceTransportApp.Services.Data.ContactForms
 
         Task<ContactFormDetailsViewModel> GetFormDetailsByIdAsync(Guid id);
 
+        public Task<int> GetFormsCountByFilterAsync(AllFormsSearchFilterViewModel inputModel);
     }
 }

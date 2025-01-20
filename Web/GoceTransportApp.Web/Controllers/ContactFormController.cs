@@ -1,16 +1,20 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using GoceTransportApp.Common;
 using GoceTransportApp.Services;
 using GoceTransportApp.Services.Data.ContactForms;
+using GoceTransportApp.Services.Data.Routes;
 using GoceTransportApp.Web.ViewModels.ContactForms;
+using GoceTransportApp.Web.ViewModels.Routes;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
+using static GoceTransportApp.Common.ResultMessages.ContactFormMessages;
+
 namespace GoceTransportApp.Controllers
 {
-    //TODO: Implement searching, pagination and to display latest forms from top to bottom
     [Authorize]
     public class ContactFormController : Controller
     {
@@ -24,10 +28,22 @@ namespace GoceTransportApp.Controllers
         [HttpGet]
         [Authorize(Roles = GlobalConstants.AdministratorRoleName)]
 
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(AllFormsSearchFilterViewModel inputModel)
         {
-            var contactForms = await contactFormService.GetAllFormsAsync();
-            return View(contactForms);
+            IEnumerable<ContactFormDataViewModel> allForms = await contactFormService.GetAllFormsAsync(inputModel);
+
+            int allRoutesCount = await contactFormService.GetFormsCountByFilterAsync(inputModel);
+
+            AllFormsSearchFilterViewModel viewModel = new AllFormsSearchFilterViewModel
+            {
+                Forms = allForms,
+                SearchQuery = inputModel.SearchQuery,
+                CurrentPage = inputModel.CurrentPage,
+                EntitiesPerPage = inputModel.EntitiesPerPage,
+                TotalPages = (int)Math.Ceiling((double)allRoutesCount / inputModel.EntitiesPerPage.Value)
+            };
+
+            return View(viewModel);
         }
 
         [HttpGet]
@@ -47,7 +63,10 @@ namespace GoceTransportApp.Controllers
             if (ModelState.IsValid)
             {
                 await contactFormService.CreateAsync(model);
-                return RedirectToAction(nameof(Index));
+
+                TempData["SuccessMessage"] = ContactFormWasSumbitted;
+
+                return RedirectToAction("Index", "Home");
             }
 
             return View(model);

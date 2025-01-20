@@ -6,7 +6,7 @@ using System;
 using GoceTransportApp.Services.Data.Vehicles;
 using GoceTransportApp.Web.ViewModels.Vehicles;
 
-using static GoceTransportApp.Common.ErrorMessages.VehicleMessages;
+using static GoceTransportApp.Common.ResultMessages.VehicleMessages;
 using static GoceTransportApp.Common.GlobalConstants;
 using System.Collections.Generic;
 using GoceTransportApp.Data.Common.Repositories;

@@ -7,7 +7,7 @@ using System;
 using GoceTransportApp.Services.Data.Cities;
 using GoceTransportApp.Web.ViewModels.Cities;
 
-using static GoceTransportApp.Common.ErrorMessages.CityMessages;
+using static GoceTransportApp.Common.ResultMessages.CityMessages;
 using static GoceTransportApp.Common.GlobalConstants;
 
 using System.Collections.Generic;

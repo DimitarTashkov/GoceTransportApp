@@ -12,7 +12,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-using static GoceTransportApp.Common.ErrorMessages.VehicleMessages;
+using static GoceTransportApp.Common.ResultMessages.VehicleMessages;
 
 
 namespace GoceTransportApp.Services.Data.Vehicles

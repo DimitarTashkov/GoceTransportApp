@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-using static GoceTransportApp.Common.ErrorMessages.ScheduleMessages;
+using static GoceTransportApp.Common.ResultMessages.ScheduleMessages;
 
 namespace GoceTransportApp.Web.ViewModels.Schedules
 {

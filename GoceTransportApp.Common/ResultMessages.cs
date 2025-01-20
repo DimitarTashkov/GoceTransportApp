@@ -1,6 +1,6 @@
 ﻿namespace GoceTransportApp.Common
 {
-    public static class ErrorMessages
+    public static class ResultMessages
     {
         public static class StreetMessages
         {
@@ -87,6 +87,11 @@
             public const string OrganizationEditFailed = "Unexpected error occurred while updating the organization! Please contact administrator!";
             public const string OrganizationDeleteFailed = "Unexpected error occurred while deleting the organization! Please contact administrator!";
 
+        }
+
+        public static class ContactFormMessages
+        {
+            public const string ContactFormWasSumbitted = "Your form has been successfully sent to the staff.";
         }
     }
 }

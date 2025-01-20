@@ -12,7 +12,7 @@ using System.Collections.Generic;
 using System.Security.Claims;
 using System.Threading.Tasks;
 
-using static GoceTransportApp.Common.ErrorMessages.RouteMessages;
+using static GoceTransportApp.Common.ResultMessages.RouteMessages;
 using static GoceTransportApp.Common.GlobalConstants;
 
 namespace GoceTransportApp.Web.Controllers

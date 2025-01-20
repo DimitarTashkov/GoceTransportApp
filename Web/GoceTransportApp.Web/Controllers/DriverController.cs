@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using System;
 using GoceTransportApp.Web.ViewModels.Drivers;
 
-using static GoceTransportApp.Common.ErrorMessages.DriverMessages;
+using static GoceTransportApp.Common.ResultMessages.DriverMessages;
 using static GoceTransportApp.Common.GlobalConstants;
 
 using GoceTransportApp.Data.Common.Repositories;

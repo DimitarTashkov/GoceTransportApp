@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 using static GoceTransportApp.Common.EntityValidationConstants.DriverConstants;
-using static GoceTransportApp.Common.ErrorMessages.DriverMessages;
+using static GoceTransportApp.Common.ResultMessages.DriverMessages;
 
 namespace GoceTransportApp.Web.ViewModels.Drivers
 {

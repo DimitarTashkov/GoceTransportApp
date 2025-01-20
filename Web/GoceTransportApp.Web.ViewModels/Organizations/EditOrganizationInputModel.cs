@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 using static GoceTransportApp.Common.EntityValidationConstants.OrganizationConstants;
 using static GoceTransportApp.Common.GlobalConstants;
-using static GoceTransportApp.Common.ErrorMessages.OrganizationMessages;
+using static GoceTransportApp.Common.ResultMessages.OrganizationMessages;
 
 namespace GoceTransportApp.Web.ViewModels.Organizations
 {

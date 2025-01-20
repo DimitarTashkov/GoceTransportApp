@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using GoceTransportApp.Web.Infrastructure.ValidationAttributes;
 
-using static GoceTransportApp.Common.ErrorMessages.TicketMessages;
+using static GoceTransportApp.Common.ResultMessages.TicketMessages;
 
 namespace GoceTransportApp.Web.ViewModels.Tickets
 {

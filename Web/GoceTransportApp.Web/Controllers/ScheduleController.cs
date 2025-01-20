@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 using System;
 
-using static GoceTransportApp.Common.ErrorMessages.ScheduleMessages;
+using static GoceTransportApp.Common.ResultMessages.ScheduleMessages;
 using static GoceTransportApp.Common.GlobalConstants;
 using GoceTransportApp.Web.ViewModels.Schedules;
 using GoceTransportApp.Data.Common.Repositories;

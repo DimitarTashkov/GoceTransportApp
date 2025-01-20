@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-using static GoceTransportApp.Common.ErrorMessages.RouteMessages;
+using static GoceTransportApp.Common.ResultMessages.RouteMessages;
 
 namespace GoceTransportApp.Web.ViewModels.Routes
 {

@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 using static GoceTransportApp.Common.EntityValidationConstants.VehicleConstants;
-using static GoceTransportApp.Common.ErrorMessages.VehicleMessages;
+using static GoceTransportApp.Common.ResultMessages.VehicleMessages;
 using GoceTransportApp.Data.Models;
 
 namespace GoceTransportApp.Web.ViewModels.Vehicles

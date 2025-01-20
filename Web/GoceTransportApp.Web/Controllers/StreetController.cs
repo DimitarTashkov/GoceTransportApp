@@ -9,7 +9,7 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-using static GoceTransportApp.Common.ErrorMessages.StreetMessages;
+using static GoceTransportApp.Common.ResultMessages.StreetMessages;
 using static GoceTransportApp.Common.GlobalConstants;
 
 namespace GoceTransportApp.Web.Controllers

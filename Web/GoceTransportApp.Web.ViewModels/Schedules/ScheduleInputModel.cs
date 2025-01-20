@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 using GoceTransportApp.Web.Infrastructure.ValidationAttributes;
-using static GoceTransportApp.Common.ErrorMessages.ScheduleMessages;
+using static GoceTransportApp.Common.ResultMessages.ScheduleMessages;
 
 namespace GoceTransportApp.Web.ViewModels.Schedules
 {

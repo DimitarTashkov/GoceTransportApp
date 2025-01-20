@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using System;
 using GoceTransportApp.Web.ViewModels.Tickets;
 
-using static GoceTransportApp.Common.ErrorMessages.TicketMessages;
+using static GoceTransportApp.Common.ResultMessages.TicketMessages;
 using static GoceTransportApp.Common.GlobalConstants;
 using System.Collections.Generic;
 using GoceTransportApp.Data.Common.Repositories;

@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 using static GoceTransportApp.Common.EntityValidationConstants.CityConstants;
-using static GoceTransportApp.Common.ErrorMessages.CityMessages;
+using static GoceTransportApp.Common.ResultMessages.CityMessages;
 
 
 namespace GoceTransportApp.Web.ViewModels.Cities

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using System;
 using GoceTransportApp.Web.ViewModels.Organizations;
 
-using static GoceTransportApp.Common.ErrorMessages.OrganizationMessages;
+using static GoceTransportApp.Common.ResultMessages.OrganizationMessages;
 using static GoceTransportApp.Common.GlobalConstants;
 using GoceTransportApp.Data.Common.Repositories;
 using GoceTransportApp.Data.Models;

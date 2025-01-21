@@ -28,6 +28,7 @@ namespace GoceTransportApp.Web.Controllers
         }
 
         [HttpGet]
+        [AllowAnonymous]
         public async Task<IActionResult> Index(AllCitiesSearchFilterViewModel inputModel)
         {
             IEnumerable<CityDataViewModel> allCities =

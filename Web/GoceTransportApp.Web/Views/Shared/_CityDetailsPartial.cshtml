@@ -1,4 +1,12 @@
-﻿@model GoceTransportApp.Web.ViewModels.Cities.CityDetailsViewModel
+﻿@using GoceTransportApp.Services.Data.Users
+@using System.Security.Claims
+@using static GoceTransportApp.Common.GlobalConstants
+@model GoceTransportApp.Web.ViewModels.Cities.CityDetailsViewModel
+@inject IUserService userService
+@{
+    var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+    var isAdmin = User.IsInRole(AdministratorRoleName);
+}
 
 <div class="card">
     <div class="card-body">
@@ -35,7 +43,12 @@
         </div>
 
         <div class="text-center mt-4">
-            <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-primary me-2">Edit</a>
+            @if (isAdmin)
+            {
+                <a asp-action="Edit" asp-route-id="@Model.Id" as class="btn btn-warning btn-sm">Edit</a>
+                <a asp-action="Delete" asp-route-id="@Model.Id" class="btn btn-danger btn-sm">Delete</a>
+            }
+
             <a asp-action="AddStreet" asp-route-id="@Model.Id" class="btn btn-success me-2">Add Street</a>
             <a asp-action="Index" class="btn btn-secondary">Back to List</a>
         </div>

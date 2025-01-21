@@ -40,10 +40,12 @@
                                 Explore
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="exploreDropdown">
-                                <li><a class="dropdown-item" asp-controller="Route" asp-action="Index">Routes</a></li>
-                                <li><a class="dropdown-item" asp-controller="Schedule" asp-action="Index">Schedules</a></li>
-                                <li><a class="dropdown-item" asp-controller="Ticket" asp-action="Index">Tickets</a></li>
-                                <li><a class="dropdown-item" asp-controller="Organization" asp-action="Index">Organizations</a></li>
+                                <li><a class="dropdown-item" asp-controller="Route" asp-area="" asp-action="Index">Routes</a></li>
+                                <li><a class="dropdown-item" asp-controller="Schedule" asp-area="" asp-action="Index">Schedules</a></li>
+                                <li><a class="dropdown-item" asp-controller="Ticket" asp-area="" asp-action="Index">Tickets</a></li>
+                                <li><a class="dropdown-item" asp-controller="Organization" asp-area="" asp-action="Index">Organizations</a></li>
+                                <li><a class="dropdown-item" asp-controller="City" asp-area="" asp-action="Index">Cities</a></li>
+                                <li><a class="dropdown-item" asp-controller="Street" asp-area="" asp-action="Index">Streets</a></li>
                             </ul>
                         </li>
                         <li class="nav-item">

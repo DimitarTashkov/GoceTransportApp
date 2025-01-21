@@ -3,5 +3,90 @@
     this.ViewData["Title"] = "Admin dashboard";
 }
 
-<h1>@this.ViewData["Title"]</h1>
-Settings: @this.Model.SettingsCount
+<div class="container mt-5">
+    <div class="row g-4">
+        <div class="col-lg-3 col-md-4 col-sm-6">
+            <a asp-controller="Organization" asp-area="" asp-action="Index" class="card text-center shadow-sm border-0">
+                <div class="card-body">
+                    <i class="fas fa-building fa-3x text-primary mb-3"></i>
+                    <h5 class="card-title">Manage Organizations</h5>
+                </div>
+            </a>
+        </div>
+
+        <div class="col-lg-3 col-md-4 col-sm-6">
+            <a asp-controller="Ticket" asp-area="" asp-action="Index" class="card text-center shadow-sm border-0">
+                <div class="card-body">
+                    <i class="fas fa-ticket-alt fa-3x text-success mb-3"></i>
+                    <h5 class="card-title">Manage Tickets</h5>
+                </div>
+            </a>
+        </div>
+
+        <div class="col-lg-3 col-md-4 col-sm-6">
+            <a asp-controller="Route" asp-area="" asp-area="" asp-action="Index" class="card text-center shadow-sm border-0">
+                <div class="card-body">
+                    <i class="fas fa-route fa-3x text-danger mb-3"></i>
+                    <h5 class="card-title">Manage Routes</h5>
+                </div>
+            </a>
+        </div>
+
+        <div class="col-lg-3 col-md-4 col-sm-6">
+            <a asp-controller="Schedule" asp-area="" asp-action="Index" class="card text-center shadow-sm border-0">
+                <div class="card-body">
+                    <i class="fas fa-calendar-alt fa-3x text-warning mb-3"></i>
+                    <h5 class="card-title">Manage Schedules</h5>
+                </div>
+            </a>
+        </div>
+
+        <div class="col-lg-3 col-md-4 col-sm-6">
+            <a asp-controller="Vehicle" asp-area="" asp-action="Index" class="card text-center shadow-sm border-0">
+                <div class="card-body">
+                    <i class="fas fa-bus fa-3x text-info mb-3"></i>
+                    <h5 class="card-title">Manage Vehicles</h5>
+                </div>
+            </a>
+        </div>
+
+        <div class="col-lg-3 col-md-4 col-sm-6">
+            <a asp-controller="Driver" asp-area="" asp-action="Index" class="card text-center shadow-sm border-0">
+                <div class="card-body">
+                    <i class="fas fa-user-tie fa-3x text-secondary mb-3"></i>
+                    <h5 class="card-title">Manage Drivers</h5>
+                </div>
+            </a>
+        </div>
+
+        <div class="col-lg-3 col-md-4 col-sm-6">
+            <a asp-controller="City" asp-area="" asp-action="Index" class="card text-center shadow-sm border-0">
+                <div class="card-body">
+                    <i class="fas fa-city fa-3x text-dark mb-3"></i>
+                    <h5 class="card-title">Manage Cities</h5>
+                </div>
+            </a>
+        </div>
+
+        <div class="col-lg-3 col-md-4 col-sm-6">
+            <a asp-controller="Street" asp-area="" asp-action="Index" class="card text-center shadow-sm border-0">
+                <div class="card-body">
+                    <i class="fas fa-road fa-3x text-muted mb-3"></i>
+                    <h5 class="card-title">Manage Streets</h5>
+                </div>
+            </a>
+        </div>
+    </div>
+</div>
+<style>
+    .card:hover {
+        transform: scale(1.05);
+        transition: transform 0.2s;
+    }
+
+    .card-title {
+        font-size: 1.2rem;
+        font-weight: bold;
+    }
+</style>
+

@@ -1,23 +1,24 @@
 ﻿namespace GoceTransportApp.Web.Areas.Administration.Controllers
 {
+    using GoceTransportApp.Common;
     using GoceTransportApp.Services.Data;
     using GoceTransportApp.Web.ViewModels.Administration.Dashboard;
-
+    using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
 
+    [Authorize(Roles = GlobalConstants.AdministratorRoleName)]
+    [Area(GlobalConstants.AdministratorArea)]
     public class DashboardController : Controller
     {
-        private readonly ISettingsService settingsService;
-
-        public DashboardController(ISettingsService settingsService)
+        public DashboardController()
         {
-            this.settingsService = settingsService;
+
         }
 
+        [HttpGet]
         public IActionResult Index()
         {
-            var viewModel = new IndexViewModel { SettingsCount = this.settingsService.GetCount(), };
-            return this.View(viewModel);
+            return this.View();
         }
     }
 }

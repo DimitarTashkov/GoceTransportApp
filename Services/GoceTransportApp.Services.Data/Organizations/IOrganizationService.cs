@@ -16,6 +16,8 @@ namespace GoceTransportApp.Services.Data.Organizations
     {
         Task<IEnumerable<OrganizationDataViewModel>> GetAllOrganizationsAsync();
 
+        Task<IEnumerable<OrganizationDataViewModel>> GetUserOrganizationsAsync(string userId);
+
         Task CreateAsync(OrganizationInputModel inputModel);
 
         Task<EditOrganizationInputModel> GetOrganizationForEditAsync(Guid id);

@@ -40,6 +40,21 @@ namespace GoceTransportApp.Web.Controllers
         }
 
         [HttpGet]
+        public async Task<IActionResult> UserOrganizations()
+        {
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            if (string.IsNullOrEmpty(userId))
+            {
+                return this.RedirectToAction(nameof(Index));
+            }
+
+            var userOrganizations = await organizationService.GetUserOrganizationsAsync(userId);
+
+            return View(userOrganizations);
+        }
+
+        [HttpGet]
         public async Task<IActionResult> Create()
         {
             string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
@@ -74,6 +89,7 @@ namespace GoceTransportApp.Web.Controllers
             {
                 return this.RedirectToAction(nameof(Index));
             }
+
             string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
             if (!await this.HasUserCreatedOrganizationAsync(userId, id) && !User.IsInRole(AdministratorRoleName))

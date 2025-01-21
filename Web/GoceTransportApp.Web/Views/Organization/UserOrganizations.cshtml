@@ -1,0 +1,42 @@
+﻿@model IEnumerable<GoceTransportApp.Web.ViewModels.Organizations.OrganizationDataViewModel>
+@{
+    ViewData["Title"] = "My Organizations";
+}
+
+<h2 class="text-center mb-4">My Organizations</h2>
+
+<div class="mb-3">
+    <a asp-action="Create" class="btn btn-primary">Add New Organization</a>
+</div>
+
+<div class="row">
+    @if (Model != null && Model.Any())
+    {
+        @foreach (var organization in Model)
+        {
+            <div class="col-lg-4 col-md-6 mb-4">
+                <div class="card shadow-sm">
+                    <img src="~/images/no-organization-image.png" class="card-img-top" alt="Organization Image" style="height: 200px; object-fit: cover;">
+                    <div class="card-body">
+                        <h5 class="card-title">@organization.Name</h5>
+                        <p class="card-text">
+                            <strong>Address:</strong> @organization.Address<br />
+                            <strong>Founder:</strong> @organization.Founder
+                        </p>
+                        <div class="d-flex justify-content-between">
+                            <a asp-action="Details" asp-route-id="@organization.Id" class="btn btn-info btn-sm">Details</a>
+                            <a asp-action="Edit" asp-route-id="@organization.Id" class="btn btn-warning btn-sm">Edit</a>
+                            <a asp-action="Delete" asp-route-id="@organization.Id" class="btn btn-danger btn-sm">Delete</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    }
+    else
+    {
+        <div class="col-12 text-center">
+            <p class="text-muted">You have not created any organizations yet.</p>
+        </div>
+    }
+</div>

@@ -254,6 +254,24 @@ namespace GoceTransportApp.Services.Data.Organizations
             return model;
         }
 
+        public async Task<IEnumerable<OrganizationDataViewModel>> GetUserOrganizationsAsync(string userId)
+        {
+            IEnumerable<OrganizationDataViewModel> model = await organizationRepository.AllAsNoTracking()
+                .Include(o => o.Founder)
+                .Where(o => o.FounderId == userId)
+              .Select(c => new OrganizationDataViewModel()
+              {
+                  Id = c.Id.ToString(),
+                  Name = c.Name,
+                  Address = c.Address,
+                  FounderId = c.FounderId,
+                  Founder = c.Founder.UserName
+              })
+              .ToArrayAsync();
+
+            return model;
+        }
+
         public async Task<IEnumerable<VehicleDataViewModel>> GetVehiclesByOrganizationId(Guid organizationId)
         {
             IEnumerable<VehicleDataViewModel> model = await vehicleRepository.AllAsNoTracking()

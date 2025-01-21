@@ -1,13 +1,24 @@
-﻿@model GoceTransportApp.Web.ViewModels.Streets.StreetDataViewModel
+﻿@using GoceTransportApp.Services.Data.Users
+@using System.Security.Claims
+@using static GoceTransportApp.Common.GlobalConstants
+@model GoceTransportApp.Web.ViewModels.Streets.StreetDataViewModel
+@inject IUserService userService
+@{
+    var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+    var isAdmin = User.IsInRole(AdministratorRoleName);
+}
 
 <div class="col-md-4 mb-4">
     <div class="card">
         <div class="card-body">
             <h5 class="card-title">@Model.Name</h5>
-            <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-primary btn-sm">Edit</a>
-            <form asp-action="Delete" asp-route-id="@Model.Id" method="post" class="d-inline">
-                <button type="submit" class="btn btn-danger btn-sm">Delete</button>
-            </form>
+            @if (isAdmin)
+            {
+                <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-primary btn-sm">Edit</a>
+                <form asp-action="Delete" asp-route-id="@Model.Id" method="post" class="d-inline">
+                    <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                </form>
+            }
         </div>
     </div>
 </div>

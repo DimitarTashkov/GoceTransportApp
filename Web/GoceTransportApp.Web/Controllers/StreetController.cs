@@ -26,6 +26,7 @@ namespace GoceTransportApp.Web.Controllers
         }
 
         [HttpGet]
+        [AllowAnonymous]
         public async Task<IActionResult> Index(AllStreetsSearchFilterViewModel inputModel)
         {
             IEnumerable<StreetDataViewModel> allStreets =
@@ -47,7 +48,6 @@ namespace GoceTransportApp.Web.Controllers
         public async Task<IActionResult> Create()
         {
             StreetInputModel model = new StreetInputModel();
-            // TODO: Check if the user has permissions to create streets
 
             return View(model);
         }
@@ -67,7 +67,6 @@ namespace GoceTransportApp.Web.Controllers
 
         [HttpGet]
         [Authorize(Roles = AdministratorRoleName)]
-
         public async Task<IActionResult> Edit(string? id)
         {
 
@@ -92,7 +91,6 @@ namespace GoceTransportApp.Web.Controllers
 
         [HttpPost]
         [Authorize(Roles = AdministratorRoleName)]
-
         public async Task<IActionResult> Edit(EditStreetInputModel formModel)
         {
             if (!ModelState.IsValid)

@@ -16,6 +16,7 @@
 <h1 class="mb-4">Driver Details</h1>
 
 <partial name="_DriverDetailsPartial" model="Model" />
+
 @if (isFounder || isAdmin)
 {
     <a asp-action="Edit" asp-controller="Driver" asp-route-id="@Model.Id" asp-route-organizationId="@Model.OrganizationId" class="btn btn-warning ">Edit</a>

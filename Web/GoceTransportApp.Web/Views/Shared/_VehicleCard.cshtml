@@ -19,12 +19,13 @@
                 <strong>Manufacturer:</strong> @Model.Manufacturer <br />
                 <strong>Model:</strong> @Model.Model
             </p>
-            <a asp-action="Details" asp-controller="Vehicle" asp-route-id="@Model.Id" asp-route-organizationId="@Model.OrganizationId" class="btn btn-primary btn-sm">Details</a>
+
             @if (isFounder || isAdmin)
             {
                 <a asp-action="Edit" asp-controller="Vehicle" asp-route-id="@Model.Id" asp-route-organizationId="@Model.OrganizationId" class="btn btn-warning btn-sm">Edit</a>
                 <a asp-action="Delete" asp-controller="Vehicle" asp-route-id="@Model.Id" asp-route-organizationId="@Model.OrganizationId" class="btn btn-danger btn-sm">Delete</a>
             }
+            <a asp-action="Details" asp-controller="Vehicle" asp-route-id="@Model.Id" asp-route-organizationId="@Model.OrganizationId" class="btn btn-primary btn-sm">Details</a>
         </div>
     </div>
 </div>

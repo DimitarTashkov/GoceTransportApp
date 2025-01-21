@@ -74,6 +74,7 @@ namespace GoceTransportApp.Controllers
 
         [HttpGet]
         [Authorize(Roles = GlobalConstants.AdministratorRoleName)]
+
         public async Task<IActionResult> Delete(Guid id)
         {
             var contactForm = await contactFormService.GetByIdAsync(id);
@@ -87,6 +88,7 @@ namespace GoceTransportApp.Controllers
 
         [HttpPost]
         [Authorize(Roles = GlobalConstants.AdministratorRoleName)]
+
         public async Task<IActionResult> DeleteConfirmed(Guid id)
         {
             await contactFormService.DeleteFormAsync(id);

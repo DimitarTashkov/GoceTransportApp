@@ -1,12 +1,23 @@
-﻿@model IEnumerable<GoceTransportApp.Web.ViewModels.Drivers.DriverDataViewModel>
+﻿@using GoceTransportApp.Services.Data.Users
+@using System.Security.Claims
+@model IEnumerable<GoceTransportApp.Web.ViewModels.Drivers.DriverDataViewModel>
+@inject IUserService userService
 
+@{
+    var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+}
 @{
     ViewData["Title"] = "All Drivers";
 }
 
 <h1 class="mb-4">Drivers</h1>
 
-<a asp-action="Create" class="btn btn-primary mb-4">Add New Driver</a>
+@if (userId != null)
+{
+    <a asp-action="Create" class="btn btn-primary mb-4">Add New Driver</a>
+
+}
 
 <div class="row row-cols-1 row-cols-md-3 g-4">
     @if (Model != null && Model.Any())

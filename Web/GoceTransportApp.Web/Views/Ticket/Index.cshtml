@@ -1,5 +1,13 @@
-﻿@using GoceTransportApp.Web.ViewModels.Tickets
+﻿@using GoceTransportApp.Services.Data.Users
+@using GoceTransportApp.Web.ViewModels.Tickets
+@using System.Security.Claims
 @model AllTicketsSearchFilterViewModel
+@inject IUserService userService
+
+@{
+    var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+}
 
 @{
     ViewData["Title"] = "All Tickets";
@@ -7,6 +15,12 @@
 
 <div class="container mt-5">
     <h1 class="text-center mb-4">Tickets</h1>
+
+    @if (userId != null)
+    {
+        <a asp-action="Create" class="btn btn-success mt-4">Add New Ticket</a>
+
+    }
 
     <form asp-action="Index" method="get" class="d-flex mb-4">
         <input type="text" name="SearchQuery" class="form-control me-2" placeholder="Search tickets..." value="@Model.SearchQuery" />
@@ -38,5 +52,4 @@
         </ul>
     </nav>
 
-    <a asp-action="Create" class="btn btn-success mt-4">Add New Ticket</a>
 </div>

@@ -1,5 +1,13 @@
-﻿@using GoceTransportApp.Web.ViewModels.Streets
+﻿@using GoceTransportApp.Services.Data.Users
+@using GoceTransportApp.Web.ViewModels.Streets
+@using System.Security.Claims
 @model AllStreetsSearchFilterViewModel
+@inject IUserService userService
+
+@{
+    var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+}
 
 @{
     ViewData["Title"] = "All Streets";
@@ -15,9 +23,13 @@
         </div>
     </form>
 
-    <div class="mt-4">
-        <a asp-action="Create" class="btn btn-success">Add New Street</a>
-    </div>
+    @if (userId != null)
+    {
+        <div class="mt-4">
+            <a asp-action="Create" class="btn btn-success">Add New Street</a>
+        </div>
+    }
+
 
     <div class="row mt-4">
         @if (Model.Streets.Any())

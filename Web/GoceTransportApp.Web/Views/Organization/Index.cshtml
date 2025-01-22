@@ -1,4 +1,12 @@
-﻿@model IEnumerable<GoceTransportApp.Web.ViewModels.Organizations.OrganizationDataViewModel>
+﻿@using System.Security.Claims
+@using GoceTransportApp.Services.Data.Users
+@model IEnumerable<GoceTransportApp.Web.ViewModels.Organizations.OrganizationDataViewModel>
+@inject IUserService userService
+
+@{
+    var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+}
 
 @{
     ViewData["Title"] = "Organizations";
@@ -6,9 +14,12 @@
 
 <h2 class="text-center">Organizations</h2>
 
-<div class="mt-3 mb-3">
-    <a asp-action="Create" class="btn btn-primary">Add New Organization</a>
-</div>
+@if (userId != null)
+{
+    <div class="mt-3 mb-3">
+        <a asp-action="Create" class="btn btn-primary">Add New Organization</a>
+    </div>
+}
 
 <div class="row">
     @foreach (var organization in Model)

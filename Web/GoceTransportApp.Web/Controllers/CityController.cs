@@ -135,7 +135,7 @@ namespace GoceTransportApp.Web.Controllers
 
             return this.RedirectToAction(nameof(Index));
         }
-
+        [AllowAnonymous]
         [HttpGet]
         public async Task<IActionResult> Details(string? id)
         {

@@ -1,5 +1,13 @@
-﻿@using GoceTransportApp.Web.ViewModels.Routes
+﻿@using GoceTransportApp.Services.Data.Users
+@using GoceTransportApp.Web.ViewModels.Routes
+@using System.Security.Claims
 @model AllRoutesSearchFilterViewModel
+@inject IUserService userService
+
+@{
+    var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+}
 
 @{
     ViewData["Title"] = "All Routes";
@@ -25,9 +33,12 @@
         </div>
     </form>
 
-    <div class="mt-4 mb-2">
-        <a asp-action="Create" class="btn btn-success">Add New Route</a>
-    </div>
+    @if (userId != null)
+    {
+        <div class="mt-4 mb-2">
+            <a asp-action="Create" class="btn btn-success">Add New Route</a>
+        </div>
+    }
 
     <div class="row mt-4">
         @if (Model.Routes.Any())

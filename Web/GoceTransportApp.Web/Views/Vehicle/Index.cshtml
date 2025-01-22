@@ -1,5 +1,13 @@
-﻿@using GoceTransportApp.Web.ViewModels.Vehicles
+﻿@using GoceTransportApp.Services.Data.Users
+@using GoceTransportApp.Web.ViewModels.Vehicles
+@using System.Security.Claims
 @model AllVehiclesSearchFilterViewModel
+@inject IUserService userService
+
+@{
+    var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+}
 
 @{
     ViewData["Title"] = "All Vehicles in Organization";
@@ -19,9 +27,12 @@
         </div>
     </form>
 
-    <div class="mt-4">
-        <a asp-action="Create" class="btn btn-success">Add New Vehicle</a>
-    </div>
+    @if (userId != null)
+    {
+        <div class="mt-4">
+            <a asp-action="Create" class="btn btn-success">Add New Vehicle</a>
+        </div>
+    }
 
     <div class="row g-4 mt-4">
         @if (Model.Vehicles.Any())

@@ -1,5 +1,13 @@
-﻿@using GoceTransportApp.Web.ViewModels.Cities
+﻿@using GoceTransportApp.Services.Data.Users
+@using GoceTransportApp.Web.ViewModels.Cities
+@using System.Security.Claims
 @model AllCitiesSearchFilterViewModel
+@inject IUserService userService
+
+@{
+    var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+}
 
 @{
     ViewData["Title"] = "All Cities";
@@ -14,10 +22,13 @@
             <button type="submit" class="btn btn-primary">Search</button>
         </div>
     </form>
-
-    <div class="mt-4">
-        <a asp-action="Create" class="btn btn-success">Add New City</a>
-    </div>
+    
+    @if (userId != null)
+    {
+        <div class="mt-4">
+            <a asp-action="Create" class="btn btn-success">Add New City</a>
+        </div>
+    }
 
     <div class="row mt-4">
         @if (Model.Cities.Any())

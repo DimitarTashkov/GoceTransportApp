@@ -10,23 +10,19 @@
     </div>
 }
 
-<div class="container mt-5">
-    <!-- Welcome Section -->
+<div class="container py-5">
     <div class="text-center">
         <h1 class="display-4 fw-bold mb-4 text-primary">Welcome to GoceTransportApp</h1>
         <p class="h5 text-secondary">Your one-stop platform for routes, schedules, and organizations.</p>
     </div>
 
-    <!-- Highlight Section -->
-    <div class="row mt-5">
-        <!-- Left: Image or Illustration -->
-        <div class="col-md-6 d-flex align-items-center justify-content-center">
-            <div class="image-frame">
+    <div class="row mt-5 align-items-center">
+        <div class="col-md-6">
+            <div class="text-center image-frame">
                 <img src="~/images/travel_background.png" alt="Travel Illustration" class="img-fluid">
             </div>
         </div>
 
-        <!-- Right: Quick Access Buttons -->
         <div class="col-md-6">
             <div class="row g-4">
                 <div class="col-12">
@@ -84,7 +80,22 @@
         </div>
     </div>
 
-    <!-- Info Cards Section -->
+    <section class="row mt-5 py-5 bg-light">
+        <div class="col-md-6 d-flex flex-column justify-content-center">
+            <h2 class="fw-bold text-primary mb-4">Wanna Explore the Full Functionality of Our App?</h2>
+            <p class="h5 text-muted mb-4">Create an account today to manage your routes, track your organizations, and enjoy the complete experience.</p>
+            <a asp-area="Identity" asp-page="/Account/Register" class="btn btn-primary btn-lg hover-animated">
+                <i class="fas fa-user-plus"></i> Get Started Now
+            </a>
+        </div>
+
+        <div class="col-md-6">
+            <div class="image-frame text-center">
+                <img src="~/images/sign_up_image.png" alt="Placeholder" class="img-fluid">
+            </div>
+        </div>
+    </section>
+
     <div class="row mt-5 g-4">
         <div class="col-md-6">
             <div class="card border-0 shadow-lg h-100 text-center p-3" style="background-color: rgba(108, 117, 125, 0.1);">
@@ -104,8 +115,9 @@
                 </div>
             </div>
         </div>
-
     </div>
+
+   
 </div>
 
 <style>
@@ -113,9 +125,13 @@
         transition: transform 0.3s ease, box-shadow 0.3s ease;
     }
 
-    .hover-animated:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
-    }
+        .hover-animated:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+        }
 
+    .image-frame {
+        overflow: hidden;
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+    }
 </style>

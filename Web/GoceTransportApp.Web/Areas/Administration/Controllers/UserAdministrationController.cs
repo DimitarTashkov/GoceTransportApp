@@ -12,6 +12,8 @@
     using GoceTransportApp.Web.ViewModels.Users;
     using GoceTransportApp.Data.Common.Repositories;
     using GoceTransportApp.Data.Models;
+    using GoceTransportApp.Web.ViewModels.ContactForms;
+    using GoceTransportApp.Services;
 
     [Authorize(Roles = GlobalConstants.AdministratorRoleName)]
     [Area(GlobalConstants.AdministratorArea)]
@@ -26,12 +28,22 @@
         }
 
         [HttpGet]
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(AllUsersSearchFilterViewModel inputModel)
         {
-            IEnumerable<AllUsersViewModel> allUsers = await this.userService
-                .GetAllUsersAsync();
+            IEnumerable<AllUsersViewModel> allUsers = await userService.GetAllUsersAsync(inputModel);
 
-            return this.View(allUsers);
+            int allRoutesCount = await userService.GetUsersCountByFilterAsync(inputModel);
+
+            AllUsersSearchFilterViewModel viewModel = new AllUsersSearchFilterViewModel
+            {
+                Users = allUsers,
+                SearchQuery = inputModel.SearchQuery,
+                CurrentPage = inputModel.CurrentPage,
+                EntitiesPerPage = inputModel.EntitiesPerPage,
+                TotalPages = (int)Math.Ceiling((double)allRoutesCount / inputModel.EntitiesPerPage.Value)
+            };
+
+            return this.View(viewModel);
         }
 
         [HttpPost]

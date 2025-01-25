@@ -1,5 +1,6 @@
 ﻿using GoceTransportApp.Data.Common.Repositories;
 using GoceTransportApp.Data.Models;
+using GoceTransportApp.Web.ViewModels.ContactForms;
 using GoceTransportApp.Web.ViewModels.Users;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -26,10 +27,28 @@ namespace GoceTransportApp.Services.Data.Users
             this.organizationRepository = organizationRepository;
         }
 
-        public async Task<IEnumerable<AllUsersViewModel>> GetAllUsersAsync()
+        public async Task<IEnumerable<AllUsersViewModel>> GetAllUsersAsync(AllUsersSearchFilterViewModel inputModel)
         {
-            IEnumerable<ApplicationUser> allUsers = await this.userManager.Users
-                .ToArrayAsync();
+            var query = userManager.Users.AsNoTracking();
+
+            if (!string.IsNullOrEmpty(inputModel.SearchQuery))
+            {
+                query = query.Where(x =>
+                    x.UserName.Contains(inputModel.SearchQuery) ||
+                    x.Email.Contains(inputModel.SearchQuery));
+            }
+
+            var totalItems = await query.CountAsync();
+            IEnumerable<ApplicationUser> allUsers = await query
+                .Skip((inputModel.EntitiesPerPage.Value * (inputModel.CurrentPage.Value - 1)) * inputModel.EntitiesPerPage.Value)
+                .Take(inputModel.EntitiesPerPage.Value)
+                .Select(x => new ApplicationUser
+                {
+                    Id = x.Id,
+                    Email = x.Email,
+                    UserName = x.UserName,
+                })
+                .ToListAsync();
 
             ICollection<AllUsersViewModel> allUsersViewModel = new List<AllUsersViewModel>();
 
@@ -41,6 +60,7 @@ namespace GoceTransportApp.Services.Data.Users
                 {
                     Id = user.Id.ToString(),
                     Email = user.Email,
+                    Username = user.UserName,
                     Roles = roles
                 });
             }
@@ -137,6 +157,20 @@ namespace GoceTransportApp.Services.Data.Users
 
             return await organizationRepository.AllAsNoTracking()
                 .AnyAsync(o => o.Id == Guid.Parse(organizationId) && o.FounderId == userId);
+        }
+
+        public async Task<int> GetUsersCountByFilterAsync(AllUsersSearchFilterViewModel inputModel)
+        {
+            IQueryable<ApplicationUser> allUsersQuery = userManager.Users.AsNoTracking();
+
+            if (!string.IsNullOrEmpty(inputModel.SearchQuery))
+            {
+                allUsersQuery = allUsersQuery.Where(x =>
+                     x.UserName.Contains(inputModel.SearchQuery) ||
+                     x.Email.Contains(inputModel.SearchQuery));
+            }
+
+            return await allUsersQuery.CountAsync();
         }
     }
 }

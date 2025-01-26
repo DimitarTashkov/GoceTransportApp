@@ -19,10 +19,16 @@
 
             @if (isAdmin)
             {
-                <a asp-action="Edit"  asp-route-id="@Model.Id" as class="btn btn-warning btn-sm">Edit</a>
-                <a asp-action="Delete" asp-route-id="@Model.Id" class="btn btn-danger btn-sm">Delete</a>
+                <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-warning btn-sm">
+                    <i class="fas fa-edit"></i> Edit
+                </a>
+                <a asp-action="Delete" asp-route-id="@Model.Id" class="btn btn-danger btn-sm">
+                    <i class="fas fa-trash-alt"></i> Delete
+                </a>
             }
-            <a asp-action="Details" asp-route-id="@Model.Id" class="btn btn-secondary btn-sm">Details</a>
+            <a asp-action="Details" asp-route-id="@Model.Id" class="btn btn-secondary btn-sm">
+                <i class="fas fa-info-circle"></i> Details
+            </a>
 
         </div>
     </div>

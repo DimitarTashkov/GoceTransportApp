@@ -45,14 +45,21 @@
         <div class="text-center mt-4">
             @if (isAdmin)
             {
-                <a asp-action="Edit" asp-route-id="@Model.Id" as class="btn btn-warning btn-sm">Edit</a>
-                <a asp-action="Delete" asp-route-id="@Model.Id" class="btn btn-danger btn-sm">Delete</a>
+                <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-warning btn-sm">
+                    <i class="fas fa-edit"></i> Edit
+                </a>
+                <a asp-action="Delete" asp-route-id="@Model.Id" class="btn btn-danger btn-sm">
+                    <i class="fas fa-trash-alt"></i> Delete
+                </a>
             }
-            @if (userId != null){
-                <a asp-action="AddStreet" asp-route-id="@Model.Id" class="btn btn-success me-2">Add Street</a>
+            @if (userId != null)
+            {
+                <a asp-action="AddStreet" asp-route-id="@Model.Id" class="btn btn-success me-2 btn-sm"><i class="fas fa-plus"></i>Add Streets</a>
 
             }
-            <a asp-action="Index" class="btn btn-secondary">Back to List</a>
+            <a asp-action="Index"  class="btn btn-secondary btn-sm">
+                <i class="fas fa-arrow-left"></i> Back
+            </a>
         </div>
     </div>
 </div>

@@ -6,16 +6,16 @@
 
 <header>
     <h1>@ViewData["Title"]</h1>
-    @{
-        if (User.Identity?.IsAuthenticated ?? false)
-        {
-            <form class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Page("/", new { area = "" })" method="post">
-                <button type="submit" class="nav-link btn btn-link text-dark">Click here to Logout</button>
-            </form>
-        }
-        else
-        {
-            <p>You have successfully logged out of the application.</p>
-        }
+    @if (User.Identity?.IsAuthenticated ?? false)
+    {
+        <form class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Page("/", new { area = "" })" method="post">
+            <button type="submit" class="nav-link btn btn-link text-dark">
+                <i class="fas fa-sign-out-alt"></i> Click here to Logout
+            </button>
+        </form>
+    }
+    else
+    {
+        <p><i class="fas fa-check-circle text-success me-2"></i>You have successfully logged out of the application.</p>
     }
 </header>

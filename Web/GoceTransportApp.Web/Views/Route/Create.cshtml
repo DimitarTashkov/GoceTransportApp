@@ -56,11 +56,12 @@
         <span asp-validation-for="Duration" class="text-danger"></span>
     </div>
 
-    <button type="submit" class="btn btn-primary">Create Route</button>
+    <button type="submit" class="btn btn-primary">
+        <i class="fas fa-check"></i> Create Route
+    </button>
 </form>
 
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
     <script src="~/js/loadStreetsInCity.js"></script>
-
 }

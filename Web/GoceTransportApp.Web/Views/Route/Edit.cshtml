@@ -6,11 +6,9 @@
 
 <h1>Edit Route</h1>
 
-
 <form asp-action="Edit" method="post" class="needs-validation" novalidate>
     <input type="hidden" asp-for="Id" />
     <input asp-for="OrganizationId" type="hidden" />
-
 
     <div class="mb-3">
         <label asp-for="FromCityId" class="form-label">From City</label>
@@ -48,5 +46,7 @@
         <span asp-validation-for="Duration" class="text-danger"></span>
     </div>
 
-    <button type="submit" class="btn btn-success">Save Changes</button>
+    <button type="submit" class="btn btn-success">
+        <i class="fas fa-save"></i> Save Changes
+    </button>
 </form>

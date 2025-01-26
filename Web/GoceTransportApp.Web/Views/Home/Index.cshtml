@@ -5,15 +5,19 @@
 @if (TempData["SuccessMessage"] != null)
 {
     <div class="alert alert-success alert-dismissible fade show" role="alert">
-        <strong>Success!</strong> @TempData["SuccessMessage"]
+        <strong><i class="fas fa-check-circle"></i> Success!</strong> @TempData["SuccessMessage"]
         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
     </div>
 }
 
 <div class="container py-5">
     <div class="text-center">
-        <h1 class="display-4 fw-bold mb-4 text-primary">Welcome to GoceTransportApp</h1>
-        <p class="h5 text-secondary">Your one-stop platform for routes, schedules, and organizations.</p>
+        <h1 class="display-4 fw-bold mb-4 text-primary">
+            <i class="fas fa-bus"></i> Welcome to GoceTransportApp
+        </h1>
+        <p class="h5 text-secondary">
+            <i class="fas fa-map-marker-alt"></i> Your one-stop platform for routes, schedules, and organizations.
+        </p>
     </div>
 
     <div class="row mt-5 align-items-center">
@@ -30,9 +34,13 @@
                         <div class="card-body d-flex align-items-center">
                             <i class="fas fa-route fa-3x text-primary me-4"></i>
                             <div>
-                                <h4 class="fw-bold text-primary">Explore Routes</h4>
+                                <h4 class="fw-bold text-primary">
+                                    <i class="fas fa-map"></i> Explore Routes
+                                </h4>
                                 <p class="h6 text-muted">Discover all available travel routes.</p>
-                                <a asp-controller="Route" asp-action="Index" class="btn btn-primary btn-lg hover-animated">View Routes</a>
+                                <a asp-controller="Route" asp-action="Index" class="btn btn-primary btn-lg hover-animated">
+                                    <i class="fas fa-location-arrow"></i> View Routes
+                                </a>
                             </div>
                         </div>
                     </div>
@@ -43,9 +51,13 @@
                         <div class="card-body d-flex align-items-center">
                             <i class="fas fa-clock fa-3x text-success me-4"></i>
                             <div>
-                                <h4 class="fw-bold text-success">Explore Schedules</h4>
+                                <h4 class="fw-bold text-success">
+                                    <i class="fas fa-calendar-alt"></i> Explore Schedules
+                                </h4>
                                 <p class="h6 text-muted">Stay updated with the latest schedules.</p>
-                                <a asp-controller="Schedule" asp-action="Index" class="btn btn-success btn-lg hover-animated">View Schedules</a>
+                                <a asp-controller="Schedule" asp-action="Index" class="btn btn-success btn-lg hover-animated">
+                                    <i class="fas fa-clock"></i> View Schedules
+                                </a>
                             </div>
                         </div>
                     </div>
@@ -56,9 +68,13 @@
                         <div class="card-body d-flex align-items-center">
                             <i class="fas fa-building fa-3x text-info me-4"></i>
                             <div>
-                                <h4 class="fw-bold text-info">Explore Organizations</h4>
+                                <h4 class="fw-bold text-info">
+                                    <i class="fas fa-city"></i> Explore Organizations
+                                </h4>
                                 <p class="h6 text-muted">Browse the organizations managing these routes.</p>
-                                <a asp-controller="Organization" asp-action="Index" class="btn btn-info btn-lg hover-animated">View Organizations</a>
+                                <a asp-controller="Organization" asp-action="Index" class="btn btn-info btn-lg hover-animated">
+                                    <i class="fas fa-building"></i> View Organizations
+                                </a>
                             </div>
                         </div>
                     </div>
@@ -69,9 +85,13 @@
                         <div class="card-body d-flex align-items-center">
                             <i class="fas fa-ticket-alt fa-3x text-warning me-4"></i>
                             <div>
-                                <h4 class="fw-bold text-warning">View Tickets</h4>
+                                <h4 class="fw-bold text-warning">
+                                    <i class="fas fa-ticket-alt"></i> View Tickets
+                                </h4>
                                 <p class="h6 text-muted">Check and book your tickets easily.</p>
-                                <a asp-controller="Ticket" asp-action="Index" class="btn btn-warning btn-lg hover-animated">View Tickets</a>
+                                <a asp-controller="Ticket" asp-action="Index" class="btn btn-warning btn-lg hover-animated">
+                                    <i class="fas fa-ticket-alt"></i> View Tickets
+                                </a>
                             </div>
                         </div>
                     </div>
@@ -82,8 +102,12 @@
 
     <section class="row mt-5 py-5 bg-light">
         <div class="col-md-6 d-flex flex-column justify-content-center">
-            <h2 class="fw-bold text-primary mb-4">Wanna Explore the Full Functionality of Our App?</h2>
-            <p class="h5 text-muted mb-4">Create an account today to manage your routes, track your organizations, and enjoy the complete experience.</p>
+            <h2 class="fw-bold text-primary mb-4">
+                <i class="fas fa-rocket"></i> Wanna Explore the Full Functionality of Our App?
+            </h2>
+            <p class="h5 text-muted mb-4">
+                <i class="fas fa-user"></i> Create an account today to manage your routes, track your organizations, and enjoy the complete experience.
+            </p>
             <a asp-area="Identity" asp-page="/Account/Register" class="btn btn-primary btn-lg hover-animated">
                 <i class="fas fa-user-plus"></i> Get Started Now
             </a>
@@ -91,7 +115,7 @@
 
         <div class="col-md-6">
             <div class="image-frame text-center">
-                <img src="~/images/sign_up_image.png" alt="Placeholder" class="img-fluid">
+                <img src="~/images/sign_up_image.png" alt="Sign Up Illustration" class="img-fluid">
             </div>
         </div>
     </section>
@@ -100,38 +124,28 @@
         <div class="col-md-6">
             <div class="card border-0 shadow-lg h-100 text-center p-3" style="background-color: rgba(108, 117, 125, 0.1);">
                 <div class="card-body">
-                    <h4 class="fw-bold text-secondary">About Us</h4>
+                    <h4 class="fw-bold text-secondary">
+                        <i class="fas fa-info-circle"></i> About Us
+                    </h4>
                     <p class="h6 text-muted">Learn more about GoceTransportApp and our mission to make travel easier.</p>
-                    <a asp-controller="Home" asp-action="AboutUs" class="btn btn-secondary btn-lg hover-animated">Learn More</a>
+                    <a asp-controller="Home" asp-action="AboutUs" class="btn btn-secondary btn-lg hover-animated">
+                        <i class="fas fa-info"></i> Learn More
+                    </a>
                 </div>
             </div>
         </div>
         <div class="col-md-6">
             <div class="card border-0 shadow-lg h-100 text-center p-3" style="background-color: rgba(52, 58, 64, 0.1);">
                 <div class="card-body">
-                    <h4 class="fw-bold text-dark">Contact Us</h4>
+                    <h4 class="fw-bold text-dark">
+                        <i class="fas fa-envelope"></i> Contact Us
+                    </h4>
                     <p class="h6 text-muted">Have questions? Get in touch with our support team.</p>
-                    <a asp-controller="ContactForm" asp-action="Create" class="btn btn-dark btn-lg hover-animated">Contact</a>
+                    <a asp-controller="ContactForm" asp-action="Create" class="btn btn-dark btn-lg hover-animated">
+                        <i class="fas fa-paper-plane"></i> Contact
+                    </a>
                 </div>
             </div>
         </div>
     </div>
-
-   
 </div>
-
-<style>
-    .hover-animated {
-        transition: transform 0.3s ease, box-shadow 0.3s ease;
-    }
-
-        .hover-animated:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
-        }
-
-    .image-frame {
-        overflow: hidden;
-        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
-    }
-</style>

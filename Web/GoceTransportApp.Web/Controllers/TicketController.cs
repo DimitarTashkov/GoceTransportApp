@@ -7,12 +7,14 @@ using System;
 using GoceTransportApp.Web.ViewModels.Tickets;
 
 using static GoceTransportApp.Common.ResultMessages.TicketMessages;
+using static GoceTransportApp.Common.ResultMessages.GeneralMessages;
 using static GoceTransportApp.Common.GlobalConstants;
 using System.Collections.Generic;
 using GoceTransportApp.Data.Common.Repositories;
 using GoceTransportApp.Data.Models;
 using Microsoft.AspNetCore.Authorization;
 using System.Security.Claims;
+using System.Net.Mail;
 
 namespace GoceTransportApp.Web.Controllers
 {
@@ -136,7 +138,7 @@ namespace GoceTransportApp.Web.Controllers
 
             if (!isUpdated)
             {
-                ModelState.AddModelError(nameof(TicketEditFailed), TicketEditFailed);
+                ModelState.AddModelError(nameof(FailMessage), FailMessage);
 
                 return this.View(formModel);
             }
@@ -192,7 +194,7 @@ namespace GoceTransportApp.Web.Controllers
 
             if (!isDeleted)
             {
-                ModelState.AddModelError(nameof(TicketDeleteFailed), TicketDeleteFailed);
+                ModelState.AddModelError(nameof(FailMessage), FailMessage);
 
                 return this.View(formModel);
             }
@@ -216,7 +218,7 @@ namespace GoceTransportApp.Web.Controllers
 
             if (model == null)
             {
-                TempData[nameof(InvalidTicketDetails)] = InvalidTicketDetails;
+                TempData[nameof(FailMessage)] = FailMessage;
 
                 return RedirectToAction("Tickets", "Organization", new { organizationId = organizationId });
             }
@@ -239,7 +241,7 @@ namespace GoceTransportApp.Web.Controllers
 
             if (model == null)
             {
-                TempData[nameof(InvalidTicketDetails)] = InvalidTicketDetails;
+                TempData[nameof(FailMessage)] = FailMessage;
                 return RedirectToAction("Tickets", "Organization", new { organizationId = organizationId });
             }
 
@@ -274,7 +276,7 @@ namespace GoceTransportApp.Web.Controllers
 
             if (!purchaseSuccess)
             {
-                ModelState.AddModelError(nameof(TicketPurchaseFailed), TicketPurchaseFailed);
+                ModelState.AddModelError(nameof(FailMessage), FailMessage);
                 return View(model);
             }
 

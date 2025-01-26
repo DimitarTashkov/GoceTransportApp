@@ -11,6 +11,7 @@ using GoceTransportApp.Web.ViewModels.Routes;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
+using static GoceTransportApp.Common.ResultMessages.GeneralMessages;
 using static GoceTransportApp.Common.ResultMessages.ContactFormMessages;
 
 namespace GoceTransportApp.Controllers
@@ -64,7 +65,7 @@ namespace GoceTransportApp.Controllers
             {
                 await contactFormService.CreateAsync(model);
 
-                TempData["SuccessMessage"] = ContactFormWasSumbitted;
+                TempData[nameof(SuccessMessage)] = ContactFormWasSumbitted;
 
                 return RedirectToAction("Index", "Home");
             }

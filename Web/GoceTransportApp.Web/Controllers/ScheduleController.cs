@@ -4,13 +4,14 @@ using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 using System;
 
-using static GoceTransportApp.Common.ResultMessages.ScheduleMessages;
+using static GoceTransportApp.Common.ResultMessages.GeneralMessages;
 using static GoceTransportApp.Common.GlobalConstants;
 using GoceTransportApp.Web.ViewModels.Schedules;
 using GoceTransportApp.Data.Common.Repositories;
 using GoceTransportApp.Data.Models;
 using Microsoft.AspNetCore.Authorization;
 using System.Security.Claims;
+using System.Net.Mail;
 
 namespace GoceTransportApp.Web.Controllers
 {
@@ -118,7 +119,7 @@ namespace GoceTransportApp.Web.Controllers
 
             if (!isUpdated)
             {
-                ModelState.AddModelError(nameof(ScheduleEditFailed), ScheduleEditFailed);
+                ModelState.AddModelError(nameof(FailMessage), FailMessage);
 
                 return this.View(formModel);
             }
@@ -172,7 +173,7 @@ namespace GoceTransportApp.Web.Controllers
 
             if (!isDeleted)
             {
-                ModelState.AddModelError(nameof(ScheduleDeleteFailed), ScheduleDeleteFailed);
+                ModelState.AddModelError(nameof(FailMessage), FailMessage);
 
                 return this.View(formModel);
             }
@@ -197,7 +198,7 @@ namespace GoceTransportApp.Web.Controllers
 
             if (model == null)
             {
-                TempData[nameof(InvalidScheduleDetails)] = InvalidScheduleDetails;
+                TempData[nameof(FailMessage)] = FailMessage;
 
                 return RedirectToAction("Schedules", "Organization", new { organizationId = model.OrganizationId });
             }

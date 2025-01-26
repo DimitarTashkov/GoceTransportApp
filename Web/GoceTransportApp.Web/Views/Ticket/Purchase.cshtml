@@ -1,5 +1,7 @@
 ﻿@model GoceTransportApp.Web.ViewModels.Tickets.TicketDetailsViewModel
+@using static GoceTransportApp.Common.ResultMessages.GeneralMessages
 @using static GoceTransportApp.Common.ResultMessages.TicketMessages
+
 
 @{
     ViewData["Title"] = "Purchase Ticket";
@@ -7,10 +9,10 @@
 
 <h2>@ViewData["Title"]</h2>
 
-@if (TempData[nameof(InvalidTicketDetails)] != null)
+@if (TempData[nameof(FailMessage)] != null)
 {
     <div class="alert alert-danger">
-        @TempData[nameof(InvalidTicketDetails)]
+        @TempData[nameof(FailMessage)]
     </div>
 }
 

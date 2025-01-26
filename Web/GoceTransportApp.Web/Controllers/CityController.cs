@@ -8,11 +8,13 @@ using GoceTransportApp.Services.Data.Cities;
 using GoceTransportApp.Web.ViewModels.Cities;
 
 using static GoceTransportApp.Common.ResultMessages.CityMessages;
+using static GoceTransportApp.Common.ResultMessages.GeneralMessages;
 using static GoceTransportApp.Common.GlobalConstants;
 
 using System.Collections.Generic;
 using GoceTransportApp.Data.Common.Repositories;
 using GoceTransportApp.Data.Models;
+using System.Net.Mail;
 
 namespace GoceTransportApp.Web.Controllers
 {
@@ -104,7 +106,7 @@ namespace GoceTransportApp.Web.Controllers
 
             if (!isUpdated)
             {
-                ModelState.AddModelError(nameof(CityEditFailed), CityEditFailed);
+                ModelState.AddModelError(nameof(FailMessage), FailMessage);
 
                 return this.View(formModel);
             }
@@ -128,13 +130,14 @@ namespace GoceTransportApp.Web.Controllers
 
             if (result == false)
             {
-                TempData[nameof(CityDeleteFailed)] = CityDeleteFailed;
+                TempData[nameof(FailMessage)] = FailMessage;
 
                 return this.RedirectToAction("Index");
             }
 
             return this.RedirectToAction(nameof(Index));
         }
+
         [AllowAnonymous]
         [HttpGet]
         public async Task<IActionResult> Details(string? id)

@@ -4,13 +4,13 @@ using GoceTransportApp.Services.Data.Streets;
 using GoceTransportApp.Web.ViewModels.Streets;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.VisualStudio.Web.CodeGenerators.Mvc.Templates.Blazor;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
 using static GoceTransportApp.Common.ResultMessages.StreetMessages;
 using static GoceTransportApp.Common.GlobalConstants;
+using static GoceTransportApp.Common.ResultMessages.GeneralMessages;
 
 namespace GoceTransportApp.Web.Controllers
 {
@@ -62,6 +62,8 @@ namespace GoceTransportApp.Web.Controllers
 
             await streetService.CreateAsync(model);
 
+            TempData[nameof(SuccessMessage)] = SuccessMessage;
+
             return RedirectToAction(nameof(Index));
         }
 
@@ -69,7 +71,6 @@ namespace GoceTransportApp.Web.Controllers
         [Authorize(Roles = AdministratorRoleName)]
         public async Task<IActionResult> Edit(string? id)
         {
-
             Guid streetGuid = Guid.Empty;
             bool isIdValid = IsGuidValid(id, ref streetGuid);
 
@@ -98,22 +99,21 @@ namespace GoceTransportApp.Web.Controllers
                 return this.View(formModel);
             }
 
-            bool isUpdated = await this.streetService
-                .EditStreetAsync(formModel);
+            bool isUpdated = await this.streetService.EditStreetAsync(formModel);
 
             if (!isUpdated)
             {
-                ModelState.AddModelError(nameof(StreetEditFailed), StreetEditFailed);
-
+                ModelState.AddModelError(nameof(FailMessage), FailMessage);
                 return this.View(formModel);
             }
+
+            TempData[nameof(SuccessMessage)] = SuccessMessage;
 
             return this.RedirectToAction(nameof(Index));
         }
 
         [HttpPost]
         [Authorize(Roles = AdministratorRoleName)]
-
         public async Task<IActionResult> Delete(string? id)
         {
             Guid streetGuid = Guid.Empty;
@@ -123,15 +123,15 @@ namespace GoceTransportApp.Web.Controllers
                 return this.RedirectToAction(nameof(Index));
             }
 
-            bool result = await streetService
-                .DeleteStreetAsync(streetGuid);
+            bool result = await streetService.DeleteStreetAsync(streetGuid);
 
-            if (result == false)
+            if (!result)
             {
-                TempData[nameof(StreetDeleteFailed)] = StreetDeleteFailed;
-
-                return this.RedirectToAction("Index");
+                TempData[nameof(FailMessage)] = FailMessage;
+                return this.RedirectToAction(nameof(Index));
             }
+
+            TempData["SuccessMessage"] = SuccessMessage;
 
             return this.RedirectToAction(nameof(Index));
         }

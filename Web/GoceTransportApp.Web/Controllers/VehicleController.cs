@@ -6,7 +6,7 @@ using System;
 using GoceTransportApp.Services.Data.Vehicles;
 using GoceTransportApp.Web.ViewModels.Vehicles;
 
-using static GoceTransportApp.Common.ResultMessages.VehicleMessages;
+using static GoceTransportApp.Common.ResultMessages.GeneralMessages;
 using static GoceTransportApp.Common.GlobalConstants;
 using System.Collections.Generic;
 using GoceTransportApp.Data.Common.Repositories;
@@ -14,6 +14,7 @@ using GoceTransportApp.Data.Models;
 using Microsoft.AspNetCore.Authorization;
 using System.Security.Claims;
 using GoceTransportApp.Data.Models.Enumerations;
+using System.Net.Mail;
 
 
 namespace GoceTransportApp.Web.Controllers
@@ -135,7 +136,7 @@ namespace GoceTransportApp.Web.Controllers
 
             if (!isUpdated)
             {
-                ModelState.AddModelError(nameof(VehicleEditFailed), VehicleEditFailed);
+                ModelState.AddModelError(nameof(FailMessage), FailMessage);
 
                 return this.View(formModel);
             }
@@ -191,7 +192,7 @@ namespace GoceTransportApp.Web.Controllers
 
             if (!isDeleted)
             {
-                ModelState.AddModelError(nameof(VehicleDeleteFailed), VehicleDeleteFailed);
+                ModelState.AddModelError(nameof(FailMessage), FailMessage);
 
                 return this.View(formModel);
             }
@@ -215,7 +216,7 @@ namespace GoceTransportApp.Web.Controllers
 
             if (model == null)
             {
-                TempData[nameof(InvalidVehicleDetails)] = InvalidVehicleDetails;
+                TempData[nameof(FailMessage)] = FailMessage;
 
                 return RedirectToAction("Vehicles", "Organization", new { organizationId = organizationId });
             }

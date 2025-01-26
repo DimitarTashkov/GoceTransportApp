@@ -8,11 +8,13 @@ using System;
 using GoceTransportApp.Web.ViewModels.Drivers;
 
 using static GoceTransportApp.Common.ResultMessages.DriverMessages;
+using static GoceTransportApp.Common.ResultMessages.GeneralMessages;
 using static GoceTransportApp.Common.GlobalConstants;
 
 using GoceTransportApp.Data.Common.Repositories;
 using GoceTransportApp.Data.Models;
 using System.Security.Claims;
+using System.Net.Mail;
 
 namespace GoceTransportApp.Web.Controllers
 {
@@ -122,7 +124,7 @@ namespace GoceTransportApp.Web.Controllers
 
             if (!isUpdated)
             {
-                ModelState.AddModelError(nameof(DriverEditFailed), DriverEditFailed);
+                ModelState.AddModelError(nameof(FailMessage), FailMessage);
 
                 return this.View(formModel);
             }
@@ -177,7 +179,7 @@ namespace GoceTransportApp.Web.Controllers
 
             if (!isDeleted)
             {
-                ModelState.AddModelError(nameof(DriverDeleteFailed), DriverDeleteFailed);
+                ModelState.AddModelError(nameof(FailMessage), FailMessage);
 
                 return this.View(formModel);
             }
@@ -201,7 +203,7 @@ namespace GoceTransportApp.Web.Controllers
 
             if (model == null)
             {
-                TempData[nameof(InvalidDriverDetails)] = InvalidDriverDetails;
+                TempData[nameof(FailMessage)] = FailMessage;
 
                 return RedirectToAction("Drivers", "Organization", new { organizationId = organizationId });
             }

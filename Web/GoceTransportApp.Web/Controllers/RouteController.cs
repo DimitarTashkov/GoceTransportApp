@@ -13,7 +13,9 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 
 using static GoceTransportApp.Common.ResultMessages.RouteMessages;
+using static GoceTransportApp.Common.ResultMessages.GeneralMessages;
 using static GoceTransportApp.Common.GlobalConstants;
+using System.Net.Mail;
 
 namespace GoceTransportApp.Web.Controllers
 {
@@ -137,7 +139,7 @@ namespace GoceTransportApp.Web.Controllers
 
             if (!isUpdated)
             {
-                ModelState.AddModelError(nameof(RouteEditFailed), RouteEditFailed);
+                ModelState.AddModelError(nameof(FailMessage), FailMessage);
 
                 return this.View(formModel);
             }
@@ -160,7 +162,7 @@ namespace GoceTransportApp.Web.Controllers
 
             if (model == null)
             {
-                TempData[nameof(RouteDeleteFailed)] = RouteDeleteFailed;
+                TempData[nameof(FailMessage)] = FailMessage;
 
                 return RedirectToAction("Routes", "Organization", new { organizationId = model.OrganizationId });
 
@@ -194,7 +196,7 @@ namespace GoceTransportApp.Web.Controllers
 
             if (!isDeleted)
             {
-                ModelState.AddModelError(nameof(RouteEditFailed), RouteEditFailed);
+                ModelState.AddModelError(nameof(FailMessage), FailMessage);
 
                 return this.View(formModel);
             }
@@ -216,7 +218,7 @@ namespace GoceTransportApp.Web.Controllers
 
             if (!isArchived)
             {
-                ModelState.AddModelError(nameof(RouteArchivationFailed), RouteArchivationFailed);
+                ModelState.AddModelError(nameof(FailMessage), FailMessage);
 
                 return this.View(formModel);
             }
@@ -240,7 +242,7 @@ namespace GoceTransportApp.Web.Controllers
 
             if (model == null)
             {
-                TempData[nameof(InvalidRouteDetails)] = InvalidRouteDetails;
+                TempData[nameof(FailMessage)] = FailMessage;
 
                 return RedirectToAction("Routes", "Organization", new { organizationId = organizationId});
             }

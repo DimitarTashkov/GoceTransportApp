@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using System;
 using GoceTransportApp.Web.ViewModels.Organizations;
 
-using static GoceTransportApp.Common.ResultMessages.OrganizationMessages;
+using static GoceTransportApp.Common.ResultMessages.GeneralMessages;
 using static GoceTransportApp.Common.GlobalConstants;
 using GoceTransportApp.Data.Common.Repositories;
 using GoceTransportApp.Data.Models;
@@ -16,6 +16,7 @@ using GoceTransportApp.Web.ViewModels.Routes;
 using GoceTransportApp.Web.ViewModels.Schedules;
 using GoceTransportApp.Web.ViewModels.Tickets;
 using GoceTransportApp.Web.ViewModels.Drivers;
+using System.Net.Mail;
 
 namespace GoceTransportApp.Web.Controllers
 {
@@ -128,7 +129,7 @@ namespace GoceTransportApp.Web.Controllers
 
             if (!isUpdated)
             {
-                ModelState.AddModelError(nameof(OrganizationEditFailed), OrganizationEditFailed);
+                ModelState.AddModelError(nameof(FailMessage), FailMessage);
 
                 return this.View(formModel);
             }
@@ -184,7 +185,7 @@ namespace GoceTransportApp.Web.Controllers
 
             if (!isDeleted)
             {
-                ModelState.AddModelError(nameof(OrganizationDeleteFailed), OrganizationDeleteFailed);
+                ModelState.AddModelError(nameof(FailMessage), FailMessage);
 
                 return this.View(formModel);
             }
@@ -208,7 +209,7 @@ namespace GoceTransportApp.Web.Controllers
 
             if (model == null)
             {
-                TempData[nameof(InvalidOrganizationDetails)] = InvalidOrganizationDetails;
+                TempData[nameof(FailMessage)] = FailMessage;
 
                 return this.RedirectToAction(nameof(Index));
             }

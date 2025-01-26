@@ -1,4 +1,8 @@
-﻿<div class="card shadow-lg border-0 mt-5">
+﻿@{
+    ViewData["Title"] = "Organization details";
+}
+
+<div class="card shadow-lg border-0 mt-5">
     <img src="~/images/no-organization-image.png" class="card-img-top img-fluid rounded-top" style="max-height: 500px; object-fit: contain;" alt="@Model.Name" />
     <div class="card-body">
         <h2 class="card-title text-center text-primary">@Model.Name</h2>
@@ -14,20 +18,17 @@
         <h4 class="text-center text-secondary">Related Data</h4>
         <div class="row g-3 mt-3">
             <div class="col-md-4">
-                <a asp-action="Routes" asp-controller="Organization" asp-route-organizationId="@Model.Id"
-                   class="btn btn-info w-100 text-white fw-bold">
+                <a asp-action="Routes" asp-controller="Organization" asp-route-organizationId="@Model.Id" class="btn btn-info w-100 text-white fw-bold">
                     <i class="bi bi-map"></i> View Routes
                 </a>
             </div>
             <div class="col-md-4">
-                <a asp-action="Drivers" asp-controller="Organization" asp-route-organizationId="@Model.Id"
-                   class="btn btn-info w-100 text-white fw-bold">
+                <a asp-action="Drivers" asp-controller="Organization" asp-route-organizationId="@Model.Id" class="btn btn-info w-100 text-white fw-bold">
                     <i class="bi bi-person-bounding-box"></i> View Drivers
                 </a>
             </div>
             <div class="col-md-4">
-                <a asp-action="Vehicles" asp-controller="Organization" asp-route-organizationId="@Model.Id"
-                   class="btn btn-info w-100 text-white fw-bold">
+                <a asp-action="Vehicles" asp-controller="Organization" asp-route-organizationId="@Model.Id" class="btn btn-info w-100 text-white fw-bold">
                     <i class="bi bi-truck"></i> View Vehicles
                 </a>
             </div>
@@ -35,14 +36,12 @@
 
         <div class="row g-3 mt-3">
             <div class="col-md-4">
-                <a asp-action="Tickets" asp-controller="Organization" asp-route-organizationId="@Model.Id"
-                   class="btn btn-info w-100 text-white fw-bold">
+                <a asp-action="Tickets" asp-controller="Organization" asp-route-organizationId="@Model.Id" class="btn btn-info w-100 text-white fw-bold">
                     <i class="bi bi-ticket-perforated"></i> View Tickets
                 </a>
             </div>
             <div class="col-md-4">
-                <a asp-action="Schedules" asp-controller="Organization" asp-route-organizationId="@Model.Id"
-                   class="btn btn-info w-100 text-white fw-bold">
+                <a asp-action="Schedules" asp-controller="Organization" asp-route-organizationId="@Model.Id" class="btn btn-info w-100 text-white fw-bold">
                     <i class="bi bi-calendar-week"></i> View Schedules
                 </a>
             </div>

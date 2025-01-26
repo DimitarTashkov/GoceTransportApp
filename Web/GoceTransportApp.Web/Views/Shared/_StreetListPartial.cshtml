@@ -3,6 +3,7 @@
 @using static GoceTransportApp.Common.GlobalConstants
 @model GoceTransportApp.Web.ViewModels.Streets.StreetDataViewModel
 @inject IUserService userService
+
 @{
     var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
     var isAdmin = User.IsInRole(AdministratorRoleName);
@@ -11,12 +12,18 @@
 <div class="col-md-4 mb-4">
     <div class="card">
         <div class="card-body">
-            <h5 class="card-title">@Model.Name</h5>
+            <h5 class="card-title">
+                <i class="fas fa-road"></i> @Model.Name
+            </h5>
             @if (isAdmin)
             {
-                <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-primary btn-sm">Edit</a>
+                <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-primary btn-sm">
+                    <i class="fas fa-edit"></i> Edit
+                </a>
                 <form asp-action="Delete" asp-route-id="@Model.Id" method="post" class="d-inline">
-                    <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                    <button type="submit" class="btn btn-danger btn-sm">
+                        <i class="fas fa-trash"></i> Delete
+                    </button>
                 </form>
             }
         </div>

@@ -6,30 +6,45 @@
 
 @{
     var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-
-}
-
-@{
     ViewData["Title"] = "All Streets";
 }
 
 <div class="container mt-5">
-    <h1 class="text-center mb-4">Streets</h1>
+    <h1 class="text-center mb-4">
+        <i class="fas fa-road"></i> Streets
+    </h1>
+
+    @if (TempData["SuccessMessage"] != null)
+    {
+        <div class="alert alert-success">
+            <i class="fas fa-check-circle"></i> @TempData["SuccessMessage"]
+        </div>
+    }
+
+    @if (TempData["FailMessage"] != null)
+    {
+        <div class="alert alert-danger">
+            <i class="fas fa-times-circle"></i> @TempData["FailMessage"]
+        </div>
+    }
 
     <form method="get" class="mb-4">
         <div class="input-group">
             <input type="text" name="SearchQuery" value="@Model.SearchQuery" class="form-control" placeholder="Search streets..." />
-            <button type="submit" class="btn btn-primary">Search</button>
+            <button type="submit" class="btn btn-primary">
+                <i class="fas fa-search"></i> Search
+            </button>
         </div>
     </form>
 
     @if (userId != null)
     {
         <div class="mt-4">
-            <a asp-action="Create" class="btn btn-success">Add New Street</a>
+            <a asp-action="Create" class="btn btn-success">
+                <i class="fas fa-plus"></i> Add New Street
+            </a>
         </div>
     }
-
 
     <div class="row mt-4">
         @if (Model.Streets.Any())
@@ -41,7 +56,7 @@
         }
         else
         {
-            <p class="text-center">No streets found.</p>
+            <p class="text-center"><i class="fas fa-exclamation-circle"></i> No streets found.</p>
         }
     </div>
 
@@ -52,7 +67,9 @@
                 @if (Model.CurrentPage > 1)
                 {
                     <li class="page-item">
-                        <a class="page-link" href="?SearchQuery=@Model.SearchQuery&CurrentPage=@(Model.CurrentPage - 1)&EntitiesPerPage=@Model.EntitiesPerPage">Previous</a>
+                        <a class="page-link" href="?SearchQuery=@Model.SearchQuery&CurrentPage=@(Model.CurrentPage - 1)&EntitiesPerPage=@Model.EntitiesPerPage">
+                            <i class="fas fa-chevron-left"></i> Previous
+                        </a>
                     </li>
                 }
 
@@ -66,7 +83,9 @@
                 @if (Model.CurrentPage < Model.TotalPages)
                 {
                     <li class="page-item">
-                        <a class="page-link" href="?SearchQuery=@Model.SearchQuery&CurrentPage=@(Model.CurrentPage + 1)&EntitiesPerPage=@Model.EntitiesPerPage">Next</a>
+                        <a class="page-link" href="?SearchQuery=@Model.SearchQuery&CurrentPage=@(Model.CurrentPage + 1)&EntitiesPerPage=@Model.EntitiesPerPage">
+                            Next <i class="fas fa-chevron-right"></i>
+                        </a>
                     </li>
                 }
             </ul>

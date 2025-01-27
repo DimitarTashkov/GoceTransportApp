@@ -205,26 +205,26 @@ namespace GoceTransportApp.Web.Controllers
 
         }
 
-        [HttpPost]
-        public async Task<IActionResult> Archive(RemoveRouteViewModel formModel)
-        {
-            if (!ModelState.IsValid)
-            {
-                return this.View(formModel);
-            }
+        //[HttpPost]
+        //public async Task<IActionResult> Archive(RemoveRouteViewModel formModel)
+        //{
+        //    if (!ModelState.IsValid)
+        //    {
+        //        return this.View(formModel);
+        //    }
 
-            bool isArchived = await this.routeService
-                .ArchiveRouteAsync(formModel);
+        //    bool isArchived = await this.routeService
+        //        .ArchiveRouteAsync(formModel);
 
-            if (!isArchived)
-            {
-                ModelState.AddModelError(nameof(FailMessage), FailMessage);
+        //    if (!isArchived)
+        //    {
+        //        ModelState.AddModelError(nameof(FailMessage), FailMessage);
 
-                return this.View(formModel);
-            }
+        //        return this.View(formModel);
+        //    }
 
-            return RedirectToAction("Routes", "Organization", new { organizationId = formModel.OrganizationId });
-        }
+        //    return RedirectToAction("Routes", "Organization", new { organizationId = formModel.OrganizationId });
+        //}
 
         [HttpGet]
         [AllowAnonymous]

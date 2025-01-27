@@ -226,62 +226,62 @@ namespace GoceTransportApp.Web.Controllers
             return View(model);
         }
 
-        [HttpGet]
-        public async Task<IActionResult> Purchase(string? id, string organizationId)
-        {
-            Guid ticketGuid = Guid.Empty;
-            bool isIdValid = IsGuidValid(id, ref ticketGuid);
+        //[HttpGet]
+        //public async Task<IActionResult> Purchase(string? id, string organizationId)
+        //{
+        //    Guid ticketGuid = Guid.Empty;
+        //    bool isIdValid = IsGuidValid(id, ref ticketGuid);
 
-            if (!isIdValid)
-            {
-                return RedirectToAction("Tickets", "Organization", new { organizationId = organizationId });
-            }
+        //    if (!isIdValid)
+        //    {
+        //        return RedirectToAction("Tickets", "Organization", new { organizationId = organizationId });
+        //    }
 
-            TicketDetailsViewModel model = await ticketService.GetTicketDetailsAsync(ticketGuid);
+        //    TicketDetailsViewModel model = await ticketService.GetTicketDetailsAsync(ticketGuid);
 
-            if (model == null)
-            {
-                TempData[nameof(FailMessage)] = FailMessage;
-                return RedirectToAction("Tickets", "Organization", new { organizationId = organizationId });
-            }
+        //    if (model == null)
+        //    {
+        //        TempData[nameof(FailMessage)] = FailMessage;
+        //        return RedirectToAction("Tickets", "Organization", new { organizationId = organizationId });
+        //    }
 
-            model.QuantityToBuy = 1;
-            return View(model);
-        }
+        //    model.QuantityToBuy = 1;
+        //    return View(model);
+        //}
 
-        [HttpPost]
-        public async Task<IActionResult> Purchase(TicketDetailsViewModel model)
-        {
-            if (!ModelState.IsValid)
-            {
-                return RedirectToAction("Tickets", "Organization", new { organizationId = model.OrganizationId });
+        //[HttpPost]
+        //public async Task<IActionResult> Purchase(TicketDetailsViewModel model)
+        //{
+        //    if (!ModelState.IsValid)
+        //    {
+        //        return RedirectToAction("Tickets", "Organization", new { organizationId = model.OrganizationId });
 
-            }
+        //    }
 
-            if (model.QuantityToBuy <= 0)
-            {
-                ModelState.AddModelError("InvalidQuantity", "Please select a valid number of tickets.");
-                return View(model);
-            }
+        //    if (model.QuantityToBuy <= 0)
+        //    {
+        //        ModelState.AddModelError("InvalidQuantity", "Please select a valid number of tickets.");
+        //        return View(model);
+        //    }
 
-            Guid ticketGuid = Guid.Empty;
-            bool isIdValid = IsGuidValid(model.Id, ref ticketGuid);
+        //    Guid ticketGuid = Guid.Empty;
+        //    bool isIdValid = IsGuidValid(model.Id, ref ticketGuid);
 
-            if (!isIdValid)
-            {
-                return RedirectToAction("Tickets", "Organization", new { organizationId = model.OrganizationId });
-            }
+        //    if (!isIdValid)
+        //    {
+        //        return RedirectToAction("Tickets", "Organization", new { organizationId = model.OrganizationId });
+        //    }
 
-            var purchaseSuccess = await ticketService.BuyTicketsAsync(ticketGuid, model.QuantityToBuy);
+        //    var purchaseSuccess = await ticketService.BuyTicketsAsync(ticketGuid, model.QuantityToBuy);
 
-            if (!purchaseSuccess)
-            {
-                ModelState.AddModelError(nameof(FailMessage), FailMessage);
-                return View(model);
-            }
+        //    if (!purchaseSuccess)
+        //    {
+        //        ModelState.AddModelError(nameof(FailMessage), FailMessage);
+        //        return View(model);
+        //    }
 
-            TempData[nameof(TicketPurchaseSuccess)] = TicketPurchaseSuccess;
-            return RedirectToAction("Tickets", "Organization", new { organizationId = model.OrganizationId });
-        }
+        //    TempData[nameof(TicketPurchaseSuccess)] = TicketPurchaseSuccess;
+        //    return RedirectToAction("Tickets", "Organization", new { organizationId = model.OrganizationId });
+        //}
     }
 }

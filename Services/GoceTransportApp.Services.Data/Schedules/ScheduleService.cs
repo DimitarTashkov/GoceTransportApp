@@ -104,8 +104,8 @@ namespace GoceTransportApp.Services.Data.Schedules
               {
                   Id = c.Id.ToString(),
                   Day = c.Day.ToString(),
-                  Departing = c.Departure.ToString(),
-                  Arriving = c.Arrival.ToString(),
+                  Departing = c.Departure.TimeOfDay.ToString(),
+                  Arriving = c.Arrival.TimeOfDay.ToString(),
                   FromCity = c.Route.FromCity.Name,
                   ToCity = c.Route.ToCity.Name,
                   OrganizationId = c.OrganizationId.ToString(),
@@ -184,6 +184,16 @@ namespace GoceTransportApp.Services.Data.Schedules
             ScheduleDetailsViewModel viewModel = null;
 
             Schedule? schedule = await scheduleRepository.AllAsNoTracking()
+                .Include(s => s.Vehicle)
+                .Include(s => s.Route)
+                    .ThenInclude(r => r.FromCity)
+                .Include(s => s.Route)
+                    .ThenInclude(r => r.ToCity)
+                .Include(s => s.Route)
+                    .ThenInclude(r => r.FromStreet)
+                .Include(s => s.Route)
+                    .ThenInclude(r => r.ToStreet)
+                .Include(s => s.Organization)
                 .FirstOrDefaultAsync(d => d.Id == id);
             if (schedule != null)
             {
@@ -191,8 +201,8 @@ namespace GoceTransportApp.Services.Data.Schedules
                 {
                     Id = schedule.Id.ToString(),
                     Day = schedule.Day.ToString(),
-                    Departing = schedule.Departure.ToString(),
-                    Arriving = schedule.Arrival.ToString(),
+                    Departing = schedule.Departure.TimeOfDay.ToString(),
+                    Arriving = schedule.Arrival.TimeOfDay.ToString(),
                     VehicleNumber = schedule.Vehicle.Number,
                     FromCity = schedule.Route.FromCity.Name,
                     ToCity = schedule.Route.ToCity.Name,

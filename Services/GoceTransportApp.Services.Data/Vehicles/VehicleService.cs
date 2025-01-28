@@ -11,7 +11,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+using System.Web.Mvc;
 using static GoceTransportApp.Common.ResultMessages.VehicleMessages;
 
 
@@ -209,6 +209,18 @@ namespace GoceTransportApp.Services.Data.Vehicles
             int vehiclesCount = (await this.GetAllVehiclesAsync(inputModelCopy))
                 .Count();
             return vehiclesCount;
+        }
+
+        public async Task<IEnumerable<SelectListItem>> GetVehiclesForOrganizationAsync(string organizationId)
+        {
+            return await vehicleRepository.AllAsNoTracking()
+                .Where(v => v.OrganizationId == Guid.Parse(organizationId))
+                .Select(v => new SelectListItem
+                {
+                    Value = v.Id.ToString(),
+                    Text = $"{v.Number} | {v.Manufacturer} {v.Model} | {v.Type}"
+                })
+                .ToListAsync();
         }
     }
 }

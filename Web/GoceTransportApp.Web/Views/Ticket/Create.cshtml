@@ -1,26 +1,22 @@
-﻿@* 
-@model GoceTransportApp.Web.ViewModels.Tickets.TicketInputModel
+﻿@model GoceTransportApp.Web.ViewModels.Tickets.TicketInputModel
 
 @{
     ViewData["Title"] = "Create Ticket";
 }
-TODO: For every element that is being managed by organization add collection to the view model
-    and fill it in the service with all of the entries for the specific organization.
-
 
 <h1 class="text-center mt-4"><i class="fas fa-plus-circle"></i> Create Ticket</h1>
 
 <div class="card shadow-sm mx-auto" style="max-width: 600px;">
     <div class="card-body">
-        <form asp-action="Create">
+        <form asp-action="Create" method="post">
             <div class="mb-3">
                 <label asp-for="IssuedDate" class="form-label"><i class="fas fa-calendar-alt"></i> Issued Date</label>
-                <input asp-for="IssuedDate" type="text" class="form-control datetimepicker" placeholder="Select issue date" />
+                <input asp-for="IssuedDate" type="date" class="form-control" />
                 <span asp-validation-for="IssuedDate" class="text-danger"></span>
             </div>
             <div class="mb-3">
                 <label asp-for="ExpiryDate" class="form-label"><i class="fas fa-calendar-times"></i> Expiry Date</label>
-                <input asp-for="ExpiryDate" type="text" class="form-control datetimepicker" placeholder="Select expiry date" />
+                <input asp-for="ExpiryDate" type="date" class="form-control" />
                 <span asp-validation-for="ExpiryDate" class="text-danger"></span>
             </div>
             <div class="mb-3">
@@ -50,17 +46,6 @@ TODO: For every element that is being managed by organization add collection to 
                 </select>
                 <span asp-validation-for="ScheduleId" class="text-danger"></span>
             </div>
-            <div class="mb-3">
-                <label asp-for="OrganizationId" class="form-label"><i class="fas fa-building"></i> Organization</label>
-                <select asp-for="OrganizationId" class="form-select">
-                    <option value="">Select an organization</option>
-                    @foreach (var organization in Model.Organizations)
-                    {
-                        <option value="@organization.Value">@organization.Text</option>
-                    }
-                </select>
-                <span asp-validation-for="OrganizationId" class="text-danger"></span>
-            </div>
             <button type="submit" class="btn btn-primary w-100">
                 <i class="fas fa-save"></i> Save
             </button>
@@ -70,5 +55,4 @@ TODO: For every element that is being managed by organization add collection to 
 
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
-    <script src="~/js/showDateTimePicker.js"></script>
-} *@
+}

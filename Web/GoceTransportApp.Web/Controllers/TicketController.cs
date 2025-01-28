@@ -15,6 +15,8 @@ using GoceTransportApp.Data.Models;
 using Microsoft.AspNetCore.Authorization;
 using System.Security.Claims;
 using System.Net.Mail;
+using GoceTransportApp.Services.Data.Routes;
+using System.Linq;
 
 namespace GoceTransportApp.Web.Controllers
 {
@@ -22,11 +24,15 @@ namespace GoceTransportApp.Web.Controllers
     public class TicketController : BaseController
     {
         private readonly ITicketService ticketService;
+        private readonly IScheduleService scheduleService;
+        private readonly IRouteService routeService;
 
-        public TicketController(ITicketService ticketService, IDeletableEntityRepository<Organization> organizationRepository)
+        public TicketController(ITicketService ticketService, IDeletableEntityRepository<Organization> organizationRepository, IScheduleService scheduleService, IRouteService routeService)
             : base(organizationRepository)
         {
             this.ticketService = ticketService;
+            this.scheduleService = scheduleService;
+            this.routeService = routeService;
         }
 
         [HttpGet]
@@ -61,9 +67,15 @@ namespace GoceTransportApp.Web.Controllers
             {
                 return RedirectToAction("Tickets", "Organization", new { organizationId = organizationId });
             }
+            var routes = await routeService.GetRoutesForOrganizationAsync(organizationId);
+            var schedules = await scheduleService.GetSchedulesForOrganizationAsync(organizationId);
 
-            TicketInputModel model = new TicketInputModel();
-            model.OrganizationId = organizationId;
+            var model = new TicketInputModel
+            {
+                OrganizationId = organizationId,
+                Routes = routes.ToList(),
+                Schedules = schedules.ToList()
+            };
 
             return View(model);
         }
@@ -80,6 +92,9 @@ namespace GoceTransportApp.Web.Controllers
 
             if (!ModelState.IsValid)
             {
+                model.Routes = (await routeService.GetRoutesForOrganizationAsync(model.OrganizationId)).ToList();
+                model.Schedules = (await scheduleService.GetSchedulesForOrganizationAsync(model.OrganizationId)).ToList();
+
                 return View(model);
             }
 

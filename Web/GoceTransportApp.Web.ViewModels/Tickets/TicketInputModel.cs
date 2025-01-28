@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using GoceTransportApp.Web.Infrastructure.ValidationAttributes;
 
 using static GoceTransportApp.Common.ResultMessages.TicketMessages;
+using System.Web.Mvc;
 
 namespace GoceTransportApp.Web.ViewModels.Tickets
 {
@@ -34,5 +35,10 @@ namespace GoceTransportApp.Web.ViewModels.Tickets
 
         [Required]
         public string ScheduleId { get; set; }
+
+        public IEnumerable<SelectListItem> Routes { get; set; } = new List<SelectListItem>();
+
+        public IEnumerable<SelectListItem> Schedules { get; set; } = new List<SelectListItem>();
+
     }
 }

@@ -15,7 +15,6 @@ using System.Threading.Tasks;
 using static GoceTransportApp.Common.ResultMessages.RouteMessages;
 using static GoceTransportApp.Common.ResultMessages.GeneralMessages;
 using static GoceTransportApp.Common.GlobalConstants;
-using System.Net.Mail;
 
 namespace GoceTransportApp.Web.Controllers
 {

@@ -10,15 +10,15 @@ namespace GoceTransportApp.Web.ViewModels.Tickets
     {
         public string Id { get; set; } = null!;
 
-        public string DepartingTime { get; set; } = null!;
+        public string IssuedDate { get; set; }
 
-        public string ArrivingTime { get; set; } = null!;
+        public string ExpiryDate { get; set; }
 
         public string Price { get; set; } = null!;
 
-        public string FromCity { get; set; } = null!;
+        public string FromCity { get; set; }
 
-        public string ToCity { get; set; } = null!;
+        public string ToCity { get; set; }
 
         public string OrganizationId { get; set; } = null!;
 

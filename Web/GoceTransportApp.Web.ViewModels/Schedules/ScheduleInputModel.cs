@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 
 using GoceTransportApp.Web.Infrastructure.ValidationAttributes;
 using static GoceTransportApp.Common.ResultMessages.ScheduleMessages;
+using System.Web.Mvc;
 
 namespace GoceTransportApp.Web.ViewModels.Schedules
 {
@@ -32,6 +33,10 @@ namespace GoceTransportApp.Web.ViewModels.Schedules
 
         [Required]
         public string RouteId { get; set; }
+
+        public IEnumerable<SelectListItem> Routes { get; set; } = new List<SelectListItem>();
+
+        public IEnumerable<SelectListItem> Vehicles { get; set; } = new List<SelectListItem>();
 
     }
 }

@@ -6,7 +6,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+using System.Web.Mvc;
 using static GoceTransportApp.Common.ResultMessages.ScheduleMessages;
 
 namespace GoceTransportApp.Web.ViewModels.Schedules
@@ -34,6 +34,9 @@ namespace GoceTransportApp.Web.ViewModels.Schedules
 
         [Required]
         public string RouteId { get; set; }
+        public IEnumerable<SelectListItem> Routes { get; set; } = new List<SelectListItem>();
+
+        public IEnumerable<SelectListItem> Vehicles { get; set; } = new List<SelectListItem>();
 
         public HashSet<Ticket> ScheduleTickets { get; set; }
         = new HashSet<Ticket>();

@@ -12,6 +12,8 @@ using GoceTransportApp.Data.Models;
 using Microsoft.AspNetCore.Authorization;
 using System.Security.Claims;
 using System.Net.Mail;
+using GoceTransportApp.Services.Data.Vehicles;
+using GoceTransportApp.Services.Data.Routes;
 
 namespace GoceTransportApp.Web.Controllers
 {
@@ -19,11 +21,16 @@ namespace GoceTransportApp.Web.Controllers
     public class ScheduleController : BaseController
     {
         private readonly IScheduleService scheduleService;
+        private readonly IVehicleService vehicleService;
+        private readonly IRouteService routeService;
 
-        public ScheduleController(IScheduleService scheduleService, IDeletableEntityRepository<Organization> organizationRepository)
+        public ScheduleController(IScheduleService scheduleService, IDeletableEntityRepository<Organization> organizationRepository
+            , IVehicleService vehicleService, IRouteService routeService)
             : base(organizationRepository)
         {
             this.scheduleService = scheduleService;
+            this.vehicleService = vehicleService;
+            this.routeService = routeService;
         }
 
         [HttpGet]
@@ -46,6 +53,8 @@ namespace GoceTransportApp.Web.Controllers
             }
 
             ScheduleInputModel model = new ScheduleInputModel();
+            model.Vehicles = await vehicleService.GetVehiclesForOrganizationAsync(organizationId);
+            model.Routes = await routeService.GetRoutesForOrganizationAsync(organizationId);
             model.OrganizationId = organizationId;
 
             return View(model);
@@ -96,6 +105,9 @@ namespace GoceTransportApp.Web.Controllers
             {
                 return RedirectToAction("Schedules", "Organization", new { organizationId = formModel.OrganizationId });
             }
+
+            formModel.Vehicles = await vehicleService.GetVehiclesForOrganizationAsync(organizationId);
+            formModel.Routes = await routeService.GetRoutesForOrganizationAsync(organizationId);
 
             return this.View(formModel);
         }

@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web.Mvc;
 
 namespace GoceTransportApp.Services.Data.Schedules
 {
@@ -23,5 +24,8 @@ namespace GoceTransportApp.Services.Data.Schedules
         Task<bool> RemoveScheduleAsync(RemoveScheduleViewModel inputModel);
 
         Task<ScheduleDetailsViewModel> GetScheduleDetailsAsync(Guid id);
+
+        Task<IEnumerable<SelectListItem>> GetSchedulesForOrganizationAsync(string organizationId);
+
     }
 }

@@ -242,8 +242,8 @@ namespace GoceTransportApp.Services.Data.Organizations
               .Select(c => new TicketDataViewModel()
               {
                   Id = c.Id.ToString(),
-                  ArrivingTime = c.TimeTable.Arrival.ToString(),
-                  DepartingTime = c.TimeTable.Departure.ToString(),
+                  IssuedDate = c.IssuedDate.ToString(),
+                  ExpiryDate = c.ExpiryDate.ToString(),
                   Price = c.Price.ToString(),
                   FromCity = c.Route.FromCity.Name,
                   ToCity = c.Route.ToCity.Name,

@@ -116,15 +116,15 @@ namespace GoceTransportApp.Services.Data.Tickets
                     .Take(inputModel.EntitiesPerPage.Value);
 
             IEnumerable<TicketDataViewModel> model = await query
-              .Select(c => new TicketDataViewModel()
+              .Select(t => new TicketDataViewModel()
               {
-                  Id = c.Id.ToString(),
-                  ArrivingTime = c.TimeTable.Arrival.ToString(),
-                  DepartingTime = c.TimeTable.Departure.ToString(),
-                  Price = c.Price.ToString(),
-                  FromCity = c.Route.FromCity.Name,
-                  ToCity = c.Route.ToCity.Name,
-                  OrganizationId = c.OrganizationId.ToString(),
+                  Id = t.Id.ToString(),
+                  IssuedDate = t.IssuedDate.ToString("yyyy-MM-dd"),
+                  ExpiryDate = t.ExpiryDate.ToString("yyyy-MM-dd"),
+                  Price = t.Price.ToString(),
+                  FromCity = t.Route.FromCity.Name,
+                  ToCity = t.Route.ToCity.Name,
+                  OrganizationId = t.OrganizationId.ToString()
               })
               .ToArrayAsync();
 

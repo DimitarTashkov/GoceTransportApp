@@ -10,6 +10,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web.Mvc;
 
 namespace GoceTransportApp.Services.Data.Routes
 {
@@ -256,19 +257,7 @@ namespace GoceTransportApp.Services.Data.Routes
             return viewModel;
         }
 
-        public async Task<IEnumerable<RouteDataViewModel>> GetAllRoutesInOrganizationAsync(Guid organization)
-        {
-            IEnumerable<RouteDataViewModel> model = await routeReposiory.AllAsNoTracking()
-                .Include(c => c.FromCity)
-                .Include(c => c.ToCity)
-                .Include(c => c.FromStreet)
-                .Include(c => c.ToStreet)
-                .Where(route => route.OrganizationId == organization)
-               .Select(route => ReturnDataViewModel(route))
-               .ToArrayAsync();
-
-            return model;
-        }
+       
 
         public async Task<int> GetRoutesCountByFilterAsync(AllRoutesSearchFilterViewModel inputModel)
         {
@@ -298,6 +287,22 @@ namespace GoceTransportApp.Services.Data.Routes
             }
 
             return await allRoutesQuery.CountAsync();
+        }
+
+        public async Task<IEnumerable<SelectListItem>> GetRoutesForOrganizationAsync(string organizationId)
+        {
+            return await routeReposiory.AllAsNoTracking()
+                .Include(r => r.FromCity)
+                .Include(r => r.FromStreet)
+                .Include(r => r.ToCity)
+                .Include(r => r.ToStreet)
+                .Where(r => r.OrganizationId == Guid.Parse(organizationId))
+                .Select(r => new SelectListItem
+                {
+                    Value = r.Id.ToString(),
+                    Text = $"{r.FromCity.Name}, {r.FromStreet.Name} → {r.ToCity.Name}, {r.ToStreet.Name}"
+                })
+                .ToListAsync();
         }
     }
 }

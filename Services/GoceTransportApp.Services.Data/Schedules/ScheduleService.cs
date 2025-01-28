@@ -10,6 +10,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web.Mvc;
 
 namespace GoceTransportApp.Services.Data.Schedules
 {
@@ -203,6 +204,26 @@ namespace GoceTransportApp.Services.Data.Schedules
             }
 
             return viewModel;
+        }
+
+        public async Task<IEnumerable<SelectListItem>> GetSchedulesForOrganizationAsync(string organizationId)
+        {
+            return await scheduleRepository.AllAsNoTracking()
+                .Include(s => s.Route)
+                    .ThenInclude(r => r.FromCity)
+                .Include(s => s.Route)
+                    .ThenInclude(r => r.FromStreet)
+                .Include(s => s.Route)
+                    .ThenInclude(r => r.ToCity)
+                .Include(s => s.Route)
+                    .ThenInclude(r => r.ToStreet)
+                .Where(s => s.OrganizationId == Guid.Parse(organizationId))
+                .Select(s => new SelectListItem
+                {
+                    Value = s.Id.ToString(),
+                    Text = $"{s.Day} | {s.Departure:HH:mm} - {s.Arrival:HH:mm} | Route: {s.Route.FromCity.Name}, {s.Route.FromStreet.Name} → {s.Route.ToCity.Name}, {s.Route.ToStreet.Name}"
+                })
+                .ToListAsync();
         }
     }
 }

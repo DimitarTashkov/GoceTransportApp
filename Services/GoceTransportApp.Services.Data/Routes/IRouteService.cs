@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web.Mvc;
 
 namespace GoceTransportApp.Services.Data.Routes
 {
@@ -14,8 +15,6 @@ namespace GoceTransportApp.Services.Data.Routes
         Task<IEnumerable<RouteDataViewModel>> GetAllRoutesAsync(AllRoutesSearchFilterViewModel inputModel);
 
         Task<RouteDetailsViewModel> GetRouteInformationAsync(Guid id);
-
-        Task<IEnumerable<RouteDataViewModel>> GetAllRoutesInOrganizationAsync(Guid organization);
 
         Task CreateAsync(RouteInputModel inputModel);
 
@@ -30,5 +29,8 @@ namespace GoceTransportApp.Services.Data.Routes
         Task<bool> DeleteRouteAsync(RemoveRouteViewModel model);
 
         Task<int> GetRoutesCountByFilterAsync(AllRoutesSearchFilterViewModel inputModel);
+
+        Task<IEnumerable<SelectListItem>> GetRoutesForOrganizationAsync(string organizationId);
+
     }
 }

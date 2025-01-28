@@ -27,7 +27,7 @@
         <p>No schedules found for this organization.</p>
     }
 
-    <div class="row">
+    <div class="row mt-4">
         @foreach (var schedule in Model.Schedules)
         {
             <partial name="_ScheduleCard" model="schedule" />

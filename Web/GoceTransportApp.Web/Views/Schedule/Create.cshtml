@@ -11,29 +11,56 @@
         <form asp-action="Create">
             <input asp-for="OrganizationId" type="hidden" />
 
+            <!-- Dropdown for Day Selection -->
             <div class="mb-3">
                 <label asp-for="Day" class="form-label"><i class="fas fa-calendar-day"></i> Day</label>
-                <input asp-for="Day" type="text" class="form-control datetimepicker" placeholder="Select a day" />
+                <select asp-for="Day" class="form-control">
+                    <option value="">-- Select a Day --</option>
+                    <option value="Monday">Monday</option>
+                    <option value="Tuesday">Tuesday</option>
+                    <option value="Wednesday">Wednesday</option>
+                    <option value="Thursday">Thursday</option>
+                    <option value="Friday">Friday</option>
+                    <option value="Saturday">Saturday</option>
+                    <option value="Sunday">Sunday</option>
+                </select>
                 <span asp-validation-for="Day" class="text-danger"></span>
             </div>
+
+            <!-- Time Picker for Departure -->
             <div class="mb-3">
                 <label asp-for="Departure" class="form-label"><i class="fas fa-clock"></i> Departure</label>
-                <input asp-for="Departure" type="text" class="form-control datetimepicker" placeholder="Select departure time" />
+                <input asp-for="Departure" type="time" class="form-control" placeholder="Select departure time" />
                 <span asp-validation-for="Departure" class="text-danger"></span>
             </div>
+
+            <!-- Time Picker for Arrival -->
             <div class="mb-3">
                 <label asp-for="Arrival" class="form-label"><i class="fas fa-clock"></i> Arrival</label>
-                <input asp-for="Arrival" type="text" class="form-control datetimepicker" placeholder="Select arrival time" />
+                <input asp-for="Arrival" type="time" class="form-control" placeholder="Select arrival time" />
                 <span asp-validation-for="Arrival" class="text-danger"></span>
             </div>
+
             <div class="mb-3">
                 <label asp-for="VehicleId" class="form-label"><i class="fas fa-bus"></i> Vehicle</label>
-                <input asp-for="VehicleId" class="form-control" />
+                <select asp-for="VehicleId" class="form-select">
+                    <option value="">Select a vehicle</option>
+                    @foreach (var vehicle in Model.Vehicles)
+                    {
+                        <option value="@vehicle.Value">@vehicle.Text</option>
+                    }
+                </select>
                 <span asp-validation-for="VehicleId" class="text-danger"></span>
             </div>
             <div class="mb-3">
-                <label asp-for="RouteId" class="form-label"><i class="fas fa-map-signs"></i> Route</label>
-                <input asp-for="RouteId" class="form-control" />
+                <label asp-for="RouteId" class="form-label"><i class="fas fa-route"></i> Route</label>
+                <select asp-for="RouteId" class="form-select">
+                    <option value="">Select a route</option>
+                    @foreach (var route in Model.Routes)
+                    {
+                        <option value="@route.Value">@route.Text</option>
+                    }
+                </select>
                 <span asp-validation-for="RouteId" class="text-danger"></span>
             </div>
             <button type="submit" class="btn btn-primary w-100">
@@ -45,6 +72,4 @@
 
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
-    <script src="~/js/showDateTimePicker.js"></script>
-
 }

@@ -33,13 +33,24 @@
 
             <div class="mb-3">
                 <label asp-for="VehicleId" class="form-label"><i class="fas fa-bus"></i> Vehicle</label>
-                <input asp-for="VehicleId" class="form-control" />
+                <select asp-for="VehicleId" class="form-select">
+                    <option value="">Select a vehicle</option>
+                    @foreach (var vehicle in Model.Vehicles)
+                    {
+                        <option value="@vehicle.Value">@vehicle.Text</option>
+                    }
+                </select>
                 <span asp-validation-for="VehicleId" class="text-danger"></span>
             </div>
-
             <div class="mb-3">
-                <label asp-for="RouteId" class="form-label"><i class="fas fa-map-signs"></i> Route</label>
-                <input asp-for="RouteId" class="form-control" />
+                <label asp-for="RouteId" class="form-label"><i class="fas fa-route"></i> Route</label>
+                <select asp-for="RouteId" class="form-select">
+                    <option value="">Select a route</option>
+                    @foreach (var route in Model.Routes)
+                    {
+                        <option value="@route.Value">@route.Text</option>
+                    }
+                </select>
                 <span asp-validation-for="RouteId" class="text-danger"></span>
             </div>
 

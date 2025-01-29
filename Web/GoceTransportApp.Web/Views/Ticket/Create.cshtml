@@ -9,6 +9,8 @@
 <div class="card shadow-sm mx-auto" style="max-width: 600px;">
     <div class="card-body">
         <form asp-action="Create" method="post">
+            <input asp-for="OrganizationId" type="hidden" />
+
             <div class="mb-3">
                 <label asp-for="IssuedDate" class="form-label"><i class="fas fa-calendar-alt"></i> Issued Date</label>
                 <input asp-for="IssuedDate" type="date" class="form-control" />

@@ -23,12 +23,12 @@
             <strong>Issued Date:</strong> @Model.IssuedDate <br />
             <strong>Expiry Date:</strong> @Model.ExpiryDate <br />
             <strong>Price:</strong> $@Model.Price <br />
+            <strong>Day:</strong> @Model.Day <br />
             <strong>Departure Time:</strong> @Model.DepartingTime <br />
             <strong>Arrival Time:</strong> @Model.ArrivingTime <br />
             <strong>From:</strong> @Model.FromCity, @Model.FromStreet <br />
             <strong>To:</strong> @Model.ToCity, @Model.ToStreet <br />
-            <strong>Organization:</strong> @Model.OrganizationName (ID: @Model.OrganizationId) <br />
-            <strong>Available Tickets:</strong> @Model.AvailableTickets <br />
+            <strong>Organization:</strong> @Model.OrganizationName <br />
         </p>
         <div class="d-flex justify-content-between">
             @if (isFounder || isAdmin)

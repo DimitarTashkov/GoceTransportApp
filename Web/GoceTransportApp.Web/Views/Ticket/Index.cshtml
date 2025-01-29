@@ -18,17 +18,23 @@
 
     @if (userId != null)
     {
-        <a asp-action="Create" class="btn btn-success mt-4">
+        <a asp-action="Create" class="btn btn-success mt-4 mb-4">
             <i class="fas fa-plus-circle"></i> Add New Ticket
         </a>
     }
 
-    <form asp-action="Index" method="get" class="d-flex mb-4">
-        <input type="text" name="SearchQuery" class="form-control me-2" placeholder="Search tickets..." value="@Model.SearchQuery" />
-        <input type="number" name="Price" class="form-control me-2" placeholder="Filter by price" />
-        <button type="submit" class="btn btn-primary">
-            <i class="fas fa-search"></i> Search
-        </button>
+    <form method="get" class="mb-4">
+        <div class="row g-2">
+            <div class="col-md-5">
+                <input type="text" name="SearchQuery" value="@Model.SearchQuery" class="form-control" placeholder="Search by number, type, manufacturer, or model..." />
+            </div>
+            <div class="col-md-5">
+                <input type="number" name="Price" class="form-control me-2" placeholder="Filter by price" />
+            </div>
+            <div class="col-md-2">
+                <button type="submit" class="btn btn-primary w-100">Search</button>
+            </div>
+        </div>
     </form>
 
     <div class="row row-cols-1 row-cols-md-3 g-4">
@@ -38,27 +44,32 @@
         }
     </div>
 
-    <nav aria-label="Page navigation example" class="mt-4">
-        <ul class="pagination justify-content-center">
-            <li class="page-item @(Model.CurrentPage == 1 ? "disabled" : "")">
-                <a class="page-link" asp-action="Index" asp-route-CurrentPage="@(Model.CurrentPage - 1)" asp-route-SearchQuery="@Model.SearchQuery">
-                    <i class="fas fa-chevron-left"></i> Previous
-                </a>
-            </li>
-            @for (int i = 1; i <= Model.TotalPages; i++)
-            {
-                <li class="page-item @(Model.CurrentPage == i ? "active" : "")">
-                    <a class="page-link" asp-action="Index" asp-route-CurrentPage="@i" asp-route-SearchQuery="@Model.SearchQuery">
-                        @i
-                    </a>
-                </li>
-            }
-            <li class="page-item @(Model.CurrentPage == Model.TotalPages ? "disabled" : "")">
-                <a class="page-link" asp-action="Index" asp-route-CurrentPage="@(Model.CurrentPage + 1)" asp-route-SearchQuery="@Model.SearchQuery">
-                    Next <i class="fas fa-chevron-right"></i>
-                </a>
-            </li>
-        </ul>
-    </nav>
+    @if (Model.TotalPages > 1)
+    {
+        <nav aria-label="Page navigation" class="mt-4">
+            <ul class="pagination justify-content-center">
+                @if (Model.CurrentPage > 1)
+                {
+                    <li class="page-item">
+                        <a class="page-link" href="?SearchQuery=@Model.SearchQuery&CurrentPage=@(Model.CurrentPage - 1)&EntitiesPerPage=@Model.EntitiesPerPage">Previous</a>
+                    </li>
+                }
+
+                @for (int i = 1; i <= Model.TotalPages; i++)
+                {
+                    <li class="page-item @(Model.CurrentPage == i ? "active" : "")">
+                        <a class="page-link" href="?SearchQuery=@Model.SearchQuery&CurrentPage=@i&EntitiesPerPage=@Model.EntitiesPerPage">@i</a>
+                    </li>
+                }
+
+                @if (Model.CurrentPage < Model.TotalPages)
+                {
+                    <li class="page-item">
+                        <a class="page-link" href="?SearchQuery=@Model.SearchQuery&CurrentPage=@(Model.CurrentPage + 1)&EntitiesPerPage=@Model.EntitiesPerPage">Next</a>
+                    </li>
+                }
+            </ul>
+        </nav>
+    }
 </div>
 

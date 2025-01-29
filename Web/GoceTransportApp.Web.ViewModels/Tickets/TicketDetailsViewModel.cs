@@ -14,6 +14,8 @@ namespace GoceTransportApp.Web.ViewModels.Tickets
 
         public string ExpiryDate { get; set; } = null!;
 
+        public string Day { get; set; } = null!;
+
         public string DepartingTime { get; set; } = null!;
 
         public string ArrivingTime { get; set; } = null!;
@@ -31,10 +33,6 @@ namespace GoceTransportApp.Web.ViewModels.Tickets
         public string OrganizationId { get; set; } = null!;
 
         public string OrganizationName { get; set; } = null!;
-
-        public int AvailableTickets { get; set; }
-
-        public int QuantityToBuy { get; set; }
 
     }
 }

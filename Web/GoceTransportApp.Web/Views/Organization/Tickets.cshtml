@@ -19,7 +19,9 @@
     <h1 class="text-center mb-4">Tickets</h1>
     @if (isFounder || isAdmin)
     {
+        <div class="mt-4 mb-4">
         <a asp-action="Create" asp-controller="Ticket" asp-route-organizationId="@Model.OrganizationId" class="btn btn-success">Add New Ticket</a>
+        </div>
     }
 
     @if (!Model.Tickets.Any())

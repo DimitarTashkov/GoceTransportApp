@@ -144,8 +144,8 @@ namespace GoceTransportApp.Services.Data.Schedules
               {
                   Id = schedule.Id.ToString(),
                   Day = schedule.Day.ToString(),
-                  Departure = schedule.Departure.ToString(),
-                  Arrival = schedule.Arrival.ToString(),
+                  Departure = schedule.Departure.TimeOfDay.ToString(),
+                  Arrival = schedule.Arrival.TimeOfDay.ToString(),
                   OrganizationId = schedule.OrganizationId.ToString(),
                   RouteId = schedule.RouteId.ToString(),
                   VehicleId = schedule.VehicleId.ToString(),

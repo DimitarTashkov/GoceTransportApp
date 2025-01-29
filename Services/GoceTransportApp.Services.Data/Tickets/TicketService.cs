@@ -197,9 +197,17 @@ namespace GoceTransportApp.Services.Data.Tickets
             TicketDetailsViewModel viewModel = null;
 
             Ticket? ticket = await ticketRepository.AllAsNoTracking()
-                .FirstOrDefaultAsync(d => d.Id == id);
-
-            UserTicket userTicket = await userTicketRepository.FirstOrDefaultAsync(x => x.TicketId == ticket.Id);
+            .Include(t => t.TimeTable)
+            .Include(t => t.Route)
+                .ThenInclude(r => r.FromCity)
+            .Include(t => t.Route)
+                .ThenInclude(r => r.ToCity)
+            .Include(t => t.Route)
+                .ThenInclude(r => r.FromStreet)
+            .Include(t => t.Route)
+                .ThenInclude(r => r.ToStreet)
+            .Include(t => t.Organization)
+            .FirstOrDefaultAsync(d => d.Id == id);
 
             if (ticket != null)
             {
@@ -208,15 +216,16 @@ namespace GoceTransportApp.Services.Data.Tickets
                     Id = ticket.Id.ToString(),
                     IssuedDate = ticket.IssuedDate.ToString(),
                     ExpiryDate = ticket.ExpiryDate.ToString(),
-                    ArrivingTime = ticket.TimeTable.Arrival.ToString(),
-                    DepartingTime = ticket.TimeTable.Departure.ToString(),
+                    Price = ticket.Price.ToString(),
+                    Day = ticket.TimeTable.Day.ToString(),
+                    ArrivingTime = ticket.TimeTable.Arrival.TimeOfDay.ToString(),
+                    DepartingTime = ticket.TimeTable.Departure.TimeOfDay.ToString(),
                     FromCity = ticket.Route.FromCity.Name,
                     ToCity = ticket.Route.ToCity.Name,
                     FromStreet = ticket.Route.FromStreet.Name,
                     ToStreet = ticket.Route.ToStreet.Name,
                     OrganizationId = ticket.OrganizationId.ToString(),
                     OrganizationName = ticket.Organization.Name,
-                    AvailableTickets = userTicket.AvailableTickets,
                 };
             }
 

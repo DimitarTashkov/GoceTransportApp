@@ -49,7 +49,7 @@ namespace GoceTransportApp.Web.Controllers
 
             if (!await this.HasUserCreatedOrganizationAsync(userId, organizationId) && !User.IsInRole(AdministratorRoleName))
             {
-                return RedirectToAction("Schedules", "Organization", new { organizationId = organizationId });
+                return RedirectToAction("UserOrganizations", "Organization");
             }
 
             ScheduleInputModel model = new ScheduleInputModel();

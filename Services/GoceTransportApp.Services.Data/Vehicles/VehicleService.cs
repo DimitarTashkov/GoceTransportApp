@@ -183,6 +183,7 @@ namespace GoceTransportApp.Services.Data.Vehicles
             {
                 viewModel = new VehicleDetailsViewModel()
                 {
+                    Id = vehicle.Id.ToString(),
                     Number = vehicle.Number,
                     Type = vehicle.Type,
                     Manufacturer = vehicle.Manufacturer,

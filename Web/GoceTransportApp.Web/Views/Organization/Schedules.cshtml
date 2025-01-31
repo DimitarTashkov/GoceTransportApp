@@ -19,7 +19,7 @@
     <h1 class="text-center mb-4">Schedules</h1>
     @if (isFounder || isAdmin)
     {
-        <a asp-action="Create" asp-controller="Schedule" asp-route-organizationId="@Model.OrganizationId" class="btn btn-success">Add New Schedule</a>
+        <a asp-action="Create" asp-controller="Schedule" asp-route-organizationId="@Model.OrganizationId" class="btn btn-success"><i class="fas fa-plus"></i> Add New Schedule</a>
     }
 
     @if (!Model.Schedules.Any())

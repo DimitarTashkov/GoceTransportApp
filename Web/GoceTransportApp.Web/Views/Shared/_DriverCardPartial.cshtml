@@ -17,10 +17,10 @@
             <div class="d-flex justify-content-between">
                 @if (isFounder || isAdmin) 
                 {
-                    <a asp-action="Edit" asp-controller="Driver" asp-route-id="@Model.Id" asp-route-organizationId="@Model.OrganizationId" class="btn btn-warning btn-sm">Edit</a>
-                    <a asp-action="Delete" asp-controller="Driver" asp-route-id="@Model.Id" asp-route-organizationId="@Model.OrganizationId" class="btn btn-danger btn-sm">Delete</a>
+                    <a asp-action="Edit" asp-controller="Driver" asp-route-id="@Model.Id" asp-route-organizationId="@Model.OrganizationId" class="btn btn-warning btn-sm"><i class="fas fa-edit"></i> Edit</a>
+                    <a asp-action="Delete" asp-controller="Driver" asp-route-id="@Model.Id" asp-route-organizationId="@Model.OrganizationId" class="btn btn-danger btn-sm"><i class="fas fa-trash"></i> Delete</a>
                 }
-                <a asp-action="Details" asp-controller="Driver" asp-route-id="@Model.Id" asp-route-organizationId="@Model.OrganizationId" class="btn btn-info btn-sm">Details</a>
+                <a asp-action="Details" asp-controller="Driver" asp-route-id="@Model.Id" asp-route-organizationId="@Model.OrganizationId" class="btn btn-info btn-sm"><i class="fas fa-info-circle"></i> Details</a>
 
             </div>
         </div>

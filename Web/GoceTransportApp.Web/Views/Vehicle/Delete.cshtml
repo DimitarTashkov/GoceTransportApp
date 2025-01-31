@@ -11,7 +11,6 @@
         <h5 class="card-title">Are you sure you want to delete this vehicle?</h5>
         <p class="card-text">
             <strong>Number:</strong> @Model.Number <br />
-            <strong>Organization ID:</strong> @Model.OrganizationId
         </p>
         <form asp-action="Delete" method="post">
             <input type="hidden" asp-for="Id" />

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using GoceTransportApp.Data.Models.Enumerations;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -27,9 +28,8 @@ namespace GoceTransportApp.Web.ViewModels.Drivers
 
         public int? Age { get; set; }
 
-
         [Required(ErrorMessage = DriverExperienceRequired)]
-        public string DrivingExperience { get; set; } = null!;
+        public DriverExperience DrivingExperience { get; set; }
 
         [Required]
         public string OrganizationId { get; set; } = null!;

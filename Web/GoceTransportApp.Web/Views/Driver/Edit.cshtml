@@ -2,6 +2,13 @@
 
 @{
     ViewData["Title"] = "Edit Driver";
+
+    var returnUrl = Context.Request.Headers["Referer"].ToString();
+
+    if (string.IsNullOrEmpty(returnUrl))
+    {
+        returnUrl = Url.Action("Index", "Driver");
+    }
 }
 
 <h1 class="mb-4">Edit Driver</h1>
@@ -40,7 +47,7 @@
             </div>
 
             <button type="submit" class="btn btn-success">Update Driver</button>
-            <a asp-action="Index" class="btn btn-secondary">Cancel</a>
+            <a href="@returnUrl" class="btn btn-secondary"><i class="fas fa-times"></i> Cancel</a>
         </form>
     </div>
 </div>

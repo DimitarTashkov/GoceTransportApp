@@ -13,12 +13,6 @@
 @{
     ViewData["Title"] = "Route Details";
 
-    var returnUrl = Context.Request.Headers["Referer"].ToString();
-
-    if (string.IsNullOrEmpty(returnUrl))
-    {
-        returnUrl = Url.Action("Index", "Route");
-    }
 }
 
 <h1 class="mb-4">Route Details</h1>
@@ -43,7 +37,7 @@
         </a>
 
     }
-    <a href="@returnUrl" class="btn btn-light">
+    <a asp-action="Index" asp-controller="Route" class="btn btn-light">
         <i class="fas fa-arrow-left"></i> Back to List
     </a>
 </div>

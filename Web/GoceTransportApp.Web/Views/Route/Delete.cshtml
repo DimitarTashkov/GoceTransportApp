@@ -2,6 +2,13 @@
 
 @{
     ViewData["Title"] = "Delete route";
+
+    var returnUrl = Context.Request.Headers["Referer"].ToString();
+
+    if (string.IsNullOrEmpty(returnUrl))
+    {
+        returnUrl = Url.Action("Index", "Route");
+    }
 }
 
 <h1>Delete Route</h1>
@@ -20,7 +27,7 @@
             <button type="submit" class="btn btn-danger">
                 <i class="fas fa-trash-alt"></i> Confirm Delete
             </button>
-            <p class="text-danger">NOTE: Deleting route is irreversible process and cannot be restored in the future!</p>
+            <a href="@returnUrl" class="btn btn-secondary"><i class="fas fa-times"></i> Cancel</a>
         </form>
     </div>
 </div>

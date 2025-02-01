@@ -2,6 +2,13 @@
 
 @{
     ViewData["Title"] = "Remove Vehicle";
+
+    var returnUrl = Context.Request.Headers["Referer"].ToString();
+
+    if (string.IsNullOrEmpty(returnUrl))
+    {
+        returnUrl = Url.Action("Index", "Route");
+    }
 }
 
 <h1 class="mb-4">Delete Vehicle</h1>
@@ -17,7 +24,7 @@
             <input asp-for="OrganizationId" type="hidden" />
 
             <button type="submit" class="btn btn-danger">Delete</button>
-            <a asp-action="Index" class="btn btn-secondary">Cancel</a>
+            <a href="@returnUrl" class="btn btn-secondary"><i class="fas fa-times"></i> Cancel</a>
         </form>
     </div>
 </div>

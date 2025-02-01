@@ -2,6 +2,13 @@
 
 @{
     ViewData["Title"] = "Remove Ticket";
+
+    var returnUrl = Context.Request.Headers["Referer"].ToString();
+
+    if (string.IsNullOrEmpty(returnUrl))
+    {
+        returnUrl = Url.Action("Index", "Route");
+    }
 }
 
 <h1 class="text-center mt-4 text-danger"><i class="fas fa-trash-alt"></i> Remove Ticket</h1>
@@ -26,9 +33,8 @@
                 <button type="submit" class="btn btn-danger">
                     <i class="fas fa-trash-alt"></i> Confirm Delete
                 </button>
-                <a asp-action="Index" class="btn btn-secondary">
-                    <i class="fas fa-arrow-left"></i> Cancel
-                </a>
+                <a href="@returnUrl" class="btn btn-secondary"><i class="fas fa-times"></i> Cancel</a>
+
             </div>
         </form>
     </div>

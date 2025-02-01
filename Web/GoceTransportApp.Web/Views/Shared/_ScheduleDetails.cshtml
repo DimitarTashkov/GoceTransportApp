@@ -8,13 +8,6 @@
     var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
     var isFounder = await userService.HasUserCreatedOrganizationAsync(userId, organizationId);
     var isAdmin = User.IsInRole(AdministratorRoleName);
-
-    var returnUrl = Context.Request.Headers["Referer"].ToString();
-
-    if (string.IsNullOrEmpty(returnUrl))
-    {
-        returnUrl = Url.Action("Index", "Route");
-    }
 }
 
 <div class="card shadow-sm mx-auto" style="max-width: 600px;">
@@ -39,7 +32,9 @@
                 <i class="fas fa-trash-alt"></i> Delete
             </a>
         }
-        <a href="@returnUrl" class="btn btn-light">Back to List</a>
+        <a asp-action="Index" asp-controller="Schedule" class="btn btn-light">
+            <i class="fas fa-arrow-left"></i> Back to List
+        </a>
 
     </div>
 </div>

@@ -6,7 +6,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+using System.Web.Mvc;
 using static GoceTransportApp.Common.ResultMessages.TicketMessages;
 
 
@@ -39,5 +39,8 @@ namespace GoceTransportApp.Web.ViewModels.Tickets
 
         public HashSet<UserTicket> TicketsUsers { get; set; }
         = new HashSet<UserTicket>();
+        public IEnumerable<SelectListItem> Routes { get; set; } = new List<SelectListItem>();
+
+        public IEnumerable<SelectListItem> Schedules { get; set; } = new List<SelectListItem>();
     }
 }

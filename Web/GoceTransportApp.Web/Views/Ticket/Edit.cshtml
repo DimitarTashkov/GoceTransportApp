@@ -1,0 +1,71 @@
+﻿@model GoceTransportApp.Web.ViewModels.Tickets.EditTicketInputModel
+
+@{
+    ViewData["Title"] = "Edit Ticket";
+}
+
+<h1 class="text-center mt-4"><i class="fas fa-edit"></i> Edit Ticket</h1>
+
+<div class="card shadow-sm mx-auto" style="max-width: 600px;">
+    <div class="card-body">
+        <form asp-action="Edit" method="post">
+            <input asp-for="Id" type="hidden" />
+            <input asp-for="OrganizationId" type="hidden" />
+
+            <div class="mb-3">
+                <label asp-for="IssuedDate" class="form-label">
+                    <i class="fas fa-calendar-alt"></i> Issued Date
+                </label>
+                <input asp-for="IssuedDate" type="date" class="form-control" />
+                <span asp-validation-for="IssuedDate" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="ExpiryDate" class="form-label">
+                    <i class="fas fa-calendar-times"></i> Expiry Date
+                </label>
+                <input asp-for="ExpiryDate" type="date" class="form-control" />
+                <span asp-validation-for="ExpiryDate" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="Price" class="form-label">
+                    <i class="fas fa-dollar-sign"></i> Price
+                </label>
+                <input asp-for="Price" class="form-control" />
+                <span asp-validation-for="Price" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="RouteId" class="form-label"><i class="fas fa-route"></i> Route</label>
+                <select asp-for="RouteId" class="form-select">
+                    <option value="">Select a route</option>
+                    @foreach (var route in Model.Routes)
+                    {
+                        <option value="@route.Value">@route.Text</option>
+                    }
+                </select>
+                <span asp-validation-for="RouteId" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="ScheduleId" class="form-label"><i class="fas fa-calendar-day"></i> Schedule</label>
+                <select asp-for="ScheduleId" class="form-select">
+                    <option value="">Select a schedule</option>
+                    @foreach (var schedule in Model.Schedules)
+                    {
+                        <option value="@schedule.Value">@schedule.Text</option>
+                    }
+                </select>
+                <span asp-validation-for="ScheduleId" class="text-danger"></span>
+            </div>
+
+            <button type="submit" class="btn btn-primary w-100">
+                <i class="fas fa-save"></i> Update
+            </button>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

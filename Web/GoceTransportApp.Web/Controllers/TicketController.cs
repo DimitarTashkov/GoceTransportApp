@@ -130,6 +130,9 @@ namespace GoceTransportApp.Web.Controllers
                 return RedirectToAction("Tickets", "Organization", new { organizationId = formModel.OrganizationId });
             }
 
+            formModel.Routes = await routeService.GetRoutesForOrganizationAsync(organizationId);
+            formModel.Schedules = await scheduleService.GetSchedulesForOrganizationAsync(organizationId);
+
             return this.View(formModel);
         }
 
@@ -145,6 +148,8 @@ namespace GoceTransportApp.Web.Controllers
 
             if (!ModelState.IsValid)
             {
+                formModel.Routes = await routeService.GetRoutesForOrganizationAsync(formModel.OrganizationId);
+                formModel.Schedules = await scheduleService.GetSchedulesForOrganizationAsync(formModel.OrganizationId);
                 return this.View(formModel);
             }
 

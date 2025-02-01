@@ -79,15 +79,10 @@ namespace GoceTransportApp.Services.Data.Drivers
                 return false;
             }
 
-            if (!Enum.TryParse<DriverExperience>(inputModel.DrivingExperience, out var experience))
-            {
-                throw new ArgumentException(InvalidDrivingExperience);
-            }
-
             driver.FirstName = inputModel.FirstName;
             driver.LastName = inputModel.LastName;
             driver.Age = inputModel.Age;
-            driver.Experience = experience;
+            driver.Experience = inputModel.DrivingExperience;
             driver.ModifiedOn = DateTime.UtcNow;
             driver.OrganizationId = Guid.Parse(inputModel.OrganizationId);
 
@@ -135,7 +130,7 @@ namespace GoceTransportApp.Services.Data.Drivers
                   FirstName = driver.FirstName,
                   LastName = driver.LastName,
                   Age = driver.Age,
-                  DrivingExperience = driver.Experience.ToString(),
+                  DrivingExperience = driver.Experience,
                   OrganizationId = driver.OrganizationId.ToString(),
               })
               .FirstOrDefaultAsync(s => s.Id.ToLower() == id.ToString().ToLower());

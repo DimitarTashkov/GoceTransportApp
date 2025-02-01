@@ -104,8 +104,8 @@ namespace GoceTransportApp.Services.Data.Schedules
               {
                   Id = c.Id.ToString(),
                   Day = c.Day.ToString(),
-                  Departing = c.Departure.TimeOfDay.ToString(),
-                  Arriving = c.Arrival.TimeOfDay.ToString(),
+                  Departing = c.Departure.ToString("HH:mm"),
+                  Arriving = c.Arrival.ToString("HH:mm"),
                   FromCity = c.Route.FromCity.Name,
                   ToCity = c.Route.ToCity.Name,
                   OrganizationId = c.OrganizationId.ToString(),
@@ -126,8 +126,8 @@ namespace GoceTransportApp.Services.Data.Schedules
                 {
                     Id = schedule.Id.ToString(),
                     Day = schedule.Day.ToString(),
-                    Departing = schedule.Departure.ToString(),
-                    Arriving = schedule.Arrival.ToString(),
+                    Departing = schedule.Departure.ToString("HH:mm"),
+                    Arriving = schedule.Arrival.ToString("HH:mm"),
                     FromCity = schedule.Route.FromCity.Name,
                     ToCity = schedule.Route.ToCity.Name,
                     OrganizationId = schedule.OrganizationId.ToString(),
@@ -144,8 +144,8 @@ namespace GoceTransportApp.Services.Data.Schedules
               {
                   Id = schedule.Id.ToString(),
                   Day = schedule.Day.ToString(),
-                  Departure = schedule.Departure.TimeOfDay.ToString(),
-                  Arrival = schedule.Arrival.TimeOfDay.ToString(),
+                  Departure = schedule.Departure.ToString("HH:mm"),
+                  Arrival = schedule.Arrival.ToString("HH:mm"),
                   OrganizationId = schedule.OrganizationId.ToString(),
                   RouteId = schedule.RouteId.ToString(),
                   VehicleId = schedule.VehicleId.ToString(),

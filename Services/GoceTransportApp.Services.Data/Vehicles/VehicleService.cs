@@ -59,18 +59,13 @@ namespace GoceTransportApp.Services.Data.Vehicles
                 return false;
             }
 
-            if (!Enum.TryParse<VehicleStatus>(inputModel.Status, out var status))
-            {
-                throw new ArgumentException(InvalidVehicleStatus);
-            }
-
             vehicle.Number = inputModel.Number;
             vehicle.Type = inputModel.Type;
             vehicle.Manufacturer = inputModel.Manufacturer;
             vehicle.Model = inputModel.Model;
             vehicle.Capacity = inputModel.Capacity;
             vehicle.FuelConsumption = inputModel.FuelConsumption;
-            vehicle.VehicleStatus = status;
+            vehicle.VehicleStatus = inputModel.Status;
             vehicle.OrganizationId = Guid.Parse(inputModel.OrganizationId);
             vehicle.ModifiedOn = DateTime.UtcNow;
 
@@ -141,7 +136,7 @@ namespace GoceTransportApp.Services.Data.Vehicles
                   Model = vehicle.Model,
                   Capacity = vehicle.Capacity,
                   FuelConsumption = vehicle.FuelConsumption,
-                  Status = vehicle.VehicleStatus.ToString(),
+                  Status = vehicle.VehicleStatus,
                   OrganizationId = vehicle.OrganizationId.ToString(),
                   Schedules = vehicle.Schedules.ToList(),
               })
@@ -178,6 +173,7 @@ namespace GoceTransportApp.Services.Data.Vehicles
             VehicleDetailsViewModel viewModel = null;
 
             Vehicle? vehicle = await vehicleRepository.AllAsNoTracking()
+                .Include(o => o.Organization)
                 .FirstOrDefaultAsync(d => d.Id == id);
             if (vehicle != null)
             {
@@ -192,6 +188,7 @@ namespace GoceTransportApp.Services.Data.Vehicles
                     FuelConsumption = vehicle.FuelConsumption,
                     Status = vehicle.VehicleStatus.ToString(),
                     OrganizationId = vehicle.OrganizationId.ToString(),
+                    OrganizationName = vehicle.Organization.Name,
                 };
             }
 

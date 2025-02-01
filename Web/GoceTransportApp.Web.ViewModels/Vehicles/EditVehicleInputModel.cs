@@ -47,7 +47,7 @@ namespace GoceTransportApp.Web.ViewModels.Vehicles
 
         [Required]
         [DefaultValue(VehicleStatus.Available)]
-        public string Status { get; set; } = null!;
+        public VehicleStatus Status { get; set; }
 
         [Required]
         public string OrganizationId { get; set; } = null!;

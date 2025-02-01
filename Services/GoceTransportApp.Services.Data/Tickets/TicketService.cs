@@ -156,8 +156,8 @@ namespace GoceTransportApp.Services.Data.Tickets
                .Select(ticket => new EditTicketInputModel()
                {
                    Id = ticket.Id.ToString(),
-                   IssuedDate = ticket.IssuedDate.ToString(),
-                   ExpiryDate = ticket.IssuedDate.ToString(),
+                   IssuedDate = ticket.IssuedDate.ToString("dd.MM.yyyy"),
+                   ExpiryDate = ticket.IssuedDate.ToString("dd.MM.yyyy"),
                    Price = ticket.Price,
                    OrganizationId = ticket.OrganizationId.ToString(),
                    RouteId = ticket.RouteId.ToString(),
@@ -214,8 +214,8 @@ namespace GoceTransportApp.Services.Data.Tickets
                 viewModel = new TicketDetailsViewModel()
                 {
                     Id = ticket.Id.ToString(),
-                    IssuedDate = ticket.IssuedDate.ToString(),
-                    ExpiryDate = ticket.ExpiryDate.ToString(),
+                    IssuedDate = ticket.IssuedDate.Date.ToString("dd.MM.yyyy"),
+                    ExpiryDate = ticket.ExpiryDate.Date.ToString("dd.MM.yyyy"),
                     Price = ticket.Price.ToString(),
                     Day = ticket.TimeTable.Day.ToString(),
                     ArrivingTime = ticket.TimeTable.Arrival.TimeOfDay.ToString(),

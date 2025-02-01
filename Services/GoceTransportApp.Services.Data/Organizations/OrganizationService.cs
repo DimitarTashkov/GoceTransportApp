@@ -223,8 +223,8 @@ namespace GoceTransportApp.Services.Data.Organizations
               {
                   Id = c.Id.ToString(),
                   Day = c.Day.ToString(),
-                  Departing = c.Departure.ToString(),
-                  Arriving = c.Arrival.ToString(),
+                  Departing = c.Departure.ToString("HH:mm"),
+                  Arriving = c.Arrival.ToString("HH:mm"),
                   FromCity = c.Route.FromCity.Name,
                   ToCity = c.Route.ToCity.Name,
                   OrganizationId = c.OrganizationId.ToString(),
@@ -242,8 +242,8 @@ namespace GoceTransportApp.Services.Data.Organizations
               .Select(c => new TicketDataViewModel()
               {
                   Id = c.Id.ToString(),
-                  IssuedDate = c.IssuedDate.ToString(),
-                  ExpiryDate = c.ExpiryDate.ToString(),
+                  IssuedDate = c.IssuedDate.Date.ToString(),
+                  ExpiryDate = c.ExpiryDate.Date.ToString(),
                   Price = c.Price.ToString(),
                   FromCity = c.Route.FromCity.Name,
                   ToCity = c.Route.ToCity.Name,

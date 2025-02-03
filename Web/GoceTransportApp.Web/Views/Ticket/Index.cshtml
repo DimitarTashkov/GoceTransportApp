@@ -31,7 +31,8 @@
             <div class="col-md-4">
                 <input type="date" name="FilterDate"
                        value="@(Model.FilterDate.HasValue ? Model.FilterDate.Value.ToString("yyyy-MM-dd") : "")"
-                       class="form-control" />
+                       class="form-control"
+                       id="filterDate" />
             </div>
             <div class="col-md-2">
                 <button type="submit" class="btn btn-primary w-100">Search</button>
@@ -74,4 +75,8 @@
         </nav>
     }
 </div>
+
+@section Scripts{
+    <script src="~/js/datePlaceholderHandler.js"></script>
+}
 

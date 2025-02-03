@@ -14,7 +14,7 @@ namespace GoceTransportApp.Services.Data.Organizations
 {
     public interface IOrganizationService
     {
-        Task<IEnumerable<OrganizationDataViewModel>> GetAllOrganizationsAsync();
+        Task<IEnumerable<OrganizationDataViewModel>> GetAllOrganizationsAsync(AllOrganizationsSearchFilterViewModel inputModel);
 
         Task<IEnumerable<OrganizationDataViewModel>> GetUserOrganizationsAsync(string userId);
 
@@ -39,5 +39,8 @@ namespace GoceTransportApp.Services.Data.Organizations
         Task<IEnumerable<TicketDataViewModel>> GetTicketsByOrganizationId(Guid organizationId);
 
         Task<IEnumerable<ScheduleDataViewModel>> GetSchedulesByOrganizationId(Guid organizationId);
+
+        Task<int> GetOrganizationsCountByFilterAsync(AllOrganizationsSearchFilterViewModel inputModel);
+
     }
 }

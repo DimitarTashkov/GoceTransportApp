@@ -84,21 +84,32 @@ namespace GoceTransportApp.Services.Data.Organizations
             return result;
         }
 
-        public async Task<IEnumerable<OrganizationDataViewModel>> GetAllOrganizationsAsync()
+        public async Task<IEnumerable<OrganizationDataViewModel>> GetAllOrganizationsAsync(AllOrganizationsSearchFilterViewModel inputModel)
         {
-            IEnumerable<OrganizationDataViewModel> model = await organizationRepository.AllAsNoTracking()
-                .Include(o => o.Founder)
-              .Select(c => new OrganizationDataViewModel()
-              {
-                  Id = c.Id.ToString(),
-                  Name = c.Name,
-                  Address = c.Address,
-                  FounderId = c.FounderId,
-                  Founder = c.Founder.UserName
-              })
-              .ToArrayAsync();
+            IQueryable<Organization> allOrganizationQuery = organizationRepository
+                .AllAsNoTracking()
+                .Include(o => o.Founder);
 
-            return model;
+            if (!string.IsNullOrEmpty(inputModel.SearchQuery))
+            {
+                allOrganizationQuery = allOrganizationQuery.Where(r => r.Name.Contains(inputModel.SearchQuery) ||
+                                         r.Founder.UserName.Contains(inputModel.SearchQuery));
+            }
+
+            allOrganizationQuery = allOrganizationQuery
+                .Skip((inputModel.EntitiesPerPage.Value * (inputModel.CurrentPage.Value - 1)) * inputModel.EntitiesPerPage.Value)
+                .Take(inputModel.EntitiesPerPage.Value);
+
+            return await allOrganizationQuery
+                 .Select(c => new OrganizationDataViewModel()
+                 {
+                     Id = c.Id.ToString(),
+                     Name = c.Name,
+                     Address = c.Address,
+                     FounderId = c.FounderId,
+                     Founder = c.Founder.UserName
+                 })
+                .ToArrayAsync();
         }
 
         public async Task<IEnumerable<DriverDataViewModel>> GetDriversByOrganizationId(Guid organizationId)
@@ -186,6 +197,22 @@ namespace GoceTransportApp.Services.Data.Organizations
                .FirstOrDefaultAsync(s => s.Id.ToLower() == id.ToString().ToLower());
 
             return editModel;
+        }
+
+        public async Task<int> GetOrganizationsCountByFilterAsync(AllOrganizationsSearchFilterViewModel inputModel)
+        {
+            IQueryable<Organization> allOrganizationQuery = organizationRepository
+                .AllAsNoTracking()
+                .Include(o => o.Founder);
+
+            if (!string.IsNullOrEmpty(inputModel.SearchQuery))
+            {
+                allOrganizationQuery = allOrganizationQuery.Where(r => r.Name.Contains(inputModel.SearchQuery) ||
+                                         r.Founder.UserName.Contains(inputModel.SearchQuery));
+            }
+
+            return await allOrganizationQuery.CountAsync();
+
         }
 
         public async Task<IEnumerable<RouteDataViewModel>> GetRoutesByOrganizationId(Guid organizationId)

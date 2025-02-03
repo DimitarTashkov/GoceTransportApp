@@ -17,6 +17,8 @@ using GoceTransportApp.Web.ViewModels.Schedules;
 using GoceTransportApp.Web.ViewModels.Tickets;
 using GoceTransportApp.Web.ViewModels.Drivers;
 using System.Net.Mail;
+using GoceTransportApp.Services.Data.Routes;
+using System.Collections.Generic;
 
 namespace GoceTransportApp.Web.Controllers
 {
@@ -33,11 +35,22 @@ namespace GoceTransportApp.Web.Controllers
 
         [HttpGet]
         [AllowAnonymous]
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(AllOrganizationsSearchFilterViewModel inputModel)
         {
-            var model = await organizationService.GetAllOrganizationsAsync();
+            IEnumerable<OrganizationDataViewModel> allOrganizations = await organizationService.GetAllOrganizationsAsync(inputModel);
 
-            return View(model);
+            int allOrganizationsCount = await organizationService.GetOrganizationsCountByFilterAsync(inputModel);
+
+            AllOrganizationsSearchFilterViewModel viewModel = new AllOrganizationsSearchFilterViewModel
+            {
+                Organizations = allOrganizations,
+                SearchQuery = inputModel.SearchQuery,
+                CurrentPage = inputModel.CurrentPage,
+                EntitiesPerPage = inputModel.EntitiesPerPage,
+                TotalPages = (int)Math.Ceiling((double)allOrganizationsCount / inputModel.EntitiesPerPage.Value)
+            };
+
+            return View(viewModel);
         }
 
         [HttpGet]

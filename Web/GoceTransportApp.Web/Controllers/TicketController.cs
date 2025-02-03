@@ -48,8 +48,7 @@ namespace GoceTransportApp.Web.Controllers
             {
                 Tickets = allTickets,
                 SearchQuery = inputModel.SearchQuery,
-                PriceFrom = inputModel.PriceFrom,
-                PriceTo = inputModel.PriceTo,
+                FilterDate = inputModel.FilterDate,
                 CurrentPage = inputModel.CurrentPage,
                 EntitiesPerPage = inputModel.EntitiesPerPage,
                 TotalPages = (int)Math.Ceiling((double)allTicketsCount / inputModel.EntitiesPerPage.Value)
@@ -67,6 +66,7 @@ namespace GoceTransportApp.Web.Controllers
             {
                 return RedirectToAction("UserOrganizations", "Organization");
             }
+
             var routes = await routeService.GetRoutesForOrganizationAsync(organizationId);
             var schedules = await scheduleService.GetSchedulesForOrganizationAsync(organizationId);
 
@@ -74,7 +74,9 @@ namespace GoceTransportApp.Web.Controllers
             {
                 OrganizationId = organizationId,
                 Routes = routes.ToList(),
-                Schedules = schedules.ToList()
+                Schedules = schedules.ToList(),
+                IssuedDate = DateTime.Now.Date,
+                ExpiryDate = DateTime.Now.Date
             };
 
             return View(model);

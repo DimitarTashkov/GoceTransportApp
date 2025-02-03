@@ -13,9 +13,7 @@ namespace GoceTransportApp.Web.ViewModels.Tickets
 
         public string SearchQuery { get; set; }
 
-        public decimal? PriceFrom { get; set; }
-
-        public decimal? PriceTo { get; set; }
+        public DateTime? FilterDate { get; set; }
 
         public int? CurrentPage { get; set; } = 1;
 

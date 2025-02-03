@@ -18,11 +18,11 @@ namespace GoceTransportApp.Web.ViewModels.Tickets
         [Required]
         [IsBefore("ExpiryDate", ErrorMessage = InvalidTicketIssueTime)]
 
-        public string IssuedDate { get; set; }
+        public DateTime IssuedDate { get; set; }
 
         [Required]
 
-        public string ExpiryDate { get; set; }
+        public DateTime ExpiryDate { get; set; }
 
         [Required]
         public decimal Price { get; set; }

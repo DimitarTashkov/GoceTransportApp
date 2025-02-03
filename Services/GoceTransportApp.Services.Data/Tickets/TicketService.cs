@@ -26,20 +26,10 @@ namespace GoceTransportApp.Services.Data.Tickets
 
         public async Task CreateAsync(TicketInputModel inputModel)
         {
-            if (!DateTime.TryParse(inputModel.IssuedDate, out var issuedDate))
-            {
-                throw new ArgumentException("Invalid departure date and time format.");
-            }
-
-            if (!DateTime.TryParse(inputModel.ExpiryDate, out var expiryDate))
-            {
-                throw new ArgumentException("Invalid arrival date and time format.");
-            }
-
             Ticket ticket = new Ticket()
             {
-                IssuedDate = issuedDate,
-                ExpiryDate = expiryDate,
+                IssuedDate = inputModel.IssuedDate,
+                ExpiryDate = inputModel.ExpiryDate,
                 Price = inputModel.Price,
                 OrganizationId = Guid.Parse(inputModel.OrganizationId),
                 RouteId = Guid.Parse(inputModel.RouteId),
@@ -60,18 +50,8 @@ namespace GoceTransportApp.Services.Data.Tickets
                 return false;
             }
 
-            if (!DateTime.TryParse(inputModel.IssuedDate, out var issuedDate))
-            {
-                throw new ArgumentException("Invalid departure date and time format.");
-            }
-
-            if (!DateTime.TryParse(inputModel.ExpiryDate, out var expiryDate))
-            {
-                throw new ArgumentException("Invalid arrival date and time format.");
-            }
-
-            ticket.IssuedDate = issuedDate;
-            ticket.ExpiryDate = expiryDate;
+            ticket.IssuedDate = inputModel.IssuedDate;
+            ticket.ExpiryDate = inputModel.ExpiryDate;
             ticket.Price = inputModel.Price;
             ticket.RouteId = Guid.Parse(inputModel.RouteId);
             ticket.ScheduleId = Guid.Parse(inputModel.ScheduleId);
@@ -101,14 +81,9 @@ namespace GoceTransportApp.Services.Data.Tickets
                                          t.Route.ToCity.Name.Contains(inputModel.SearchQuery));
             }
 
-            if (inputModel.PriceFrom.HasValue)
+            if (inputModel.FilterDate.HasValue)
             {
-                query = query.Where(t => t.Price >= inputModel.PriceFrom.Value);
-            }
-
-            if (inputModel.PriceTo.HasValue)
-            {
-                query = query.Where(t => t.Price <= inputModel.PriceTo.Value);
+                query = query.Where(t => t.IssuedDate.Date == inputModel.FilterDate.Value.Date || t.ExpiryDate.Date == inputModel.FilterDate.Value.Date);
             }
 
             query = query
@@ -119,8 +94,8 @@ namespace GoceTransportApp.Services.Data.Tickets
               .Select(t => new TicketDataViewModel()
               {
                   Id = t.Id.ToString(),
-                  IssuedDate = t.IssuedDate.ToString("yyyy-MM-dd"),
-                  ExpiryDate = t.ExpiryDate.ToString("yyyy-MM-dd"),
+                  IssuedDate = t.IssuedDate.ToString("MM/dd/yyyy"),
+                  ExpiryDate = t.ExpiryDate.ToString("MM/dd/yyyy"),
                   Price = t.Price.ToString(),
                   FromCity = t.Route.FromCity.Name,
                   ToCity = t.Route.ToCity.Name,
@@ -141,8 +116,8 @@ namespace GoceTransportApp.Services.Data.Tickets
                 .Select(ticket => new RemoveTicketViewModel()
                 {
                     Id = ticket.Id.ToString(),
-                    IssuedDate = ticket.IssuedDate.ToString(),
-                    ExpiryDate = ticket.ExpiryDate.ToString(),
+                    IssuedDate = ticket.IssuedDate.ToString("MM/dd/yyyy"),
+                    ExpiryDate = ticket.ExpiryDate.ToString("MM/dd/yyyy"),
                     OrganizationId = ticket.OrganizationId.ToString()
                 })
                 .FirstOrDefaultAsync(s => s.Id.ToLower() == id.ToString().ToLower());
@@ -156,8 +131,8 @@ namespace GoceTransportApp.Services.Data.Tickets
                .Select(ticket => new EditTicketInputModel()
                {
                    Id = ticket.Id.ToString(),
-                   IssuedDate = ticket.IssuedDate.ToString("dd.MM.yyyy"),
-                   ExpiryDate = ticket.IssuedDate.ToString("dd.MM.yyyy"),
+                   IssuedDate = ticket.IssuedDate,
+                   ExpiryDate = ticket.ExpiryDate,
                    Price = ticket.Price,
                    OrganizationId = ticket.OrganizationId.ToString(),
                    RouteId = ticket.RouteId.ToString(),
@@ -214,8 +189,8 @@ namespace GoceTransportApp.Services.Data.Tickets
                 viewModel = new TicketDetailsViewModel()
                 {
                     Id = ticket.Id.ToString(),
-                    IssuedDate = ticket.IssuedDate.Date.ToString("dd.MM.yyyy"),
-                    ExpiryDate = ticket.ExpiryDate.Date.ToString("dd.MM.yyyy"),
+                    IssuedDate = ticket.IssuedDate.Date.ToString("MM/dd/yyyy"),
+                    ExpiryDate = ticket.ExpiryDate.Date.ToString("MM/dd/yyyy"),
                     Price = ticket.Price.ToString(),
                     Day = ticket.TimeTable.Day.ToString(),
                     ArrivingTime = ticket.TimeTable.Arrival.TimeOfDay.ToString(),
@@ -271,14 +246,9 @@ namespace GoceTransportApp.Services.Data.Tickets
                                          t.Route.ToCity.Name.Contains(inputModel.SearchQuery));
             }
 
-            if (inputModel.PriceFrom.HasValue)
+            if (inputModel.FilterDate.HasValue)
             {
-                query = query.Where(t => t.Price >= inputModel.PriceFrom.Value);
-            }
-
-            if (inputModel.PriceTo.HasValue)
-            {
-                query = query.Where(t => t.Price <= inputModel.PriceTo.Value);
+                query = query.Where(t => t.IssuedDate.Date == inputModel.FilterDate.Value.Date || t.ExpiryDate.Date == inputModel.FilterDate.Value.Date);
             }
 
             return await query.CountAsync();

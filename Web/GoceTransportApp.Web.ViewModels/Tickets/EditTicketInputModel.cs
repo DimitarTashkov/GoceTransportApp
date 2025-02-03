@@ -19,11 +19,14 @@ namespace GoceTransportApp.Web.ViewModels.Tickets
 
         [Required]
         [IsBefore("ExpiryDate", ErrorMessage = InvalidTicketIssueTime)]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
 
-        public string IssuedDate { get; set; }
+        public DateTime IssuedDate { get; set; }
 
         [Required]
-        public string ExpiryDate { get; set; }
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
+
+        public DateTime ExpiryDate { get; set; }
 
         [Required]
         public decimal Price { get; set; }

@@ -19,7 +19,10 @@ namespace GoceTransportApp.Web.Infrastructure.ValidationAttributes
 
         protected override ValidationResult IsValid(object value, ValidationContext validationContext)
         {
-            var currentValue = value as string;
+            if (value == null)
+            {
+                return new ValidationResult($"{validationContext.DisplayName} is required.");
+            }
 
             var property = validationContext.ObjectType.GetProperty(comparisonProperty);
             if (property == null)
@@ -27,17 +30,15 @@ namespace GoceTransportApp.Web.Infrastructure.ValidationAttributes
                 return new ValidationResult($"Property '{comparisonProperty}' not found.");
             }
 
-            var comparisonValue = property.GetValue(validationContext.ObjectInstance) as string;
+            var currentDate = (DateTime)value; 
+            var comparisonValue = property.GetValue(validationContext.ObjectInstance);
 
-            if (!DateTime.TryParse(currentValue, out var currentDate))
+            if (comparisonValue == null)
             {
-                return new ValidationResult("Invalid IssuedDate format.");
+                return new ValidationResult($"{comparisonProperty} is required.");
             }
 
-            if (!DateTime.TryParse(comparisonValue, out var comparisonDate))
-            {
-                return new ValidationResult("Invalid ExpiryDate format.");
-            }
+            var comparisonDate = (DateTime)comparisonValue;
 
             if (currentDate >= comparisonDate)
             {

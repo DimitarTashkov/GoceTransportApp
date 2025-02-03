@@ -30,21 +30,11 @@ namespace GoceTransportApp.Services.Data.Schedules
                 throw new ArgumentException("Invalid day format. Please provide a valid day of the week.");
             }
 
-            if (!DateTime.TryParse(inputModel.Departure, out var departureTime))
-            {
-                throw new ArgumentException("Invalid departure date and time format.");
-            }
-
-            if (!DateTime.TryParse(inputModel.Arrival, out var arrivalTime))
-            {
-                throw new ArgumentException("Invalid arrival date and time format.");
-            }
-
             Schedule schedule = new Schedule()
             {
                 Day = dayOfWeek,
-                Departure = departureTime,
-                Arrival = arrivalTime,
+                Departure = inputModel.Departure,
+                Arrival = inputModel.Arrival,
                 OrganizationId = Guid.Parse(inputModel.OrganizationId),
                 RouteId = Guid.Parse(inputModel.RouteId),
                 VehicleId = Guid.Parse(inputModel.VehicleId),
@@ -69,19 +59,9 @@ namespace GoceTransportApp.Services.Data.Schedules
                 throw new ArgumentException("Invalid day format. Please provide a valid day of the week.");
             }
 
-            if (!DateTime.TryParse(inputModel.Departure, out var departureTime))
-            {
-                throw new ArgumentException("Invalid departure date and time format.");
-            }
-
-            if (!DateTime.TryParse(inputModel.Arrival, out var arrivalTime))
-            {
-                throw new ArgumentException("Invalid arrival date and time format.");
-            }
-
             schedule.Day = dayOfWeek;
-            schedule.Departure = departureTime;
-            schedule.Arrival = arrivalTime;
+            schedule.Departure = inputModel.Departure;
+            schedule.Arrival = inputModel.Arrival;
             schedule.RouteId = Guid.Parse(inputModel.RouteId);
             schedule.VehicleId = Guid.Parse(inputModel.VehicleId);
             schedule.ScheduleTickets = inputModel.ScheduleTickets;
@@ -144,8 +124,8 @@ namespace GoceTransportApp.Services.Data.Schedules
               {
                   Id = schedule.Id.ToString(),
                   Day = schedule.Day.ToString(),
-                  Departure = schedule.Departure.ToString("HH:mm"),
-                  Arrival = schedule.Arrival.ToString("HH:mm"),
+                  Departure = schedule.Departure,
+                  Arrival = schedule.Arrival,
                   OrganizationId = schedule.OrganizationId.ToString(),
                   RouteId = schedule.RouteId.ToString(),
                   VehicleId = schedule.VehicleId.ToString(),

@@ -20,10 +20,10 @@ namespace GoceTransportApp.Web.ViewModels.Schedules
 
         [Required]
         [IsBefore("Arrival", ErrorMessage = InvalidScheduleDepartureTime)]
-        public string Departure { get; set; }
+        public DateTime Departure { get; set; }
 
         [Required]
-        public string Arrival { get; set; }
+        public DateTime Arrival { get; set; }
 
         [Required]
         public string OrganizationId { get; set; }

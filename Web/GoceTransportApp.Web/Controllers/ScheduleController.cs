@@ -72,6 +72,8 @@ namespace GoceTransportApp.Web.Controllers
 
             if (!ModelState.IsValid)
             {
+                model.Vehicles = await vehicleService.GetVehiclesForOrganizationAsync(model.OrganizationId);
+                model.Routes = await routeService.GetRoutesForOrganizationAsync(model.OrganizationId);
                 return View(model);
             }
 
@@ -123,6 +125,8 @@ namespace GoceTransportApp.Web.Controllers
 
             if (!ModelState.IsValid)
             {
+                formModel.Vehicles = await vehicleService.GetVehiclesForOrganizationAsync(formModel.OrganizationId);
+                formModel.Routes = await routeService.GetRoutesForOrganizationAsync(formModel.OrganizationId);
                 return this.View(formModel);
             }
 

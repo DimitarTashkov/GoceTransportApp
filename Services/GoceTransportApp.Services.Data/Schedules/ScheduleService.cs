@@ -73,24 +73,36 @@ namespace GoceTransportApp.Services.Data.Schedules
             return result;
         }
 
-        public async Task<IEnumerable<ScheduleDataViewModel>> GetAllSchedulesAsync()
+        public async Task<IEnumerable<ScheduleDataViewModel>> GetAllSchedulesAsync(AllSchedulesSearchFilterViewModel inputModel)
         {
-            IEnumerable<ScheduleDataViewModel> model = await scheduleRepository.AllAsNoTracking()
+            IQueryable<Schedule> query = scheduleRepository.AllAsNoTracking()
                 .Include(r => r.Route)
                 .ThenInclude(route => route.FromCity)
                 .Include(r => r.Route)
-                .ThenInclude(route => route.ToCity)
-              .Select(c => new ScheduleDataViewModel()
-              {
-                  Id = c.Id.ToString(),
-                  Day = c.Day.ToString(),
-                  Departing = c.Departure.ToString("HH:mm"),
-                  Arriving = c.Arrival.ToString("HH:mm"),
-                  FromCity = c.Route.FromCity.Name,
-                  ToCity = c.Route.ToCity.Name,
-                  OrganizationId = c.OrganizationId.ToString(),
-              })
-              .ToArrayAsync();
+                .ThenInclude(route => route.ToCity);
+
+            if (inputModel.DayFilter.HasValue)
+            {
+                query = query.Where(s => s.Day == inputModel.DayFilter.Value);
+            }
+
+            if (inputModel.TimeFilter.HasValue)
+            {
+                query = query.Where(s => s.Departure.TimeOfDay == inputModel.TimeFilter.Value || s.Arrival.TimeOfDay == inputModel.TimeFilter.Value);
+            }
+
+            IEnumerable<ScheduleDataViewModel> model = await query
+                .Select(c => new ScheduleDataViewModel()
+                {
+                    Id = c.Id.ToString(),
+                    Day = c.Day.ToString(),
+                    Departing = c.Departure.ToString("HH:mm"),
+                    Arriving = c.Arrival.ToString("HH:mm"),
+                    FromCity = c.Route.FromCity.Name,
+                    ToCity = c.Route.ToCity.Name,
+                    OrganizationId = c.OrganizationId.ToString(),
+                })
+                .ToArrayAsync();
 
             return model;
         }
@@ -214,6 +226,28 @@ namespace GoceTransportApp.Services.Data.Schedules
                     Text = $"{s.Day} | {s.Departure:HH:mm} - {s.Arrival:HH:mm} | Route: {s.Route.FromCity.Name}, {s.Route.FromStreet.Name} → {s.Route.ToCity.Name}, {s.Route.ToStreet.Name}"
                 })
                 .ToListAsync();
+        }
+
+        public async Task<int> GetSchedulesCountByFilterAsync(AllSchedulesSearchFilterViewModel inputModel)
+        {
+            IQueryable<Schedule> query = scheduleRepository.AllAsNoTracking()
+                .Include(r => r.Route)
+                .ThenInclude(route => route.FromCity)
+                .Include(r => r.Route)
+                .ThenInclude(route => route.ToCity);
+
+            if (inputModel.DayFilter.HasValue)
+            {
+                query = query.Where(s => s.Day == inputModel.DayFilter.Value);
+            }
+
+            if (inputModel.TimeFilter.HasValue)
+            {
+                query = query.Where(s => s.Departure.TimeOfDay >= inputModel.TimeFilter.Value);
+            }
+
+            return await query.CountAsync();
+
         }
     }
 }

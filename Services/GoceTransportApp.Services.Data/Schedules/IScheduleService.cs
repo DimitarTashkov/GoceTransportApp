@@ -1,4 +1,5 @@
 ﻿using GoceTransportApp.Web.ViewModels.Schedules;
+using GoceTransportApp.Web.ViewModels.Tickets;
 using GoceTransportApp.Web.ViewModels.Vehicles;
 using System;
 using System.Collections.Generic;
@@ -11,7 +12,7 @@ namespace GoceTransportApp.Services.Data.Schedules
 {
     public interface IScheduleService
     {
-        Task<IEnumerable<ScheduleDataViewModel>> GetAllSchedulesAsync();
+        Task<IEnumerable<ScheduleDataViewModel>> GetAllSchedulesAsync(AllSchedulesSearchFilterViewModel inputModel);
 
         Task CreateAsync(ScheduleInputModel inputModel);
 
@@ -26,6 +27,8 @@ namespace GoceTransportApp.Services.Data.Schedules
         Task<ScheduleDetailsViewModel> GetScheduleDetailsAsync(Guid id);
 
         Task<IEnumerable<SelectListItem>> GetSchedulesForOrganizationAsync(string organizationId);
+
+        Task<int> GetSchedulesCountByFilterAsync(AllSchedulesSearchFilterViewModel inputModel);
 
     }
 }

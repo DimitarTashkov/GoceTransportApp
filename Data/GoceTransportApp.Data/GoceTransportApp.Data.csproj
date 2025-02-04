@@ -43,5 +43,11 @@
     <ProjectReference Include="..\GoceTransportApp.Data.Common\GoceTransportApp.Data.Common.csproj" />
     <ProjectReference Include="..\GoceTransportApp.Data.Models\GoceTransportApp.Data.Models.csproj" />
   </ItemGroup>
+	<ItemGroup>
+		<Content Update="appsettings.json">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+			<TargetPath>appsettings.Data.json</TargetPath>
+		</Content>
+	</ItemGroup>
 
 </Project>

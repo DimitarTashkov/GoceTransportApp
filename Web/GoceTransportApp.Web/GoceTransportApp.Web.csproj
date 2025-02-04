@@ -52,6 +52,13 @@
     <ProjectReference Include="..\GoceTransportApp.Web.Infrastructure\GoceTransportApp.Web.Infrastructure.csproj" />
     <ProjectReference Include="..\GoceTransportApp.Web.ViewModels\GoceTransportApp.Web.ViewModels.csproj" />
   </ItemGroup>
+	
+	<ItemGroup>
+		<Content Update="appsettings.json">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+			<TargetPath>appsettings.Web.json</TargetPath>
+		</Content>
+	</ItemGroup>
 
   <ItemGroup>
     <Folder Include="wwwroot\images\" />

@@ -5,6 +5,7 @@
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
+	
 
   <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="8.0.10" />
@@ -15,5 +16,12 @@
     <ProjectReference Include="..\Data\GoceTransportApp.Data\GoceTransportApp.Data.csproj" />
     <ProjectReference Include="..\Services\GoceTransportApp.Services.Data\GoceTransportApp.Services.Data.csproj" />
   </ItemGroup>
+	
+	<ItemGroup>
+		<Content Update="appsettings.json">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+			<TargetPath>appsettings.WebApi.json</TargetPath>
+		</Content>
+	</ItemGroup>
 
 </Project>

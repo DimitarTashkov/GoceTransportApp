@@ -13,12 +13,12 @@
     <AdditionalFiles Include="..\..\stylecop.json" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Content Include="appsettings.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-    </Content>
-  </ItemGroup>
+	<ItemGroup>
+		<Content Update="appsettings.json">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+			<TargetPath>appsettings.Sandbox.json</TargetPath>
+		</Content>
+	</ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="CommandLineParser" Version="2.9.1" />
@@ -43,5 +43,11 @@
     <ProjectReference Include="..\..\Services\GoceTransportApp.Services.Messaging\GoceTransportApp.Services.Messaging.csproj" />
     <ProjectReference Include="..\..\Services\GoceTransportApp.Services\GoceTransportApp.Services.csproj" />
   </ItemGroup>
+	<ItemGroup>
+  <Content Update="appsettings.json">
+    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    <TargetPath>appsettings.Sandbox.json</TargetPath>
+  </Content>
+</ItemGroup>
 
 </Project>

@@ -1,6 +1,6 @@
 ﻿@using System.Security.Claims
 @using GoceTransportApp.Services.Data.Users
-@model IEnumerable<GoceTransportApp.Web.ViewModels.Schedules.ScheduleDataViewModel>
+@model GoceTransportApp.Web.ViewModels.Schedules.AllSchedulesSearchFilterViewModel
 @inject IUserService userService
 
 @{
@@ -12,18 +12,53 @@
     ViewData["Title"] = "Schedules";
 }
 
-<h1 class="text-center mt-4">@ViewData["Title"]</h1>
+<form method="get" class="mb-4">
+    <div class="d-flex flex-wrap gap-2 align-items-end">
+        <div>
+            <label asp-for="DayFilter" class="form-label"><i class="fas fa-calendar-day"></i> Day</label>
+            <select asp-for="DayFilter" class="form-control">
+                <option value="">-- Select a Day --</option>
+                <option value="Monday">Monday</option>
+                <option value="Tuesday">Tuesday</option>
+                <option value="Wednesday">Wednesday</option>
+                <option value="Thursday">Thursday</option>
+                <option value="Friday">Friday</option>
+                <option value="Saturday">Saturday</option>
+                <option value="Sunday">Sunday</option>
+            </select>
+        </div>
 
-@if (userId != null)
-{
-    <a asp-action="Create" class="btn btn-primary mb-4">
-        <i class="fas fa-plus"></i> Add New Schedule
-    </a>
-}
+        <div>
+            <label for="TimeFilter" class="form-label">Time Filter</label>
+            <input type="time" name="TimeFilter" value="@Model.TimeFilter?.ToString(@"hh\:mm")" class="form-control" id="filterTime" />
+        </div>
+
+        <div>
+            <label class="form-label d-block">&nbsp;</label> 
+            <button type="submit" class="btn btn-primary">
+                <i class="fas fa-search"></i> Search
+            </button>
+        </div>
+
+        @if (userId != null)
+        {
+            <div>
+                <label class="form-label d-block">&nbsp;</label> 
+                <a asp-action="Create" class="btn btn-primary">
+                    <i class="fas fa-plus"></i> Add New Schedule
+                </a>
+            </div>
+        }
+    </div>
+</form>
+
 
 <div class="row mt-2">
-    @foreach (var item in Model)
+    @foreach (var item in Model.Schedules)
     {
         <partial name="_ScheduleCard" model="item" />
     }
 </div>
+@section Scripts{
+    <script src="~/js/timePlaceholderHandler.js"></script>
+}

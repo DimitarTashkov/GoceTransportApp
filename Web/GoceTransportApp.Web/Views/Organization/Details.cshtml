@@ -17,32 +17,48 @@
     <div class="card-footer bg-light">
         <h4 class="text-center text-secondary">Related Data</h4>
         <div class="row g-3 mt-3">
-            <div class="col-md-4">
-                <a asp-action="Routes" asp-controller="Organization" asp-route-organizationId="@Model.Id" class="btn btn-info w-100 text-white fw-bold">
-                    <i class="bi bi-map"></i> View Routes
+            <div class="col-lg-3 col-md-4 col-sm-6">
+                <a asp-controller="Ticket" asp-area="" asp-action="Index" class="card text-center shadow-sm border-0 hover-effect">
+                    <div class="card-body">
+                        <i class="fas fa-ticket-alt fa-3x text-success mb-3"></i>
+                        <h5 class="card-title">Tickets</h5>
+                    </div>
                 </a>
             </div>
-            <div class="col-md-4">
-                <a asp-action="Drivers" asp-controller="Organization" asp-route-organizationId="@Model.Id" class="btn btn-info w-100 text-white fw-bold">
-                    <i class="bi bi-person-bounding-box"></i> View Drivers
-                </a>
-            </div>
-            <div class="col-md-4">
-                <a asp-action="Vehicles" asp-controller="Organization" asp-route-organizationId="@Model.Id" class="btn btn-info w-100 text-white fw-bold">
-                    <i class="bi bi-truck"></i> View Vehicles
-                </a>
-            </div>
-        </div>
 
-        <div class="row g-3 mt-3">
-            <div class="col-md-4">
-                <a asp-action="Tickets" asp-controller="Organization" asp-route-organizationId="@Model.Id" class="btn btn-info w-100 text-white fw-bold">
-                    <i class="bi bi-ticket-perforated"></i> View Tickets
+            <div class="col-lg-3 col-md-4 col-sm-6">
+                <a asp-controller="Route" asp-action="Index" class="card text-center shadow-sm border-0 hover-effect">
+                    <div class="card-body">
+                        <i class="fas fa-route fa-3x text-danger mb-3"></i>
+                        <h5 class="card-title">Routes</h5>
+                    </div>
                 </a>
             </div>
-            <div class="col-md-4">
-                <a asp-action="Schedules" asp-controller="Organization" asp-route-organizationId="@Model.Id" class="btn btn-info w-100 text-white fw-bold">
-                    <i class="bi bi-calendar-week"></i> View Schedules
+
+            <div class="col-lg-3 col-md-4 col-sm-6">
+                <a asp-controller="Schedule" asp-action="Index" class="card text-center shadow-sm border-0 hover-effect">
+                    <div class="card-body">
+                        <i class="fas fa-calendar-alt fa-3x text-warning mb-3"></i>
+                        <h5 class="card-title">Schedules</h5>
+                    </div>
+                </a>
+            </div>
+
+            <div class="col-lg-3 col-md-4 col-sm-6">
+                <a asp-controller="Vehicle" asp-action="Index" class="card text-center shadow-sm border-0 hover-effect">
+                    <div class="card-body">
+                        <i class="fas fa-bus fa-3x text-info mb-3"></i>
+                        <h5 class="card-title">Vehicles</h5>
+                    </div>
+                </a>
+            </div>
+
+            <div class="col-lg-3 col-md-4 col-sm-6">
+                <a asp-controller="Driver" asp-action="Index" class="card text-center shadow-sm border-0 hover-effect">
+                    <div class="card-body">
+                        <i class="fas fa-user-tie fa-3x text-secondary mb-3"></i>
+                        <h5 class="card-title">Drivers</h5>
+                    </div>
                 </a>
             </div>
         </div>
@@ -53,3 +69,14 @@
         </div>
     </div>
 </div>
+<style>
+    .hover-effect:hover {
+        transform: scale(1.05);
+        transition: transform 0.2s;
+    }
+
+    .card-title {
+        font-size: 1.2rem;
+        font-weight: bold;
+    }
+</style>

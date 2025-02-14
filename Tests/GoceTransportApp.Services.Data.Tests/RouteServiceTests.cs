@@ -10,6 +10,8 @@ using GoceTransportApp.Services.Data.Routes;
 using GoceTransportApp.Web.ViewModels.Routes;
 using GoceTransportApp.Data.Repositories;
 using System.Linq;
+using GoceTransportApp.Data.Models.Enumerations;
+using GoceTransportApp.Services.Data.Vehicles;
 
 public class RouteServiceTests
 {
@@ -330,5 +332,25 @@ public class RouteServiceTests
         Assert.True(result);
         Assert.Equal(20, updatedRoute.Distance);
         Assert.Equal(45, updatedRoute.Duration);
+    }
+
+
+    [Fact]
+    public async Task GetRouteDetailsAsync_Should_Return_Null_For_NonExistent_Route_Id()
+    {
+        // Arrange
+        var dbContext = await GetDatabaseContext();
+        var routeRepository = new EfDeletableEntityRepository<Route>(dbContext);
+        var streetRepository = new EfDeletableEntityRepository<Street>(dbContext);
+        var cityRepository = new EfDeletableEntityRepository<City>(dbContext);
+        var routeService = new RouteService(routeRepository, streetRepository, cityRepository);
+
+        var nonExistentRouteId = Guid.NewGuid(); 
+
+        // Act
+        var result = await routeService.GetRouteInformationAsync(nonExistentRouteId);
+
+        // Assert
+        Assert.Null(result);
     }
 }

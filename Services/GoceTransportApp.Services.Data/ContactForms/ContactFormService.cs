@@ -71,6 +71,7 @@ namespace GoceTransportApp.Services
         {
             var contactForm = await contactFormRepository
                 .AllAsNoTracking()
+                .Include(x => x.User)
                 .Where(x => x.Id == id)
                 .Select(x => new ContactFormDeleteViewModel
                 {

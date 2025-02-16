@@ -112,17 +112,6 @@ namespace GoceTransportApp.Data.Migrations
                     { new Guid("ebf4be4c-b944-4a60-8820-ce9add91c913"), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, false, null, "Shelbyville", "Illinois", "62705" }
                 });
 
-            migrationBuilder.InsertData(
-                table: "Organizations",
-                columns: new[] { "Id", "Address", "CreatedOn", "DeletedOn", "FounderId", "ImageUrl", "IsDeleted", "ModifiedOn", "Name", "Phone" },
-                values: new object[,]
-                {
-                    { new Guid("692b4dc6-9c52-4a86-8dd0-70c70d2618b7"), "789 Oak St, Ogdenville", new DateTime(2024, 12, 10, 20, 39, 24, 270, DateTimeKind.Local).AddTicks(1495), null, "c40f52d6-d2cc-4379-8acf-782558dba84c", "../../images/no-organization-image", false, null, "Safe Travels", "+1 555-9012" },
-                    { new Guid("c29a68cd-bf19-4f47-b0be-e4c19c7d548e"), "456 Elm St, Shelbyville", new DateTime(2024, 12, 10, 20, 39, 24, 270, DateTimeKind.Local).AddTicks(1487), null, "a982c9b9-c1bc-4a5b-a89a-4c53a701c526", "../../images/no-organization-image", false, null, "Express Logistics", "+1 555-5678" },
-                    { new Guid("c4fbbac9-ca54-4d2c-8a23-a1a072a77e46"), "654 Maple St, Capitol City", new DateTime(2024, 12, 10, 20, 39, 24, 270, DateTimeKind.Local).AddTicks(1513), null, "6b040313-77f4-49b0-b3d3-b25de95eb408", "../../images/no-organization-image", false, null, "Comfy Rides", "+1 555-7890" },
-                    { new Guid("c67f1eb3-11fd-4e34-a543-3f0ead3713fa"), "123 Main St, Springfield", new DateTime(2024, 12, 10, 20, 39, 24, 270, DateTimeKind.Local).AddTicks(1463), null, "4b5ab8a3-7604-447a-a603-f8e97e45fb61", "../../images/no-organization-image", false, null, "City Transport Co.", "+1 555-1234" },
-                    { new Guid("f9eef093-95c1-40b1-80c8-60c73e8045e3"), "321 Pine St, North Haverbrook", new DateTime(2024, 12, 10, 20, 39, 24, 270, DateTimeKind.Local).AddTicks(1506), null, "00591d7b-5bf5-475b-ac85-4a2467481881", "../../images/no-organization-image", false, null, "Urban Express", "+1 555-3456" }
-                });
 
             migrationBuilder.InsertData(
                 table: "Streets",

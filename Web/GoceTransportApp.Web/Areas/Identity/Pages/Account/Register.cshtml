@@ -27,15 +27,20 @@
             </div>
 
             <div class="form-floating mb-3">
-                <input asp-for="Input.Password" type="password" class="form-control" autocomplete="new-password" aria-required="true" placeholder="Password" />
+                <input asp-for="Input.Password" type="password" class="form-control password-field" autocomplete="new-password" aria-required="true" placeholder="Password" />
                 <label asp-for="Input.Password"><i class="fas fa-lock text-primary me-2"></i>Password</label>
                 <span asp-validation-for="Input.Password" class="text-danger"></span>
             </div>
 
             <div class="form-floating mb-3">
-                <input asp-for="Input.ConfirmPassword" type="password" class="form-control" autocomplete="new-password" aria-required="true" placeholder="Confirm Password" />
+                <input asp-for="Input.ConfirmPassword" type="password" class="form-control password-field" autocomplete="new-password" aria-required="true" placeholder="Confirm Password" />
                 <label asp-for="Input.ConfirmPassword"><i class="fas fa-lock text-primary me-2"></i>Confirm Password</label>
                 <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
+            </div>
+
+            <div class="form-check mb-3">
+                <input type="checkbox" class="form-check-input" id="showPasswordToggle">
+                <label class="form-check-label" for="showPasswordToggle">Show Passwords</label>
             </div>
 
             <button id="registerSubmit" type="submit" class="w-100 btn btn-lg btn-primary">
@@ -47,4 +52,5 @@
 
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
+    <script src="~/js/showPassword.js"></script>
 }

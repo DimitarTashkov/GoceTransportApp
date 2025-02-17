@@ -83,6 +83,7 @@ namespace GoceTransportApp.Web.Controllers
             }
 
             await routeService.CreateAsync(model);
+            TempData[nameof(SuccessMessage)] = SuccessMessage;
 
             return RedirectToAction("Routes", "Organization", new { organizationId = model.OrganizationId });
         }
@@ -143,6 +144,8 @@ namespace GoceTransportApp.Web.Controllers
                 return this.View(formModel);
             }
 
+            TempData[nameof(SuccessMessage)] = SuccessMessage;
+
             return RedirectToAction("Routes", "Organization", new { organizationId = formModel.OrganizationId });
         }
 
@@ -199,6 +202,8 @@ namespace GoceTransportApp.Web.Controllers
 
                 return this.View(formModel);
             }
+
+            TempData[nameof(SuccessMessage)] = SuccessMessage;
 
             return RedirectToAction("Routes", "Organization", new { organizationId = formModel.OrganizationId });
 

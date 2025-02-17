@@ -66,7 +66,6 @@
         {
             public const string SuccessMessage = "The action has been successfully completed!";
             public const string FailMessage = "Unexpected error occurred while processing your request! Please contact administrator!";
-
         }
     }
 }

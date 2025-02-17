@@ -15,6 +15,14 @@
     ViewData["Title"] = "Routes for Organization";
 }
 
+@if (TempData["SuccessMessage"] != null)
+{
+    <div class="alert alert-success d-flex align-items-center" role="alert">
+        <i class="fas fa-ticket-alt me-2"></i>
+        <span>@TempData["SuccessMessage"]</span>
+    </div>
+}
+
 <div class="container mt-5">
     <h1 class="text-center mb-4">Routes</h1>
     @if (isFounder || isAdmin)

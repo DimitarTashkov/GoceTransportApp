@@ -114,18 +114,9 @@
                 <i class="fas fa-user"></i> Create an account today to manage your routes, track your organizations and enjoy the complete experience.
             </p>
 
-            @if (!SignInManager.IsSignedIn(User))
-            {
-                <a asp-area="Identity" asp-page="/Account/Register" class="btn btn-primary btn-lg hover-animated">
-                    <i class="fas fa-user-plus"></i> Get Started Now
-                </a>
-            }
-            else
-            {
-                <a asp-controller="Organization" asp-action="UserOrganizations" class="btn btn-primary btn-lg hover-animated">
-                    <i class="fas fa-user-plus"></i> Get Started Now
-                </a>
-            }
+            <a asp-controller="Organization" asp-action="UserOrganizations" class="btn btn-primary btn-lg hover-animated">
+                <i class="fas fa-user-plus"></i> Get Started Now
+            </a>
 
         </div>
 

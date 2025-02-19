@@ -91,6 +91,10 @@ namespace GoceTransportApp.Services.Data.Schedules
                 query = query.Where(s => s.Departure.TimeOfDay == inputModel.TimeFilter.Value || s.Arrival.TimeOfDay == inputModel.TimeFilter.Value);
             }
 
+            query = query
+                    .Skip(inputModel.EntitiesPerPage.Value * (inputModel.CurrentPage.Value - 1))
+                    .Take(inputModel.EntitiesPerPage.Value);
+
             IEnumerable<ScheduleDataViewModel> model = await query
                 .Select(c => new ScheduleDataViewModel()
                 {

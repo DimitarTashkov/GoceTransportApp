@@ -59,6 +59,48 @@
         <partial name="_ScheduleCard" model="item" />
     }
 </div>
+@if (Model.TotalPages > 1)
+{
+    <nav aria-label="Page navigation" class="mt-4">
+        <ul class="pagination justify-content-center">
+            @if (Model.CurrentPage > 1)
+            {
+                <li class="page-item">
+                    <a class="page-link" href="?DayFilter=@Model.DayFilter
+                                    &TimeFilter=@Model.TimeFilter
+                                    &CurrentPage=@(Model.CurrentPage - 1)
+                                    &EntitiesPerPage=@Model.EntitiesPerPage">
+                        <i class="fas fa-chevron-left"></i> Previous
+                    </a>
+                </li>
+            }
+
+            @for (int i = 1; i <= Model.TotalPages; i++)
+            {
+                <li class="page-item @(Model.CurrentPage == i ? "active" : "")">
+                    <a class="page-link" href="?DayFilter=@Model.DayFilter
+                                    &TimeFilter=@Model.TimeFilter
+                                    &CurrentPage=@i
+                                    &EntitiesPerPage=@Model.EntitiesPerPage">
+                        @i
+                    </a>
+                </li>
+            }
+
+            @if (Model.CurrentPage < Model.TotalPages)
+            {
+                <li class="page-item">
+                    <a class="page-link" href="?DayFilter=@Model.DayFilter
+                                    &TimeFilter=@Model.TimeFilter
+                                    &CurrentPage=@(Model.CurrentPage + 1)
+                                    &EntitiesPerPage=@Model.EntitiesPerPage">
+                        <i class="fas fa-chevron-right"></i> Next
+                    </a>
+                </li>
+            }
+        </ul>
+    </nav>
+}
 @section Scripts{
     <script src="~/js/timePlaceholderHandler.js"></script>
 }

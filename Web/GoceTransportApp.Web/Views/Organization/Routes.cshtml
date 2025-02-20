@@ -5,6 +5,7 @@
 @inject IUserService userService
 
 @{
+    var message = TempData["SuccessMessage"];
     var organizationId = Model.OrganizationId;
     var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
     var isFounder = await userService.HasUserCreatedOrganizationAsync(userId, organizationId);
@@ -15,11 +16,11 @@
     ViewData["Title"] = "Routes for Organization";
 }
 
-@if (TempData["SuccessMessage"] != null)
+@if (message != null)
 {
     <div class="alert alert-success d-flex align-items-center" role="alert">
         <i class="fas fa-ticket-alt me-2"></i>
-        <span>@TempData["SuccessMessage"]</span>
+        <span>@message</span>
     </div>
 }
 

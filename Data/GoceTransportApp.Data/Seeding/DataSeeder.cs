@@ -14,7 +14,7 @@ namespace GoceTransportApp.Data.Seeding
         public async Task SeedAsync(ApplicationDbContext dbContext, IServiceProvider serviceProvider)
         {
             // Prevent multiple seedings
-            //if (await dbContext.Cities.AnyAsync()) return;
+            if (await dbContext.Cities.AnyAsync()) return;
 
             var random = new Random();
 

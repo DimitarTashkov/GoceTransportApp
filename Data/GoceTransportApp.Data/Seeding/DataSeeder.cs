@@ -14,7 +14,7 @@ namespace GoceTransportApp.Data.Seeding
         public async Task SeedAsync(ApplicationDbContext dbContext, IServiceProvider serviceProvider)
         {
             // Prevent multiple seedings
-            if (await dbContext.Cities.AnyAsync()) return;
+            //if (await dbContext.Cities.AnyAsync()) return;
 
             var random = new Random();
 
@@ -42,6 +42,23 @@ namespace GoceTransportApp.Data.Seeding
 
             var streets = streetNames.Select(name => new Street { Id = Guid.NewGuid(), Name = name }).ToList();
             await dbContext.Streets.AddRangeAsync(streets);
+
+            // Seed CityStreet (Many-to-Many Relationship)
+            var cityStreetRelations = new List<CityStreet>();
+            var streetIds = streets.Select(s => s.Id).ToList();
+            foreach (var city in cities)
+            {
+                var selectedStreets = streetIds.OrderBy(_ => Guid.NewGuid()).Take(3); // Each city gets 3 random streets
+                foreach (var streetId in selectedStreets)
+                {
+                    cityStreetRelations.Add(new CityStreet
+                    {
+                        CityId = city.Id,
+                        StreetId = streetId
+                    });
+                }
+            }
+            await dbContext.CitiesStreets.AddRangeAsync(cityStreetRelations);
 
             // Seed Users & Organizations
             var users = new List<ApplicationUser>();
@@ -104,7 +121,6 @@ namespace GoceTransportApp.Data.Seeding
             };
 
             var cityDict = cities.ToDictionary(c => c.Name, c => c.Id);
-            var streetIds = streets.Select(s => s.Id).ToList();
 
             foreach (var org in organizations)
             {

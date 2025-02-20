@@ -88,8 +88,9 @@ namespace GoceTransportApp.Web.Controllers
             }
 
             await organizationService.CreateAsync(model);
+            TempData[nameof(SuccessMessage)] = SuccessMessage;
 
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction(nameof(UserOrganizations));
         }
 
         [HttpGet]
@@ -116,6 +117,8 @@ namespace GoceTransportApp.Web.Controllers
 
             if (formModel == null)
             {
+                TempData[nameof(FailMessage)] = FailMessage;
+
                 return this.RedirectToAction(nameof(Index));
             }
 
@@ -147,7 +150,9 @@ namespace GoceTransportApp.Web.Controllers
                 return this.View(formModel);
             }
 
-            return this.RedirectToAction(nameof(Index));
+            TempData[nameof(SuccessMessage)] = SuccessMessage;
+
+            return this.RedirectToAction(nameof(UserOrganizations));
         }
 
         [HttpGet]
@@ -172,6 +177,7 @@ namespace GoceTransportApp.Web.Controllers
 
             if (model == null)
             {
+                TempData[nameof(FailMessage)] = FailMessage;
                 return this.RedirectToAction(nameof(Index));
             }
 
@@ -203,7 +209,9 @@ namespace GoceTransportApp.Web.Controllers
                 return this.View(formModel);
             }
 
-            return this.RedirectToAction(nameof(Index));
+            TempData[nameof(SuccessMessage)] = SuccessMessage;
+
+            return this.RedirectToAction(nameof(UserOrganizations));
         }
 
         [HttpGet]

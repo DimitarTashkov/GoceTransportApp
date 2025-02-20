@@ -93,6 +93,9 @@ namespace GoceTransportApp.Controllers
         public async Task<IActionResult> DeleteConfirmed(Guid id)
         {
             await contactFormService.DeleteFormAsync(id);
+
+            TempData[nameof(SuccessMessage)] = SuccessMessage;
+
             return RedirectToAction(nameof(Index));
         }
 

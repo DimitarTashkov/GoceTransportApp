@@ -14,6 +14,7 @@
     using GoceTransportApp.Data.Models;
     using GoceTransportApp.Web.ViewModels.ContactForms;
     using GoceTransportApp.Services;
+    using static GoceTransportApp.Common.ResultMessages.GeneralMessages;
 
     [Authorize(Roles = GlobalConstants.AdministratorRoleName)]
     [Area(GlobalConstants.AdministratorArea)]
@@ -59,6 +60,8 @@
                 .UserExistsByIdAsync(userGuid);
             if (!userExists)
             {
+                TempData[nameof(FailMessage)] = FailMessage;
+
                 return this.RedirectToAction(nameof(Index));
             }
 
@@ -66,8 +69,11 @@
                 .AssignUserToRoleAsync(userGuid, role);
             if (!assignResult)
             {
+                TempData[nameof(FailMessage)] = FailMessage;
+
                 return this.RedirectToAction(nameof(Index));
             }
+            TempData[nameof(SuccessMessage)] = SuccessMessage;
 
             return this.RedirectToAction(nameof(Index));
         }
@@ -85,6 +91,8 @@
                 .UserExistsByIdAsync(userGuid);
             if (!userExists)
             {
+                TempData[nameof(FailMessage)] = FailMessage;
+
                 return this.RedirectToAction(nameof(Index));
             }
 
@@ -92,8 +100,11 @@
                 .RemoveUserRoleAsync(userGuid, role);
             if (!removeResult)
             {
+                TempData[nameof(FailMessage)] = FailMessage;
+
                 return this.RedirectToAction(nameof(Index));
             }
+            TempData[nameof(SuccessMessage)] = SuccessMessage;
 
             return this.RedirectToAction(nameof(Index));
         }
@@ -111,6 +122,8 @@
                 .UserExistsByIdAsync(userGuid);
             if (!userExists)
             {
+                TempData[nameof(FailMessage)] = FailMessage;
+
                 return this.RedirectToAction(nameof(Index));
             }
 
@@ -118,8 +131,12 @@
                 .DeleteUserAsync(userGuid);
             if (!removeResult)
             {
+                TempData[nameof(FailMessage)] = FailMessage;
+
                 return this.RedirectToAction(nameof(Index));
             }
+
+            TempData[nameof(SuccessMessage)] = SuccessMessage;
 
             return this.RedirectToAction(nameof(Index));
         }

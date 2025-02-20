@@ -1,12 +1,28 @@
 ﻿@model IEnumerable<GoceTransportApp.Web.ViewModels.Organizations.OrganizationDataViewModel>
+
 @{
     ViewData["Title"] = "My Organizations";
 }
 
+@if (TempData["SuccessMessage"] != null)
+{
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        <strong><i class="fas fa-ticket-alt me-2"></i> </strong> @TempData["SuccessMessage"]
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+}
+
+@if (TempData["FailMessage"] != null)
+{
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        <strong><i class="fas fa-times-circle "></i> </strong> @TempData["FailMessage"]
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+}
 <h2 class="text-center mb-4">My Organizations</h2>
 
 <div class="mb-3">
-    <a asp-action="Create" class="btn btn-primary"><i class="fas fa-plus"></i> Add New Organization</a>
+    <a asp-action="Create" class="btn btn-success"><i class="fas fa-plus"></i> Add New Organization</a>
 </div>
 
 <div class="row">

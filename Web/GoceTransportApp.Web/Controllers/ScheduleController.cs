@@ -94,6 +94,7 @@ namespace GoceTransportApp.Web.Controllers
             }
 
             await scheduleService.CreateAsync(model);
+            TempData[nameof(SuccessMessage)] = SuccessMessage;
 
             return RedirectToAction("Schedules", "Organization", new { organizationId = model.OrganizationId });
         }
@@ -115,6 +116,8 @@ namespace GoceTransportApp.Web.Controllers
 
             if (formModel == null)
             {
+                TempData[nameof(FailMessage)] = FailMessage;
+
                 return RedirectToAction("Schedules", "Organization", new { organizationId = organizationId });
             }
 
@@ -156,6 +159,8 @@ namespace GoceTransportApp.Web.Controllers
                 return this.View(formModel);
             }
 
+            TempData[nameof(SuccessMessage)] = SuccessMessage;
+
             return RedirectToAction("Schedules", "Organization", new { organizationId = formModel.OrganizationId });
         }
 
@@ -174,6 +179,8 @@ namespace GoceTransportApp.Web.Controllers
 
             if (model == null)
             {
+                TempData[nameof(FailMessage)] = FailMessage;
+
                 return RedirectToAction("Schedules", "Organization", new { organizationId = organizationId });
             }
 
@@ -209,6 +216,8 @@ namespace GoceTransportApp.Web.Controllers
 
                 return this.View(formModel);
             }
+
+            TempData[nameof(SuccessMessage)] = SuccessMessage;
 
             return RedirectToAction("Schedules", "Organization", new { organizationId = formModel.OrganizationId });
         }

@@ -3,6 +3,14 @@
 
 <h1>Contact Forms</h1>
 
+@if (TempData["SuccessMessage"] != null)
+{
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        <strong><i class="fas fa-ticket-alt me-2"></i> </strong> @TempData["SuccessMessage"]
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+}
+
 <partial name="_ContactFormDataPartial" model="Model" />
 
     

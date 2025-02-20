@@ -69,6 +69,7 @@ namespace GoceTransportApp.Web.Controllers
             }
 
             await driverService.CreateAsync(model);
+            TempData[nameof(SuccessMessage)] = SuccessMessage;
 
             return RedirectToAction("Drivers", "Organization", new { organizationId = model.OrganizationId });
         }
@@ -90,8 +91,9 @@ namespace GoceTransportApp.Web.Controllers
 
             if (formModel == null)
             {
-                return RedirectToAction("Drivers", "Organization", new { organizationId = formModel.OrganizationId });
+                TempData[nameof(FailMessage)] = FailMessage;
 
+                return RedirectToAction("Drivers", "Organization", new { organizationId = formModel.OrganizationId });
             }
 
             string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
@@ -129,6 +131,8 @@ namespace GoceTransportApp.Web.Controllers
                 return this.View(formModel);
             }
 
+            TempData[nameof(SuccessMessage)] = SuccessMessage;
+
             return RedirectToAction("Drivers", "Organization", new { organizationId = formModel.OrganizationId });
         }
 
@@ -147,6 +151,8 @@ namespace GoceTransportApp.Web.Controllers
 
             if (model == null)
             {
+                TempData[nameof(FailMessage)] = FailMessage;
+
                 return RedirectToAction("Drivers", "Organization", new { organizationId = organizationId });
             }
 
@@ -183,6 +189,7 @@ namespace GoceTransportApp.Web.Controllers
 
                 return this.View(formModel);
             }
+            TempData[nameof(SuccessMessage)] = SuccessMessage;
 
             return RedirectToAction("Drivers", "Organization", new { organizationId = formModel.OrganizationId });
         }

@@ -4,6 +4,14 @@
     ViewData["Title"] = "City Details";
 }
 
+@if (TempData["SuccessMessage"] != null)
+{
+    <div class="alert alert-success d-flex align-items-center" role="alert">
+        <i class="fas fa-ticket-alt me-2"></i>
+        <span>@TempData["SuccessMessage"]</span>
+    </div>
+}
+
 <div class="container mt-5">
     <div class="row justify-content-center">
         <div class="col-md-8">

@@ -13,6 +13,22 @@
     ViewData["Title"] = "All Cities";
 }
 
+@if (TempData["SuccessMessage"] != null)
+{
+    <div class="alert alert-success d-flex align-items-center" role="alert">
+        <i class="fas fa-ticket-alt me-2"></i>
+        <span>@TempData["SuccessMessage"]</span>
+    </div>
+}
+
+@if (TempData["FailMessage"] != null)
+{
+    <div class="alert alert-danger d-flex align-items-center" role="alert">
+        <i class="fas fa-exclamation-circle me-2"></i>
+        <span>@TempData["FailMessage"]</span>
+    </div>
+}
+
 <div class="container mt-5">
     <h1 class="text-center mb-4">
         <i class="fas fa-city"></i> Cities

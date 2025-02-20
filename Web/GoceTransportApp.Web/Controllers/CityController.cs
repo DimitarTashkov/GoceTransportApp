@@ -66,6 +66,8 @@ namespace GoceTransportApp.Web.Controllers
 
             await cityService.CreateAsync(model);
 
+            TempData[nameof(SuccessMessage)] = SuccessMessage;
+
             return RedirectToAction(nameof(Index));
         }
 
@@ -111,6 +113,7 @@ namespace GoceTransportApp.Web.Controllers
                 return this.View(formModel);
             }
 
+            TempData[nameof(SuccessMessage)] = SuccessMessage;
             return this.RedirectToAction(nameof(Index));
         }
 
@@ -135,6 +138,8 @@ namespace GoceTransportApp.Web.Controllers
                 return this.RedirectToAction("Index");
             }
 
+            TempData[nameof(SuccessMessage)] = SuccessMessage;
+
             return this.RedirectToAction(nameof(Index));
         }
 
@@ -154,6 +159,8 @@ namespace GoceTransportApp.Web.Controllers
                 .GetCityDetailsAsync(cityGuid);
             if (model == null)
             {
+                TempData[nameof(FailMessage)] = FailMessage;
+
                 return this.RedirectToAction(nameof(Index));
             }
 
@@ -205,6 +212,7 @@ namespace GoceTransportApp.Web.Controllers
         {
             if (!this.ModelState.IsValid)
             {
+                TempData[nameof(FailMessage)] = FailMessage;
                 return this.View(model);
             }
 
@@ -219,9 +227,12 @@ namespace GoceTransportApp.Web.Controllers
                 .AddStreetToCityAsync(cityGuid, model);
             if (result == false)
             {
-                // TODO: Add temp message and redirect to Details
+                TempData[nameof(FailMessage)] = FailMessage;
+
                 return this.RedirectToAction(nameof(Index));
             }
+
+            TempData[nameof(SuccessMessage)] = SuccessMessage;
 
             return this.RedirectToAction(nameof(Details), new {id = model.Id});
         }

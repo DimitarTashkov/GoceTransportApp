@@ -7,11 +7,10 @@ Goce Transport app is a modern web application for local transport visualization
 - [Description](#description)
 - [Features](#features)
 - [Installation](#installation)
-- [Usage](#usage)
 
 ## Description
 
-My app offers intuitive design for transport companies, seeking advertisement and digital availability within the app. Business representatives can manage their organization bus lines, routes, schedules, drivers, vehicles and tickets they use to operate. This app should aid the accessibility to information about transport service in Goce Delchev and nearby villages. Users can reassure themselves about changes in bus schedules and routes online, without the need of contacting company individuals. It should help citizens to akcnowledge with bus working hours better.
+My app offers an intuitive design for transport companies, seeking advertisement and digital availability within the app. Business representatives can manage their organization's bus lines, routes, schedules, drivers, vehicles, and tickets they use to operate. This app should aid in the accessibility to information about transport services in Goce Delchev and nearby villages. Users can reassure themselves about changes in bus schedules and routes online, without the need to contact company personnel. It should help citizens become more familiar with the bus working hours.
 ## Technologies Used
 
 List the major technologies, frameworks, libraries, and tools used in this project:
@@ -32,7 +31,7 @@ List the major technologies, frameworks, libraries, and tools used in this proje
 - Feature 3: Explore all existing organizations
 - Feature 4: Purchase tickets for routes
 - Feature 5: Create organizations
-- Feature 6: Manage organizations's routes, schedules, vehicles, tickets, drivers
+- Feature 6: Manage organizations' routes, schedules, vehicles, tickets, drivers
 - Feature 7: Create essentials for organizations (routes, schedules, vehicles, etc...)
 - Feature 8: Full control over own organizations and their resources
 
@@ -44,6 +43,6 @@ To install and set up the project locally, follow these steps:
    ```bash
    git clone https://github.com/DimitarTashkov/GoceTransportApp.git
    
-2. Adjust connection string for local database in GoceTransport.Web.appsettings.json.
+2. Adjust the connection string for the local database in GoceTransport.Web.appsettings.json.
 
-3. Configure CORS local host support. After every clone and build this application changes its localhost port, making it impossible to communicate with the Web API. Check your port and change mine in GoceTranpsort.WebAPI.appsettings.json.
+3. Configure CORS local host support. After every clone and build, this application changes its localhost port, making it impossible to communicate with the Web API. Check your port and change mine in GoceTranpsort.WebAPI.appsettings.json.

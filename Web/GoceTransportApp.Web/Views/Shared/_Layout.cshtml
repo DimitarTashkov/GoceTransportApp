@@ -17,7 +17,7 @@
 <body class="d-flex flex-column min-vh-100 bg-body-tertiary">
     <!-- Header (Navbar) -->
     <header>
-        <nav class="navbar navbar-expand-lg bg-white sticky-top shadow-sm">
+        <nav class="navbar navbar-expand-lg bg-body sticky-top shadow-sm">
             <div class="container">
                 <a class="navbar-brand fw-bold text-uppercase text-primary" asp-area="" asp-controller="Home" asp-action="Index">
                     <i class="fas fa-bus-alt"></i> @GlobalConstants.SystemName
@@ -55,7 +55,7 @@
                     </ul>
                     <partial name="_LoginPartial" />
 
-                    <button id="darkModeToggle" class="btn btn-outline-dark btn-sm ms-2" title="Toggle dark mode" aria-label="Toggle dark mode">
+                    <button id="darkModeToggle" class="btn btn-outline-secondary btn-sm ms-2" title="Toggle dark mode" aria-label="Toggle dark mode">
                         <i id="darkModeIcon" class="fas fa-moon"></i>
                     </button>
                 </div>
@@ -74,12 +74,12 @@
     </main>
 
     <!-- Footer -->
-    <footer class="bg-white text-muted py-4 border-top mt-auto">
+    <footer class="bg-body text-muted py-4 border-top mt-auto">
         <div class="container">
             <div class="row">
                 <!-- Navigation Links -->
                 <div class="col-md-4 mb-3">
-                    <h6 class="fw-bold text-dark mb-3"><i class="fas fa-bus-alt me-2"></i>@GlobalConstants.SystemName</h6>
+                    <h6 class="fw-bold text-body mb-3"><i class="fas fa-bus-alt me-2"></i>@GlobalConstants.SystemName</h6>
                     <ul class="list-unstyled small">
                         <li><a class="text-muted text-decoration-none" asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
                         <li><a class="text-muted text-decoration-none" asp-area="" asp-controller="Home" asp-action="AboutUs">About Us</a></li>
@@ -89,7 +89,7 @@
 
                 <!-- Explore Section -->
                 <div class="col-md-4 mb-3">
-                    <h6 class="fw-bold text-dark mb-3">Explore</h6>
+                    <h6 class="fw-bold text-body mb-3">Explore</h6>
                     <ul class="list-unstyled small">
                         <li><a class="text-muted text-decoration-none" asp-controller="Route" asp-action="Index">Routes</a></li>
                         <li><a class="text-muted text-decoration-none" asp-controller="Schedule" asp-action="Index">Schedules</a></li>
@@ -102,7 +102,7 @@
 
                 <!-- Info Section -->
                 <div class="col-md-4 mb-3">
-                    <h6 class="fw-bold text-dark mb-3">Transport Info</h6>
+                    <h6 class="fw-bold text-body mb-3">Transport Info</h6>
                     <p class="small">Plan your journey with real-time routes, schedules, and tickets across the network.</p>
                     <div class="d-flex gap-3 mt-2">
                         <a asp-controller="Route" asp-action="Index" class="text-muted" title="Routes"><i class="fas fa-route fa-lg"></i></a>

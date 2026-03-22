@@ -1,4 +1,4 @@
-﻿@using GoceTransportApp.Data.Models
+@using GoceTransportApp.Data.Models
 @using Microsoft.AspNetCore.Identity
 
 @inject SignInManager<ApplicationUser> SignInManager
@@ -7,143 +7,202 @@
     ViewData["Title"] = "Home";
 }
 
-<div class="container py-5">
-    <div class="text-center">
-        <h1 class="display-4 fw-bold mb-4 text-primary">
-            <i class="fas fa-bus"></i> Welcome to GoceTransportApp
-        </h1>
-        <p class="h5 text-secondary">
-            <i class="fas fa-map-marker-alt"></i> Your one-stop platform for routes, schedules and organizations.
-        </p>
-    </div>
 
-    <div class="row mt-5 align-items-center">
+<section class="py-5 text-center">
+    <i class="fas fa-bus fa-4x text-primary mb-4"></i>
+    <h1 class="display-4 fw-bold mb-3">Welcome to GoceTransportApp</h1>
+    <p class="lead text-muted mb-5 col-lg-7 mx-auto">
+        Your one-stop platform for discovering routes, checking schedules, and managing transport organizations — all in one place.
+    </p>
+    <div class="d-flex justify-content-center gap-3 flex-wrap">
+        <a asp-controller="Route" asp-action="Index" class="btn btn-primary btn-lg rounded-pill px-5">
+            <i class="fas fa-route me-2"></i>Explore Routes
+        </a>
+        <a asp-controller="Schedule" asp-action="Index" class="btn btn-outline-primary btn-lg rounded-pill px-5">
+            <i class="fas fa-calendar-alt me-2"></i>View Schedules
+        </a>
+    </div>
+</section>
+
+
+<section class="py-5">
+    <div class="text-center mb-5">
+        <h2 class="fw-bold mb-2">How It Works</h2>
+        <p class="text-muted lead">Three simple steps to plan your journey.</p>
+    </div>
+    <div class="row g-4">
+        <div class="col-md-4">
+            <div class="card border-0 shadow-sm rounded-4 h-100 text-center p-4">
+                <div class="card-body">
+                    <div class="rounded-circle bg-primary bg-opacity-10 d-inline-flex align-items-center justify-content-center mb-4" style="width:72px;height:72px">
+                        <i class="fas fa-map-marked-alt fa-2x text-primary"></i>
+                    </div>
+                    <h5 class="fw-bold mb-2">1. Find a Route</h5>
+                    <p class="text-muted small mb-0">Browse all available routes, filter by departing and arriving city, and find the connection that fits your journey.</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card border-0 shadow-sm rounded-4 h-100 text-center p-4">
+                <div class="card-body">
+                    <div class="rounded-circle bg-primary bg-opacity-10 d-inline-flex align-items-center justify-content-center mb-4" style="width:72px;height:72px">
+                        <i class="fas fa-clock fa-2x text-primary"></i>
+                    </div>
+                    <h5 class="fw-bold mb-2">2. Check the Schedule</h5>
+                    <p class="text-muted small mb-0">See departure times, days of operation, and available vehicles. Filter by day or time to find what suits you best.</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card border-0 shadow-sm rounded-4 h-100 text-center p-4">
+                <div class="card-body">
+                    <div class="rounded-circle bg-primary bg-opacity-10 d-inline-flex align-items-center justify-content-center mb-4" style="width:72px;height:72px">
+                        <i class="fas fa-ticket-alt fa-2x text-primary"></i>
+                    </div>
+                    <h5 class="fw-bold mb-2">3. Get Your Ticket</h5>
+                    <p class="text-muted small mb-0">Browse available tickets, check validity dates and pricing, and keep track of all your purchased tickets in one place.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<section class="py-5">
+    <div class="row align-items-center g-5">
         <div class="col-md-6">
             <div class="text-center">
                 <img src="~/images/travel_illustration.png" alt="Travel Illustration" class="img-fluid">
             </div>
         </div>
-
         <div class="col-md-6">
-            <div class="row g-4">
-                <div class="col-12">
-                    <div class="card border-0 shadow-sm p-3 bg-primary bg-opacity-10">
-                        <div class="card-body d-flex align-items-center">
-                            <i class="fas fa-route fa-3x text-primary me-4"></i>
-                            <div>
-                                <h4 class="fw-bold text-primary">
-                                    <i class="fas fa-map"></i> Explore Routes
-                                </h4>
-                                <p class="h6 text-muted">Discover all available travel routes.</p>
-                                <a asp-controller="Route" asp-action="Index" class="btn btn-primary btn-lg">
-                                    <i class="fas fa-location-arrow"></i> View Routes
-                                </a>
-                            </div>
-                        </div>
+            <h2 class="fw-bold mb-4">Everything You Need in One App</h2>
+            <div class="d-flex flex-column gap-3">
+                <div class="d-flex align-items-start gap-3">
+                    <div class="rounded-circle bg-primary bg-opacity-10 d-inline-flex align-items-center justify-content-center flex-shrink-0" style="width:48px;height:48px">
+                        <i class="fas fa-route text-primary"></i>
+                    </div>
+                    <div>
+                        <h6 class="fw-bold mb-1">Routes</h6>
+                        <p class="text-muted small mb-0">Discover all travel routes between cities, with complete street-level details and distance information.</p>
                     </div>
                 </div>
-
-                <div class="col-12">
-                    <div class="card border-0 shadow-sm p-3 bg-success bg-opacity-10">
-                        <div class="card-body d-flex align-items-center">
-                            <i class="fas fa-clock fa-3x text-success me-4"></i>
-                            <div>
-                                <h4 class="fw-bold text-success">
-                                    <i class="fas fa-calendar-alt"></i> Explore Schedules
-                                </h4>
-                                <p class="h6 text-muted">Stay updated with the latest schedules.</p>
-                                <a asp-controller="Schedule" asp-action="Index" class="btn btn-success btn-lg">
-                                    <i class="fas fa-clock"></i> View Schedules
-                                </a>
-                            </div>
-                        </div>
+                <div class="d-flex align-items-start gap-3">
+                    <div class="rounded-circle bg-primary bg-opacity-10 d-inline-flex align-items-center justify-content-center flex-shrink-0" style="width:48px;height:48px">
+                        <i class="fas fa-calendar-alt text-primary"></i>
+                    </div>
+                    <div>
+                        <h6 class="fw-bold mb-1">Schedules</h6>
+                        <p class="text-muted small mb-0">View full operating schedules for every route — filter by day and time to plan your trip with precision.</p>
                     </div>
                 </div>
-
-                <div class="col-12">
-                    <div class="card border-0 shadow-sm p-3 bg-info bg-opacity-10">
-                        <div class="card-body d-flex align-items-center">
-                            <i class="fas fa-building fa-3x text-info me-4"></i>
-                            <div>
-                                <h4 class="fw-bold text-info">
-                                    <i class="fas fa-city"></i> Explore Organizations
-                                </h4>
-                                <p class="h6 text-muted">Browse the organizations managing these routes.</p>
-                                <a asp-controller="Organization" asp-action="Index" class="btn btn-info btn-lg">
-                                    <i class="fas fa-building"></i> View Organizations
-                                </a>
-                            </div>
-                        </div>
+                <div class="d-flex align-items-start gap-3">
+                    <div class="rounded-circle bg-primary bg-opacity-10 d-inline-flex align-items-center justify-content-center flex-shrink-0" style="width:48px;height:48px">
+                        <i class="fas fa-building text-primary"></i>
+                    </div>
+                    <div>
+                        <h6 class="fw-bold mb-1">Organizations</h6>
+                        <p class="text-muted small mb-0">Browse transport organizations, their fleets, and the routes and drivers they manage across the network.</p>
                     </div>
                 </div>
-
-                <div class="col-12">
-                    <div class="card border-0 shadow-sm p-3 bg-warning bg-opacity-10">
-                        <div class="card-body d-flex align-items-center">
-                            <i class="fas fa-ticket-alt fa-3x text-warning me-4"></i>
-                            <div>
-                                <h4 class="fw-bold text-warning">
-                                    <i class="fas fa-ticket-alt"></i> View Tickets
-                                </h4>
-                                <p class="h6 text-muted">Check and book your tickets easily.</p>
-                                <a asp-controller="Ticket" asp-action="Index" class="btn btn-warning btn-lg">
-                                    <i class="fas fa-ticket-alt"></i> View Tickets
-                                </a>
-                            </div>
-                        </div>
+                <div class="d-flex align-items-start gap-3">
+                    <div class="rounded-circle bg-primary bg-opacity-10 d-inline-flex align-items-center justify-content-center flex-shrink-0" style="width:48px;height:48px">
+                        <i class="fas fa-bus text-primary"></i>
+                    </div>
+                    <div>
+                        <h6 class="fw-bold mb-1">Vehicles & Drivers</h6>
+                        <p class="text-muted small mb-0">Get detailed information about the vehicles in service and the experienced drivers operating each route.</p>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+</section>
 
-    <section class="row mt-5 py-5 bg-body-secondary rounded-3">
-        <div class="col-md-6 d-flex flex-column justify-content-center">
-            <h2 class="fw-bold text-primary mb-4">
-                <i class="fas fa-rocket"></i> Wanna Explore the Full Functionality of Our App?
-            </h2>
-            <p class="h5 text-muted mb-4">
-                <i class="fas fa-user"></i> Create an account today to manage your routes, track your organizations and enjoy the complete experience.
-            </p>
 
-            <a asp-controller="Organization" asp-action="UserOrganizations" class="btn btn-primary btn-lg">
-                <i class="fas fa-user-plus"></i> Get Started Now
+<section class="py-5">
+    <div class="text-center mb-5">
+        <h2 class="fw-bold mb-2">Quick Access</h2>
+        <p class="text-muted lead">Jump straight to what you need.</p>
+    </div>
+    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-4">
+        <div class="col">
+            <a asp-controller="Route" asp-action="Index" class="card border-0 shadow-sm rounded-4 h-100 text-center text-decoration-none p-4">
+                <div class="card-body">
+                    <i class="fas fa-route fa-2x text-primary mb-3"></i>
+                    <h6 class="fw-bold text-body mb-1">Routes</h6>
+                    <p class="text-muted small mb-0">All travel routes</p>
+                </div>
             </a>
-
         </div>
+        <div class="col">
+            <a asp-controller="Schedule" asp-action="Index" class="card border-0 shadow-sm rounded-4 h-100 text-center text-decoration-none p-4">
+                <div class="card-body">
+                    <i class="fas fa-calendar-alt fa-2x text-primary mb-3"></i>
+                    <h6 class="fw-bold text-body mb-1">Schedules</h6>
+                    <p class="text-muted small mb-0">Departure times</p>
+                </div>
+            </a>
+        </div>
+        <div class="col">
+            <a asp-controller="Ticket" asp-action="Index" class="card border-0 shadow-sm rounded-4 h-100 text-center text-decoration-none p-4">
+                <div class="card-body">
+                    <i class="fas fa-ticket-alt fa-2x text-primary mb-3"></i>
+                    <h6 class="fw-bold text-body mb-1">Tickets</h6>
+                    <p class="text-muted small mb-0">Available tickets</p>
+                </div>
+            </a>
+        </div>
+        <div class="col">
+            <a asp-controller="Organization" asp-action="Index" class="card border-0 shadow-sm rounded-4 h-100 text-center text-decoration-none p-4">
+                <div class="card-body">
+                    <i class="fas fa-building fa-2x text-primary mb-3"></i>
+                    <h6 class="fw-bold text-body mb-1">Organizations</h6>
+                    <p class="text-muted small mb-0">Transport operators</p>
+                </div>
+            </a>
+        </div>
+    </div>
+</section>
 
-        <div class="col-md-6">
-            <div class="text-center">
-                <img src="~/images/sign_up_image.png" alt="Sign Up Illustration" class="img-fluid">
+
+<section class="py-5 bg-body-secondary rounded-4 px-4 my-4">
+    <div class="row align-items-center g-4">
+        <div class="col-md-8">
+            <h2 class="fw-bold mb-2">Ready to Get Started?</h2>
+            <p class="text-muted mb-0">Create an account to manage your own organization, add routes and drivers, and take full control of your transport network.</p>
+        </div>
+        <div class="col-md-4 text-md-end">
+            <a asp-controller="Organization" asp-action="UserOrganizations" class="btn btn-primary btn-lg rounded-pill px-5">
+                <i class="fas fa-user-plus me-2"></i>Get Started
+            </a>
+        </div>
+    </div>
+</section>
+
+
+<div class="row g-4 mt-2">
+    <div class="col-md-6">
+        <div class="card border-0 shadow-sm rounded-4 h-100 p-4">
+            <div class="card-body text-center">
+                <i class="fas fa-info-circle fa-2x text-primary mb-3"></i>
+                <h5 class="fw-bold mb-2">About Us</h5>
+                <p class="text-muted small mb-4">Learn more about GoceTransportApp and our mission to make travel planning easier for everyone.</p>
+                <a asp-controller="Home" asp-action="AboutUs" class="btn btn-outline-primary rounded-pill px-4">
+                    <i class="fas fa-info me-1"></i>Learn More
+                </a>
             </div>
         </div>
-    </section>
-
-    <div class="row mt-5 g-4">
-        <div class="col-md-6">
-            <div class="card border-0 shadow-sm h-100 text-center p-3 bg-secondary bg-opacity-10">
-                <div class="card-body">
-                    <h4 class="fw-bold text-secondary">
-                        <i class="fas fa-info-circle"></i> About Us
-                    </h4>
-                    <p class="h6 text-muted">Learn more about GoceTransportApp and our mission to make travel easier.</p>
-                    <a asp-controller="Home" asp-action="AboutUs" class="btn btn-secondary btn-lg">
-                        <i class="fas fa-info"></i> Learn More
-                    </a>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-6">
-            <div class="card border-0 shadow-sm h-100 text-center p-3 bg-dark bg-opacity-10">
-                <div class="card-body">
-                    <h4 class="fw-bold text-dark">
-                        <i class="fas fa-envelope"></i> Contact Us
-                    </h4>
-                    <p class="h6 text-muted">Have questions? Get in touch with our support team.</p>
-                    <a asp-controller="ContactForm" asp-action="Create" class="btn btn-dark btn-lg">
-                        <i class="fas fa-paper-plane"></i> Contact
-                    </a>
-                </div>
+    </div>
+    <div class="col-md-6">
+        <div class="card border-0 shadow-sm rounded-4 h-100 p-4">
+            <div class="card-body text-center">
+                <i class="fas fa-envelope fa-2x text-primary mb-3"></i>
+                <h5 class="fw-bold mb-2">Contact Us</h5>
+                <p class="text-muted small mb-4">Have a question or feedback? Our team is happy to help — reach out and we'll get back to you promptly.</p>
+                <a asp-controller="ContactForm" asp-action="Create" class="btn btn-outline-primary rounded-pill px-4">
+                    <i class="fas fa-paper-plane me-1"></i>Contact
+                </a>
             </div>
         </div>
     </div>

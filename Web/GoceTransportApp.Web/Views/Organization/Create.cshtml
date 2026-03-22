@@ -3,9 +3,13 @@
 @{
     ViewData["Title"] = "Create Organization";
 }
-<h2 class="text-center">Create Organization</h2>
-
-<div class="card shadow-sm p-4" style="max-width: 600px; margin: auto;">
+<div class="row justify-content-center">
+<div class="col-lg-7">
+<div class="card shadow-sm">
+<div class="card-header py-3">
+    <h4 class="mb-0"><i class="fas fa-building me-2"></i>Create Organization</h4>
+</div>
+<div class="card-body p-4">
     <form asp-action="Create" method="post">
     <input asp-for="FounderId" type="hidden" />
         <div class="form-group">
@@ -23,8 +27,8 @@
             <input asp-for="Phone" class="form-control" />
             <span asp-validation-for="Phone" class="text-danger"></span>
         </div>
-        <div class="text-center mt-3">
-            <button type="submit" class="btn btn-success">
+        <div class="d-flex gap-2 mt-3">
+            <button type="submit" class="btn btn-success flex-grow-1">
                 <i class="fas fa-save"></i> Create
             </button>
             <a asp-action="Index" class="btn btn-secondary">
@@ -32,7 +36,7 @@
             </a>
         </div>
     </form>
-</div>
+</div></div></div></div>
 
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />

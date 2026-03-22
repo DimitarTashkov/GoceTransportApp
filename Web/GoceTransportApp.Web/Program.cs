@@ -72,6 +72,8 @@
 
             services.AddDatabaseDeveloperPageExceptionFilter();
 
+            services.AddMemoryCache();
+
             services.AddSingleton(configuration);
 
             // HTTP client for the Transport API (used in Cloud Run: Web → API over HTTP)

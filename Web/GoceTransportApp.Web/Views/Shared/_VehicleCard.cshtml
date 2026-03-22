@@ -1,4 +1,4 @@
-﻿@using GoceTransportApp.Services.Data.Users
+@using GoceTransportApp.Services.Data.Users
 @using System.Security.Claims
 @using static GoceTransportApp.Common.GlobalConstants
 @model GoceTransportApp.Web.ViewModels.Vehicles.VehicleDataViewModel
@@ -9,23 +9,30 @@
     var isFounder = await userService.HasUserCreatedOrganizationAsync(userId, organizationId);
     var isAdmin = User.IsInRole(AdministratorRoleName);
 }
-
-<div class="col-md-4">
-    <div class="card shadow-sm border-0 rounded-4">
-        <div class="card-body">
-            <h5 class="card-title">@Model.Number</h5>
-            <p class="card-text">
-                <strong>Type:</strong> @Model.Type <br />
-                <strong>Manufacturer:</strong> @Model.Manufacturer <br />
-                <strong>Model:</strong> @Model.Model
-            </p>
-
-            @if (isFounder || isAdmin)
-            {
-                <a asp-action="Edit" asp-controller="Vehicle" asp-route-id="@Model.Id" asp-route-organizationId="@Model.OrganizationId" class="btn btn-warning btn-sm"><i class="fas fa-edit"></i> Edit</a>
-                <a asp-action="Delete" asp-controller="Vehicle" asp-route-id="@Model.Id" asp-route-organizationId="@Model.OrganizationId" class="btn btn-danger btn-sm"><i class="fas fa-trash"></i> Delete</a>
-            }
-            <a asp-action="Details" asp-controller="Vehicle" asp-route-id="@Model.Id" asp-route-organizationId="@Model.OrganizationId" class="btn btn-primary btn-sm"><i class="fas fa-info-circle"></i> Details</a>
+<div class="col">
+    <div class="card border-0 shadow-sm rounded-4 h-100">
+        <div class="card-body p-4 d-flex flex-column">
+            <div class="mb-3">
+                <i class="fas fa-bus fa-2x text-primary mb-2"></i>
+                <h5 class="card-title fw-semibold mb-1">@Model.Number</h5>
+                <p class="card-text text-muted small mb-0">
+                    @Model.Manufacturer @Model.Model &middot; @Model.Type
+                </p>
+            </div>
+            <div class="mt-auto pt-3 d-flex gap-2">
+                <a asp-action="Details" asp-controller="Vehicle" asp-route-id="@Model.Id" asp-route-organizationId="@Model.OrganizationId" class="btn btn-outline-primary rounded-pill flex-grow-1">
+                    <i class="fas fa-info-circle"></i> Details
+                </a>
+                @if (isFounder || isAdmin)
+                {
+                    <a asp-action="Edit" asp-controller="Vehicle" asp-route-id="@Model.Id" asp-route-organizationId="@Model.OrganizationId" class="btn btn-outline-warning rounded-pill" title="Edit">
+                        <i class="fas fa-edit"></i>
+                    </a>
+                    <a asp-action="Delete" asp-controller="Vehicle" asp-route-id="@Model.Id" asp-route-organizationId="@Model.OrganizationId" class="btn btn-outline-danger rounded-pill" title="Delete">
+                        <i class="fas fa-trash"></i>
+                    </a>
+                }
+            </div>
         </div>
     </div>
 </div>

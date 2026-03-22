@@ -1,11 +1,12 @@
-﻿@model GoceTransportApp.Web.ViewModels.Routes.RouteDetailsViewModel
+@model GoceTransportApp.Web.ViewModels.Routes.RouteDetailsViewModel
 
-<div class="card shadow-sm">
-    <div class="card-body">
-        <h5 class="card-title">Route Details</h5>
+<div class="card border-0 shadow-sm rounded-4">
+    <div class="card-body p-4">
+        <div class="mb-3">
+            <i class="fas fa-route fa-2x text-primary mb-2"></i>
+            <h5 class="card-title fw-semibold">@Model.DepartingCity → @Model.ArrivingCity</h5>
+        </div>
         <p class="card-text">
-            <strong>Departing City:</strong> @Model.DepartingCity<br />
-            <strong>Arriving City:</strong> @Model.ArrivingCity<br />
             <strong>Departing Street:</strong> @Model.DepartingStreet<br />
             <strong>Arriving Street:</strong> @Model.ArrivingStreet<br />
             <strong>Organization:</strong> @Model.Organization<br />

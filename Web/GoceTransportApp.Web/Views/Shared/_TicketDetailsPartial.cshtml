@@ -1,4 +1,4 @@
-﻿@using System.Security.Claims
+@using System.Security.Claims
 @using GoceTransportApp.Services.Data.Users
 @using static GoceTransportApp.Common.GlobalConstants
 @model GoceTransportApp.Web.ViewModels.Tickets.TicketDetailsViewModel
@@ -10,36 +10,39 @@
     var isAdmin = User.IsInRole(AdministratorRoleName);
 }
 <div class="row justify-content-center">
-<div class="col-lg-8">
-<div class="card shadow-sm border-0 rounded-4">
-    <div class="card-body">
-        <h5 class="card-title"><i class="fas fa-ticket-alt"></i> Ticket Details</h5>
-        <p class="card-text">
-            <strong>Issued Date:</strong> @Model.IssuedDate <br />
-            <strong>Expiry Date:</strong> @Model.ExpiryDate <br />
-            <strong>Price:</strong> $@Model.Price <br />
-            <strong>Day:</strong> @Model.Day <br />
-            <strong>Departure Time:</strong> @Model.DepartingTime <br />
-            <strong>Arrival Time:</strong> @Model.ArrivingTime <br />
-            <strong>From:</strong> @Model.FromCity, @Model.FromStreet <br />
-            <strong>To:</strong> @Model.ToCity, @Model.ToStreet <br />
-            <strong>Organization:</strong> @Model.OrganizationName <br />
-        </p>
-        <div class="d-flex justify-content-between">
-            @if (isFounder || isAdmin)
-            {
-                <a asp-action="Edit" asp-controller="Ticket" asp-route-id="@Model.Id" asp-route-organizationId="@Model.OrganizationId" class="btn btn-warning">
-                    <i class="fas fa-edit"></i> Edit
-                </a>
-                <a asp-action="Delete" asp-controller="Ticket" asp-route-id="@Model.Id" asp-route-organizationId="@Model.OrganizationId" class="btn btn-danger">
-                    <i class="fas fa-trash"></i> Delete
-                </a>
-            }
-            <a asp-action="Index" asp-controller="Ticket" class="btn btn-light">
-                <i class="fas fa-arrow-left"></i> Back to List
-            </a>
+    <div class="col-lg-8">
+        <div class="card border-0 shadow-sm rounded-4">
+            <div class="card-body p-4">
+                <div class="mb-3">
+                    <i class="fas fa-ticket-alt fa-2x text-primary mb-2"></i>
+                    <h5 class="card-title fw-semibold">Ticket Details</h5>
+                </div>
+                <p class="card-text">
+                    <strong>Issued Date:</strong> @Model.IssuedDate<br />
+                    <strong>Expiry Date:</strong> @Model.ExpiryDate<br />
+                    <strong>Price:</strong> $@Model.Price<br />
+                    <strong>Day:</strong> @Model.Day<br />
+                    <strong>Departure Time:</strong> @Model.DepartingTime<br />
+                    <strong>Arrival Time:</strong> @Model.ArrivingTime<br />
+                    <strong>From:</strong> @Model.FromCity, @Model.FromStreet<br />
+                    <strong>To:</strong> @Model.ToCity, @Model.ToStreet<br />
+                    <strong>Organization:</strong> @Model.OrganizationName
+                </p>
+                <div class="d-flex flex-column gap-2 mt-3">
+                    @if (isFounder || isAdmin)
+                    {
+                        <a asp-action="Edit" asp-controller="Ticket" asp-route-id="@Model.Id" asp-route-organizationId="@Model.OrganizationId" class="btn btn-outline-warning rounded-pill w-100">
+                            <i class="fas fa-edit"></i> Edit
+                        </a>
+                        <a asp-action="Delete" asp-controller="Ticket" asp-route-id="@Model.Id" asp-route-organizationId="@Model.OrganizationId" class="btn btn-outline-danger rounded-pill w-100">
+                            <i class="fas fa-trash"></i> Delete
+                        </a>
+                    }
+                    <a asp-action="Index" asp-controller="Ticket" class="btn btn-outline-secondary rounded-pill w-100">
+                        <i class="fas fa-arrow-left"></i> Back to List
+                    </a>
+                </div>
+            </div>
         </div>
     </div>
-</div>
-</div>
 </div>

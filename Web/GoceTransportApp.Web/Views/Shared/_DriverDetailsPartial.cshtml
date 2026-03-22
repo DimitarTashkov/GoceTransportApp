@@ -1,13 +1,15 @@
-﻿@model GoceTransportApp.Web.ViewModels.Drivers.DriverDetailsViewModel
+@model GoceTransportApp.Web.ViewModels.Drivers.DriverDetailsViewModel
 
-
-<div class="card shadow mb-4">
-    <div class="card-body">
-        <h5 class="card-title">@Model.FirstName @Model.LastName</h5>
+<div class="card border-0 shadow-sm rounded-4">
+    <div class="card-body p-4">
+        <div class="mb-3">
+            <i class="fas fa-user-tie fa-2x text-primary mb-2"></i>
+            <h5 class="card-title fw-semibold">@Model.FirstName @Model.LastName</h5>
+        </div>
         <p class="card-text">
             <strong>Age:</strong> @Model.Age<br />
             <strong>Driving Experience:</strong> @Model.DrivingExperience<br />
-            <strong>Organization Name:</strong> @Model.OrganizationName
+            <strong>Organization:</strong> @Model.OrganizationName
         </p>
     </div>
 </div>

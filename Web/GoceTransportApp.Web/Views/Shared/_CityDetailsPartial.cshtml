@@ -1,4 +1,4 @@
-﻿@using GoceTransportApp.Services.Data.Users
+@using GoceTransportApp.Services.Data.Users
 @using System.Security.Claims
 @using static GoceTransportApp.Common.GlobalConstants
 @model GoceTransportApp.Web.ViewModels.Cities.CityDetailsViewModel
@@ -8,29 +8,29 @@
     var isAdmin = User.IsInRole(AdministratorRoleName);
 }
 
-<div class="card">
-    <div class="card-body">
-        <h2 class="card-title text-center mb-4">@Model.Name</h2>
+<div class="card border-0 shadow-sm rounded-4">
+    <div class="card-body p-4">
+        <h2 class="card-title text-center fw-bold mb-4">@Model.Name</h2>
 
         <div class="mb-3">
-            <h5 class="card-subtitle mb-2 text-muted">State</h5>
+            <h6 class="text-muted text-uppercase small fw-semibold">State</h6>
             <p class="card-text">@Model.State</p>
         </div>
 
         <div class="mb-3">
-            <h5 class="card-subtitle mb-2 text-muted">Zip Code</h5>
+            <h6 class="text-muted text-uppercase small fw-semibold">Zip Code</h6>
             <p class="card-text">@Model.ZipCode</p>
         </div>
 
         <div class="mb-3">
-            <h5 class="card-subtitle mb-2 text-muted">Streets</h5>
+            <h6 class="text-muted text-uppercase small fw-semibold">Streets</h6>
             @if (Model.Streets != null && Model.Streets.Any())
             {
-                <div class="list-group">
+                <div class="list-group list-group-flush rounded-3">
                     @foreach (var street in Model.Streets)
                     {
-                        <div class="list-group-item">
-                            <h5 class="mb-1">@street.Name</h5>
+                        <div class="list-group-item border-0 px-0">
+                            <i class="fas fa-road text-muted me-2"></i>@street.Name
                         </div>
                     }
                 </div>
@@ -39,25 +39,25 @@
             {
                 <p class="text-muted">No streets available for this city.</p>
             }
-
         </div>
 
-        <div class="text-center mt-4">
+        <div class="d-flex flex-column gap-2 mt-4">
+            @if (userId != null)
+            {
+                <a asp-action="AddStreet" asp-route-id="@Model.Id" class="btn btn-outline-success rounded-pill w-100">
+                    <i class="fas fa-plus"></i> Add Streets
+                </a>
+            }
             @if (isAdmin)
             {
-                <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-warning btn-sm">
+                <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-outline-warning rounded-pill w-100">
                     <i class="fas fa-edit"></i> Edit
                 </a>
-                <a asp-action="Delete" asp-route-id="@Model.Id" class="btn btn-danger btn-sm">
+                <a asp-action="Delete" asp-route-id="@Model.Id" class="btn btn-outline-danger rounded-pill w-100">
                     <i class="fas fa-trash-alt"></i> Delete
                 </a>
             }
-            @if (userId != null)
-            {
-                <a asp-action="AddStreet" asp-route-id="@Model.Id" class="btn btn-success me-2 btn-sm"><i class="fas fa-plus"></i>Add Streets</a>
-
-            }
-            <a asp-action="Index"  class="btn btn-secondary btn-sm">
+            <a asp-action="Index" class="btn btn-outline-secondary rounded-pill w-100">
                 <i class="fas fa-arrow-left"></i> Back
             </a>
         </div>

@@ -1,0 +1,51 @@
+# syntax=docker/dockerfile:1
+
+# =============================================================================
+# Stage 1 — Build
+# Build context: solution root (GoceTransportApp/)
+# =============================================================================
+FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
+WORKDIR /src
+
+# -- Solution-level analyser files (StyleCop, Roslyn ruleset) --
+COPY Rules.ruleset stylecop.json ./
+
+# -- Copy ONLY .csproj files first for maximum layer-cache reuse on restore --
+COPY GoceTransportApp.Common/GoceTransportApp.Common.csproj                                 GoceTransportApp.Common/
+COPY Data/GoceTransportApp.Data.Common/GoceTransportApp.Data.Common.csproj                  Data/GoceTransportApp.Data.Common/
+COPY Data/GoceTransportApp.Data.Models/GoceTransportApp.Data.Models.csproj                  Data/GoceTransportApp.Data.Models/
+COPY Data/GoceTransportApp.Data/GoceTransportApp.Data.csproj                                Data/GoceTransportApp.Data/
+COPY Services/GoceTransportApp.Services/GoceTransportApp.Services.csproj                    Services/GoceTransportApp.Services/
+COPY Services/GoceTransportApp.Services.Data/GoceTransportApp.Services.Data.csproj          Services/GoceTransportApp.Services.Data/
+COPY Services/GoceTransportApp.Services.Mapping/GoceTransportApp.Services.Mapping.csproj    Services/GoceTransportApp.Services.Mapping/
+COPY Services/GoceTransportApp.Services.Messaging/GoceTransportApp.Services.Messaging.csproj Services/GoceTransportApp.Services.Messaging/
+COPY Web/GoceTransportApp.Web.Infrastructure/GoceTransportApp.Web.Infrastructure.csproj    Web/GoceTransportApp.Web.Infrastructure/
+COPY Web/GoceTransportApp.Web.ViewModels/GoceTransportApp.Web.ViewModels.csproj             Web/GoceTransportApp.Web.ViewModels/
+COPY Web/GoceTransportApp.Web/GoceTransportApp.Web.csproj                                   Web/GoceTransportApp.Web/
+
+# -- Restore packages (cached until a .csproj changes) --
+RUN dotnet restore "Web/GoceTransportApp.Web/GoceTransportApp.Web.csproj"
+
+# -- Copy all remaining source code --
+COPY . .
+
+# -- Publish release build --
+RUN dotnet publish "Web/GoceTransportApp.Web/GoceTransportApp.Web.csproj" \
+        -c Release \
+        -o /app/publish \
+        --no-restore
+
+# =============================================================================
+# Stage 2 — Runtime (minimal ASP.NET image, no SDK)
+# =============================================================================
+FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS runtime
+WORKDIR /app
+
+COPY --from=build /app/publish .
+
+ENV ASPNETCORE_ENVIRONMENT=Production
+
+# Cloud Run инжектира $PORT (default 8080).
+# Shell-форма на CMD позволява разгъването на $PORT по runtime.
+EXPOSE 8080
+CMD exec dotnet GoceTransportApp.Web.dll --urls "http://+:${PORT:-8080}"

@@ -32,6 +32,8 @@
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.Hosting;
+    using Polly;
+    using Polly.Extensions.Http;
 
     public class Program
     {
@@ -72,6 +74,28 @@
 
             services.AddSingleton(configuration);
 
+            // HTTP client for the Transport API (used in Cloud Run: Web → API over HTTP)
+            // Retry: 3 attempts with exponential backoff (2s, 4s, 8s) — handles Cloud Run cold starts
+            // Circuit Breaker: opens after 5 consecutive failures for 30 seconds
+            var retryPolicy = HttpPolicyExtensions
+                .HandleTransientHttpError()
+                .WaitAndRetryAsync(
+                    retryCount: 3,
+                    sleepDurationProvider: attempt => TimeSpan.FromSeconds(Math.Pow(2, attempt)));
+
+            var circuitBreakerPolicy = HttpPolicyExtensions
+                .HandleTransientHttpError()
+                .CircuitBreakerAsync(
+                    handledEventsAllowedBeforeBreaking: 5,
+                    durationOfBreak: TimeSpan.FromSeconds(30));
+
+            services.AddHttpClient("TransportApi", client =>
+            {
+                client.BaseAddress = new Uri(configuration["ApiSettings:BaseUrl"] ?? "http://localhost:5001");
+                client.Timeout = TimeSpan.FromSeconds(30);
+            })
+            .AddPolicyHandler(retryPolicy)
+            .AddPolicyHandler(circuitBreakerPolicy);
 
             // Data repositories
             services.AddScoped(typeof(IDeletableEntityRepository<>), typeof(EfDeletableEntityRepository<>));

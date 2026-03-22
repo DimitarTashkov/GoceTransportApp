@@ -1,0 +1,12 @@
+**/.vs
+**/.git
+**/.gitignore
+**/bin
+**/obj
+**/TestResults
+Tests/
+**/node_modules
+**/*.user
+**/*.suo
+roadmap.md
+README.md

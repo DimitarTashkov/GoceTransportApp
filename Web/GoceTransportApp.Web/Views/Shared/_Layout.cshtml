@@ -65,13 +65,6 @@
         </nav>
     </header>   
 
-    <!-- Loading Spinner Overlay -->
-    <div id="loadingOverlay" class="d-none position-fixed top-0 start-0 w-100 h-100 d-flex align-items-center justify-content-center" style="background:rgba(0,0,0,0.4);z-index:9999;">
-        <div class="spinner-border text-light" style="width:3rem;height:3rem;" role="status">
-            <span class="visually-hidden">Loading...</span>
-        </div>
-    </div>
-
     <!-- Main Content -->
     <main class="flex-grow-1 pt-5 mt-5 mb-5">
         <div class="container">
@@ -83,13 +76,12 @@
     </main>
 
     <!-- Footer -->
-    <footer class="bg-dark text-light py-4 mt-auto">
-
-        <div class="container ">
+    <footer class="py-4 mt-auto border-top" data-bs-theme="dark">
+        <div class="container">
             <div class="row">
                 <!-- Navigation Links -->
-                <div class="col-md-3 mb-3">
-                    <h5 class="fw-bold mb-3">Navigation</h5>
+                <div class="col-md-4 mb-3">
+                    <h5 class="fw-bold mb-3"><i class="fas fa-bus-alt me-2"></i>@GlobalConstants.SystemName</h5>
                     <ul class="list-unstyled">
                         <li><a class="text-light text-decoration-none" asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
                         <li><a class="text-light text-decoration-none" asp-area="" asp-controller="Home" asp-action="AboutUs">About Us</a></li>
@@ -98,23 +90,33 @@
                 </div>
 
                 <!-- Explore Section -->
-                <div class="col-md-3 mb-3">
+                <div class="col-md-4 mb-3">
                     <h5 class="fw-bold mb-3">Explore</h5>
                     <ul class="list-unstyled">
                         <li><a class="text-light text-decoration-none" asp-controller="Route" asp-action="Index">Routes</a></li>
                         <li><a class="text-light text-decoration-none" asp-controller="Schedule" asp-action="Index">Schedules</a></li>
                         <li><a class="text-light text-decoration-none" asp-controller="Ticket" asp-action="Index">Tickets</a></li>
                         <li><a class="text-light text-decoration-none" asp-controller="Organization" asp-action="Index">Organizations</a></li>
-                        <li><a class="dropdown-item" asp-controller="City" asp-action="Index">Cities</a></li>
-                        <li><a class="dropdown-item" asp-controller="Street" asp-action="Index">Streets</a></li>
+                        <li><a class="text-light text-decoration-none" asp-controller="City" asp-action="Index">Cities</a></li>
+                        <li><a class="text-light text-decoration-none" asp-controller="Street" asp-action="Index">Streets</a></li>
                     </ul>
                 </div>
-            </div>
-        </div>
 
-        <!-- Copyright Section -->
-        <div class="bg-dark text-center py-2">
-            <p class="mb-0">&copy; @DateTime.Now.Year - @GlobalConstants.SystemName</p>
+                <!-- Info Section -->
+                <div class="col-md-4 mb-3">
+                    <h5 class="fw-bold mb-3">Transport Info</h5>
+                    <p class="text-light opacity-75 small">Plan your journey with real-time routes, schedules, and tickets across the network.</p>
+                    <div class="d-flex gap-3 mt-2">
+                        <a asp-controller="Route" asp-action="Index" class="text-light" title="Routes"><i class="fas fa-route fa-lg"></i></a>
+                        <a asp-controller="Schedule" asp-action="Index" class="text-light" title="Schedules"><i class="fas fa-clock fa-lg"></i></a>
+                        <a asp-controller="Organization" asp-action="Index" class="text-light" title="Organizations"><i class="fas fa-building fa-lg"></i></a>
+                        <a asp-area="" asp-controller="ContactForm" asp-action="Create" class="text-light" title="Contact Us"><i class="fas fa-envelope fa-lg"></i></a>
+                    </div>
+                </div>
+            </div>
+
+            <hr class="border-secondary" />
+            <p class="text-center text-light opacity-75 mb-0 small">&copy; @DateTime.Now.Year @GlobalConstants.SystemName. All rights reserved.</p>
         </div>
     </footer>
 
@@ -125,14 +127,13 @@
     <script src="~/js/site.min.js" asp-append-version="true"></script>
     <script>
         (function () {
-            var overlay = document.getElementById('loadingOverlay');
             document.querySelectorAll('form').forEach(function (form) {
                 form.addEventListener('submit', function () {
-                    overlay.classList.remove('d-none');
+                    var btn = form.querySelector('[type="submit"]');
+                    if (!btn) return;
+                    btn.disabled = true;
+                    btn.innerHTML = '<span class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>' + btn.textContent.trim();
                 });
-            });
-            window.addEventListener('pageshow', function () {
-                overlay.classList.add('d-none');
             });
         })();
     </script>

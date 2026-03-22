@@ -1,4 +1,4 @@
-﻿@using GoceTransportApp.Data.Models
+@using GoceTransportApp.Data.Models
 @using GoceTransportApp.Web.ViewModels.Users
 @using Microsoft.AspNetCore.Identity
 @using Microsoft.EntityFrameworkCore
@@ -15,7 +15,7 @@
 @if (TempData["SuccessMessage"] != null)
 {
     <div class="alert alert-success alert-dismissible fade show" role="alert">
-        <strong><i class="fas fa-ticket-alt me-2"></i> </strong> @TempData["SuccessMessage"]
+        <strong><i class="fas fa-check-circle me-2"></i></strong> @TempData["SuccessMessage"]
         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
     </div>
 }
@@ -23,82 +23,76 @@
 @if (TempData["FailMessage"] != null)
 {
     <div class="alert alert-danger alert-dismissible fade show" role="alert">
-        <strong><i class="fas fa-times-circle "></i> </strong> @TempData["FailMessage"]
+        <strong><i class="fas fa-times-circle me-2"></i></strong> @TempData["FailMessage"]
         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
     </div>
 }
 
-<div class="container mt-5">
-    <h1 class="text-center mb-4">
-        <i class="fas fa-users me-2 text-primary"></i>User Management
-    </h1>
+<div class="text-center mb-4">
+    <i class="fas fa-users fa-3x text-primary mb-3"></i>
+    <h1 class="h2 fw-bold">User Management</h1>
+</div>
 
-    <form method="get" class="mb-5">
-        <div class="row g-3">
-            <div class="col-md-6">
-                <input type="text" name="SearchQuery" value="@Model.SearchQuery" class="form-control" placeholder="Search for user..." />
-            </div>
-            <div class="col-md-3">
-                <button type="submit" class="btn btn-primary w-100">
-                    <i class="fas fa-search"></i> Search
-                </button>
-            </div>
-        </div>
+<div class="d-flex gap-2 mb-4">
+    <form method="get" class="d-flex gap-2 flex-grow-1">
+        <input type="text" name="SearchQuery" value="@Model.SearchQuery" class="form-control rounded-pill" placeholder="Search for user..." />
+        <button type="submit" class="btn btn-primary rounded-pill px-4">
+            <i class="fas fa-search"></i>
+        </button>
     </form>
+</div>
 
-    <table class="table table-bordered table-hover">
-        <thead class="thead-light">
+<div class="table-responsive bg-white rounded-4 shadow-sm p-3">
+    <table class="table table-borderless table-hover align-middle mb-0">
+        <thead>
             <tr>
-                <th class="py-2"><i class="fas fa-envelope me-2"></i>Email</th>
-                <th class="py-2"><i class="fas fa-user-tag me-2"></i>Roles</th>
-                <th class="py-2"><i class="fas fa-tools me-2"></i>Actions</th>
+                <th><i class="fas fa-envelope me-2"></i>Email</th>
+                <th><i class="fas fa-user-tag me-2"></i>Roles</th>
+                <th><i class="fas fa-tools me-2"></i>Actions</th>
             </tr>
         </thead>
         <tbody>
             @foreach (var user in Model.Users)
             {
                 <tr>
-                    <td class="py-3"><i class="fas fa-user me-2"></i>@user.Email</td>
-                    <td class="py-3">
+                    <td><i class="fas fa-user me-2 text-muted"></i>@user.Email</td>
+                    <td>
                         @foreach (var role in user.Roles)
                         {
                             <span class="badge bg-secondary me-1"><i class="fas fa-tag me-1"></i>@role</span>
                         }
                     </td>
-                    <td class="py-3">
-                        <!-- Assign Role -->
+                    <td>
                         <form method="post" asp-action="AssignRole" asp-controller="UserAdministration" asp-area="Administration" class="d-inline">
                             <input type="hidden" name="userId" value="@user.Id" />
-                            <select name="role" class="form-select d-inline w-auto mb-2">
+                            <select name="role" class="form-select form-select-sm d-inline w-auto">
                                 @foreach (string role in allRoles)
                                 {
                                     <option value="@role">@role</option>
                                 }
                             </select>
-                            <button type="submit" class="btn btn-primary btn-sm">
+                            <button type="submit" class="btn btn-primary btn-sm rounded-pill ms-1">
                                 <i class="fas fa-plus-circle me-1"></i>Assign
                             </button>
                         </form>
 
-                        <!-- Remove Role -->
                         <form method="post" asp-action="RemoveRole" asp-controller="UserAdministration" asp-area="Administration" class="d-inline ms-2">
                             <input type="hidden" name="userId" value="@user.Id" />
-                            <select name="role" class="form-select d-inline w-auto mb-2">
+                            <select name="role" class="form-select form-select-sm d-inline w-auto">
                                 @foreach (var role in user.Roles)
                                 {
                                     <option value="@role">@role</option>
                                 }
                             </select>
-                            <button type="submit" class="btn btn-warning btn-sm">
+                            <button type="submit" class="btn btn-outline-warning btn-sm rounded-pill ms-1">
                                 <i class="fas fa-minus-circle me-1"></i>Remove
                             </button>
                         </form>
 
-                        <!-- Delete User -->
                         <form method="post" asp-action="DeleteUser" asp-controller="UserAdministration" asp-area="Administration" class="d-inline ms-2">
                             <input type="hidden" name="userId" value="@user.Id" />
-                            <button type="submit" class="btn btn-danger btn-sm">
-                                <i class="fas fa-trash-alt me-1"></i>Delete
+                            <button type="submit" class="btn btn-outline-danger btn-sm rounded-pill">
+                                <i class="fas fa-trash-alt"></i>
                             </button>
                         </form>
                     </td>

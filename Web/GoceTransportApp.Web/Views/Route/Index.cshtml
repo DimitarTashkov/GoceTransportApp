@@ -13,38 +13,29 @@
 }
 
 
-<div class="container mt-5">
-    <h1 class="text-center mb-4 text-primary"><i class="fas fa-route me-2"></i>Routes</h1>
+<div class="text-center mb-4">
+    <i class="fas fa-route fa-3x text-primary mb-3"></i>
+    <h1 class="h2 fw-bold">Routes</h1>
+</div>
 
-    <form method="get" class="mb-4">
-        <div class="row g-2">
-            <div class="col-md-4">
-                <input type="text" name="SearchQuery" value="@Model.SearchQuery" class="form-control" placeholder="Search by street or city..." />
-            </div>
-            <div class="col-md-3">
-                <input type="text" name="DepartingCityFilter" value="@Model.DepartingCityFilter" class="form-control" placeholder="Filter by departing city..." />
-            </div>
-            <div class="col-md-3">
-                <input type="text" name="ArrivingCityFilter" value="@Model.ArrivingCityFilter" class="form-control" placeholder="Filter by arriving city..." />
-            </div>
-            <div class="col-md-2">
-                <button type="submit" class="btn btn-primary w-100">
-                    <i class="fas fa-search"></i> Search
-                </button>
-            </div>
-        </div>
+<div class="d-flex gap-2 mb-4 flex-wrap align-items-center">
+    <form method="get" class="d-flex gap-2 flex-grow-1 flex-wrap">
+        <input type="text" name="SearchQuery" value="@Model.SearchQuery" class="form-control rounded-pill" placeholder="Search by street or city..." />
+        <input type="text" name="DepartingCityFilter" value="@Model.DepartingCityFilter" class="form-control rounded-pill" placeholder="Departing city..." />
+        <input type="text" name="ArrivingCityFilter" value="@Model.ArrivingCityFilter" class="form-control rounded-pill" placeholder="Arriving city..." />
+        <button type="submit" class="btn btn-primary rounded-pill px-4">
+            <i class="fas fa-search"></i>
+        </button>
     </form>
-
     @if (userId != null)
     {
-        <div class="mt-4 mb-2">
-            <a asp-action="Create" class="btn btn-success">
-                <i class="fas fa-plus"></i> Add New Route
-            </a>
-        </div>
+        <a asp-action="Create" class="btn btn-primary rounded-pill px-4">
+            <i class="fas fa-plus me-1"></i>Add Route
+        </a>
     }
+</div>
 
-    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4 mt-2">
+<div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4 mt-2">
         @if (Model.Routes.Any())
         {
             @foreach (var route in Model.Routes)
@@ -89,4 +80,3 @@
             </ul>
         </nav>
     }
-</div>

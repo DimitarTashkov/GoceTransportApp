@@ -65,10 +65,18 @@
         </nav>
     </header>   
 
+    <!-- Loading Spinner Overlay -->
+    <div id="loadingOverlay" class="d-none position-fixed top-0 start-0 w-100 h-100 d-flex align-items-center justify-content-center" style="background:rgba(0,0,0,0.4);z-index:9999;">
+        <div class="spinner-border text-light" style="width:3rem;height:3rem;" role="status">
+            <span class="visually-hidden">Loading...</span>
+        </div>
+    </div>
+
     <!-- Main Content -->
     <main class="flex-grow-1 pt-5 mt-5 mb-5">
         <div class="container">
             <partial name="_CookieConsentPartial" />
+            <partial name="_NotificationsPartial" />
 
             @this.RenderBody()
         </div>
@@ -115,6 +123,19 @@
     <script src="~/lib/jquery-validation-unobtrusive/dist/jquery.validate.unobtrusive.min.js" asp-append-version="true"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.min.js" asp-append-version="true"></script>
     <script src="~/js/site.min.js" asp-append-version="true"></script>
+    <script>
+        (function () {
+            var overlay = document.getElementById('loadingOverlay');
+            document.querySelectorAll('form').forEach(function (form) {
+                form.addEventListener('submit', function () {
+                    overlay.classList.remove('d-none');
+                });
+            });
+            window.addEventListener('pageshow', function () {
+                overlay.classList.add('d-none');
+            });
+        })();
+    </script>
     <script>
         (function () {
             var icon = document.getElementById('darkModeIcon');

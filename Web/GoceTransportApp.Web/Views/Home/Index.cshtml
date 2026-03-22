@@ -7,14 +7,6 @@
     ViewData["Title"] = "Home";
 }
 
-@if (TempData["SuccessMessage"] != null)
-{
-    <div class="alert alert-success alert-dismissible fade show" role="alert">
-        <strong><i class="fas fa-ticket-alt me-2"></i> </strong> @TempData["SuccessMessage"]
-        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-    </div>
-}
-
 <div class="container py-5">
     <div class="text-center">
         <h1 class="display-4 fw-bold mb-4 text-primary">

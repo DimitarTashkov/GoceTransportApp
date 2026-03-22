@@ -1,48 +1,43 @@
-﻿@model GoceTransportApp.Web.ViewModels.Cities.CityInputModel
+@model GoceTransportApp.Web.ViewModels.Cities.CityInputModel
 
 @{
     ViewData["Title"] = "Create City";
 }
 
+<div class="row justify-content-center">
+    <div class="col-lg-6">
+        <div class="text-center mb-4">
+            <i class="fas fa-city fa-3x text-primary mb-3"></i>
+            <h1 class="h3 fw-bold">Add a New City</h1>
+        </div>
+        <div class="card border-0 shadow-sm rounded-4">
+            <div class="card-body p-5">
+                <form asp-action="Create" method="post">
+                    <div class="form-floating mb-3">
+                        <input asp-for="Name" class="form-control rounded-3" placeholder="City Name" />
+                        <label asp-for="Name">City Name</label>
+                        <span asp-validation-for="Name" class="text-danger small"></span>
+                    </div>
 
-<div class="container mt-5">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-body">
-                    <h2 class="card-title text-center mb-4">
-                        <i class="fas fa-city"></i> Add a New City
-                    </h2>
+                    <div class="form-floating mb-3">
+                        <input asp-for="State" class="form-control rounded-3" placeholder="State" />
+                        <label asp-for="State">State</label>
+                        <span asp-validation-for="State" class="text-danger small"></span>
+                    </div>
 
-                    <form asp-action="Create" method="post">
-                        <div class="mb-3">
-                            <label asp-for="Name" class="form-label">City Name</label>
-                            <input asp-for="Name" class="form-control" />
-                            <span asp-validation-for="Name" class="text-danger"></span>
-                        </div>
+                    <div class="form-floating mb-4">
+                        <input asp-for="ZipCode" class="form-control rounded-3" placeholder="Zip Code" />
+                        <label asp-for="ZipCode">Zip Code</label>
+                        <span asp-validation-for="ZipCode" class="text-danger small"></span>
+                    </div>
 
-                        <div class="mb-3">
-                            <label asp-for="State" class="form-label">State</label>
-                            <input asp-for="State" class="form-control" />
-                            <span asp-validation-for="State" class="text-danger"></span>
-                        </div>
-
-                        <div class="mb-3">
-                            <label asp-for="ZipCode" class="form-label">Zip Code</label>
-                            <input asp-for="ZipCode" class="form-control" />
-                            <span asp-validation-for="ZipCode" class="text-danger"></span>
-                        </div>
-
-                        <div class="text-center">
-                            <button type="submit" class="btn btn-success">
-                                <i class="fas fa-save"></i> Save
-                            </button>
-                            <a asp-action="Index" class="btn btn-secondary">
-                                <i class="fas fa-times"></i> Cancel
-                            </a>
-                        </div>
-                    </form>
-                </div>
+                    <button type="submit" class="btn btn-primary btn-lg w-100 rounded-pill">
+                        <i class="fas fa-save me-2"></i>Save
+                    </button>
+                    <a asp-action="Index" class="btn btn-outline-secondary rounded-pill w-100 mt-2">
+                        <i class="fas fa-times me-2"></i>Cancel
+                    </a>
+                </form>
             </div>
         </div>
     </div>

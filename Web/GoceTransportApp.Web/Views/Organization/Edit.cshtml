@@ -1,47 +1,51 @@
-﻿@model GoceTransportApp.Web.ViewModels.Organizations.EditOrganizationInputModel
+@model GoceTransportApp.Web.ViewModels.Organizations.EditOrganizationInputModel
 
 @{
     ViewData["Title"] = "Edit Organization";
 }
-<div class="row justify-content-center">
-<div class="col-lg-7">
-<div class="card shadow-sm">
-<div class="card-header py-3">
-    <h4 class="mb-0"><i class="fas fa-edit me-2"></i>Edit Organization</h4>
-</div>
-<div class="card-body p-4">
-    <form asp-action="Edit" method="post">
-        <input type="hidden" asp-for="Id" />
-        <input type="hidden" asp-for="FounderId" />
 
-        <div class="form-group">
-            <label asp-for="Name"></label>
-            <input asp-for="Name" class="form-control" />
-            <span asp-validation-for="Name" class="text-danger"></span>
+<div class="row justify-content-center">
+    <div class="col-lg-6">
+        <div class="text-center mb-4">
+            <i class="fas fa-edit fa-3x text-primary mb-3"></i>
+            <h1 class="h3 fw-bold">Edit Organization</h1>
         </div>
-        <div class="form-group">
-            <label asp-for="Address"></label>
-            <input asp-for="Address" class="form-control" />
-            <span asp-validation-for="Address" class="text-danger"></span>
+        <div class="card border-0 shadow-sm rounded-4">
+            <div class="card-body p-5">
+                <form asp-action="Edit" method="post">
+                    <input type="hidden" asp-for="Id" />
+                    <input type="hidden" asp-for="FounderId" />
+
+                    <div class="form-floating mb-3">
+                        <input asp-for="Name" class="form-control rounded-3" placeholder="Organization Name" />
+                        <label asp-for="Name">Name</label>
+                        <span asp-validation-for="Name" class="text-danger small"></span>
+                    </div>
+
+                    <div class="form-floating mb-3">
+                        <input asp-for="Address" class="form-control rounded-3" placeholder="Address" />
+                        <label asp-for="Address">Address</label>
+                        <span asp-validation-for="Address" class="text-danger small"></span>
+                    </div>
+
+                    <div class="form-floating mb-4">
+                        <input asp-for="Phone" class="form-control rounded-3" placeholder="Phone" />
+                        <label asp-for="Phone">Phone</label>
+                        <span asp-validation-for="Phone" class="text-danger small"></span>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary btn-lg w-100 rounded-pill">
+                        <i class="fas fa-save me-2"></i>Save Changes
+                    </button>
+                    <a asp-action="Index" class="btn btn-outline-secondary rounded-pill w-100 mt-2">
+                        <i class="fas fa-times me-2"></i>Cancel
+                    </a>
+                </form>
+            </div>
         </div>
-        <div class="form-group">
-            <label asp-for="Phone"></label>
-            <input asp-for="Phone" class="form-control" />
-            <span asp-validation-for="Phone" class="text-danger"></span>
-        </div>
-        <div class="d-flex gap-2 mt-3">
-            <button type="submit" class="btn btn-success flex-grow-1">
-                <i class="fas fa-save"></i> Save
-            </button>
-            <a asp-action="Index" class="btn btn-secondary">
-                <i class="fas fa-times"></i> Cancel
-            </a>
-        </div>
-    </form>
-</div></div></div></div>
+    </div>
+</div>
 
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
-    <script src="~/js/showDateTimePicker.js"></script>
 }
-

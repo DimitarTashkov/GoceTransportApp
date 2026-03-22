@@ -1,32 +1,32 @@
-﻿@model GoceTransportApp.Web.ViewModels.Streets.StreetInputModel
+@model GoceTransportApp.Web.ViewModels.Streets.StreetInputModel
 
 @{
     ViewData["Title"] = "Create Street";
 }
 
-<div class="container mt-5">
-    <h1 class="text-center mb-4">
-        <i class="fas fa-plus-circle"></i> Create Street
-    </h1>
+<div class="row justify-content-center">
+    <div class="col-lg-6">
+        <div class="text-center mb-4">
+            <i class="fas fa-road fa-3x text-primary mb-3"></i>
+            <h1 class="h3 fw-bold">Create Street</h1>
+        </div>
+        <div class="card border-0 shadow-sm rounded-4">
+            <div class="card-body p-5">
+                <form asp-action="Create" method="post">
+                    <div class="form-floating mb-4">
+                        <input asp-for="Street" class="form-control rounded-3" placeholder="Street Name" />
+                        <label asp-for="Street">Street Name</label>
+                        <span asp-validation-for="Street" class="text-danger small"></span>
+                    </div>
 
-    <div class="card shadow-sm">
-        <div class="card-body">
-            <form asp-action="Create" method="post">
-                <div class="mb-3">
-                    <label asp-for="Street" class="form-label">
-                        <i class="fas fa-road"></i> Street Name
-                    </label>
-                    <input asp-for="Street" class="form-control" />
-                    <span asp-validation-for="Street" class="text-danger"></span>
-                </div>
-
-                <button type="submit" class="btn btn-primary">
-                    <i class="fas fa-save"></i> Create
-                </button>
-                <a asp-action="Index" class="btn btn-secondary">
-                    <i class="fas fa-arrow-left"></i> Cancel
-                </a>
-            </form>
+                    <button type="submit" class="btn btn-primary btn-lg w-100 rounded-pill">
+                        <i class="fas fa-save me-2"></i>Create
+                    </button>
+                    <a asp-action="Index" class="btn btn-outline-secondary rounded-pill w-100 mt-2">
+                        <i class="fas fa-arrow-left me-2"></i>Cancel
+                    </a>
+                </form>
+            </div>
         </div>
     </div>
 </div>

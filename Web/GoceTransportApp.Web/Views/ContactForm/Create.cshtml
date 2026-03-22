@@ -1,30 +1,40 @@
-﻿@model GoceTransportApp.Web.ViewModels.ContactForms.ContactFormInputModel
+@model GoceTransportApp.Web.ViewModels.ContactForms.ContactFormInputModel
 
 <div class="row justify-content-center">
-<div class="col-lg-7">
-<div class="card shadow-sm">
-<div class="card-header py-3">
-    <h4 class="mb-0"><i class="fas fa-envelope me-2"></i>Contact Us</h4>
-</div>
-<div class="card-body p-4">
-<form asp-action="Create" method="post">
-    <div class="mb-3">
-        <input asp-for="UserId" type="hidden" />
+    <div class="col-lg-6">
+        <div class="text-center mb-4">
+            <i class="fas fa-envelope fa-3x text-primary mb-3"></i>
+            <h1 class="h3 fw-bold">Contact Us</h1>
+            <p class="text-muted">We'd love to hear from you</p>
+        </div>
+        <div class="card border-0 shadow-sm rounded-4">
+            <div class="card-body p-5">
+                <form asp-action="Create" method="post">
+                    <input asp-for="UserId" type="hidden" />
 
-        <label asp-for="Email" class="form-label"></label>
-        <input asp-for="Email" class="form-control" />
-        <span asp-validation-for="Email" class="text-danger"></span>
+                    <div class="form-floating mb-3">
+                        <input asp-for="Email" class="form-control rounded-3" placeholder="your@email.com" />
+                        <label asp-for="Email">Email</label>
+                        <span asp-validation-for="Email" class="text-danger small"></span>
+                    </div>
+
+                    <div class="form-floating mb-3">
+                        <input asp-for="Title" class="form-control rounded-3" placeholder="Subject" />
+                        <label asp-for="Title">Subject</label>
+                        <span asp-validation-for="Title" class="text-danger small"></span>
+                    </div>
+
+                    <div class="form-floating mb-4">
+                        <textarea asp-for="Message" class="form-control rounded-3" placeholder="Your message" rows="5"></textarea>
+                        <label asp-for="Message">Message</label>
+                        <span asp-validation-for="Message" class="text-danger small"></span>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary btn-lg w-100 rounded-pill">
+                        <i class="fas fa-paper-plane me-2"></i>Send Message
+                    </button>
+                </form>
+            </div>
+        </div>
     </div>
-    <div class="mb-3">
-        <label asp-for="Title" class="form-label"></label>
-        <input asp-for="Title" class="form-control" />
-        <span asp-validation-for="Title" class="text-danger"></span>
-    </div>
-    <div class="mb-3">
-        <label asp-for="Message" class="form-label"></label>
-        <textarea asp-for="Message" class="form-control"></textarea>
-        <span asp-validation-for="Message" class="text-danger"></span>
-    </div>
-    <button type="submit" class="btn btn-primary w-100"><i class="fas fa-paper-plane me-2"></i>Submit</button>
-</form>
-</div></div></div></div>
+</div>

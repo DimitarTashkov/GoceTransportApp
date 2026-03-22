@@ -38,17 +38,8 @@ namespace GoceTransportApp.WebApi
             builder.Services.AddScoped<IStreetService, StreetService>();
             builder.Services.AddScoped<ICityService, CityService>();
 
-            //TODO: Allow CORS!!!
             builder.Services.AddCors(cfg =>
             {
-                cfg.AddPolicy("AllowAll", policyBld =>
-                {
-                    policyBld
-                        .AllowAnyHeader()
-                        .AllowAnyMethod()
-                        .AllowAnyOrigin();
-                });
-
                 if (!String.IsNullOrWhiteSpace(goceTransportAppOrigins))
                 {
                     cfg.AddPolicy("AllowMyServer", policyBld =>
@@ -58,6 +49,16 @@ namespace GoceTransportApp.WebApi
                             .AllowAnyMethod()
                             .AllowCredentials()
                             .WithOrigins(goceTransportAppOrigins);
+                    });
+                }
+                else
+                {
+                    cfg.AddPolicy("AllowAll", policyBld =>
+                    {
+                        policyBld
+                            .AllowAnyHeader()
+                            .AllowAnyMethod()
+                            .AllowAnyOrigin();
                     });
                 }
             });
@@ -73,12 +74,9 @@ namespace GoceTransportApp.WebApi
 
             app.UseHttpsRedirection();
 
-            app.UseAuthorization();
+            app.UseCors(!String.IsNullOrWhiteSpace(goceTransportAppOrigins) ? "AllowMyServer" : "AllowAll");
 
-            if (!String.IsNullOrWhiteSpace(goceTransportAppOrigins))
-            {
-                app.UseCors("AllowMyServer");
-            }
+            app.UseAuthorization();
 
             app.MapControllers();
 

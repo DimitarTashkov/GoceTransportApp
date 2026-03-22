@@ -9,7 +9,9 @@
     var isFounder = await userService.HasUserCreatedOrganizationAsync(userId, organizationId);
     var isAdmin = User.IsInRole(AdministratorRoleName);
 }
-<div class="card shadow-sm mx-auto" style="max-width: 800px;">
+<div class="row justify-content-center">
+<div class="col-lg-8">
+<div class="card shadow-sm border-0 rounded-4">
     <div class="card-body">
         <h5 class="card-title"><i class="fas fa-ticket-alt"></i> Ticket Details</h5>
         <p class="card-text">
@@ -38,4 +40,6 @@
             </a>
         </div>
     </div>
+</div>
+</div>
 </div>

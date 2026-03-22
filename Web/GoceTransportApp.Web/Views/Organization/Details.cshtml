@@ -4,8 +4,8 @@
     ViewData["Title"] = "Organization details";
 }
 
-<div class="card shadow-lg border-0 mt-5">
-    <img src="~/images/no-organization-image.png" class="card-img-top img-fluid rounded-top" style="max-height: 500px; object-fit: contain;" alt="@Model.Name" />
+<div class="card shadow-sm border-0 rounded-4 mt-5">
+    <img src="~/images/no-organization-image.png" class="card-img-top img-fluid rounded-top-4 object-fit-contain" alt="@Model.Name" height="500" />
     <div class="card-body">
         <h2 class="card-title text-center text-primary">@Model.Name</h2>
         <hr />
@@ -20,7 +20,7 @@
         <h4 class="text-center text-secondary">Related Data</h4>
         <div class="row g-3 mt-3">
             <div class="col-lg-3 col-md-4 col-sm-6">
-                <a asp-controller="Organization" asp-action="Tickets" asp-route-organizationId="@Model.Id" class="card text-center shadow-sm border-0 hover-effect">
+                <a asp-controller="Organization" asp-action="Tickets" asp-route-organizationId="@Model.Id" class="card text-center shadow-sm border-0 rounded-4 text-decoration-none">
                     <div class="card-body">
                         <i class="fas fa-ticket-alt fa-3x text-success mb-3"></i>
                         <h5 class="card-title">Tickets</h5>
@@ -29,7 +29,7 @@
             </div>
 
             <div class="col-lg-3 col-md-4 col-sm-6">
-                <a asp-controller="Organization" asp-action="Routes" asp-route-organizationId="@Model.Id" class="card text-center shadow-sm border-0 hover-effect">
+                <a asp-controller="Organization" asp-action="Routes" asp-route-organizationId="@Model.Id" class="card text-center shadow-sm border-0 rounded-4 text-decoration-none">
                     <div class="card-body">
                         <i class="fas fa-route fa-3x text-danger mb-3"></i>
                         <h5 class="card-title">Routes</h5>
@@ -38,7 +38,7 @@
             </div>
 
             <div class="col-lg-3 col-md-4 col-sm-6">
-                <a asp-controller="Organization" asp-action="Schedules" asp-route-organizationId="@Model.Id" class="card text-center shadow-sm border-0 hover-effect">
+                <a asp-controller="Organization" asp-action="Schedules" asp-route-organizationId="@Model.Id" class="card text-center shadow-sm border-0 rounded-4 text-decoration-none">
                     <div class="card-body">
                         <i class="fas fa-calendar-alt fa-3x text-warning mb-3"></i>
                         <h5 class="card-title">Schedules</h5>
@@ -47,7 +47,7 @@
             </div>
 
             <div class="col-lg-3 col-md-4 col-sm-6">
-                <a asp-controller="Organization" asp-action="Vehicles" asp-route-organizationId="@Model.Id" class="card text-center shadow-sm border-0 hover-effect">
+                <a asp-controller="Organization" asp-action="Vehicles" asp-route-organizationId="@Model.Id" class="card text-center shadow-sm border-0 rounded-4 text-decoration-none">
                     <div class="card-body">
                         <i class="fas fa-bus fa-3x text-info mb-3"></i>
                         <h5 class="card-title">Vehicles</h5>
@@ -56,7 +56,7 @@
             </div>
 
             <div class="col-lg-3 col-md-4 col-sm-6">
-                <a asp-controller="Organization" asp-action="Drivers" asp-route-organizationId="@Model.Id" class="card text-center shadow-sm border-0 hover-effect">
+                <a asp-controller="Organization" asp-action="Drivers" asp-route-organizationId="@Model.Id" class="card text-center shadow-sm border-0 rounded-4 text-decoration-none">
                     <div class="card-body">
                         <i class="fas fa-user-tie fa-3x text-secondary mb-3"></i>
                         <h5 class="card-title">Drivers</h5>
@@ -71,14 +71,3 @@
         </div>
     </div>
 </div>
-<style>
-    .hover-effect:hover {
-        transform: scale(1.05);
-        transition: transform 0.2s;
-    }
-
-    .card-title {
-        font-size: 1.2rem;
-        font-weight: bold;
-    }
-</style>

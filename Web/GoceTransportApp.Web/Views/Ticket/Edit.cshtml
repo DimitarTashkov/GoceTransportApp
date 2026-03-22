@@ -13,7 +13,9 @@
 
 <h1 class="text-center mt-4"><i class="fas fa-edit"></i> Edit Ticket</h1>
 
-<div class="card shadow-sm mx-auto" style="max-width: 600px;">
+<div class="row justify-content-center">
+<div class="col-lg-7">
+<div class="card shadow-sm border-0 rounded-4">
     <div class="card-body">
         <form asp-action="Edit" method="post">
             <input asp-for="Id" type="hidden" />
@@ -75,6 +77,8 @@
             </div>
         </form>
     </div>
+</div>
+</div>
 </div>
 
 @section Scripts {

@@ -1,19 +1,25 @@
-﻿@using GoceTransportApp.Common
+@using GoceTransportApp.Common
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-bs-theme="light">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@this.ViewData["Title"] - @GlobalConstants.SystemName</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" asp-append-version="true" />
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+    <script>
+        (function () {
+            var theme = localStorage.getItem('theme') || 'light';
+            document.documentElement.setAttribute('data-bs-theme', theme);
+        })();
+    </script>
 </head>
-<body class="d-flex flex-column min-vh-100 bg-light">
+<body class="d-flex flex-column min-vh-100 bg-body-tertiary">
     <!-- Header (Navbar) -->
     <header>
-        <nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top">
+        <nav class="navbar navbar-expand-lg bg-white sticky-top shadow-sm">
             <div class="container">
-                <a class="navbar-brand fw-bold text-uppercase" asp-area="" asp-controller="Home" asp-action="Index">
+                <a class="navbar-brand fw-bold text-uppercase text-primary" asp-area="" asp-controller="Home" asp-action="Index">
                     <i class="fas fa-bus-alt"></i> @GlobalConstants.SystemName
                 </a>
 
@@ -24,13 +30,14 @@
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav ms-auto">
                         <li class="nav-item">
-                            <a class="nav-link fw-semibold text-light" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                            <a class="nav-link fw-semibold" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
+
                         <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle fw-semibold text-light" href="#" id="exploreDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <a class="nav-link dropdown-toggle fw-semibold" href="#" id="exploreDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                 Explore
                             </a>
-                            <ul class="dropdown-menu" aria-labelledby="exploreDropdown">
+                            <ul class="dropdown-menu">
                                 <li><a class="dropdown-item" asp-controller="Route" asp-area="" asp-action="Index">Routes</a></li>
                                 <li><a class="dropdown-item" asp-controller="Schedule" asp-area="" asp-action="Index">Schedules</a></li>
                                 <li><a class="dropdown-item" asp-controller="Ticket" asp-area="" asp-action="Index">Tickets</a></li>
@@ -40,31 +47,110 @@
                             </ul>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link fw-semibold text-light" asp-area="" asp-controller="Home" asp-action="AboutUs">About Us</a>
+                            <a class="nav-link fw-semibold" asp-area="" asp-controller="Home" asp-action="AboutUs">About Us</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link fw-semibold text-light" asp-area="" asp-controller="Home" asp-action="ContactUs">Contact Us</a>
+                            <a class="nav-link fw-semibold" asp-area="" asp-controller="ContactForm" asp-action="Create">Contact Us</a>
                         </li>
                     </ul>
                     <partial name="_LoginPartial" />
+
+                    <button id="darkModeToggle" class="btn btn-outline-dark btn-sm ms-2" title="Toggle dark mode" aria-label="Toggle dark mode">
+                        <i id="darkModeIcon" class="fas fa-moon"></i>
+                    </button>
                 </div>
             </div>
         </nav>
     </header>
 
     <!-- Main Content -->
-    <main class="flex-grow-1 pt-5 mt-5 mb-5">
+    <main class="flex-grow-1 py-5">
         <div class="container">
+            <partial name="_CookieConsentPartial" />
+            <partial name="_NotificationsPartial" />
+
             @this.RenderBody()
         </div>
     </main>
 
-    <!-- Admin-Specific Scripts -->
+    <!-- Footer -->
+    <footer class="bg-white text-muted py-4 border-top mt-auto">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4 mb-3">
+                    <h6 class="fw-bold text-dark mb-3"><i class="fas fa-bus-alt me-2"></i>@GlobalConstants.SystemName</h6>
+                    <ul class="list-unstyled small">
+                        <li><a class="text-muted text-decoration-none" asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
+                        <li><a class="text-muted text-decoration-none" asp-area="" asp-controller="Home" asp-action="AboutUs">About Us</a></li>
+                        <li><a class="text-muted text-decoration-none" asp-area="" asp-controller="ContactForm" asp-action="Create">Contact Us</a></li>
+                    </ul>
+                </div>
+
+                <div class="col-md-4 mb-3">
+                    <h6 class="fw-bold text-dark mb-3">Explore</h6>
+                    <ul class="list-unstyled small">
+                        <li><a class="text-muted text-decoration-none" asp-controller="Route" asp-area="" asp-action="Index">Routes</a></li>
+                        <li><a class="text-muted text-decoration-none" asp-controller="Schedule" asp-area="" asp-action="Index">Schedules</a></li>
+                        <li><a class="text-muted text-decoration-none" asp-controller="Ticket" asp-area="" asp-action="Index">Tickets</a></li>
+                        <li><a class="text-muted text-decoration-none" asp-controller="Organization" asp-area="" asp-action="Index">Organizations</a></li>
+                        <li><a class="text-muted text-decoration-none" asp-controller="City" asp-area="" asp-action="Index">Cities</a></li>
+                        <li><a class="text-muted text-decoration-none" asp-controller="Street" asp-area="" asp-action="Index">Streets</a></li>
+                    </ul>
+                </div>
+
+                <div class="col-md-4 mb-3">
+                    <h6 class="fw-bold text-dark mb-3">Transport Info</h6>
+                    <p class="small">Plan your journey with real-time routes, schedules, and tickets across the network.</p>
+                    <div class="d-flex gap-3 mt-2">
+                        <a asp-controller="Route" asp-area="" asp-action="Index" class="text-muted" title="Routes"><i class="fas fa-route fa-lg"></i></a>
+                        <a asp-controller="Schedule" asp-area="" asp-action="Index" class="text-muted" title="Schedules"><i class="fas fa-clock fa-lg"></i></a>
+                        <a asp-controller="Organization" asp-area="" asp-action="Index" class="text-muted" title="Organizations"><i class="fas fa-building fa-lg"></i></a>
+                        <a asp-area="" asp-controller="ContactForm" asp-action="Create" class="text-muted" title="Contact Us"><i class="fas fa-envelope fa-lg"></i></a>
+                    </div>
+                </div>
+            </div>
+
+            <hr />
+            <p class="text-center mb-0 small">&copy; @DateTime.Now.Year @GlobalConstants.SystemName. All rights reserved.</p>
+        </div>
+    </footer>
+
     <script src="~/lib/jquery/dist/jquery.min.js" asp-append-version="true"></script>
     <script src="~/lib/jquery-validation/dist/jquery.validate.min.js" asp-append-version="true"></script>
     <script src="~/lib/jquery-validation-unobtrusive/dist/jquery.validate.unobtrusive.min.js" asp-append-version="true"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js" asp-append-version="true"></script>
     <script src="~/js/site.min.js" asp-append-version="true"></script>
+    <script>
+        (function () {
+            document.querySelectorAll('form').forEach(function (form) {
+                form.addEventListener('submit', function () {
+                    var btn = form.querySelector('[type="submit"]');
+                    if (!btn) return;
+                    btn.disabled = true;
+                    btn.innerHTML = '<span class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>' + btn.textContent.trim();
+                });
+            });
+        })();
+    </script>
+    <script>
+        (function () {
+            var icon = document.getElementById('darkModeIcon');
+            var btn = document.getElementById('darkModeToggle');
+            var html = document.documentElement;
+
+            function applyTheme(theme) {
+                html.setAttribute('data-bs-theme', theme);
+                icon.className = theme === 'dark' ? 'fas fa-sun' : 'fas fa-moon';
+                localStorage.setItem('theme', theme);
+            }
+
+            applyTheme(localStorage.getItem('theme') || 'light');
+
+            btn.addEventListener('click', function () {
+                applyTheme(html.getAttribute('data-bs-theme') === 'dark' ? 'light' : 'dark');
+            });
+        })();
+    </script>
     @await this.RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

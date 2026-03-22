@@ -5,7 +5,9 @@ using GoceTransportApp.Data.Repositories;
 using GoceTransportApp.Data;
 using GoceTransportApp.Services.Data.Cities;
 using GoceTransportApp.Services.Data.Streets;
+using Microsoft.AspNetCore.RateLimiting;
 using Microsoft.EntityFrameworkCore;
+using System.Threading.RateLimiting;
 
 namespace GoceTransportApp.WebApi
 {
@@ -37,6 +39,19 @@ namespace GoceTransportApp.WebApi
             //Application services
             builder.Services.AddScoped<IStreetService, StreetService>();
             builder.Services.AddScoped<ICityService, CityService>();
+
+            // Rate limiting: 60 requests per minute per IP, queue up to 2
+            builder.Services.AddRateLimiter(options =>
+            {
+                options.AddFixedWindowLimiter("fixed", limiterOptions =>
+                {
+                    limiterOptions.PermitLimit = 60;
+                    limiterOptions.Window = TimeSpan.FromMinutes(1);
+                    limiterOptions.QueueProcessingOrder = QueueProcessingOrder.OldestFirst;
+                    limiterOptions.QueueLimit = 2;
+                });
+                options.RejectionStatusCode = StatusCodes.Status429TooManyRequests;
+            });
 
             builder.Services.AddCors(cfg =>
             {
@@ -76,9 +91,11 @@ namespace GoceTransportApp.WebApi
 
             app.UseCors(!String.IsNullOrWhiteSpace(goceTransportAppOrigins) ? "AllowMyServer" : "AllowAll");
 
+            app.UseRateLimiter();
+
             app.UseAuthorization();
 
-            app.MapControllers();
+            app.MapControllers().RequireRateLimiting("fixed");
 
             app.Run();
         }

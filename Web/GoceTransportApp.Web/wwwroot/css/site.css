@@ -1,31 +1,14 @@
-﻿/* Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
-for details on configuring this project to bundle and minify static web assets. */
+/* Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
+   for details on configuring this project to bundle and minify static web assets. */
 
+/* ── NAVBAR BRAND ──────────────────────────────────────── */
 a.navbar-brand {
     white-space: normal;
     text-align: center;
     word-break: break-all;
 }
 
-/* Provide sufficient contrast against white background */
-a {
-    color: #0366d6;
-}
-
-.btn-primary {
-    color: #fff;
-    background-color: #1b6ec2;
-    border-color: #1861ac;
-}
-
-.nav-pills .nav-link.active, .nav-pills .show > .nav-link {
-    color: #fff;
-    background-color: #1b6ec2;
-    border-color: #1861ac;
-}
-
-/* Sticky footer styles
--------------------------------------------------- */
+/* ── TYPOGRAPHY ────────────────────────────────────────── */
 html {
     font-size: 14px;
 }
@@ -36,39 +19,103 @@ html {
     }
 }
 
-.border-top {
-    border-top: 1px solid #e5e5e5;
-}
-
-.border-bottom {
-    border-bottom: 1px solid #e5e5e5;
-}
-
-.box-shadow {
-    box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
-}
-
+/* ── UTILITIES ─────────────────────────────────────────── */
 button.accept-policy {
     font-size: 1rem;
     line-height: inherit;
 }
 
-/* Sticky footer styles
--------------------------------------------------- */
-html {
-    position: relative;
-    min-height: 100%;
+/* ══════════════════════════════════════════════════════════
+   SECTION 2 — GLOBAL ANIMATIONS & MICRO-INTERACTIONS
+   ══════════════════════════════════════════════════════════ */
+
+/* ── PAGE FADE-IN ──────────────────────────────────────── */
+/*
+ * Applied to <main> in _Layout.cshtml.
+ * Every page "enters" with a gentle upward drift and fade.
+ * Duration is intentionally short (0.4s) so it never feels slow.
+ */
+@keyframes pageFadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
-body {
-    /* Margin bottom by footer height */
-    margin-bottom: 60px;
+.page-fade-in {
+    animation: pageFadeIn 0.4s ease-out both;
 }
 
-.footer {
-    position: absolute;
-    bottom: 0;
-    width: 100%;
-    white-space: nowrap;
-    line-height: 60px; /* Vertically center the text there */
+/* ── HOVER ELEVATE (cards) ─────────────────────────────── */
+/*
+ * Applied to cards in all card partials.
+ * The cubic-bezier has a tiny spring overshoot past -5px before
+ * settling — this is what gives it the "alive" Stripe-like feel.
+ * will-change hints to the GPU so compositing is smooth.
+ */
+.hover-elevate {
+    transition: transform 0.28s cubic-bezier(0.34, 1.56, 0.64, 1),
+                box-shadow 0.28s ease;
+    will-change: transform, box-shadow;
+}
+
+.hover-elevate:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 16px 32px rgba(0, 0, 0, 0.10) !important;
+}
+
+/* ── BUTTON PRESS FEEDBACK ─────────────────────────────── */
+/*
+ * Subtle scale-down on active state for all buttons —
+ * gives tactile "click" feedback without being heavy.
+ */
+.btn {
+    transition: transform 0.12s ease, box-shadow 0.12s ease;
+}
+
+.btn:active:not(:disabled) {
+    transform: scale(0.97);
+}
+
+/* ── LINK CARD HOVER ───────────────────────────────────── */
+/*
+ * For anchor cards (e.g. admin dashboard, quick-access tiles).
+ * colour transition on the icon without layout shift.
+ */
+a.card .fa, a.card .fas {
+    transition: color 0.2s ease;
+}
+
+a.card:hover .fa,
+a.card:hover .fas {
+    color: var(--bs-primary) !important;
+}
+
+/* ── REDUCED MOTION GUARD ──────────────────────────────── */
+/*
+ * Respect the OS accessibility preference.
+ * Users with vestibular disorders or motion sensitivity
+ * get zero movement — animations are simply suppressed.
+ */
+@media (prefers-reduced-motion: reduce) {
+    .page-fade-in {
+        animation: none;
+    }
+
+    .hover-elevate,
+    .hover-elevate:hover {
+        transform: none;
+        transition: none;
+        box-shadow: revert !important;
+    }
+
+    .btn,
+    .btn:active:not(:disabled) {
+        transform: none;
+        transition: none;
+    }
 }

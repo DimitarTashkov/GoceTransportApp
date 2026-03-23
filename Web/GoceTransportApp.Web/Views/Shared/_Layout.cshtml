@@ -64,7 +64,7 @@
     </header>
 
     <!-- Main Content -->
-    <main class="flex-grow-1 py-5">
+    <main class="flex-grow-1 py-5 page-fade-in">
         <div class="container">
             <partial name="_CookieConsentPartial" />
             <partial name="_NotificationsPartial" />
@@ -123,18 +123,6 @@
     <script src="~/lib/jquery-validation-unobtrusive/dist/jquery.validate.unobtrusive.min.js" asp-append-version="true"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js" asp-append-version="true"></script>
     <script src="~/js/site.min.js" asp-append-version="true"></script>
-    <script>
-        (function () {
-            document.querySelectorAll('form').forEach(function (form) {
-                form.addEventListener('submit', function () {
-                    var btn = form.querySelector('[type="submit"]');
-                    if (!btn) return;
-                    btn.disabled = true;
-                    btn.innerHTML = '<span class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>' + btn.textContent.trim();
-                });
-            });
-        })();
-    </script>
     <script>
         (function () {
             var icon = document.getElementById('darkModeIcon');

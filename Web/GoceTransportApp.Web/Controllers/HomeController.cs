@@ -1,16 +1,28 @@
 ﻿namespace GoceTransportApp.Web.Controllers
 {
     using System.Diagnostics;
+    using System.Threading.Tasks;
     using GoceTransportApp.Common;
+    using GoceTransportApp.Services.Data.Cities;
     using GoceTransportApp.Web.ViewModels;
+    using GoceTransportApp.Web.ViewModels.Schedules;
 
     using Microsoft.AspNetCore.Mvc;
 
     public class HomeController : Controller
     {
-        public IActionResult Index()
+        private readonly ICityService cityService;
+
+        public HomeController(ICityService cityService)
         {
-            return this.View();
+            this.cityService = cityService;
+        }
+
+        public async Task<IActionResult> Index()
+        {
+            var cities = await this.cityService.GetAllCitiesForDropDownsAsync();
+            var model = new TravelSearchViewModel { Cities = cities };
+            return this.View(model);
         }
 
         public IActionResult Privacy()

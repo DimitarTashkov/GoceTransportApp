@@ -232,6 +232,34 @@ namespace GoceTransportApp.Services.Data.Schedules
                 .ToListAsync();
         }
 
+        public async Task<IEnumerable<ScheduleDataViewModel>> SearchSchedulesAsync(Guid fromCityId, Guid toCityId, DayOfWeek? dayOfWeek)
+        {
+            IQueryable<Schedule> query = scheduleRepository.AllAsNoTracking()
+                .Include(s => s.Route)
+                    .ThenInclude(r => r.FromCity)
+                .Include(s => s.Route)
+                    .ThenInclude(r => r.ToCity)
+                .Where(s => s.Route.FromCity.Id == fromCityId && s.Route.ToCity.Id == toCityId);
+
+            if (dayOfWeek.HasValue)
+            {
+                query = query.Where(s => s.Day == dayOfWeek.Value);
+            }
+
+            return await query
+                .Select(s => new ScheduleDataViewModel()
+                {
+                    Id = s.Id.ToString(),
+                    Day = s.Day.ToString(),
+                    Departing = s.Departure.ToString("HH:mm"),
+                    Arriving = s.Arrival.ToString("HH:mm"),
+                    FromCity = s.Route.FromCity.Name,
+                    ToCity = s.Route.ToCity.Name,
+                    OrganizationId = s.OrganizationId.ToString(),
+                })
+                .ToArrayAsync();
+        }
+
         public async Task<int> GetSchedulesCountByFilterAsync(AllSchedulesSearchFilterViewModel inputModel)
         {
             IQueryable<Schedule> query = scheduleRepository.AllAsNoTracking()

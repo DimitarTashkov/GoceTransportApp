@@ -1,4 +1,5 @@
-﻿using GoceTransportApp.Services.Data.Schedules;
+﻿using GoceTransportApp.Services.Data.Cities;
+using GoceTransportApp.Services.Data.Schedules;
 using GoceTransportApp.Web.ViewModels.Vehicles;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
@@ -26,14 +27,20 @@ namespace GoceTransportApp.Web.Controllers
         private readonly IScheduleService scheduleService;
         private readonly IVehicleService vehicleService;
         private readonly IRouteService routeService;
+        private readonly ICityService cityService;
 
-        public ScheduleController(IScheduleService scheduleService, IDeletableEntityRepository<Organization> organizationRepository
-            , IVehicleService vehicleService, IRouteService routeService)
+        public ScheduleController(
+            IScheduleService scheduleService,
+            IDeletableEntityRepository<Organization> organizationRepository,
+            IVehicleService vehicleService,
+            IRouteService routeService,
+            ICityService cityService)
             : base(organizationRepository)
         {
             this.scheduleService = scheduleService;
             this.vehicleService = vehicleService;
             this.routeService = routeService;
+            this.cityService = cityService;
         }
 
         [HttpGet]
@@ -220,6 +227,28 @@ namespace GoceTransportApp.Web.Controllers
             TempData[nameof(SuccessMessage)] = SuccessMessage;
 
             return RedirectToAction("Schedules", "Organization", new { organizationId = formModel.OrganizationId });
+        }
+
+        [HttpGet]
+        [AllowAnonymous]
+        public async Task<IActionResult> Search(TravelSearchViewModel model)
+        {
+            var cities = await this.cityService.GetAllCitiesForDropDownsAsync();
+            model.Cities = cities;
+
+            if (!string.IsNullOrEmpty(model.FromCityId) && !string.IsNullOrEmpty(model.ToCityId))
+            {
+                DayOfWeek? dayOfWeek = model.DepartureDate.HasValue
+                    ? model.DepartureDate.Value.DayOfWeek
+                    : (DayOfWeek?)null;
+
+                model.Results = await this.scheduleService.SearchSchedulesAsync(
+                    Guid.Parse(model.FromCityId),
+                    Guid.Parse(model.ToCityId),
+                    dayOfWeek);
+            }
+
+            return this.View(model);
         }
 
         [HttpGet]

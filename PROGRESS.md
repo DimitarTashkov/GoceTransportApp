@@ -1,5 +1,6 @@
 # Текущ прогрес на проекта
 
-* **Завършено до момента:** Добавени са Dockerfile-ове за Web и API. Направен е редизайн на картите и формите чрез Bootstrap 5. Оправена е типографията и са добавени базови UX анимации в site.css/js. **Секция 2 от business_logic_plan.md (Капацитет) е завършена** — `TicketService.CreateAsync` вече проверява Vehicle.Capacity срещу броя билети за дадено Schedule преди да създаде нов билет; добавен тест за overbooking.
+* **Завършено до момента:** Добавени са Dockerfile-ове за Web и API. Направен е редизайн на картите и формите чрез Bootstrap 5. Оправена е типографията и са добавени базови UX анимации в site.css/js. **Секция 2** (Капацитет) и **Секция 3** (Търсачка) от business_logic_plan.md са завършени.
+* **Секция 3 детайли:** Добавена форма за търсене в `Home/Index.cshtml`, нов `Schedule/Search` екшън и view, нов метод `SearchSchedulesAsync` в ScheduleService (филтрира по FromCity, ToCity, DayOfWeek от датата).
 * **Текущ фокус:** Бизнес логика — `business_logic_plan.md`.
-* **Следваща стъпка за Агента (при събуждане):** Започни **Секция 3** — Търсачка за пътувания (форма в Home/Index.cshtml + Search action в ScheduleController).
+* **Следваща стъпка за Агента (при събуждане):** Започни **Секция 4** — Клиентски портал "Моите пътувания" (`MyTickets` в TicketController).

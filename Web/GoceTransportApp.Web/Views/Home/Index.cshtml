@@ -1,3 +1,4 @@
+@model GoceTransportApp.Web.ViewModels.Schedules.TravelSearchViewModel
 @using GoceTransportApp.Data.Models
 @using Microsoft.AspNetCore.Identity
 
@@ -21,6 +22,62 @@
         <a asp-controller="Schedule" asp-action="Index" class="btn btn-outline-primary btn-lg rounded-pill px-5">
             <i class="fas fa-calendar-alt me-2"></i>View Schedules
         </a>
+    </div>
+</section>
+
+
+<section class="py-5">
+    <div class="card border-0 shadow rounded-4 p-4 p-md-5 hover-elevate">
+        <h2 class="fw-bold mb-1 text-center">Find Your Trip</h2>
+        <p class="text-muted text-center mb-4">Search available schedules by origin, destination and date.</p>
+        <form asp-controller="Schedule" asp-action="Search" method="get">
+            <div class="row g-3 align-items-end">
+                <div class="col-md-4">
+                    <label class="form-label fw-semibold">From</label>
+                    <select name="FromCityId" class="form-select rounded-3">
+                        <option value="">— Select city —</option>
+                        @foreach (var city in Model.Cities)
+                        {
+                            if (Model.FromCityId == city.Id.ToString())
+                            {
+                                <option value="@city.Id" selected>@city.Name</option>
+                            }
+                            else
+                            {
+                                <option value="@city.Id">@city.Name</option>
+                            }
+                        }
+                    </select>
+                </div>
+                <div class="col-md-4">
+                    <label class="form-label fw-semibold">To</label>
+                    <select name="ToCityId" class="form-select rounded-3">
+                        <option value="">— Select city —</option>
+                        @foreach (var city in Model.Cities)
+                        {
+                            if (Model.ToCityId == city.Id.ToString())
+                            {
+                                <option value="@city.Id" selected>@city.Name</option>
+                            }
+                            else
+                            {
+                                <option value="@city.Id">@city.Name</option>
+                            }
+                        }
+                    </select>
+                </div>
+                <div class="col-md-3">
+                    <label class="form-label fw-semibold">Date of Travel</label>
+                    <input type="date" name="DepartureDate" class="form-control rounded-3"
+                           value="@(Model.DepartureDate.HasValue ? Model.DepartureDate.Value.ToString("yyyy-MM-dd") : "")" />
+                </div>
+                <div class="col-md-1">
+                    <button type="submit" class="btn btn-primary w-100 rounded-3">
+                        <i class="fas fa-search"></i>
+                    </button>
+                </div>
+            </div>
+        </form>
     </div>
 </section>
 

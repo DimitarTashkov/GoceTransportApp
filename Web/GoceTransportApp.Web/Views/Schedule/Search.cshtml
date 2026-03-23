@@ -1,0 +1,117 @@
+@model GoceTransportApp.Web.ViewModels.Schedules.TravelSearchViewModel
+
+@{
+    ViewData["Title"] = "Search Results";
+}
+
+<div class="d-flex align-items-center mb-4 gap-3">
+    <a asp-controller="Home" asp-action="Index" class="btn btn-outline-secondary rounded-pill">
+        <i class="fas fa-arrow-left me-1"></i> Back
+    </a>
+    <h2 class="fw-bold mb-0">Search Results</h2>
+</div>
+
+<div class="card border-0 shadow-sm rounded-4 p-4 mb-4">
+    <form asp-controller="Schedule" asp-action="Search" method="get">
+        <div class="row g-3 align-items-end">
+            <div class="col-md-4">
+                <label class="form-label fw-semibold">From</label>
+                <select name="FromCityId" class="form-select rounded-3">
+                    <option value="">— Select city —</option>
+                    @foreach (var city in Model.Cities)
+                    {
+                        if (Model.FromCityId == city.Id.ToString())
+                        {
+                            <option value="@city.Id" selected>@city.Name</option>
+                        }
+                        else
+                        {
+                            <option value="@city.Id">@city.Name</option>
+                        }
+                    }
+                </select>
+            </div>
+            <div class="col-md-4">
+                <label class="form-label fw-semibold">To</label>
+                <select name="ToCityId" class="form-select rounded-3">
+                    <option value="">— Select city —</option>
+                    @foreach (var city in Model.Cities)
+                    {
+                        if (Model.ToCityId == city.Id.ToString())
+                        {
+                            <option value="@city.Id" selected>@city.Name</option>
+                        }
+                        else
+                        {
+                            <option value="@city.Id">@city.Name</option>
+                        }
+                    }
+                </select>
+            </div>
+            <div class="col-md-3">
+                <label class="form-label fw-semibold">Date of Travel</label>
+                <input type="date" name="DepartureDate" class="form-control rounded-3"
+                       value="@(Model.DepartureDate.HasValue ? Model.DepartureDate.Value.ToString("yyyy-MM-dd") : "")" />
+            </div>
+            <div class="col-md-1">
+                <button type="submit" class="btn btn-primary w-100 rounded-3">
+                    <i class="fas fa-search"></i>
+                </button>
+            </div>
+        </div>
+    </form>
+</div>
+
+@if (!string.IsNullOrEmpty(Model.FromCityId) && !string.IsNullOrEmpty(Model.ToCityId))
+{
+    @if (Model.Results.Any())
+    {
+        <div class="row g-3">
+            @foreach (var schedule in Model.Results)
+            {
+                <div class="col-md-6 col-lg-4">
+                    <div class="card border-0 shadow-sm rounded-4 h-100 hover-elevate">
+                        <div class="card-body p-4">
+                            <div class="d-flex justify-content-between align-items-start mb-3">
+                                <span class="badge bg-primary rounded-pill px-3 py-2">@schedule.Day</span>
+                            </div>
+                            <div class="d-flex align-items-center gap-2 mb-2">
+                                <i class="fas fa-map-marker-alt text-primary"></i>
+                                <span class="fw-semibold">@schedule.FromCity</span>
+                                <i class="fas fa-arrow-right text-muted mx-1"></i>
+                                <span class="fw-semibold">@schedule.ToCity</span>
+                            </div>
+                            <div class="d-flex align-items-center gap-4 text-muted small">
+                                <span><i class="fas fa-plane-departure me-1"></i>@schedule.Departing</span>
+                                <span><i class="fas fa-plane-arrival me-1"></i>@schedule.Arriving</span>
+                            </div>
+                        </div>
+                        <div class="card-footer bg-transparent border-0 pb-3 px-4">
+                            <a asp-controller="Schedule" asp-action="Details"
+                               asp-route-id="@schedule.Id"
+                               asp-route-organizationId="@schedule.OrganizationId"
+                               class="btn btn-outline-primary btn-sm rounded-pill w-100">
+                                <i class="fas fa-info-circle me-1"></i>View Details
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    }
+    else
+    {
+        <div class="text-center py-5">
+            <i class="fas fa-search fa-3x text-muted mb-3"></i>
+            <h5 class="text-muted">No schedules found for the selected criteria.</h5>
+            <p class="text-muted small">Try changing the cities or selecting a different date.</p>
+        </div>
+    }
+}
+else
+{
+    <div class="text-center py-5">
+        <i class="fas fa-bus fa-3x text-muted mb-3"></i>
+        <p class="text-muted">Select origin and destination cities to find available trips.</p>
+    </div>
+}

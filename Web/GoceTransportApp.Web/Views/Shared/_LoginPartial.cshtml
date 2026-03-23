@@ -11,6 +11,9 @@
             <a class="nav-link fw-semibold" asp-area="" asp-controller="Organization" asp-action="UserOrganizations">My Organizations</a>
         </li>
         <li class="nav-item">
+            <a class="nav-link fw-semibold" asp-area="" asp-controller="Ticket" asp-action="MyTickets">My Trips</a>
+        </li>
+        <li class="nav-item">
             <a class="nav-link fw-semibold" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Hello @this.User.Identity.Name!</a>
         </li>
         @if (this.User.IsInRole(GlobalConstants.AdministratorRoleName))

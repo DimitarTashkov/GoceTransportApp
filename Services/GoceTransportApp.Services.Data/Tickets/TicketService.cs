@@ -257,6 +257,71 @@ namespace GoceTransportApp.Services.Data.Tickets
             return true;
         }
 
+        public async Task<MyTicketsViewModel> GetMyTicketsAsync(string userId)
+        {
+            var userTickets = await userTicketRepository
+                .AllAsNoTracking()
+                .Where(ut => ut.CustomerId == userId)
+                .Include(ut => ut.Ticket)
+                    .ThenInclude(t => t.TimeTable)
+                .Include(ut => ut.Ticket)
+                    .ThenInclude(t => t.Route)
+                        .ThenInclude(r => r.FromCity)
+                .Include(ut => ut.Ticket)
+                    .ThenInclude(t => t.Route)
+                        .ThenInclude(r => r.ToCity)
+                .Include(ut => ut.Ticket)
+                    .ThenInclude(t => t.Organization)
+                .ToListAsync();
+
+            var now = DateTime.UtcNow;
+
+            var ticketViewModels = userTickets.Select(ut => new MyTicketViewModel
+            {
+                TicketId = ut.TicketId.ToString(),
+                FromCity = ut.Ticket.Route.FromCity.Name,
+                ToCity = ut.Ticket.Route.ToCity.Name,
+                Day = ut.Ticket.TimeTable.Day.ToString(),
+                DepartingTime = ut.Ticket.TimeTable.Departure.ToString("HH:mm"),
+                ArrivingTime = ut.Ticket.TimeTable.Arrival.ToString("HH:mm"),
+                DepartureDateTime = ut.Ticket.TimeTable.Departure,
+                Price = ut.Ticket.Price.ToString("F2"),
+                OrganizationName = ut.Ticket.Organization.Name,
+                CanCancel = ut.Ticket.TimeTable.Departure > now.AddHours(24),
+            }).ToList();
+
+            return new MyTicketsViewModel
+            {
+                Upcoming = ticketViewModels.Where(t => t.DepartureDateTime >= now).OrderBy(t => t.DepartureDateTime),
+                Past = ticketViewModels.Where(t => t.DepartureDateTime < now).OrderByDescending(t => t.DepartureDateTime),
+            };
+        }
+
+        public async Task<bool> CancelTicketAsync(string userId, Guid ticketId)
+        {
+            UserTicket userTicket = await userTicketRepository
+                .FirstOrDefaultAsync(ut => ut.CustomerId == userId && ut.TicketId == ticketId);
+
+            if (userTicket == null)
+            {
+                return false;
+            }
+
+            Schedule schedule = await scheduleRepository
+                .AllAsNoTracking()
+                .Include(s => s.ScheduleTickets)
+                .FirstOrDefaultAsync(s => s.ScheduleTickets.Any(t => t.Id == ticketId));
+
+            if (schedule == null || schedule.Departure <= DateTime.UtcNow.AddHours(24))
+            {
+                return false;
+            }
+
+            await userTicketRepository.DeleteAsync(userTicket);
+
+            return true;
+        }
+
         public async Task<int> GetTicketsCountByFilterAsync(AllTicketsSearchFilterViewModel inputModel)
         {
             IQueryable<Ticket> query = ticketRepository

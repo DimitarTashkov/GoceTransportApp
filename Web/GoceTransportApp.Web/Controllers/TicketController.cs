@@ -266,6 +266,42 @@ namespace GoceTransportApp.Web.Controllers
             return View(model);
         }
 
+        [HttpGet]
+        public async Task<IActionResult> MyTickets()
+        {
+            string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            MyTicketsViewModel model = await this.ticketService.GetMyTicketsAsync(userId);
+            return this.View(model);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Cancel(string ticketId)
+        {
+            string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            Guid ticketGuid = Guid.Empty;
+            bool isValid = IsGuidValid(ticketId, ref ticketGuid);
+
+            if (!isValid)
+            {
+                TempData[nameof(FailMessage)] = FailMessage;
+                return RedirectToAction(nameof(MyTickets));
+            }
+
+            bool isCancelled = await this.ticketService.CancelTicketAsync(userId, ticketGuid);
+
+            if (!isCancelled)
+            {
+                TempData[nameof(FailMessage)] = "Ticket cannot be cancelled — departure is less than 24 hours away.";
+            }
+            else
+            {
+                TempData[nameof(SuccessMessage)] = "Your ticket has been successfully cancelled.";
+            }
+
+            return RedirectToAction(nameof(MyTickets));
+        }
+
         //[HttpGet]
         //public async Task<IActionResult> Purchase(string? id, string organizationId)
         //{

@@ -1,5 +1,14 @@
 @model GoceTransportApp.Web.ViewModels.Routes.RouteDetailsViewModel
 
+@{
+    int durationTotalMins = (int)Model.Duration;
+    int durationHours = durationTotalMins / 60;
+    int durationMins = durationTotalMins % 60;
+    string durationFormatted = durationHours > 0
+        ? $"{durationHours} h. {durationMins} min."
+        : $"{durationMins} min.";
+}
+
 <div class="card border-0 shadow-sm rounded-4">
     <div class="card-body p-4">
         <div class="mb-3">
@@ -11,7 +20,7 @@
             <strong>Arriving Street:</strong> @Model.ArrivingStreet<br />
             <strong>Organization:</strong> @Model.Organization<br />
             <strong>Distance:</strong> @Model.Distance km<br />
-            <strong>Duration:</strong> @Model.Duration hours
+            <strong>Duration:</strong> @durationFormatted
         </p>
     </div>
 </div>

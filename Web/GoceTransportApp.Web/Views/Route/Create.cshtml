@@ -57,8 +57,8 @@
                     </div>
 
                     <div class="form-floating mb-4">
-                        <input asp-for="Duration" class="form-control rounded-3" placeholder="Duration (hours)" />
-                        <label asp-for="Duration">Duration (hours)</label>
+                        <input asp-for="Duration" type="number" min="1" class="form-control rounded-3" placeholder="Duration (minutes)" />
+                        <label asp-for="Duration">Duration (minutes) — e.g. 135</label>
                         <span asp-validation-for="Duration" class="text-danger small"></span>
                     </div>
 

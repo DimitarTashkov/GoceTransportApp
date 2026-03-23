@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+using System.ComponentModel;
 using static GoceTransportApp.Common.ResultMessages.RouteMessages;
 
 namespace GoceTransportApp.Web.ViewModels.Routes
@@ -34,6 +35,7 @@ namespace GoceTransportApp.Web.ViewModels.Routes
         public double Distance { get; set; }
 
         [Required(ErrorMessage = RouteDurationRequiredMessage)]
+        [Display(Name = "Duration (minutes)")]
         public double Duration { get; set; }
 
         public HashSet<Schedule> RouteSchedules { get; set; }

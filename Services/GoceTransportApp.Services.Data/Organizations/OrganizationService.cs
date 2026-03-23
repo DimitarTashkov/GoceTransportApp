@@ -144,6 +144,11 @@ namespace GoceTransportApp.Services.Data.Organizations
                 .Include(o => o.OrganizationVehicles)
                 .Include(o => o.OrganizationSchedules)
                 .Include(o => o.OrganizationTickets)
+                    .ThenInclude(t => t.Route)
+                        .ThenInclude(r => r.FromCity)
+                .Include(o => o.OrganizationTickets)
+                    .ThenInclude(t => t.Route)
+                        .ThenInclude(r => r.ToCity)
                 .Include(o => o.OrganizationMessages)
                 .Include(o => o.OrganizationReports)
                 .FirstOrDefaultAsync(d => d.Id == id);

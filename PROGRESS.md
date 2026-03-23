@@ -10,6 +10,37 @@
 * **ВСИЧКИ 4 СЕКЦИИ от master_ux_ui_redirection_plan.md са завършени.**
 * **feature3_reviews_plan.md — ЗАВЪРШЕН (всички 4 стъпки).**
 * **feature2_emails_plan.md — ЗАВЪРШЕН (всички 4 стъпки).**
+* **ux_fixes_plan.md — ЗАВЪРШЕН (всички 3 стъпки).**
+* **master_seeder_plan.md — ЗАВЪРШЕН.**
+
+## TestScenarioSeeder детайли:
+* Файл: `Data/GoceTransportApp.Data/Seeding/TestScenarioSeeder.cs`
+* Guard: `if (dbContext.Organizations.Any()) return;` — само на празна база
+* **4 потребителя** (парола `Test1234!`): `org1@test.com`, `org2@test.com`, `org3@test.com`, `passenger@test.com`
+* **3 града**: Sofia / Plovdiv / Varna + по 1 улица за всеки ("Bus Terminal") с CityStreet link
+* **3 организации**: Express Lines (org1), Global Trans (org2), Eco Travel (org3) с `/images/no-organization-image.png`
+* **Per org**: 1 Vehicle (Mercedes Travego, capacity 50, уникален номер CB1111AB/2222PB/3333VB) + 1 Driver + 1 Route + 1 Schedule (08:00 след 7 дни)
+  * Маршрути: Sofia→Plovdiv (150km/150min), Plovdiv→Varna (250km/240min), Varna→Sofia (440km/360min)
+* **1 Ticket + 1 UserTicket** за `passenger@test.com` на Express Lines (цена 35.00 BGN, departure = 7 дни напред)
+* Регистриран след `OrganizationSeeder` в `ApplicationDbContextSeeder.cs`
+* ⚠️ За да тестваш Reviews: ExpiryDate е = departure date (7 дни напред) — след изтичане пътникът може да остави отзив
+
+## ux_fixes_plan.md детайли:
+
+### Стъпка 1 — Submit бутон freeze fix (site.js)
+* Преди `btn.disabled = true` се проверява: ако jQuery Validate е закачен на формата и тя НЕ е валидна → `return` без замразяване
+* Бутонът се деактивира САМО когато формата мине валидацията успешно
+* Spinner текст сменен от "Обработване..." на "Processing..."
+
+### Стъпка 2 — Route Duration в минути
+* `RouteInputModel.Duration` + `EditRouteInputModel.Duration` → добавен `[Display(Name = "Duration (minutes)")]`
+* `Route/Create.cshtml` + `Route/Edit.cshtml` → label "Duration (minutes) — e.g. 135", input type="number" min="1"
+* `_RouteDetailsPartial.cshtml` → форматиране: `(int)Model.Duration / 60` h. `% 60` min. (напр. "2 h. 15 min.")
+* `Organization/Details.cshtml` → Routes таб вече показва форматирана продължителност вместо сурово число
+
+### Стъпка 3 — Tickets таб в Organization/Details
+* `GetOrganizationDetailsAsync` → добавени `.ThenInclude(t => t.Route).ThenInclude(r => r.FromCity/ToCity)` за да се зареждат имената на градовете
+* `Organization/Details.cshtml` → нов таб "Tickets" с таблица (Route, Issued, Expires, Price) + CRUD бутони за owner/admin + empty state с 🎫
 
 ## feature2_emails_plan.md детайли:
 * `EmailTemplates.cs` — статичен клас в `Services.Messaging/` с два метода:

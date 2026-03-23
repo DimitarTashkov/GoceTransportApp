@@ -30,6 +30,7 @@
                               new AdminSeeder(),
                               new DataSeeder(),
                               new OrganizationSeeder(),
+                              new TestScenarioSeeder(),
                           };
 
             foreach (var seeder in seeders)

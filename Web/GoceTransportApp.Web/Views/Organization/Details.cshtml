@@ -126,6 +126,12 @@
                 </button>
             </li>
             <li class="nav-item" role="presentation">
+                <button class="nav-link" id="tickets-tab" data-bs-toggle="tab" data-bs-target="#tickets" type="button" role="tab">
+                    <i class="fas fa-ticket-alt me-1"></i>Tickets
+                    <span class="badge bg-secondary ms-1">@Model.OrganizationTickets.Count</span>
+                </button>
+            </li>
+            <li class="nav-item" role="presentation">
                 <button class="nav-link" id="reviews-tab" data-bs-toggle="tab" data-bs-target="#reviews" type="button" role="tab">
                     <i class="bi bi-star me-1"></i>Reviews
                     <span class="badge bg-secondary ms-1">@Model.Reviews.Count()</span>
@@ -155,7 +161,13 @@
                                 <div>
                                     <i class="fas fa-route text-danger me-2"></i>
                                     <span class="fw-semibold">Route</span>
-                                    <span class="text-muted small ms-2">@route.Distance km · @route.Duration min</span>
+                                    @{
+                                        int rDurMins = (int)route.Duration;
+                                        string rDurFormatted = rDurMins >= 60
+                                            ? $"{rDurMins / 60} h. {rDurMins % 60} min."
+                                            : $"{rDurMins} min.";
+                                    }
+                                    <span class="text-muted small ms-2">@route.Distance km · @rDurFormatted</span>
                                 </div>
                                 <div class="d-flex gap-2">
                                     <a asp-controller="Route" asp-action="Details" asp-route-id="@route.Id" asp-route-organizationId="@Model.Id"
@@ -319,6 +331,77 @@
                         <div class="fs-1 text-muted mb-3">📭</div>
                         <h4 class="fw-semibold">No schedules found</h4>
                         <p class="text-muted">No schedules have been added for this organization yet.</p>
+                    </div>
+                }
+            </div>
+
+            @* Tickets tab *@
+            <div class="tab-pane fade" id="tickets" role="tabpanel">
+                @if (isOwnerOrAdmin)
+                {
+                    <div class="mb-3">
+                        <a asp-controller="Ticket" asp-action="Create" asp-route-organizationId="@Model.Id"
+                           class="btn btn-sm btn-primary rounded-pill px-3">
+                            <i class="fas fa-plus me-1"></i>Add Ticket
+                        </a>
+                    </div>
+                }
+                @if (Model.OrganizationTickets.Any())
+                {
+                    <div class="table-responsive">
+                        <table class="table table-hover align-middle rounded-3 overflow-hidden">
+                            <thead class="table-light">
+                                <tr>
+                                    <th>Route</th>
+                                    <th>Issued</th>
+                                    <th>Expires</th>
+                                    <th>Price</th>
+                                    @if (isOwnerOrAdmin)
+                                    {
+                                        <th></th>
+                                    }
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var ticket in Model.OrganizationTickets)
+                                {
+                                    string fromCity = ticket.Route?.FromCity?.Name ?? "—";
+                                    string toCity = ticket.Route?.ToCity?.Name ?? "—";
+                                    <tr>
+                                        <td>
+                                            <i class="fas fa-route text-primary me-1"></i>
+                                            <span class="fw-semibold">@fromCity</span>
+                                            <i class="fas fa-arrow-right text-muted mx-1 small"></i>
+                                            <span class="fw-semibold">@toCity</span>
+                                        </td>
+                                        <td class="text-muted small">@ticket.IssuedDate.ToString("dd MMM yyyy")</td>
+                                        <td class="text-muted small">@ticket.ExpiryDate.ToString("dd MMM yyyy")</td>
+                                        <td>
+                                            <span class="badge bg-success bg-opacity-10 text-success fw-semibold">@ticket.Price.ToString("F2") BGN</span>
+                                        </td>
+                                        @if (isOwnerOrAdmin)
+                                        {
+                                            <td class="text-end">
+                                                <a asp-controller="Ticket" asp-action="Details" asp-route-id="@ticket.Id" asp-route-organizationId="@Model.Id"
+                                                   class="btn btn-sm btn-outline-secondary rounded-pill">Details</a>
+                                                <a asp-controller="Ticket" asp-action="Edit" asp-route-id="@ticket.Id" asp-route-organizationId="@Model.Id"
+                                                   class="btn btn-sm btn-outline-secondary rounded-pill"><i class="fas fa-edit"></i></a>
+                                                <a asp-controller="Ticket" asp-action="Delete" asp-route-id="@ticket.Id" asp-route-organizationId="@Model.Id"
+                                                   class="btn btn-sm btn-outline-danger rounded-pill"><i class="fas fa-trash-alt"></i></a>
+                                            </td>
+                                        }
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                }
+                else
+                {
+                    <div class="text-center py-5 bg-white rounded-4 shadow-sm">
+                        <div class="fs-1 text-muted mb-3">🎫</div>
+                        <h4 class="fw-semibold">No tickets found</h4>
+                        <p class="text-muted">No tickets have been issued for this organization yet.</p>
                     </div>
                 }
             </div>

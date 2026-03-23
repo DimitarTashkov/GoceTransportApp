@@ -21,13 +21,23 @@
             var btn = form.querySelector('[type="submit"]');
             if (!btn || btn.disabled) return;
 
+            // If jQuery Validate is attached to this form and the form is
+            // currently invalid, bail out — the validator will display errors
+            // and block the real submit. We must NOT freeze the button here,
+            // otherwise the user can never retry after fixing the fields.
+            if (typeof $ !== 'undefined' && $(form).data('validator')) {
+                if (!$(form).valid()) {
+                    return;
+                }
+            }
+
             // Persist original label for bfcache/back-nav restore
             btn.setAttribute('data-original-html', btn.innerHTML);
             btn.disabled = true;
             btn.innerHTML =
                 '<span class="spinner-border spinner-border-sm me-2"' +
                 ' role="status" aria-hidden="true"></span>' +
-                'Обработване...';
+                'Processing...';
         });
     });
 

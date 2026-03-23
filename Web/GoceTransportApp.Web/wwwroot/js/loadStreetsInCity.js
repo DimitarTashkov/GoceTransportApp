@@ -17,7 +17,7 @@ async function loadStreets(citySelectId, streetSelectId) {
     streetSelect.disabled = true;
 
     try {
-        const response = await fetch(`https://localhost:7119/Streets/GetStreetsByCity/${cityId}`);
+        const response = await fetch(`/Street/GetStreetsByCity/${cityId}`);
 
         if (response.ok) {
             const streets = await response.json();

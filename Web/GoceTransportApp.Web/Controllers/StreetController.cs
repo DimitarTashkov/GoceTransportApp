@@ -1,5 +1,6 @@
 ﻿using GoceTransportApp.Data.Common.Repositories;
 using GoceTransportApp.Data.Models;
+using GoceTransportApp.Services.Data.Cities;
 using GoceTransportApp.Services.Data.Streets;
 using GoceTransportApp.Web.ViewModels.Streets;
 using Microsoft.AspNetCore.Authorization;
@@ -18,11 +19,31 @@ namespace GoceTransportApp.Web.Controllers
     public class StreetController : BaseController
     {
         private readonly IStreetService streetService;
+        private readonly ICityService cityService;
 
-        public StreetController(IStreetService streetService, IDeletableEntityRepository<Organization> organizationRepository)
+        public StreetController(IStreetService streetService, ICityService cityService, IDeletableEntityRepository<Organization> organizationRepository)
             : base(organizationRepository)
         {
             this.streetService = streetService;
+            this.cityService = cityService;
+        }
+
+        [HttpGet]
+        [AllowAnonymous]
+        public async Task<IActionResult> GetStreetsByCity(string id)
+        {
+            if (string.IsNullOrEmpty(id))
+            {
+                return BadRequest("City ID cannot be null or empty.");
+            }
+
+            if (!Guid.TryParse(id, out Guid cityGuid))
+            {
+                return BadRequest("Invalid City ID.");
+            }
+
+            var streets = await this.cityService.GetAllStreetsInCityAsync(cityGuid);
+            return Json(streets);
         }
 
         [HttpGet]

@@ -12,9 +12,10 @@
         </div>
         <div class="card border-0 shadow-sm rounded-4">
             <div class="card-body p-5">
-                <form asp-action="Edit" method="post">
+                <form asp-action="Edit" method="post" enctype="multipart/form-data">
                     <input type="hidden" asp-for="Id" />
                     <input type="hidden" asp-for="FounderId" />
+                    <input type="hidden" asp-for="ExistingImageUrl" />
 
                     <div class="form-floating mb-3">
                         <input asp-for="Name" class="form-control rounded-3" placeholder="Organization Name" />
@@ -32,6 +33,19 @@
                         <input asp-for="Phone" class="form-control rounded-3" placeholder="Phone" />
                         <label asp-for="Phone" class="form-label text-muted">Phone</label>
                         <span asp-validation-for="Phone" class="text-danger small"></span>
+                    </div>
+
+                    <div class="mb-4">
+                        <label asp-for="Image" class="form-label text-muted">Organization Logo</label>
+                        @if (!string.IsNullOrEmpty(Model.ExistingImageUrl))
+                        {
+                            <div class="mb-2">
+                                <img src="@Model.ExistingImageUrl" alt="Current Logo" class="img-thumbnail" style="max-height: 100px;" />
+                                <small class="text-muted d-block">Current logo. Upload a new file to replace it.</small>
+                            </div>
+                        }
+                        <input asp-for="Image" type="file" class="form-control form-control-lg" accept="image/*" />
+                        <span asp-validation-for="Image" class="text-danger small"></span>
                     </div>
 
                     <button type="submit" class="btn btn-primary btn-lg w-100 rounded-pill">

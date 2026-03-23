@@ -63,6 +63,11 @@
                     options.MinimumSameSitePolicy = SameSiteMode.None;
                 });
 
+            services.Configure<Microsoft.AspNetCore.Http.Features.FormOptions>(options =>
+            {
+                options.MultipartBodyLengthLimit = 10 * 1024 * 1024; // 10 MB
+            });
+
             services.AddControllersWithViews(
                 options =>
                 {

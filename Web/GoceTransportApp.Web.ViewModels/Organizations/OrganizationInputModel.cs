@@ -32,5 +32,9 @@ namespace GoceTransportApp.Web.ViewModels.Organizations
         [MaxLength(MaxPhoneNumberLength)]
         [MinLength(MinPhoneNumberLength)]
         public string Phone { get; set; }
+
+        public Microsoft.AspNetCore.Http.IFormFile? Image { get; set; }
+
+        public string? ImageUrl { get; set; }
     }
 }

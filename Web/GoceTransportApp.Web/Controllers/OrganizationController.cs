@@ -19,6 +19,8 @@ using GoceTransportApp.Web.ViewModels.Drivers;
 using System.Net.Mail;
 using GoceTransportApp.Services.Data.Routes;
 using System.Collections.Generic;
+using Microsoft.AspNetCore.Hosting;
+using System.IO;
 
 namespace GoceTransportApp.Web.Controllers
 {
@@ -26,11 +28,13 @@ namespace GoceTransportApp.Web.Controllers
     public class OrganizationController : BaseController
     {
         private readonly IOrganizationService organizationService;
+        private readonly IWebHostEnvironment webHostEnvironment;
 
-        public OrganizationController(IOrganizationService organizationService, IDeletableEntityRepository<Organization> organizationRepository)
+        public OrganizationController(IOrganizationService organizationService, IDeletableEntityRepository<Organization> organizationRepository, IWebHostEnvironment webHostEnvironment)
             : base(organizationRepository)
         {
             this.organizationService = organizationService;
+            this.webHostEnvironment = webHostEnvironment;
         }
 
         [HttpGet]
@@ -80,6 +84,7 @@ namespace GoceTransportApp.Web.Controllers
         }
 
         [HttpPost]
+        [RequestSizeLimit(10 * 1024 * 1024)]
         public async Task<IActionResult> Create(OrganizationInputModel model)
         {
             if (!ModelState.IsValid)
@@ -87,7 +92,38 @@ namespace GoceTransportApp.Web.Controllers
                 return View(model);
             }
 
-            await organizationService.CreateAsync(model);
+            string? imageUrl = null;
+            if (model.Image != null && model.Image.Length > 0)
+            {
+                if (model.Image.Length > 5 * 1024 * 1024)
+                {
+                    ModelState.AddModelError(nameof(model.Image), "Image must be under 5 MB.");
+                    return View(model);
+                }
+
+                string ext = Path.GetExtension(model.Image.FileName).ToLowerInvariant();
+                if (ext != ".jpg" && ext != ".jpeg" && ext != ".png" && ext != ".gif" && ext != ".webp")
+                {
+                    ModelState.AddModelError(nameof(model.Image), "Only image files are allowed (.jpg, .png, .gif, .webp).");
+                    return View(model);
+                }
+
+                string webRoot = string.IsNullOrWhiteSpace(webHostEnvironment.WebRootPath)
+                    ? Path.Combine(Directory.GetCurrentDirectory(), "wwwroot")
+                    : webHostEnvironment.WebRootPath;
+
+                string uploadsFolder = Path.Combine(webRoot, "images", "organizations");
+                Directory.CreateDirectory(uploadsFolder);
+                string uniqueFileName = Guid.NewGuid().ToString() + ext;
+                string filePath = Path.Combine(uploadsFolder, uniqueFileName);
+                using (var fileStream = new FileStream(filePath, FileMode.Create))
+                {
+                    await model.Image.CopyToAsync(fileStream);
+                }
+                imageUrl = $"/images/organizations/{uniqueFileName}";
+            }
+
+            await organizationService.CreateAsync(model, imageUrl);
             TempData[nameof(SuccessMessage)] = SuccessMessage;
 
             return RedirectToAction(nameof(UserOrganizations));
@@ -126,6 +162,7 @@ namespace GoceTransportApp.Web.Controllers
         }
 
         [HttpPost]
+        [RequestSizeLimit(10 * 1024 * 1024)]
         public async Task<IActionResult> Edit(EditOrganizationInputModel formModel)
         {
             string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
@@ -140,8 +177,39 @@ namespace GoceTransportApp.Web.Controllers
                 return this.View(formModel);
             }
 
+            string? imageUrl = formModel.ExistingImageUrl;
+            if (formModel.Image != null && formModel.Image.Length > 0)
+            {
+                if (formModel.Image.Length > 5 * 1024 * 1024)
+                {
+                    ModelState.AddModelError(nameof(formModel.Image), "Image must be under 5 MB.");
+                    return this.View(formModel);
+                }
+
+                string ext = Path.GetExtension(formModel.Image.FileName).ToLowerInvariant();
+                if (ext != ".jpg" && ext != ".jpeg" && ext != ".png" && ext != ".gif" && ext != ".webp")
+                {
+                    ModelState.AddModelError(nameof(formModel.Image), "Only image files are allowed (.jpg, .png, .gif, .webp).");
+                    return this.View(formModel);
+                }
+
+                string webRoot = string.IsNullOrWhiteSpace(webHostEnvironment.WebRootPath)
+                    ? Path.Combine(Directory.GetCurrentDirectory(), "wwwroot")
+                    : webHostEnvironment.WebRootPath;
+
+                string uploadsFolder = Path.Combine(webRoot, "images", "organizations");
+                Directory.CreateDirectory(uploadsFolder);
+                string uniqueFileName = Guid.NewGuid().ToString() + ext;
+                string filePath = Path.Combine(uploadsFolder, uniqueFileName);
+                using (var fileStream = new FileStream(filePath, FileMode.Create))
+                {
+                    await formModel.Image.CopyToAsync(fileStream);
+                }
+                imageUrl = $"/images/organizations/{uniqueFileName}";
+            }
+
             bool isUpdated = await this.organizationService
-                .EditOrganizationAsync(formModel);
+                .EditOrganizationAsync(formModel, imageUrl);
 
             if (!isUpdated)
             {

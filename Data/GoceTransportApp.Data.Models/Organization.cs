@@ -32,6 +32,8 @@
         [MaxLength(MaxPhoneNumberLength)]
         public string Phone { get; set; }
 
+        public string? ImageUrl { get; set; }
+
         public HashSet<Route> OrganizationRoutes { get; set; }
            = new HashSet<Route>();
 

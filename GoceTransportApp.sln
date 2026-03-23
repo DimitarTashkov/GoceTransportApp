@@ -43,9 +43,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GoceTransportApp.WebApi", "
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{7AEA1550-FA0A-43EF-9DAC-4FEE1088246A}"
 	ProjectSection(SolutionItems) = preProject
-		business_logic_plan.md = business_logic_plan.md
 		CLAUDE.md = CLAUDE.md
 		PROGRESS.md = PROGRESS.md
+		organization_ui_plan.md = organization_ui_plan.md
 	EndProjectSection
 EndProject
 Global

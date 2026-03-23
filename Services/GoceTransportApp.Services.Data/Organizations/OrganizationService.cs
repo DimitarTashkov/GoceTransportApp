@@ -42,7 +42,7 @@ namespace GoceTransportApp.Services.Data.Organizations
             this.scheduleRepository = scheduleRepository;
         }
 
-        public async Task CreateAsync(OrganizationInputModel inputModel)
+        public async Task CreateAsync(OrganizationInputModel inputModel, string? imageUrl)
         {
             Organization organization = new Organization()
             {
@@ -50,6 +50,7 @@ namespace GoceTransportApp.Services.Data.Organizations
                 Address = inputModel.Address,
                 Phone = inputModel.Phone,
                 FounderId = inputModel.FounderId,
+                ImageUrl = imageUrl,
                 CreatedOn = DateTime.UtcNow,
             };
 
@@ -57,7 +58,7 @@ namespace GoceTransportApp.Services.Data.Organizations
             await organizationRepository.SaveChangesAsync();
         }
 
-        public async Task<bool> EditOrganizationAsync(EditOrganizationInputModel inputModel)
+        public async Task<bool> EditOrganizationAsync(EditOrganizationInputModel inputModel, string? imageUrl)
         {
             var organization = await organizationRepository.GetByIdAsync(Guid.Parse(inputModel.Id));
 
@@ -70,6 +71,7 @@ namespace GoceTransportApp.Services.Data.Organizations
             organization.Address = inputModel.Address;
             organization.Phone = inputModel.Phone;
             organization.FounderId = inputModel.FounderId;
+            organization.ImageUrl = imageUrl;
             organization.OrganizationMessages = inputModel.OrganizationMessages;
             organization.OrganizationDrivers = inputModel.OrganizationDrivers;
             organization.OrganizationRoutes = inputModel.OrganizationRoutes;
@@ -107,7 +109,8 @@ namespace GoceTransportApp.Services.Data.Organizations
                      Name = c.Name,
                      Address = c.Address,
                      FounderId = c.FounderId,
-                     Founder = c.Founder.UserName
+                     Founder = c.Founder.UserName,
+                     ImageUrl = c.ImageUrl,
                  })
                 .ToArrayAsync();
         }
@@ -186,6 +189,7 @@ namespace GoceTransportApp.Services.Data.Organizations
                    Address = organization.Address,
                    Phone = organization.Phone,
                    FounderId = organization.FounderId,
+                   ExistingImageUrl = organization.ImageUrl,
                    OrganizationDrivers = organization.OrganizationDrivers,
                    OrganizationMessages = organization.OrganizationMessages,
                    OrganizationReports = organization.OrganizationReports,

@@ -57,7 +57,7 @@ namespace GoceTransportApp.Services.Data.Tests
             };
 
             // Act
-            await organizationService.CreateAsync(inputModel);
+            await organizationService.CreateAsync(inputModel, null);
             var organization = await dbContext.Organizations.FirstOrDefaultAsync();
 
             // Assert
@@ -92,7 +92,7 @@ namespace GoceTransportApp.Services.Data.Tests
             };
 
             // Act
-            var result = await organizationService.EditOrganizationAsync(inputModel);
+            var result = await organizationService.EditOrganizationAsync(inputModel, null);
             var updatedOrganization = await dbContext.Organizations.FindAsync(organization.Id);
 
             // Assert
@@ -201,7 +201,7 @@ namespace GoceTransportApp.Services.Data.Tests
             };
 
             // Act
-            var result = await organizationService.EditOrganizationAsync(inputModel);
+            var result = await organizationService.EditOrganizationAsync(inputModel, null);
 
             // Assert
             Assert.False(result);

@@ -18,11 +18,11 @@ namespace GoceTransportApp.Services.Data.Organizations
 
         Task<IEnumerable<OrganizationDataViewModel>> GetUserOrganizationsAsync(string userId);
 
-        Task CreateAsync(OrganizationInputModel inputModel);
+        Task CreateAsync(OrganizationInputModel inputModel, string? imageUrl);
 
         Task<EditOrganizationInputModel> GetOrganizationForEditAsync(Guid id);
 
-        Task<bool> EditOrganizationAsync(EditOrganizationInputModel inputModel);
+        Task<bool> EditOrganizationAsync(EditOrganizationInputModel inputModel, string? imageUrl);
 
         Task<RemoveOrganizationViewModel> GetOrganizationForDeletionAsync(Guid id);
 

@@ -19,6 +19,40 @@ html {
     }
 }
 
+body {
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+}
+
+/* ── NAVBAR TYPOGRAPHY ──────────────────────────────────── */
+/*
+ * Slight negative letter-spacing on the brand gives it the
+ * tight, confident look of modern SaaS products (Stripe, Linear).
+ */
+.navbar-brand {
+    letter-spacing: -0.02em;
+}
+
+/*
+ * Nav-links pick up the primary colour on hover — subtle but
+ * makes the interaction feel polished and intentional.
+ */
+.navbar-nav .nav-link:hover {
+    color: var(--bs-primary) !important;
+}
+
+/* ── FOOTER LINK HOVER ──────────────────────────────────── */
+/*
+ * Footer links start muted and transition to body colour on hover.
+ * The 0.15s ease is intentionally fast — footers should be effortless.
+ */
+footer a {
+    transition: color 0.15s ease;
+}
+
+footer a:hover {
+    color: var(--bs-primary) !important;
+}
+
 /* ── UTILITIES ─────────────────────────────────────────── */
 button.accept-policy {
     font-size: 1rem;

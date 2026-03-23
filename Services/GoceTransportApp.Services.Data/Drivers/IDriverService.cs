@@ -11,7 +11,7 @@ namespace GoceTransportApp.Services.Data.Drivers
 {
     public interface IDriverService
     {
-        Task<IEnumerable<DriverDataViewModel>> GetAllDriversAsync();
+        Task<IEnumerable<DriverDataViewModel>> GetAllDriversAsync(List<Guid>? organizationFilter = null);
 
         Task CreateAsync(DriverInputModel inputModel);
 

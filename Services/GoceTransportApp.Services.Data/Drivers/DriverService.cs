@@ -91,9 +91,16 @@ namespace GoceTransportApp.Services.Data.Drivers
             return result;
         }
 
-        public async Task<IEnumerable<DriverDataViewModel>> GetAllDriversAsync()
+        public async Task<IEnumerable<DriverDataViewModel>> GetAllDriversAsync(List<Guid>? organizationFilter = null)
         {
-            IEnumerable<DriverDataViewModel> model = await driverRepository.AllAsNoTracking()
+            IQueryable<Driver> query = driverRepository.AllAsNoTracking();
+
+            if (organizationFilter != null && organizationFilter.Count > 0)
+            {
+                query = query.Where(d => organizationFilter.Contains(d.OrganizationId));
+            }
+
+            return await query
               .Select(c => new DriverDataViewModel()
               {
                   Id = c.Id.ToString(),
@@ -102,8 +109,6 @@ namespace GoceTransportApp.Services.Data.Drivers
                   OrganizationId = c.OrganizationId.ToString(),
               })
               .ToArrayAsync();
-
-            return model;
         }
 
         public async Task<RemoveDriverViewModel> GetDriverForDeletionAsync(Guid id)

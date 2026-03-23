@@ -79,6 +79,12 @@ namespace GoceTransportApp.Services.Data.Vehicles
             IQueryable<Vehicle> allVehiclesQuery = this.vehicleRepository
                 .AllAsNoTracking();
 
+            if (inputModel.OrganizationFilter != null && inputModel.OrganizationFilter.Count > 0)
+            {
+                allVehiclesQuery = allVehiclesQuery
+                    .Where(v => inputModel.OrganizationFilter.Contains(v.OrganizationId));
+            }
+
             if (!String.IsNullOrWhiteSpace(inputModel.SearchQuery))
             {
                 allVehiclesQuery = allVehiclesQuery

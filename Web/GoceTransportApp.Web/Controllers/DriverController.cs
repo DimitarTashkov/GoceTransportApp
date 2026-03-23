@@ -13,6 +13,7 @@ using static GoceTransportApp.Common.GlobalConstants;
 
 using GoceTransportApp.Data.Common.Repositories;
 using GoceTransportApp.Data.Models;
+using System.Collections.Generic;
 using System.Security.Claims;
 using System.Net.Mail;
 
@@ -32,7 +33,14 @@ namespace GoceTransportApp.Web.Controllers
         [HttpGet]
         public async Task<IActionResult> Index()
         {
-            var model = await driverService.GetAllDriversAsync();
+            List<Guid> orgFilter = null;
+            if (!User.IsInRole(AdministratorRoleName))
+            {
+                string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+                orgFilter = await this.GetUserOrganizationIdsAsync(userId);
+            }
+
+            var model = await driverService.GetAllDriversAsync(orgFilter);
 
             return View(model);
         }

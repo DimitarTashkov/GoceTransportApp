@@ -6,6 +6,8 @@
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.EntityFrameworkCore;
     using System;
+    using System.Collections.Generic;
+    using System.Linq;
     using System.Threading.Tasks;
 
     public class BaseController : Controller
@@ -44,6 +46,19 @@
 
             return await organizationRepository.AllAsNoTracking()
                 .AnyAsync(o => o.Id == Guid.Parse(organizationId) && o.FounderId == userId);
+        }
+
+        protected async Task<List<Guid>> GetUserOrganizationIdsAsync(string userId)
+        {
+            if (string.IsNullOrEmpty(userId))
+            {
+                return new List<Guid>();
+            }
+
+            return await organizationRepository.AllAsNoTracking()
+                .Where(o => o.FounderId == userId)
+                .Select(o => o.Id)
+                .ToListAsync();
         }
     }
 }

@@ -18,5 +18,7 @@ namespace GoceTransportApp.Web.ViewModels.Vehicles
         public int? EntitiesPerPage { get; set; } = 20;
 
         public int? TotalPages { get; set; }
+
+        public List<Guid> OrganizationFilter { get; set; } = new List<Guid>();
     }
 }

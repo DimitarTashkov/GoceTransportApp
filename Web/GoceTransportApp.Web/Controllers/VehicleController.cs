@@ -33,6 +33,12 @@ namespace GoceTransportApp.Web.Controllers
         [HttpGet]
         public async Task<IActionResult> Index(AllVehiclesSearchFilterViewModel inputModel)
         {
+            if (!User.IsInRole(AdministratorRoleName))
+            {
+                string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+                inputModel.OrganizationFilter = await this.GetUserOrganizationIdsAsync(userId);
+            }
+
             IEnumerable<VehicleDataViewModel> allVehicles =
                 await vehicleService.GetAllVehiclesAsync(inputModel);
 
@@ -42,7 +48,8 @@ namespace GoceTransportApp.Web.Controllers
                 Vehicles = allVehicles,
                 SearchQuery = inputModel.SearchQuery,
                 CurrentPage = inputModel.CurrentPage,
-                TotalPages = (int)Math.Ceiling((double)allVehiclesCount / inputModel.EntitiesPerPage!.Value)
+                TotalPages = (int)Math.Ceiling((double)allVehiclesCount / inputModel.EntitiesPerPage!.Value),
+                OrganizationFilter = inputModel.OrganizationFilter,
             };
 
             return this.View(viewModel);

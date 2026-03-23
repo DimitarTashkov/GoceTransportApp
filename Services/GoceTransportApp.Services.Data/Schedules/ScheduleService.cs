@@ -81,6 +81,11 @@ namespace GoceTransportApp.Services.Data.Schedules
                 .Include(r => r.Route)
                 .ThenInclude(route => route.ToCity);
 
+            if (inputModel.OrganizationFilter != null && inputModel.OrganizationFilter.Count > 0)
+            {
+                query = query.Where(s => inputModel.OrganizationFilter.Contains(s.OrganizationId));
+            }
+
             if (inputModel.DayFilter.HasValue)
             {
                 query = query.Where(s => s.Day == inputModel.DayFilter.Value);
@@ -267,6 +272,11 @@ namespace GoceTransportApp.Services.Data.Schedules
                 .ThenInclude(route => route.FromCity)
                 .Include(r => r.Route)
                 .ThenInclude(route => route.ToCity);
+
+            if (inputModel.OrganizationFilter != null && inputModel.OrganizationFilter.Count > 0)
+            {
+                query = query.Where(s => inputModel.OrganizationFilter.Contains(s.OrganizationId));
+            }
 
             if (inputModel.DayFilter.HasValue)
             {

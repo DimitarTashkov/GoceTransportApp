@@ -51,6 +51,12 @@ namespace GoceTransportApp.Web.Controllers
         [AllowAnonymous]
         public async Task<IActionResult> Index(AllSchedulesSearchFilterViewModel inputModel)
         {
+            if (User.Identity.IsAuthenticated && !User.IsInRole(AdministratorRoleName))
+            {
+                string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+                inputModel.OrganizationFilter = await this.GetUserOrganizationIdsAsync(userId);
+            }
+
             IEnumerable<ScheduleDataViewModel> allSchedules =
             await scheduleService.GetAllSchedulesAsync(inputModel);
 
@@ -63,7 +69,8 @@ namespace GoceTransportApp.Web.Controllers
                 TimeFilter = inputModel.TimeFilter,
                 CurrentPage = inputModel.CurrentPage,
                 EntitiesPerPage = inputModel.EntitiesPerPage,
-                TotalPages = (int)Math.Ceiling((double)allTicketsCount / inputModel.EntitiesPerPage.Value)
+                TotalPages = (int)Math.Ceiling((double)allTicketsCount / inputModel.EntitiesPerPage.Value),
+                OrganizationFilter = inputModel.OrganizationFilter,
             };
 
             return this.View(viewModel);

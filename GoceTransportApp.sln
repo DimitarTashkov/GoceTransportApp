@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 17
-VisualStudioVersion = 17.12.35506.116 d17.12
+# Visual Studio Version 18
+VisualStudioVersion = 18.5.11605.296 insiders
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Web", "Web", "{E389DEB6-5F90-444B-A054-12A10D39C76F}"
 EndProject
@@ -40,6 +40,11 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GoceTransportApp.Web.ViewModels", "Web\GoceTransportApp.Web.ViewModels\GoceTransportApp.Web.ViewModels.csproj", "{13B7AACB-9C85-4409-8D4B-95A67D0DFFF7}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GoceTransportApp.WebApi", "GoceTransportApp.WebApi\GoceTransportApp.WebApi.csproj", "{529CD945-9A22-4667-8773-9D88F7C8CE58}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{7AEA1550-FA0A-43EF-9DAC-4FEE1088246A}"
+	ProjectSection(SolutionItems) = preProject
+		typography_plan.md = typography_plan.md
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

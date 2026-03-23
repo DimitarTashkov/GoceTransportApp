@@ -19,7 +19,7 @@
                     <input asp-for="OrganizationId" type="hidden" />
 
                     <div class="mb-3">
-                        <label asp-for="FromCityId" class="form-label fw-semibold">From City</label>
+                        <label asp-for="FromCityId" class="form-label text-muted">From City</label>
                         <select id="fromCity" asp-for="FromCityId" asp-items="@(new SelectList(cities, "Id", "Name"))" class="form-select rounded-3" onchange="loadStreets('fromCity', 'fromStreet')">
                             <option value="">Select a city</option>
                         </select>
@@ -27,7 +27,7 @@
                     </div>
 
                     <div class="mb-3">
-                        <label asp-for="FromStreetId" class="form-label fw-semibold">From Street</label>
+                        <label asp-for="FromStreetId" class="form-label text-muted">From Street</label>
                         <select id="fromStreet" asp-for="FromStreetId" class="form-select rounded-3">
                             <option value="">Select a street</option>
                         </select>
@@ -35,7 +35,7 @@
                     </div>
 
                     <div class="mb-3">
-                        <label asp-for="ToCityId" class="form-label fw-semibold">To City</label>
+                        <label asp-for="ToCityId" class="form-label text-muted">To City</label>
                         <select id="toCity" asp-for="ToCityId" asp-items="@(new SelectList(cities, "Id", "Name"))" class="form-select rounded-3" onchange="loadStreets('toCity', 'toStreet')">
                             <option value="">Select a city</option>
                         </select>
@@ -43,7 +43,7 @@
                     </div>
 
                     <div class="mb-3">
-                        <label asp-for="ToStreetId" class="form-label fw-semibold">To Street</label>
+                        <label asp-for="ToStreetId" class="form-label text-muted">To Street</label>
                         <select id="toStreet" asp-for="ToStreetId" class="form-select rounded-3">
                             <option value="">Select a street</option>
                         </select>

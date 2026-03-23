@@ -7,7 +7,7 @@
 <div class="card shadow-sm border-0 rounded-4 mt-5">
     <img src="~/images/no-organization-image.png" class="card-img-top img-fluid rounded-top-4 object-fit-contain" alt="@Model.Name" height="500" />
     <div class="card-body">
-        <h2 class="card-title text-center text-primary">@Model.Name</h2>
+        <h2 class="card-title text-center text-primary fw-bold">@Model.Name</h2>
         <hr />
         <p class="card-text text-secondary">
             <strong>Address:</strong> @Model.Address<br />
@@ -17,13 +17,13 @@
     </div>
 
     <div class="card-footer bg-light">
-        <h4 class="text-center text-secondary">Related Data</h4>
+        <h4 class="text-center text-secondary fw-semibold mb-3">Related Data</h4>
         <div class="row g-3 mt-3">
             <div class="col-lg-3 col-md-4 col-sm-6">
                 <a asp-controller="Organization" asp-action="Tickets" asp-route-organizationId="@Model.Id" class="card text-center shadow-sm border-0 rounded-4 text-decoration-none">
                     <div class="card-body">
                         <i class="fas fa-ticket-alt fa-3x text-success mb-3"></i>
-                        <h5 class="card-title">Tickets</h5>
+                        <h5 class="card-title fw-semibold">Tickets</h5>
                     </div>
                 </a>
             </div>
@@ -32,7 +32,7 @@
                 <a asp-controller="Organization" asp-action="Routes" asp-route-organizationId="@Model.Id" class="card text-center shadow-sm border-0 rounded-4 text-decoration-none">
                     <div class="card-body">
                         <i class="fas fa-route fa-3x text-danger mb-3"></i>
-                        <h5 class="card-title">Routes</h5>
+                        <h5 class="card-title fw-semibold">Routes</h5>
                     </div>
                 </a>
             </div>
@@ -41,7 +41,7 @@
                 <a asp-controller="Organization" asp-action="Schedules" asp-route-organizationId="@Model.Id" class="card text-center shadow-sm border-0 rounded-4 text-decoration-none">
                     <div class="card-body">
                         <i class="fas fa-calendar-alt fa-3x text-warning mb-3"></i>
-                        <h5 class="card-title">Schedules</h5>
+                        <h5 class="card-title fw-semibold">Schedules</h5>
                     </div>
                 </a>
             </div>
@@ -50,7 +50,7 @@
                 <a asp-controller="Organization" asp-action="Vehicles" asp-route-organizationId="@Model.Id" class="card text-center shadow-sm border-0 rounded-4 text-decoration-none">
                     <div class="card-body">
                         <i class="fas fa-bus fa-3x text-info mb-3"></i>
-                        <h5 class="card-title">Vehicles</h5>
+                        <h5 class="card-title fw-semibold">Vehicles</h5>
                     </div>
                 </a>
             </div>
@@ -59,7 +59,7 @@
                 <a asp-controller="Organization" asp-action="Drivers" asp-route-organizationId="@Model.Id" class="card text-center shadow-sm border-0 rounded-4 text-decoration-none">
                     <div class="card-body">
                         <i class="fas fa-user-tie fa-3x text-secondary mb-3"></i>
-                        <h5 class="card-title">Drivers</h5>
+                        <h5 class="card-title fw-semibold">Drivers</h5>
                     </div>
                 </a>
             </div>

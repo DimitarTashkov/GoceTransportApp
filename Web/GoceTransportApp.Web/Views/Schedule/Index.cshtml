@@ -16,7 +16,7 @@
 <div class="d-flex gap-2 mb-4 flex-wrap align-items-end">
     <form method="get" class="d-flex gap-2 flex-wrap flex-grow-1 align-items-end">
         <div>
-            <label asp-for="DayFilter" class="form-label fw-semibold small"><i class="fas fa-calendar-day me-1"></i>Day</label>
+            <label asp-for="DayFilter" class="form-label text-muted small"><i class="fas fa-calendar-day me-1"></i>Day</label>
             <select asp-for="DayFilter" class="form-select rounded-pill">
                 <option value="">-- All Days --</option>
                 <option value="Monday">Monday</option>
@@ -29,7 +29,7 @@
             </select>
         </div>
         <div>
-            <label for="TimeFilter" class="form-label fw-semibold small">Time</label>
+            <label for="TimeFilter" class="form-label text-muted small">Time</label>
             <input type="time" name="TimeFilter" value="@Model.TimeFilter?.ToString(@"hh\:mm")" class="form-control rounded-pill" id="filterTime" />
         </div>
         <button type="submit" class="btn btn-primary rounded-pill px-4">

@@ -16,7 +16,10 @@
 }
 
 <div class="container mt-5">
-    <h1 class="text-center mb-4">Schedules</h1>
+    <div class="text-center mb-4">
+        <i class="fas fa-calendar-alt fa-3x text-primary mb-3"></i>
+        <h1 class="h2 fw-bold">Schedules</h1>
+    </div>
     @if (isFounder || isAdmin)
     {
         <a asp-action="Create" asp-controller="Schedule" asp-route-organizationId="@Model.OrganizationId" class="btn btn-success"><i class="fas fa-plus"></i> Add New Schedule</a>

@@ -19,13 +19,13 @@
                     <input asp-for="OrganizationId" type="hidden" />
 
                     <div class="mb-3">
-                        <label asp-for="IssuedDate" class="form-label fw-semibold">Issued Date</label>
+                        <label asp-for="IssuedDate" class="form-label text-muted">Issued Date</label>
                         <input asp-for="IssuedDate" type="date" class="form-control rounded-3" />
                         <span asp-validation-for="IssuedDate" class="text-danger small"></span>
                     </div>
 
                     <div class="mb-3">
-                        <label asp-for="ExpiryDate" class="form-label fw-semibold">Expiry Date</label>
+                        <label asp-for="ExpiryDate" class="form-label text-muted">Expiry Date</label>
                         <input asp-for="ExpiryDate" type="date" class="form-control rounded-3" />
                         <span asp-validation-for="ExpiryDate" class="text-danger small"></span>
                     </div>
@@ -37,7 +37,7 @@
                     </div>
 
                     <div class="mb-3">
-                        <label asp-for="RouteId" class="form-label fw-semibold">Route</label>
+                        <label asp-for="RouteId" class="form-label text-muted">Route</label>
                         <select asp-for="RouteId" class="form-select rounded-3">
                             <option value="">Select a route</option>
                             @foreach (var route in Model.Routes)
@@ -49,7 +49,7 @@
                     </div>
 
                     <div class="mb-4">
-                        <label asp-for="ScheduleId" class="form-label fw-semibold">Schedule</label>
+                        <label asp-for="ScheduleId" class="form-label text-muted">Schedule</label>
                         <select asp-for="ScheduleId" class="form-select rounded-3">
                             <option value="">Select a schedule</option>
                             @foreach (var schedule in Model.Schedules)

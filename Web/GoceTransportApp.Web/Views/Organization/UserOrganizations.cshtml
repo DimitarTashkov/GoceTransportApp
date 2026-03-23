@@ -4,10 +4,13 @@
     ViewData["Title"] = "My Organizations";
 }
 
-<h2 class="text-center mb-4">My Organizations</h2>
+<div class="text-center mb-4">
+    <i class="fas fa-building fa-3x text-primary mb-3"></i>
+    <h2 class="h2 fw-bold">My Organizations</h2>
+</div>
 
 <div class="mb-3">
-    <a asp-action="Create" class="btn btn-success"><i class="fas fa-plus"></i> Add New Organization</a>
+    <a asp-action="Create" class="btn btn-primary rounded-pill px-4"><i class="fas fa-plus me-1"></i> Add New Organization</a>
 </div>
 
 <div class="row">
@@ -16,10 +19,10 @@
         @foreach (var organization in Model)
         {
             <div class="col-lg-4 col-md-6 mb-4">
-                <div class="card shadow-sm">
+                <div class="card shadow-sm border-0 rounded-4">
                     <img src="~/images/no-organization-image.png" class="card-img-top object-fit-cover" alt="Organization Image" height="200">
                     <div class="card-body">
-                        <h5 class="card-title">@organization.Name</h5>
+                        <h5 class="card-title fw-semibold">@organization.Name</h5>
                         <p class="card-text">
                             <strong>Address:</strong> @organization.Address<br />
                             <strong>Founder:</strong> @organization.Founder

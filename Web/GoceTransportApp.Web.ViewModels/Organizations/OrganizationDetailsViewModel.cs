@@ -24,6 +24,8 @@ namespace GoceTransportApp.Web.ViewModels.Organizations
 
         public string Phone { get; set; }
 
+        public string? ImageUrl { get; set; }
+
         public HashSet<Route> OrganizationRoutes { get; set; }
            = new HashSet<Route>();
 

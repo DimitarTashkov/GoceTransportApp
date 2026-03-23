@@ -18,7 +18,7 @@ namespace GoceTransportApp.Services.Data.Organizations
 
         Task<IEnumerable<OrganizationDataViewModel>> GetUserOrganizationsAsync(string userId);
 
-        Task CreateAsync(OrganizationInputModel inputModel, string? imageUrl);
+        Task<Guid> CreateAsync(OrganizationInputModel inputModel, string? imageUrl);
 
         Task<EditOrganizationInputModel> GetOrganizationForEditAsync(Guid id);
 

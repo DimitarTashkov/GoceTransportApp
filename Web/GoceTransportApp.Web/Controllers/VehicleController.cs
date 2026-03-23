@@ -81,7 +81,7 @@ namespace GoceTransportApp.Web.Controllers
 
             if (!await this.HasUserCreatedOrganizationAsync(userId, inputModel.OrganizationId) && !User.IsInRole(AdministratorRoleName))
             {
-                return RedirectToAction("Vehicles", "Organization", new { organizationId = inputModel.OrganizationId });
+                return RedirectToAction("Details", "Organization", new { id = inputModel.OrganizationId });
             }
 
             if (!ModelState.IsValid)
@@ -93,7 +93,7 @@ namespace GoceTransportApp.Web.Controllers
 
             TempData[nameof(SuccessMessage)] = SuccessMessage;
 
-            return RedirectToAction("Vehicles", "Organization", new { organizationId = inputModel.OrganizationId });
+            return RedirectToAction("Details", "Organization", new { id = inputModel.OrganizationId });
         }
 
         [HttpGet]
@@ -105,7 +105,7 @@ namespace GoceTransportApp.Web.Controllers
 
             if (!isIdValid)
             {
-                return RedirectToAction("Vehicles", "Organization", new { organizationId = organizationId });
+                return RedirectToAction("Details", "Organization", new { id = organizationId });
             }
 
             EditVehicleInputModel? formModel = await this.vehicleService
@@ -115,14 +115,14 @@ namespace GoceTransportApp.Web.Controllers
             {
                 TempData[nameof(FailMessage)] = FailMessage;
 
-                return RedirectToAction("Vehicles", "Organization", new { organizationId = formModel.OrganizationId });
+                return RedirectToAction("Details", "Organization", new { id = formModel.OrganizationId });
             }
 
             string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
             if (!await this.HasUserCreatedOrganizationAsync(userId, formModel.OrganizationId) && !User.IsInRole(AdministratorRoleName))
             {
-                return RedirectToAction("Vehicles", "Organization", new { organizationId = formModel.OrganizationId });
+                return RedirectToAction("Details", "Organization", new { id = formModel.OrganizationId });
             }
 
             return this.View(formModel);
@@ -139,7 +139,7 @@ namespace GoceTransportApp.Web.Controllers
             }
             if (!await this.HasUserCreatedOrganizationAsync(userId, formModel.OrganizationId) && !User.IsInRole(AdministratorRoleName))
             {
-                return RedirectToAction("Vehicles", "Organization", new { organizationId = formModel.OrganizationId });
+                return RedirectToAction("Details", "Organization", new { id = formModel.OrganizationId });
             }
 
             bool isUpdated = await this.vehicleService
@@ -154,7 +154,7 @@ namespace GoceTransportApp.Web.Controllers
 
             TempData[nameof(SuccessMessage)] = SuccessMessage;
 
-            return RedirectToAction("Vehicles", "Organization", new { organizationId = formModel.OrganizationId });
+            return RedirectToAction("Details", "Organization", new { id = formModel.OrganizationId });
         }
 
         [HttpGet]
@@ -164,7 +164,7 @@ namespace GoceTransportApp.Web.Controllers
             bool isIdValid = IsGuidValid(id, ref vehicleGuid);
             if (!isIdValid)
             {
-                return RedirectToAction("Vehicles", "Organization", new { organizationId = organizationId });
+                return RedirectToAction("Details", "Organization", new { id = organizationId });
             }
 
             RemoveVehicleViewModel? model = await vehicleService
@@ -174,14 +174,14 @@ namespace GoceTransportApp.Web.Controllers
             {
                 TempData[nameof(FailMessage)] = FailMessage;
 
-                return RedirectToAction("Vehicles", "Organization", new { organizationId = organizationId });
+                return RedirectToAction("Details", "Organization", new { id = organizationId });
             }
 
             string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
             if (!await this.HasUserCreatedOrganizationAsync(userId, model.OrganizationId) && !User.IsInRole(AdministratorRoleName))
             {
-                return RedirectToAction("Vehicles", "Organization", new { organizationId = model.OrganizationId });
+                return RedirectToAction("Details", "Organization", new { id = model.OrganizationId });
             }
 
             return View(model);
@@ -199,7 +199,7 @@ namespace GoceTransportApp.Web.Controllers
 
             if (!await this.HasUserCreatedOrganizationAsync(userId, formModel.OrganizationId) && !User.IsInRole(AdministratorRoleName))
             {
-                return RedirectToAction("Vehicles", "Organization", new { organizationId = formModel.OrganizationId });
+                return RedirectToAction("Details", "Organization", new { id = formModel.OrganizationId });
             }
 
             bool isDeleted = await this.vehicleService
@@ -214,7 +214,7 @@ namespace GoceTransportApp.Web.Controllers
 
             TempData[nameof(SuccessMessage)] = SuccessMessage;
 
-            return RedirectToAction("Vehicles", "Organization", new { organizationId = formModel.OrganizationId });
+            return RedirectToAction("Details", "Organization", new { id = formModel.OrganizationId });
         }
 
         [HttpGet]
@@ -225,7 +225,7 @@ namespace GoceTransportApp.Web.Controllers
             bool isIdValid = IsGuidValid(id, ref vehicleGuid);
             if (!isIdValid)
             {
-                return RedirectToAction("Vehicles", "Organization", new { organizationId = organizationId });
+                return RedirectToAction("Details", "Organization", new { id = organizationId });
             }
 
             VehicleDetailsViewModel? model = await vehicleService
@@ -235,7 +235,7 @@ namespace GoceTransportApp.Web.Controllers
             {
                 TempData[nameof(FailMessage)] = FailMessage;
 
-                return RedirectToAction("Vehicles", "Organization", new { organizationId = organizationId });
+                return RedirectToAction("Details", "Organization", new { id = organizationId });
             }
 
             return View(model);

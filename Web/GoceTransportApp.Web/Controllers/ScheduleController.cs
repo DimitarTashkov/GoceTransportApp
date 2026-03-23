@@ -101,7 +101,7 @@ namespace GoceTransportApp.Web.Controllers
 
             if (!await this.HasUserCreatedOrganizationAsync(userId, model.OrganizationId) && !User.IsInRole(AdministratorRoleName))
             {
-                return RedirectToAction("Schedules", "Organization", new { organizationId = model.OrganizationId });
+                return RedirectToAction("Details", "Organization", new { id = model.OrganizationId });
             }
 
             if (!ModelState.IsValid)
@@ -114,7 +114,7 @@ namespace GoceTransportApp.Web.Controllers
             await scheduleService.CreateAsync(model);
             TempData[nameof(SuccessMessage)] = SuccessMessage;
 
-            return RedirectToAction("Schedules", "Organization", new { organizationId = model.OrganizationId });
+            return RedirectToAction("Details", "Organization", new { id = model.OrganizationId });
         }
 
         [HttpGet]
@@ -126,7 +126,7 @@ namespace GoceTransportApp.Web.Controllers
 
             if (!isIdValid)
             {
-                return RedirectToAction("Schedules", "Organization", new { organizationId = organizationId });
+                return RedirectToAction("Details", "Organization", new { id = organizationId });
             }
 
             EditScheduleInputModel? formModel = await this.scheduleService
@@ -136,13 +136,13 @@ namespace GoceTransportApp.Web.Controllers
             {
                 TempData[nameof(FailMessage)] = FailMessage;
 
-                return RedirectToAction("Schedules", "Organization", new { organizationId = organizationId });
+                return RedirectToAction("Details", "Organization", new { id = organizationId });
             }
 
             string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             if (!await this.HasUserCreatedOrganizationAsync(userId, formModel.OrganizationId) && !User.IsInRole(AdministratorRoleName))
             {
-                return RedirectToAction("Schedules", "Organization", new { organizationId = formModel.OrganizationId });
+                return RedirectToAction("Details", "Organization", new { id = formModel.OrganizationId });
             }
 
             formModel.Vehicles = await vehicleService.GetVehiclesForOrganizationAsync(organizationId);
@@ -157,7 +157,7 @@ namespace GoceTransportApp.Web.Controllers
             string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             if (!await this.HasUserCreatedOrganizationAsync(userId, formModel.OrganizationId) && !User.IsInRole(AdministratorRoleName))
             {
-                return RedirectToAction("Schedules", "Organization", new { organizationId = formModel.OrganizationId });
+                return RedirectToAction("Details", "Organization", new { id = formModel.OrganizationId });
             }
 
             if (!ModelState.IsValid)
@@ -179,7 +179,7 @@ namespace GoceTransportApp.Web.Controllers
 
             TempData[nameof(SuccessMessage)] = SuccessMessage;
 
-            return RedirectToAction("Schedules", "Organization", new { organizationId = formModel.OrganizationId });
+            return RedirectToAction("Details", "Organization", new { id = formModel.OrganizationId });
         }
 
         [HttpGet]
@@ -189,7 +189,7 @@ namespace GoceTransportApp.Web.Controllers
             bool isIdValid = IsGuidValid(id, ref scheduleGuid);
             if (!isIdValid)
             {
-                return RedirectToAction("Schedules", "Organization", new { organizationId = organizationId });
+                return RedirectToAction("Details", "Organization", new { id = organizationId });
             }
 
             RemoveScheduleViewModel? model = await scheduleService
@@ -199,13 +199,13 @@ namespace GoceTransportApp.Web.Controllers
             {
                 TempData[nameof(FailMessage)] = FailMessage;
 
-                return RedirectToAction("Schedules", "Organization", new { organizationId = organizationId });
+                return RedirectToAction("Details", "Organization", new { id = organizationId });
             }
 
             string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             if (!await this.HasUserCreatedOrganizationAsync(userId, model.OrganizationId) && !User.IsInRole(AdministratorRoleName))
             {
-                return RedirectToAction("Schedules", "Organization", new { organizationId = model.OrganizationId });
+                return RedirectToAction("Details", "Organization", new { id = model.OrganizationId });
             }
 
             return View(model);
@@ -217,7 +217,7 @@ namespace GoceTransportApp.Web.Controllers
             string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             if (!await this.HasUserCreatedOrganizationAsync(userId, formModel.OrganizationId) && !User.IsInRole(AdministratorRoleName))
             {
-                return RedirectToAction("Schedules", "Organization", new { organizationId = formModel.OrganizationId });
+                return RedirectToAction("Details", "Organization", new { id = formModel.OrganizationId });
             }
 
             if (!ModelState.IsValid)
@@ -237,7 +237,7 @@ namespace GoceTransportApp.Web.Controllers
 
             TempData[nameof(SuccessMessage)] = SuccessMessage;
 
-            return RedirectToAction("Schedules", "Organization", new { organizationId = formModel.OrganizationId });
+            return RedirectToAction("Details", "Organization", new { id = formModel.OrganizationId });
         }
 
         [HttpGet]
@@ -331,7 +331,7 @@ namespace GoceTransportApp.Web.Controllers
             bool isIdValid = IsGuidValid(id, ref scheduleGuid);
             if (!isIdValid)
             {
-                return RedirectToAction("Schedules", "Organization", new { organizationId = organizationId });
+                return RedirectToAction("Details", "Organization", new { id = organizationId });
 
             }
 
@@ -342,7 +342,7 @@ namespace GoceTransportApp.Web.Controllers
             {
                 TempData[nameof(FailMessage)] = FailMessage;
 
-                return RedirectToAction("Schedules", "Organization", new { organizationId = model.OrganizationId });
+                return RedirectToAction("Details", "Organization", new { id = model.OrganizationId });
             }
 
             return View(model);

@@ -42,7 +42,7 @@ namespace GoceTransportApp.Services.Data.Organizations
             this.scheduleRepository = scheduleRepository;
         }
 
-        public async Task CreateAsync(OrganizationInputModel inputModel, string? imageUrl)
+        public async Task<Guid> CreateAsync(OrganizationInputModel inputModel, string? imageUrl)
         {
             Organization organization = new Organization()
             {
@@ -56,6 +56,8 @@ namespace GoceTransportApp.Services.Data.Organizations
 
             await organizationRepository.AddAsync(organization);
             await organizationRepository.SaveChangesAsync();
+
+            return organization.Id;
         }
 
         public async Task<bool> EditOrganizationAsync(EditOrganizationInputModel inputModel, string? imageUrl)
@@ -137,6 +139,13 @@ namespace GoceTransportApp.Services.Data.Organizations
 
             Organization? organization = await organizationRepository.AllAsNoTracking()
                 .Include(o => o.Founder)
+                .Include(o => o.OrganizationRoutes)
+                .Include(o => o.OrganizationDrivers)
+                .Include(o => o.OrganizationVehicles)
+                .Include(o => o.OrganizationSchedules)
+                .Include(o => o.OrganizationTickets)
+                .Include(o => o.OrganizationMessages)
+                .Include(o => o.OrganizationReports)
                 .FirstOrDefaultAsync(d => d.Id == id);
 
             if (organization != null)
@@ -149,6 +158,7 @@ namespace GoceTransportApp.Services.Data.Organizations
                     Phone = organization.Phone,
                     FounderId = organization.FounderId,
                     Founder = organization.Founder.UserName,
+                    ImageUrl = organization.ImageUrl,
                     OrganizationMessages = organization.OrganizationMessages,
                     OrganizationDrivers = organization.OrganizationDrivers,
                     OrganizationRoutes = organization.OrganizationRoutes,

@@ -7,6 +7,28 @@
 * **Секция 5 детайли:** Добавено `IsBoarded` в `UserTicket` + EF миграция `AddIsBoardedToUserTicket`. ViewModels: `PassengerViewModel`, `PassengerListViewModel`. Методи: `GetPassengersForScheduleAsync`, `BoardPassengerAsync` (toggle). Екшъни: `Passengers [GET]` и `Board [POST]` в `ScheduleController`. View: `Views/Schedule/Passengers.cshtml` с таблица + брояч. Бутон "Passenger List" добавен в `_ScheduleDetails.cshtml`.
 * **Секция 6 детайли:** Добавен `GetUserOrganizationIdsAsync` в BaseController. `List<Guid> OrganizationFilter` добавен в `AllVehiclesSearchFilterViewModel` и `AllSchedulesSearchFilterViewModel`. `GetAllDriversAsync` получи `List<Guid>?` параметър. Всички три сервиза прилагат `.Where(Contains)` при зададен филтър. Index екшъните в VehicleController, DriverController, ScheduleController автоматично ограничават данните до организациите на логнатия потребител (Admin вижда всичко).
 * **ВСИЧКИ 6 СЕКЦИИ от business_logic_plan.md са завършени.**
-* **Текущ фокус:** UI редизайн на Организациите (виж `organization_ui_plan.md`).
-* **Секция 2 (Index — карти с аватари) е завършена:** Добавено `ImageUrl` в `Organization` модела + миграция `AddImageUrlToOrganization`. `OrganizationDataViewModel` и `OrganizationService` обновени. `_OrganizationCardPartial.cshtml` редизайниран — кръгъл аватар (лого или инициал), хедър + боди + футер с малки сиви бутони.
-* **Следваща стъпка за Агента (при събуждане):** Прочети `organization_ui_plan.md` и продължи със **Секция 3** (редизайн на Details.cshtml) след потвърждение от потребителя за Index.
+* **ВСИЧКИ 4 СЕКЦИИ от master_ux_ui_redirection_plan.md са завършени.**
+
+## Детайли от master_ux_ui_redirection_plan.md:
+
+### Секция 1 — Премиум хедъри на Index страниците
+* `Route/Index.cshtml` → "Дестинации и Маршрути"
+* `Organization/Index.cshtml` → "Нашите Транспортни Партньори"
+* `Vehicle/Index.cshtml` → "Превозни Средства"
+* `Driver/Index.cshtml` → "Нашият Екип"
+* `Schedule/Index.cshtml` → "Разписания и Курсове"
+
+### Секция 2 — Редизайн на Organization/Details.cshtml
+* Лява колона: профилна карта с лого (`rounded-circle`, 120×120px), Редактирай/Изтрий бутони
+* Дясна колона: Bootstrap nav-tabs за Маршрути, Автопарк, Шофьори, Разписания с карточки
+* `ImageUrl` добавен в `OrganizationDetailsViewModel` + service зарежда related data чрез Include
+
+### Секция 3 — Empty States + форми
+* Всички Index странници имат красив `📭` empty state на Bulgarian
+* Organization/Edit Cancel бутон вече сочи към Details (не към Index)
+
+### Секция 4 — Логични Редиректи
+* `OrganizationService.CreateAsync` вече връща `Task<Guid>`
+* `OrganizationController.Create` [POST] → `RedirectToAction(Details, id=newId)`
+* `OrganizationController.Edit` [POST] → `RedirectToAction(Details, id=formModel.Id)`
+* `VehicleController`, `DriverController`, `RouteController`, `ScheduleController` → след Create/Edit/Delete вече redirect-ват към `Organization/Details/{organizationId}` вместо към sub-list pages

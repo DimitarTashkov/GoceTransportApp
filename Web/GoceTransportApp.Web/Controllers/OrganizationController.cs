@@ -123,10 +123,10 @@ namespace GoceTransportApp.Web.Controllers
                 imageUrl = $"/images/organizations/{uniqueFileName}";
             }
 
-            await organizationService.CreateAsync(model, imageUrl);
+            Guid newId = await organizationService.CreateAsync(model, imageUrl);
             TempData[nameof(SuccessMessage)] = SuccessMessage;
 
-            return RedirectToAction(nameof(UserOrganizations));
+            return RedirectToAction(nameof(Details), new { id = newId.ToString() });
         }
 
         [HttpGet]
@@ -220,7 +220,7 @@ namespace GoceTransportApp.Web.Controllers
 
             TempData[nameof(SuccessMessage)] = SuccessMessage;
 
-            return this.RedirectToAction(nameof(UserOrganizations));
+            return this.RedirectToAction(nameof(Details), new { id = formModel.Id });
         }
 
         [HttpGet]

@@ -15,6 +15,7 @@
     using GoceTransportApp.Services.Data.ContactForms;
     using GoceTransportApp.Services.Data.Drivers;
     using GoceTransportApp.Services.Data.Organizations;
+    using GoceTransportApp.Services.Data.Reviews;
     using GoceTransportApp.Services.Data.Routes;
     using GoceTransportApp.Services.Data.Schedules;
     using GoceTransportApp.Services.Data.Streets;
@@ -122,6 +123,7 @@
             services.AddScoped<ITicketService, TicketService>();
             services.AddScoped<IOrganizationService, OrganizationService>();
             services.AddScoped<IContactFormService, ContactFormService>();
+            services.AddScoped<IReviewService, ReviewService>();
         }
 
         private static void Configure(WebApplication app)

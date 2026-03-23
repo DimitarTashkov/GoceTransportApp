@@ -1,4 +1,5 @@
 ﻿using GoceTransportApp.Services.Data.Organizations;
+using GoceTransportApp.Services.Data.Reviews;
 using GoceTransportApp.Services.Data.Vehicles;
 using GoceTransportApp.Web.ViewModels.Vehicles;
 using Microsoft.AspNetCore.Mvc;
@@ -28,12 +29,14 @@ namespace GoceTransportApp.Web.Controllers
     public class OrganizationController : BaseController
     {
         private readonly IOrganizationService organizationService;
+        private readonly IReviewService reviewService;
         private readonly IWebHostEnvironment webHostEnvironment;
 
-        public OrganizationController(IOrganizationService organizationService, IDeletableEntityRepository<Organization> organizationRepository, IWebHostEnvironment webHostEnvironment)
+        public OrganizationController(IOrganizationService organizationService, IReviewService reviewService, IDeletableEntityRepository<Organization> organizationRepository, IWebHostEnvironment webHostEnvironment)
             : base(organizationRepository)
         {
             this.organizationService = organizationService;
+            this.reviewService = reviewService;
             this.webHostEnvironment = webHostEnvironment;
         }
 
@@ -303,7 +306,30 @@ namespace GoceTransportApp.Web.Controllers
                 return this.RedirectToAction(nameof(Index));
             }
 
+            model.Reviews = await this.reviewService.GetReviewsForOrganizationAsync(id!);
+            model.AverageRating = await this.reviewService.GetAverageRatingAsync(id!);
+
             return View(model);
+        }
+
+        [HttpPost]
+        [Authorize]
+        public async Task<IActionResult> AddReview(string organizationId, int rating, string? comment)
+        {
+            string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            bool success = await this.reviewService.AddReviewAsync(userId, organizationId, rating, comment);
+
+            if (!success)
+            {
+                TempData["ErrorMessage"] = "You can only leave a review if you have traveled with this carrier, and you haven't already reviewed them.";
+            }
+            else
+            {
+                TempData[nameof(SuccessMessage)] = "Thank you for your review!";
+            }
+
+            return this.RedirectToAction(nameof(Details), new { id = organizationId });
         }
 
         [HttpGet]

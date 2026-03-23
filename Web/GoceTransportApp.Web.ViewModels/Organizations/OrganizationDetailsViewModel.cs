@@ -12,6 +12,10 @@ namespace GoceTransportApp.Web.ViewModels.Organizations
 {
     public class OrganizationDetailsViewModel
     {
+        public double AverageRating { get; set; }
+
+        public IEnumerable<ReviewViewModel> Reviews { get; set; } = new List<ReviewViewModel>();
+
         public string Id { get; set; } = null!;
 
         public string Name { get; set; } = null!;

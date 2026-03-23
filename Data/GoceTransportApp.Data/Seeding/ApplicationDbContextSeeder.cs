@@ -29,6 +29,7 @@
                               new SettingsSeeder(),
                               new AdminSeeder(),
                               new DataSeeder(),
+                              new OrganizationSeeder(),
                           };
 
             foreach (var seeder in seeders)

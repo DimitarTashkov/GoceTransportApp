@@ -8,6 +8,21 @@
 * **Секция 6 детайли:** Добавен `GetUserOrganizationIdsAsync` в BaseController. `List<Guid> OrganizationFilter` добавен в `AllVehiclesSearchFilterViewModel` и `AllSchedulesSearchFilterViewModel`. `GetAllDriversAsync` получи `List<Guid>?` параметър. Всички три сервиза прилагат `.Where(Contains)` при зададен филтър. Index екшъните в VehicleController, DriverController, ScheduleController автоматично ограничават данните до организациите на логнатия потребител (Admin вижда всичко).
 * **ВСИЧКИ 6 СЕКЦИИ от business_logic_plan.md са завършени.**
 * **ВСИЧКИ 4 СЕКЦИИ от master_ux_ui_redirection_plan.md са завършени.**
+* **feature3_reviews_plan.md — ЗАВЪРШЕН (всички 4 стъпки).**
+
+## feature3_reviews_plan.md детайли:
+* `Review.cs` entity в `Data.Models` (BaseModel<Guid>, OrganizationId, PassengerId, Rating 1-5, Comment opt.)
+* `DbSet<Review> Reviews` в `ApplicationDbContext`
+* EF migration `AddReviews` — приложена
+* `IReviewService` + `ReviewService` в `Services.Data/Reviews/`
+  * `AddReviewAsync`: валидира дали user е пътувал (UserTicket + Ticket.ExpiryDate < Now) + дали вече е дал отзив
+  * `GetReviewsForOrganizationAsync`: връща `IEnumerable<ReviewViewModel>` (PassengerName, Rating, Comment, CreatedOn)
+  * `GetAverageRatingAsync`: изчислява средния рейтинг с 1 знак след запетаята
+* `OrganizationDetailsViewModel` — добавени `double AverageRating` + `IEnumerable<ReviewViewModel> Reviews`
+* `OrganizationController.Details` — зарежда reviews и average rating след основния model
+* `OrganizationController.AddReview [POST]` — нов екшън с валидация и TempData съобщения
+* `IReviewService` регистриран в `Program.cs`
+* `Organization/Details.cshtml` — звездички (Bootstrap Icons) + среден рейтинг в лявата колона; нов таб "Reviews" с форма за логнати потребители и списък с отзиви
 
 ## Детайли от master_ux_ui_redirection_plan.md:
 

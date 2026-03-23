@@ -9,6 +9,18 @@
 * **ВСИЧКИ 6 СЕКЦИИ от business_logic_plan.md са завършени.**
 * **ВСИЧКИ 4 СЕКЦИИ от master_ux_ui_redirection_plan.md са завършени.**
 * **feature3_reviews_plan.md — ЗАВЪРШЕН (всички 4 стъпки).**
+* **feature2_emails_plan.md — ЗАВЪРШЕН (всички 4 стъпки).**
+
+## feature2_emails_plan.md детайли:
+* `EmailTemplates.cs` — статичен клас в `Services.Messaging/` с два метода:
+  * `GetTicketConfirmationEmail(...)` — красив HTML с inline CSS (route banner, details grid, booking ref)
+  * `GetTicketCancellationEmail(...)` — HTML с червен хедър и cancelled route card
+* `appsettings.json` — добавена секция `SendGrid: { ApiKey, SenderEmail, SenderName }`; ApiKey = "SG.DummyKey" за dev
+* `Program.cs` — логика: ако ApiKey е реален (не "SG.Dummy...") → регистрира `SendGridEmailSender`; иначе → `NullMessageSender`
+* `TicketController` — инжектирани `IEmailSender` + `IConfiguration`; два нови private helpers:
+  * `SendTicketCreatedEmailAsync` — изпраща на org owner след Create [POST]
+  * `SendCancellationEmailAsync` — зарежда ticket details преди CancelTicketAsync, после изпраща cancel email
+* Email failure е wrapped в try/catch — никога не счупва user flow
 
 ## feature3_reviews_plan.md детайли:
 * `Review.cs` entity в `Data.Models` (BaseModel<Guid>, OrganizationId, PassengerId, Rating 1-5, Comment opt.)

@@ -24,6 +24,7 @@
     using GoceTransportApp.Services.Data.Vehicles;
     using GoceTransportApp.Services.Mapping;
     using GoceTransportApp.Services.Messaging;
+    using Microsoft.Extensions.Logging;
     using GoceTransportApp.Web.ViewModels;
     using Microsoft.AspNetCore.Authentication.Cookies;
     using Microsoft.AspNetCore.Builder;
@@ -111,7 +112,15 @@
             services.AddScoped<IDbQueryRunner, DbQueryRunner>();
 
             // Application services
-            services.AddTransient<IEmailSender, NullMessageSender>();
+            var sendGridApiKey = configuration["SendGrid:ApiKey"];
+            if (!string.IsNullOrWhiteSpace(sendGridApiKey) && !sendGridApiKey.StartsWith("SG.Dummy"))
+            {
+                services.AddTransient<IEmailSender>(_ => new SendGridEmailSender(sendGridApiKey));
+            }
+            else
+            {
+                services.AddTransient<IEmailSender, NullMessageSender>();
+            }
             services.AddTransient<ISettingsService, SettingsService>();
             services.AddScoped<IStreetService, StreetService>();
             services.AddScoped<ICityService, CityService>();

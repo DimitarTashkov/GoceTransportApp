@@ -1,5 +1,6 @@
 ﻿using GoceTransportApp.Services.Data.Schedules;
 using GoceTransportApp.Services.Data.Tickets;
+using GoceTransportApp.Services.Messaging;
 using GoceTransportApp.Web.ViewModels.Schedules;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
@@ -17,6 +18,7 @@ using System.Security.Claims;
 using System.Net.Mail;
 using GoceTransportApp.Services.Data.Routes;
 using System.Linq;
+using Microsoft.Extensions.Configuration;
 
 namespace GoceTransportApp.Web.Controllers
 {
@@ -26,13 +28,23 @@ namespace GoceTransportApp.Web.Controllers
         private readonly ITicketService ticketService;
         private readonly IScheduleService scheduleService;
         private readonly IRouteService routeService;
+        private readonly IEmailSender emailSender;
+        private readonly IConfiguration configuration;
 
-        public TicketController(ITicketService ticketService, IDeletableEntityRepository<Organization> organizationRepository, IScheduleService scheduleService, IRouteService routeService)
+        public TicketController(
+            ITicketService ticketService,
+            IDeletableEntityRepository<Organization> organizationRepository,
+            IScheduleService scheduleService,
+            IRouteService routeService,
+            IEmailSender emailSender,
+            IConfiguration configuration)
             : base(organizationRepository)
         {
             this.ticketService = ticketService;
             this.scheduleService = scheduleService;
             this.routeService = routeService;
+            this.emailSender = emailSender;
+            this.configuration = configuration;
         }
 
         [HttpGet]
@@ -111,6 +123,9 @@ namespace GoceTransportApp.Web.Controllers
             }
 
             TempData[nameof(SuccessMessage)] = SuccessMessage;
+
+            // Send ticket-issued confirmation to the org owner
+            await this.SendTicketCreatedEmailAsync(userId, model);
 
             return RedirectToAction("Tickets", "Organization", new { organizationId = model.OrganizationId });
         }
@@ -288,6 +303,9 @@ namespace GoceTransportApp.Web.Controllers
                 return RedirectToAction(nameof(MyTickets));
             }
 
+            // Load ticket details before cancellation for the email
+            TicketDetailsViewModel ticketDetails = await this.ticketService.GetTicketDetailsAsync(ticketGuid);
+
             bool isCancelled = await this.ticketService.CancelTicketAsync(userId, ticketGuid);
 
             if (!isCancelled)
@@ -297,6 +315,7 @@ namespace GoceTransportApp.Web.Controllers
             else
             {
                 TempData[nameof(SuccessMessage)] = "Your ticket has been successfully cancelled.";
+                await this.SendCancellationEmailAsync(userId, ticketDetails);
             }
 
             return RedirectToAction(nameof(MyTickets));
@@ -359,5 +378,83 @@ namespace GoceTransportApp.Web.Controllers
         //    TempData[nameof(TicketPurchaseSuccess)] = TicketPurchaseSuccess;
         //    return RedirectToAction("Tickets", "Organization", new { organizationId = model.OrganizationId });
         //}
+
+        private async Task SendTicketCreatedEmailAsync(string userId, TicketInputModel model)
+        {
+            try
+            {
+                string userEmail = User.FindFirstValue(ClaimTypes.Email);
+                string userName = User.FindFirstValue(ClaimTypes.Name) ?? User.FindFirstValue(ClaimTypes.Email) ?? "User";
+                string senderEmail = this.configuration["SendGrid:SenderEmail"] ?? "noreply@gocetransport.com";
+                string senderName = this.configuration["SendGrid:SenderName"] ?? "GoceTransport";
+
+                if (string.IsNullOrWhiteSpace(userEmail))
+                {
+                    return;
+                }
+
+                string html = EmailTemplates.GetTicketConfirmationEmail(
+                    recipientName: userName,
+                    fromCity: "—",
+                    toCity: "—",
+                    departureDate: model.IssuedDate.ToString("dd MMM yyyy"),
+                    departureTime: "—",
+                    arrivalTime: "—",
+                    organizationName: model.OrganizationId,
+                    ticketId: "Newly created",
+                    price: model.Price.ToString("F2"));
+
+                await this.emailSender.SendEmailAsync(
+                    senderEmail,
+                    senderName,
+                    userEmail,
+                    "Ticket Successfully Issued — GoceTransport",
+                    html);
+            }
+            catch
+            {
+                // Email failure must never break the user flow
+            }
+        }
+
+        private async Task SendCancellationEmailAsync(string userId, TicketDetailsViewModel ticket)
+        {
+            try
+            {
+                if (ticket == null)
+                {
+                    return;
+                }
+
+                string userEmail = User.FindFirstValue(ClaimTypes.Email);
+                string userName = User.FindFirstValue(ClaimTypes.Name) ?? User.FindFirstValue(ClaimTypes.Email) ?? "User";
+                string senderEmail = this.configuration["SendGrid:SenderEmail"] ?? "noreply@gocetransport.com";
+                string senderName = this.configuration["SendGrid:SenderName"] ?? "GoceTransport";
+
+                if (string.IsNullOrWhiteSpace(userEmail))
+                {
+                    return;
+                }
+
+                string html = EmailTemplates.GetTicketCancellationEmail(
+                    recipientName: userName,
+                    fromCity: ticket.FromCity,
+                    toCity: ticket.ToCity,
+                    departureDate: ticket.IssuedDate,
+                    organizationName: ticket.OrganizationName,
+                    ticketId: ticket.Id);
+
+                await this.emailSender.SendEmailAsync(
+                    senderEmail,
+                    senderName,
+                    userEmail,
+                    "Ticket Cancellation Confirmed — GoceTransport",
+                    html);
+            }
+            catch
+            {
+                // Email failure must never break the user flow
+            }
+        }
     }
 }

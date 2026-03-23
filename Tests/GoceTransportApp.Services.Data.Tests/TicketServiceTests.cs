@@ -30,8 +30,9 @@ namespace GoceTransportApp.Services.Data.Tests
 
             var ticketRepository = new EfDeletableEntityRepository<Ticket>(databaseContext);
             var userTicketRepository = new EfDeletableEntityRepository<UserTicket>(databaseContext);
+            var scheduleRepository = new EfDeletableEntityRepository<Schedule>(databaseContext);
 
-            ticketService = new TicketService(ticketRepository, userTicketRepository);
+            ticketService = new TicketService(ticketRepository, userTicketRepository, scheduleRepository);
         }
 
         public void Dispose()
@@ -44,22 +45,68 @@ namespace GoceTransportApp.Services.Data.Tests
         public async Task CreateAsync_ShouldAddTicketToDatabase()
         {
             // Arrange
+            var founder = new ApplicationUser { Id = Guid.NewGuid().ToString(), UserName = "founder", Email = "founder@test.com" };
+            var organization = new Organization { Id = Guid.NewGuid(), Name = "Test Org", FounderId = founder.Id };
+            var vehicle = new Vehicle { Id = Guid.NewGuid(), Number = "AA1234", Type = "Bus", Manufacturer = "Mercedes", Model = "Sprinter", Capacity = 10, OrganizationId = organization.Id };
+            var schedule = new Schedule { Id = Guid.NewGuid(), Day = DayOfWeek.Monday, Departure = DateTime.UtcNow, Arrival = DateTime.UtcNow.AddHours(2), OrganizationId = organization.Id, VehicleId = vehicle.Id, RouteId = Guid.NewGuid() };
+
+            databaseContext.Users.Add(founder);
+            databaseContext.Organizations.Add(organization);
+            databaseContext.Vehicles.Add(vehicle);
+            databaseContext.Schedules.Add(schedule);
+            await databaseContext.SaveChangesAsync();
+
             var inputModel = new TicketInputModel
             {
                 IssuedDate = DateTime.UtcNow,
                 ExpiryDate = DateTime.UtcNow.AddDays(1),
                 Price = 50,
-                OrganizationId = Guid.NewGuid().ToString(),
+                OrganizationId = organization.Id.ToString(),
                 RouteId = Guid.NewGuid().ToString(),
-                ScheduleId = Guid.NewGuid().ToString()
+                ScheduleId = schedule.Id.ToString()
             };
 
             // Act
-            await ticketService.CreateAsync(inputModel);
+            var result = await ticketService.CreateAsync(inputModel);
 
             // Assert
+            Assert.True(result);
             var ticketCount = await databaseContext.Tickets.CountAsync();
             Assert.Equal(1, ticketCount);
+        }
+
+        [Fact]
+        public async Task CreateAsync_ShouldReturnFalse_WhenCapacityExceeded()
+        {
+            // Arrange
+            var founder = new ApplicationUser { Id = Guid.NewGuid().ToString(), UserName = "founder2", Email = "founder2@test.com" };
+            var organization = new Organization { Id = Guid.NewGuid(), Name = "Test Org 2", FounderId = founder.Id };
+            var vehicle = new Vehicle { Id = Guid.NewGuid(), Number = "BB5678", Type = "Bus", Manufacturer = "Volvo", Model = "9700", Capacity = 1, OrganizationId = organization.Id };
+            var schedule = new Schedule { Id = Guid.NewGuid(), Day = DayOfWeek.Tuesday, Departure = DateTime.UtcNow, Arrival = DateTime.UtcNow.AddHours(3), OrganizationId = organization.Id, VehicleId = vehicle.Id, RouteId = Guid.NewGuid() };
+            var existingTicket = new Ticket { Id = Guid.NewGuid(), IssuedDate = DateTime.UtcNow, ExpiryDate = DateTime.UtcNow.AddDays(1), Price = 50, ScheduleId = schedule.Id, OrganizationId = organization.Id, RouteId = Guid.NewGuid() };
+
+            databaseContext.Users.Add(founder);
+            databaseContext.Organizations.Add(organization);
+            databaseContext.Vehicles.Add(vehicle);
+            databaseContext.Schedules.Add(schedule);
+            databaseContext.Tickets.Add(existingTicket);
+            await databaseContext.SaveChangesAsync();
+
+            var inputModel = new TicketInputModel
+            {
+                IssuedDate = DateTime.UtcNow,
+                ExpiryDate = DateTime.UtcNow.AddDays(1),
+                Price = 50,
+                OrganizationId = organization.Id.ToString(),
+                RouteId = Guid.NewGuid().ToString(),
+                ScheduleId = schedule.Id.ToString()
+            };
+
+            // Act
+            var result = await ticketService.CreateAsync(inputModel);
+
+            // Assert
+            Assert.False(result);
         }
 
         [Fact]

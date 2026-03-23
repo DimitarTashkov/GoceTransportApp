@@ -17,15 +17,41 @@ namespace GoceTransportApp.Services.Data.Tickets
     {
         private readonly IDeletableEntityRepository<Ticket> ticketRepository;
         private readonly IDeletableEntityRepository<UserTicket> userTicketRepository;
+        private readonly IDeletableEntityRepository<Schedule> scheduleRepository;
 
-        public TicketService(IDeletableEntityRepository<Ticket> ticketRepository, IDeletableEntityRepository<UserTicket> userTicketRepository)
+        public TicketService(
+            IDeletableEntityRepository<Ticket> ticketRepository,
+            IDeletableEntityRepository<UserTicket> userTicketRepository,
+            IDeletableEntityRepository<Schedule> scheduleRepository)
         {
             this.ticketRepository = ticketRepository;
             this.userTicketRepository = userTicketRepository;
+            this.scheduleRepository = scheduleRepository;
         }
 
-        public async Task CreateAsync(TicketInputModel inputModel)
+        public async Task<bool> CreateAsync(TicketInputModel inputModel)
         {
+            Guid scheduleGuid = Guid.Parse(inputModel.ScheduleId);
+
+            Schedule schedule = await scheduleRepository
+                .AllAsNoTracking()
+                .Include(s => s.Vehicle)
+                .FirstOrDefaultAsync(s => s.Id == scheduleGuid);
+
+            if (schedule == null)
+            {
+                return false;
+            }
+
+            int existingTicketsCount = await ticketRepository
+                .AllAsNoTracking()
+                .CountAsync(t => t.ScheduleId == scheduleGuid);
+
+            if (existingTicketsCount >= schedule.Vehicle.Capacity)
+            {
+                return false;
+            }
+
             Ticket ticket = new Ticket()
             {
                 IssuedDate = inputModel.IssuedDate,
@@ -33,12 +59,14 @@ namespace GoceTransportApp.Services.Data.Tickets
                 Price = inputModel.Price,
                 OrganizationId = Guid.Parse(inputModel.OrganizationId),
                 RouteId = Guid.Parse(inputModel.RouteId),
-                ScheduleId = Guid.Parse(inputModel.ScheduleId),
+                ScheduleId = scheduleGuid,
                 CreatedOn = DateTime.UtcNow,
             };
 
             await ticketRepository.AddAsync(ticket);
             await ticketRepository.SaveChangesAsync();
+
+            return true;
         }
 
         public async Task<bool> EditTicketAsync(EditTicketInputModel inputModel)

@@ -50,6 +50,7 @@
         {
             public const string TicketPurchaseSuccess = "Your ticket(s) have been purchased successfully!";
             public const string InvalidTicketIssueTime = "Ticket issued date be earlier than expiry date!";
+            public const string ScheduleCapacityExceeded = "Cannot create ticket: the vehicle for this schedule is fully booked!";
         }
 
         public static class OrganizationMessages

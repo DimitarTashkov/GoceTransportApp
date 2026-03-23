@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 18
-VisualStudioVersion = 18.5.11605.296 insiders
+VisualStudioVersion = 18.5.11605.296
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Web", "Web", "{E389DEB6-5F90-444B-A054-12A10D39C76F}"
 EndProject
@@ -43,7 +43,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GoceTransportApp.WebApi", "
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{7AEA1550-FA0A-43EF-9DAC-4FEE1088246A}"
 	ProjectSection(SolutionItems) = preProject
-		typography_plan.md = typography_plan.md
+		business_logic_plan.md = business_logic_plan.md
+		CLAUDE.md = CLAUDE.md
+		PROGRESS.md = PROGRESS.md
 	EndProjectSection
 EndProject
 Global

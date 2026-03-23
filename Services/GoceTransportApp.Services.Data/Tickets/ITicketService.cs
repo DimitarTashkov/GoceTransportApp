@@ -12,7 +12,7 @@ namespace GoceTransportApp.Services.Data.Tickets
     {
         Task<IEnumerable<TicketDataViewModel>> GetAllTicketsAsync(AllTicketsSearchFilterViewModel inputModel);
 
-        Task CreateAsync(TicketInputModel inputModel);
+        Task<bool> CreateAsync(TicketInputModel inputModel);
 
         Task<EditTicketInputModel> GetTicketForEditAsync(Guid id);
 

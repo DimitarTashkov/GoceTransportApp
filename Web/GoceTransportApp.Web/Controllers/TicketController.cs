@@ -100,7 +100,15 @@ namespace GoceTransportApp.Web.Controllers
                 return View(model);
             }
 
-            await ticketService.CreateAsync(model);
+            bool isCreated = await ticketService.CreateAsync(model);
+
+            if (!isCreated)
+            {
+                ModelState.AddModelError(string.Empty, ScheduleCapacityExceeded);
+                model.Routes = (await routeService.GetRoutesForOrganizationAsync(model.OrganizationId)).ToList();
+                model.Schedules = (await scheduleService.GetSchedulesForOrganizationAsync(model.OrganizationId)).ToList();
+                return View(model);
+            }
 
             TempData[nameof(SuccessMessage)] = SuccessMessage;
 

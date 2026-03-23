@@ -1,15 +1,33 @@
+@* Toast notifications — rendered inside the fixed toast-container in _Layout.cshtml.
+   The container lives OUTSIDE <main> to avoid the stacking-context bug caused by
+   page-fade-in's transform, which breaks position:fixed descendants. *@
+
 @if (TempData["SuccessMessage"] != null)
 {
-    <div class="alert alert-success alert-dismissible fade show" role="alert">
-        <strong><i class="fas fa-check-circle me-2"></i></strong> @TempData["SuccessMessage"]
-        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    <div class="toast align-items-center text-bg-success border-0 rounded-4 shadow"
+         role="alert" aria-live="assertive" aria-atomic="true"
+         data-bs-autohide="true" data-bs-delay="4500">
+        <div class="d-flex">
+            <div class="toast-body fw-semibold">
+                <i class="fas fa-check-circle me-2"></i>@TempData["SuccessMessage"]
+            </div>
+            <button type="button" class="btn-close btn-close-white me-2 m-auto"
+                    data-bs-dismiss="toast" aria-label="Close"></button>
+        </div>
     </div>
 }
 
 @if (TempData["FailMessage"] != null)
 {
-    <div class="alert alert-danger alert-dismissible fade show" role="alert">
-        <strong><i class="fas fa-times-circle me-2"></i></strong> @TempData["FailMessage"]
-        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    <div class="toast align-items-center text-bg-danger border-0 rounded-4 shadow"
+         role="alert" aria-live="assertive" aria-atomic="true"
+         data-bs-autohide="true" data-bs-delay="4500">
+        <div class="d-flex">
+            <div class="toast-body fw-semibold">
+                <i class="fas fa-times-circle me-2"></i>@TempData["FailMessage"]
+            </div>
+            <button type="button" class="btn-close btn-close-white me-2 m-auto"
+                    data-bs-dismiss="toast" aria-label="Close"></button>
+        </div>
     </div>
 }

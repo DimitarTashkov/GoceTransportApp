@@ -31,6 +31,20 @@
         });
     });
 
+    // ═══════════════════════════════════════════════════════
+    // SECTION 5 — TOAST NOTIFICATIONS (auto-show & dismiss)
+    // ═══════════════════════════════════════════════════════
+    //
+    // Bootstrap Toasts require explicit .show() call via JS.
+    // We grab every .toast element rendered by _NotificationsPartial
+    // and initialize + show them immediately.
+    // The data-bs-delay="4500" attribute on each toast controls
+    // the auto-hide timing — no extra logic needed here.
+    //
+    document.querySelectorAll('.toast').forEach(function (el) {
+        bootstrap.Toast.getOrCreateInstance(el).show();
+    });
+
     // Restore buttons if the browser restores the page from bfcache
     // (e.g. user hits Back after a successful POST redirect)
     window.addEventListener('pageshow', function (e) {

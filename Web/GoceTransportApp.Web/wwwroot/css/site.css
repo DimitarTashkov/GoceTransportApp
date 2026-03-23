@@ -95,6 +95,22 @@ a.card:hover .fas {
     color: var(--bs-primary) !important;
 }
 
+/* ── TOAST SLIDE-IN ────────────────────────────────────── */
+/*
+ * Bootstrap shows toasts by adding .show via JS.
+ * We hook into that to slide them in from the right.
+ * The translate is subtle (0.75rem) — enough to feel like
+ * it "arrived" without being distracting.
+ */
+@keyframes toastSlideIn {
+    from { opacity: 0; transform: translateX(0.75rem); }
+    to   { opacity: 1; transform: translateX(0); }
+}
+
+.toast.show {
+    animation: toastSlideIn 0.3s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
 /* ── REDUCED MOTION GUARD ──────────────────────────────── */
 /*
  * Respect the OS accessibility preference.
@@ -117,5 +133,9 @@ a.card:hover .fas {
     .btn:active:not(:disabled) {
         transform: none;
         transition: none;
+    }
+
+    .toast.show {
+        animation: none;
     }
 }

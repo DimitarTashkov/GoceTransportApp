@@ -27,5 +27,7 @@ namespace GoceTransportApp.Services.Data.Tickets
         Task<int> GetTicketsCountByFilterAsync(AllTicketsSearchFilterViewModel inputModel);
         Task<MyTicketsViewModel> GetMyTicketsAsync(string userId);
         Task<bool> CancelTicketAsync(string userId, Guid ticketId);
+        Task<IEnumerable<PassengerViewModel>> GetPassengersForScheduleAsync(Guid scheduleId);
+        Task<bool> BoardPassengerAsync(string customerId, Guid ticketId);
     }
 }

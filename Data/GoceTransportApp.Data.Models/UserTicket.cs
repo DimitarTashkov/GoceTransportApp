@@ -28,6 +28,8 @@ namespace GoceTransportApp.Data.Models
         [Required]
         public int AvailableTickets { get; set; }
 
+        public bool IsBoarded { get; set; }
+
         public bool IsDeleted { get; set; }
 
         public DateTime? DeletedOn { get; set; }

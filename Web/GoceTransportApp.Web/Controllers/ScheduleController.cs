@@ -18,6 +18,7 @@ using GoceTransportApp.Services.Data.Routes;
 using GoceTransportApp.Services.Data.Tickets;
 using GoceTransportApp.Web.ViewModels.Tickets;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace GoceTransportApp.Web.Controllers
 {
@@ -28,19 +29,22 @@ namespace GoceTransportApp.Web.Controllers
         private readonly IVehicleService vehicleService;
         private readonly IRouteService routeService;
         private readonly ICityService cityService;
+        private readonly ITicketService ticketService;
 
         public ScheduleController(
             IScheduleService scheduleService,
             IDeletableEntityRepository<Organization> organizationRepository,
             IVehicleService vehicleService,
             IRouteService routeService,
-            ICityService cityService)
+            ICityService cityService,
+            ITicketService ticketService)
             : base(organizationRepository)
         {
             this.scheduleService = scheduleService;
             this.vehicleService = vehicleService;
             this.routeService = routeService;
             this.cityService = cityService;
+            this.ticketService = ticketService;
         }
 
         [HttpGet]
@@ -227,6 +231,67 @@ namespace GoceTransportApp.Web.Controllers
             TempData[nameof(SuccessMessage)] = SuccessMessage;
 
             return RedirectToAction("Schedules", "Organization", new { organizationId = formModel.OrganizationId });
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Passengers(string? id, string organizationId)
+        {
+            Guid scheduleGuid = Guid.Empty;
+            bool isIdValid = IsGuidValid(id, ref scheduleGuid);
+            if (!isIdValid)
+            {
+                return RedirectToAction("Schedules", "Organization", new { organizationId });
+            }
+
+            string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            if (!await this.HasUserCreatedOrganizationAsync(userId, organizationId) && !User.IsInRole(AdministratorRoleName))
+            {
+                return RedirectToAction("Schedules", "Organization", new { organizationId });
+            }
+
+            ScheduleDetailsViewModel scheduleDetails = await this.scheduleService.GetScheduleDetailsAsync(scheduleGuid);
+            if (scheduleDetails == null)
+            {
+                TempData[nameof(FailMessage)] = FailMessage;
+                return RedirectToAction("Schedules", "Organization", new { organizationId });
+            }
+
+            var passengers = await this.ticketService.GetPassengersForScheduleAsync(scheduleGuid);
+
+            PassengerListViewModel model = new PassengerListViewModel
+            {
+                ScheduleId = id,
+                OrganizationId = organizationId,
+                FromCity = scheduleDetails.FromCity,
+                ToCity = scheduleDetails.ToCity,
+                Day = scheduleDetails.Day,
+                DepartingTime = scheduleDetails.Departing,
+                Passengers = passengers,
+            };
+
+            return this.View(model);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Board(string customerId, string ticketId, string scheduleId, string organizationId)
+        {
+            string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            if (!await this.HasUserCreatedOrganizationAsync(userId, organizationId) && !User.IsInRole(AdministratorRoleName))
+            {
+                return RedirectToAction("Schedules", "Organization", new { organizationId });
+            }
+
+            Guid ticketGuid = Guid.Empty;
+            bool isValid = IsGuidValid(ticketId, ref ticketGuid);
+            if (!isValid)
+            {
+                TempData[nameof(FailMessage)] = FailMessage;
+                return RedirectToAction(nameof(Passengers), new { id = scheduleId, organizationId });
+            }
+
+            await this.ticketService.BoardPassengerAsync(customerId, ticketGuid);
+
+            return RedirectToAction(nameof(Passengers), new { id = scheduleId, organizationId });
         }
 
         [HttpGet]

@@ -3,6 +3,7 @@ using GoceTransportApp.Data.Models;
 using GoceTransportApp.Services.Data.Base;
 using GoceTransportApp.Web.ViewModels.Schedules;
 using GoceTransportApp.Web.ViewModels.Tickets;
+using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -318,6 +319,39 @@ namespace GoceTransportApp.Services.Data.Tickets
             }
 
             await userTicketRepository.DeleteAsync(userTicket);
+
+            return true;
+        }
+
+        public async Task<IEnumerable<PassengerViewModel>> GetPassengersForScheduleAsync(Guid scheduleId)
+        {
+            return await userTicketRepository
+                .AllAsNoTracking()
+                .Include(ut => ut.Ticket)
+                .Include(ut => ut.Customer)
+                .Where(ut => ut.Ticket.ScheduleId == scheduleId)
+                .Select(ut => new PassengerViewModel
+                {
+                    CustomerId = ut.CustomerId,
+                    CustomerName = ut.Customer.UserName,
+                    TicketId = ut.TicketId.ToString(),
+                    IsBoarded = ut.IsBoarded,
+                })
+                .ToListAsync();
+        }
+
+        public async Task<bool> BoardPassengerAsync(string customerId, Guid ticketId)
+        {
+            UserTicket userTicket = await userTicketRepository
+                .FirstOrDefaultAsync(ut => ut.CustomerId == customerId && ut.TicketId == ticketId);
+
+            if (userTicket == null)
+            {
+                return false;
+            }
+
+            userTicket.IsBoarded = !userTicket.IsBoarded;
+            await userTicketRepository.SaveChangesAsync();
 
             return true;
         }

@@ -29,6 +29,9 @@
                 <div class="d-flex flex-column gap-2 mt-3">
                     @if (isFounder || isAdmin)
                     {
+                        <a asp-action="Passengers" asp-controller="Schedule" asp-route-id="@Model.Id" asp-route-organizationId="@Model.OrganizationId" class="btn btn-primary rounded-pill w-100">
+                            <i class="fas fa-users me-1"></i> Passenger List
+                        </a>
                         <a asp-action="Edit" asp-controller="Schedule" asp-route-id="@Model.Id" asp-route-organizationId="@Model.OrganizationId" class="btn btn-outline-warning rounded-pill w-100">
                             <i class="fas fa-edit"></i> Edit
                         </a>

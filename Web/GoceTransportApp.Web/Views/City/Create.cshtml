@@ -1,4 +1,6 @@
+@using Microsoft.AspNetCore.Mvc.Localization
 @model GoceTransportApp.Web.ViewModels.Cities.CityInputModel
+@inject IViewLocalizer Localizer
 
 @{
     ViewData["Title"] = "Create City";
@@ -8,34 +10,34 @@
     <div class="col-lg-6">
         <div class="text-center mb-4">
             <i class="fas fa-city fa-3x text-primary mb-3"></i>
-            <h1 class="h3 fw-bold">Add a New City</h1>
+            <h1 class="h3 fw-bold">@Localizer["Add a New City"]</h1>
         </div>
         <div class="card border-0 shadow-sm rounded-4">
             <div class="card-body p-5">
                 <form asp-action="Create" method="post">
                     <div class="form-floating mb-3">
-                        <input asp-for="Name" class="form-control rounded-3" placeholder="City Name" />
-                        <label asp-for="Name" class="form-label text-muted">City Name</label>
+                        <input asp-for="Name" class="form-control rounded-3" placeholder="@Localizer["City Name"]" />
+                        <label asp-for="Name" class="form-label text-muted">@Localizer["City Name"]</label>
                         <span asp-validation-for="Name" class="text-danger small"></span>
                     </div>
 
                     <div class="form-floating mb-3">
-                        <input asp-for="State" class="form-control rounded-3" placeholder="State" />
-                        <label asp-for="State" class="form-label text-muted">State</label>
+                        <input asp-for="State" class="form-control rounded-3" placeholder="@Localizer["State"]" />
+                        <label asp-for="State" class="form-label text-muted">@Localizer["State"]</label>
                         <span asp-validation-for="State" class="text-danger small"></span>
                     </div>
 
                     <div class="form-floating mb-4">
-                        <input asp-for="ZipCode" class="form-control rounded-3" placeholder="Zip Code" />
-                        <label asp-for="ZipCode" class="form-label text-muted">Zip Code</label>
+                        <input asp-for="ZipCode" class="form-control rounded-3" placeholder="@Localizer["Zip Code"]" />
+                        <label asp-for="ZipCode" class="form-label text-muted">@Localizer["Zip Code"]</label>
                         <span asp-validation-for="ZipCode" class="text-danger small"></span>
                     </div>
 
                     <button type="submit" class="btn btn-primary btn-lg w-100 rounded-pill">
-                        <i class="fas fa-save me-2"></i>Save
+                        <i class="fas fa-save me-2"></i>@Localizer["Save"]
                     </button>
                     <a asp-action="Index" class="btn btn-outline-secondary rounded-pill w-100 mt-2">
-                        <i class="fas fa-times me-2"></i>Cancel
+                        <i class="fas fa-times me-2"></i>@Localizer["Cancel"]
                     </a>
                 </form>
             </div>

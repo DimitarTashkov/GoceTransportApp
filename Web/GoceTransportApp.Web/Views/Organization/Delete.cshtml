@@ -1,23 +1,25 @@
-﻿@model GoceTransportApp.Web.ViewModels.Organizations.RemoveOrganizationViewModel
+@using Microsoft.AspNetCore.Mvc.Localization
+@model GoceTransportApp.Web.ViewModels.Organizations.RemoveOrganizationViewModel
+@inject IViewLocalizer Localizer
 
 @{
     ViewData["Title"] = "Remove Organization";
 }
 
-<h2 class="h2 fw-bold text-dark text-center mb-4">Remove Organization</h2>
+<h2 class="h2 fw-bold text-dark text-center mb-4">@Localizer["Remove Organization"]</h2>
 
 <div class="row justify-content-center">
 <div class="col-lg-7">
 <div class="card shadow-sm border-0 rounded-4 p-4">
-    <p>Are you sure you want to delete this organization?</p>
+    <p>@Localizer["Are you sure you want to delete this organization?"]</p>
     <dl class="row">
-        <dt class="col-sm-4">Name</dt>
+        <dt class="col-sm-4">@Localizer["Name"]</dt>
         <dd class="col-sm-8">@Model.Name</dd>
 
-        <dt class="col-sm-4">Address</dt>
+        <dt class="col-sm-4">@Localizer["Address"]</dt>
         <dd class="col-sm-8">@Model.Address</dd>
 
-        <dt class="col-sm-4">Founder</dt>
+        <dt class="col-sm-4">@Localizer["Founder"]</dt>
         <dd class="col-sm-8">@Model.FounderName</dd>
     </dl>
 
@@ -25,10 +27,10 @@
         <input type="hidden" asp-for="Id" />
         <div class="text-center">
             <button type="submit" class="btn btn-danger">
-                <i class="fas fa-trash-alt"></i> Delete
+                <i class="fas fa-trash-alt"></i> @Localizer["Delete"]
             </button>
             <a asp-action="Index" class="btn btn-secondary">
-                <i class="fas fa-arrow-left"></i> Cancel
+                <i class="fas fa-arrow-left"></i> @Localizer["Cancel"]
             </a>
         </div>
     </form>

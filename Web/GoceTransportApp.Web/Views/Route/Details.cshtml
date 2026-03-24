@@ -1,8 +1,10 @@
-﻿@using GoceTransportApp.Services.Data.Users
+@using GoceTransportApp.Services.Data.Users
 @using System.Security.Claims
 @using static GoceTransportApp.Common.GlobalConstants;
 @model GoceTransportApp.Web.ViewModels.Routes.RouteDetailsViewModel
 @inject IUserService userService
+@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer Localizer
 @{
     var organizationId = Model.OrganizationId;
     var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
@@ -15,7 +17,7 @@
 
 }
 
-<h1 class="h2 fw-bold text-dark mb-4">Route Details</h1>
+<h1 class="h2 fw-bold text-dark mb-4">@Localizer["Route Details"]</h1>
 
 @if (TempData[nameof(GoceTransportApp.Common.ResultMessages.GeneralMessages.FailMessage)] != null)
 {
@@ -30,14 +32,14 @@
     @if (isFounder || isAdmin)
     {
         <a asp-action="Edit" asp-controller="Route" asp-route-id="@Model.Id" asp-route-organizationId="@Model.OrganizationId" class="btn btn-warning">
-            <i class="fas fa-edit"></i> Edit
+            <i class="fas fa-edit"></i> @Localizer["Edit"]
         </a>
         <a asp-action="Delete" asp-controller="Route" asp-route-id="@Model.Id" asp-route-organizationId="@Model.OrganizationId" class="btn btn-danger">
-            <i class="fas fa-trash-alt"></i> Delete
+            <i class="fas fa-trash-alt"></i> @Localizer["Delete"]
         </a>
 
     }
     <a asp-action="Index" asp-controller="Route" class="btn btn-light">
-        <i class="fas fa-arrow-left"></i> Back to List
+        <i class="fas fa-arrow-left"></i> @Localizer["Back to List"]
     </a>
 </div>

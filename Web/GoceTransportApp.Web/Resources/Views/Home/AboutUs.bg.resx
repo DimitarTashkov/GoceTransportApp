@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype"><value>text/microsoft-resx</value></resheader>
+  <resheader name="version"><value>2.0</value></resheader>
+  <resheader name="reader"><value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+  <resheader name="writer"><value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+  <data name="About Goce Transport App" xml:space="preserve"><value>За Goce Transport App</value></data>
+  <data name="Our Mission" xml:space="preserve"><value>Нашата Мисия</value></data>
+  <data name="Goce Transport App is dedicated to simplifying the way transportation organizations manage and communicate with their customers. Our platform allows transport companies to easily visualize and manage their routes, schedules, organizations and tickets in one convenient location." xml:space="preserve"><value>Goce Transport App е посветена на опростяването на начина, по който транспортните организации управляват и комуникират с клиентите си. Нашата платформа позволява на транспортните компании лесно да визуализират и управляват маршрутите, разписанията, организациите и билетите си на едно удобно място.</value></data>
+  <data name="By using our app, transport organizations can effortlessly share up-to-date route information, schedules and ticketing details with their customers, providing them with easy access to essential travel information, anytime and anywhere." xml:space="preserve"><value>Използвайки нашето приложение, транспортните организации могат лесно да споделят актуална информация за маршрути, разписания и билети с клиентите си, осигурявайки им лесен достъп до важна пътническа информация по всяко време и навсякъде.</value></data>
+  <data name="Our Story" xml:space="preserve"><value>Нашата История</value></data>
+  <data name="Goce Transport App was founded in 2025 with the goal of transforming how transportation organizations interact with their customers. We wanted to create a platform that would not only simplify internal operations but also improve the customer experience by offering transparent and accessible travel information." xml:space="preserve"><value>Goce Transport App е основана през 2025 г. с цел да трансформира начина, по който транспортните организации взаимодействат с клиентите си. Искахме да създадем платформа, която не само да опрости вътрешните операции, но и да подобри клиентското изживяване, предлагайки прозрачна и достъпна пътническа информация.</value></data>
+  <data name="With our user-friendly platform, transport companies can easily showcase routes, provide up-to-date schedules and manage ticketing all within the app. Our solution enables both businesses and travelers to stay organized and informed, enhancing the overall travel experience." xml:space="preserve"><value>С нашата удобна за потребителя платформа, транспортните компании могат лесно да показват маршрути, да предоставят актуални разписания и да управляват билетирането – всичко в рамките на приложението. Нашето решение позволява както на бизнесите, така и на пътниците да останат организирани и информирани, подобрявайки цялостното пътническо изживяване.</value></data>
+  <data name="Why Choose Us?" xml:space="preserve"><value>Защо да ни изберете?</value></data>
+  <data name="Efficient Route and Schedule Management:" xml:space="preserve"><value>Ефективно управление на маршрути и разписания:</value></data>
+  <data name="Our app helps transport organizations manage and share their routes and schedules effortlessly with customers, providing real-time updates and accessibility." xml:space="preserve"><value>Нашето приложение помага на транспортните организации да управляват и споделят маршрутите и разписанията си с клиентите без усилие, осигурявайки актуализации в реално време и достъпност.</value></data>
+  <data name="Comprehensive Ticketing System:" xml:space="preserve"><value>Цялостна система за билети:</value></data>
+  <data name="We provide an integrated ticketing system that allows customers to view, book and manage tickets directly through the app." xml:space="preserve"><value>Предоставяме интегрирана система за билети, която позволява на клиентите да преглеждат, резервират и управляват билети директно чрез приложението.</value></data>
+  <data name="User-Friendly Interface:" xml:space="preserve"><value>Удобен за потребителя интерфейс:</value></data>
+  <data name="The Goce Transport App is designed to be intuitive and easy to navigate for both businesses and customers, ensuring a seamless experience." xml:space="preserve"><value>Goce Transport App е проектирана да бъде интуитивна и лесна за навигация, както за бизнесите, така и за клиентите, осигурявайки безпроблемно изживяване.</value></data>
+  <data name="Accessible Anytime, Anywhere:" xml:space="preserve"><value>Достъпна по всяко време, навсякъде:</value></data>
+  <data name="Our app ensures that all relevant travel information is available at the fingertips of customers, enabling them to access routes, schedules and tickets on the go." xml:space="preserve"><value>Нашето приложение гарантира, че цялата необходима пътническа информация е на един клик от клиентите, позволявайки им достъп до маршрути, разписания и билети навсякъде.</value></data>
+  <data name="Contact Us" xml:space="preserve"><value>Свържете се с Нас</value></data>
+  <data name="If you have any questions or need support, feel free to reach out to us through our Contact us page. We're here to assist you!" xml:space="preserve"><value>Ако имате въпроси или нужда от поддръжка, свържете се с нас чрез нашата страница за контакт. Тук сме, за да ви помогнем!</value></data>
+</root>

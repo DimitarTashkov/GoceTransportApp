@@ -1,11 +1,13 @@
+@using Microsoft.AspNetCore.Mvc.Localization
 @model GoceTransportApp.Web.ViewModels.ContactForms.ContactFormInputModel
+@inject IViewLocalizer Localizer
 
 <div class="row justify-content-center">
     <div class="col-lg-6">
         <div class="text-center mb-4">
             <i class="fas fa-envelope fa-3x text-primary mb-3"></i>
-            <h1 class="h3 fw-bold">Contact Us</h1>
-            <p class="text-muted">We'd love to hear from you</p>
+            <h1 class="h3 fw-bold">@Localizer["Contact Us"]</h1>
+            <p class="text-muted">@Localizer["We'd love to hear from you"]</p>
         </div>
         <div class="card border-0 shadow-sm rounded-4">
             <div class="card-body p-5">
@@ -14,24 +16,24 @@
 
                     <div class="form-floating mb-3">
                         <input asp-for="Email" class="form-control rounded-3" placeholder="your@email.com" />
-                        <label asp-for="Email">Email</label>
+                        <label asp-for="Email">@Localizer["Email"]</label>
                         <span asp-validation-for="Email" class="text-danger small"></span>
                     </div>
 
                     <div class="form-floating mb-3">
-                        <input asp-for="Title" class="form-control rounded-3" placeholder="Subject" />
-                        <label asp-for="Title">Subject</label>
+                        <input asp-for="Title" class="form-control rounded-3" placeholder="@Localizer["Subject"]" />
+                        <label asp-for="Title">@Localizer["Subject"]</label>
                         <span asp-validation-for="Title" class="text-danger small"></span>
                     </div>
 
                     <div class="form-floating mb-4">
-                        <textarea asp-for="Message" class="form-control rounded-3" placeholder="Your message" rows="5"></textarea>
-                        <label asp-for="Message">Message</label>
+                        <textarea asp-for="Message" class="form-control rounded-3" placeholder="@Localizer["Your message"]" rows="5"></textarea>
+                        <label asp-for="Message">@Localizer["Message"]</label>
                         <span asp-validation-for="Message" class="text-danger small"></span>
                     </div>
 
                     <button type="submit" class="btn btn-primary btn-lg w-100 rounded-pill">
-                        <i class="fas fa-paper-plane me-2"></i>Send Message
+                        <i class="fas fa-paper-plane me-2"></i>@Localizer["Send Message"]
                     </button>
                 </form>
             </div>

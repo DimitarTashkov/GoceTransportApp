@@ -16,6 +16,8 @@ namespace GoceTransportApp.Web.ViewModels.Organizations
 
         public IEnumerable<ReviewViewModel> Reviews { get; set; } = new List<ReviewViewModel>();
 
+        public bool IsFavorite { get; set; }
+
         public string Id { get; set; } = null!;
 
         public string Name { get; set; } = null!;

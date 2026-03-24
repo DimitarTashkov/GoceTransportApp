@@ -1,5 +1,82 @@
 # Текущ прогрес на проекта
 
+## Пълна локализация (en-US / bg-BG) — ЗАВЪРШЕНА (2026-03-24)
+Всички Razor view файлове в приложението са локализирани. При избор на 🇧🇬 BG от езиковия превключвател, целият UI се превключва на Български.
+
+### Обхват — 55+ view файла + 55+ `.bg.resx` resource файла:
+* **Shared:** `_Layout.cshtml`, `_LoginPartial.cshtml`, `_SelectLanguagePartial.cshtml`
+* **Organization (13):** Index, Create, Edit, Delete, Details, UserOrganizations, Favorites, Upgrade, Routes, Drivers, Vehicles, Schedules, Tickets
+* **Schedule (7):** Index, Search, Create, Edit, Delete, Details, Passengers
+* **Ticket (6):** Index, Create, Edit, Delete, Details, MyTickets
+* **Route (5):** Index, Create, Edit, Delete, Details
+* **Vehicle (5):** Index, Create, Edit, Delete, Details
+* **Driver (5):** Index, Create, Edit, Delete, Details
+* **City (5):** Index, Create, Edit, Details, AddStreet
+* **Street (3):** Index, Create, Edit
+* **ContactForm (4):** Index, Create, Details, Delete
+* **Home (3):** Index, AboutUs, Privacy
+
+### Инфраструктура:
+* `CultureController.SetCulture [POST]` — записва избрания език в куки (1 година)
+* `_SelectLanguagePartial.cshtml` — dropdown 🇬🇧/🇧🇬 в navbar-а с активен маркер
+* `Program.cs` — `AddLocalization`, `AddViewLocalization`, `UseRequestLocalization` (default: en-US)
+* Resource файлове в `Resources/Views/<Controller>/<View>.bg.resx`
+
+
+
+## Локализация Schedule и Ticket views — ЗАВЪРШЕНА (2026-03-24)
+* **13 view файла** обновени с `@using Microsoft.AspNetCore.Mvc.Localization` + `@inject IViewLocalizer Localizer`
+* **Schedule views (7):** `Index`, `Search`, `Create`, `Edit`, `Delete`, `Details`, `Passengers`
+* **Ticket views (6):** `Index`, `Create`, `Edit`, `Delete`, `Details`, `MyTickets`
+* Всички hardcoded UI текстове (h1/h2, бутони, лейбъли, table headers, empty-state съобщения, sort options, badge labels, confirm dialogs) заменени с `@Localizer["..."]`
+* **13 `.bg.resx` файла** създадени в `Resources/Views/Schedule/` и `Resources/Views/Ticket/`
+* C# блокове (`ViewData["Title"]`, helper variables, sort tuples values използват `.Value` на IHtmlLocalizedString) НЕ са засегнати; asp-* tag helpers запазени непроменени
+* Специфика: сортиращите опции в `Schedule/Index.cshtml` използват `Localizer["Sort: Default"].Value` за вграждане в C# tuple
+
+## Локализация Organization views — ЗАВЪРШЕНА (2026-03-24)
+* **13 view файла** обновени с `@using Microsoft.AspNetCore.Mvc.Localization` + `@inject IViewLocalizer Localizer`:
+  `Index`, `Create`, `Edit`, `Delete`, `Details`, `UserOrganizations`, `Favorites`, `Upgrade`, `Routes`, `Drivers`, `Vehicles`, `Schedules`, `Tickets`
+* Всички hardcoded UI текстове (h1/h2, бутони, лейбъли, placeholders, table headers, tab labels, empty-state съобщения, review форма) заменени с `@Localizer["..."]`
+* **13 `.bg.resx` файла** създадени в `Resources/Views/Organization/`
+* C# блокове (`ViewData["Title"]`, helper variables) НЕ са засегнати; asp-* tag helpers запазени непроменени
+
+## Локализация Route / Vehicle / Driver views — ЗАВЪРШЕНА (2026-03-24)
+* **15 view файла** обновени с `@using Microsoft.AspNetCore.Mvc.Localization` + `@inject IViewLocalizer Localizer`
+* Всички hardcoded UI текстове (h1/h2, бутони, лейбъли, placeholders, table headers, empty-state съобщения) заменени с `@Localizer["..."]`
+* **15 `.bg.resx` файла** създадени (нова директорийна структура `Resources/Views/Route|Vehicle|Driver/`)
+  * `Route/Index.bg.resx`, `Create.bg.resx`, `Edit.bg.resx`, `Delete.bg.resx`, `Details.bg.resx`
+  * `Vehicle/Index.bg.resx`, `Create.bg.resx`, `Edit.bg.resx`, `Delete.bg.resx`, `Details.bg.resx`
+  * `Driver/Index.bg.resx`, `Create.bg.resx`, `Edit.bg.resx`, `Delete.bg.resx`, `Details.bg.resx`
+* C# блокове (`ViewData["Title"]`, helper variables) НЕ са засегнати; asp-* tag helpers запазени непроменени
+
+## advanced_features_and_localization_plan.md — ЗАВЪРШЕН (всички 4 фази)
+
+### Фаза 1: Любими Организации (Favorites)
+* **Нов модел:** `UserFavoriteOrganization` (Many-to-Many) с composite PK (UserId + OrganizationId)
+* **EF миграция:** `AddAdvancedFeatures` — таблица `UserFavoriteOrganizations` + `MembershipTier` колона в `AspNetUsers`
+* **Сервис:** `ToggleFavoriteAsync`, `IsOrganizationFavoriteAsync`, `GetFavoriteOrganizationsByUserIdAsync` в `OrganizationService`
+* **UI:** Бутон "Follow/Unfollow" в `Organization/Details.cshtml` (само за не-собственици); нова страница `Organization/Favorites.cshtml` с card grid
+* **Navbar:** Линк "Favorites" (сърчице) в `_LoginPartial.cshtml`
+
+### Фаза 2: Membership Tiers
+* **Нов enum:** `MembershipTier` (Free=1, Pro=3, Enterprise=999) в `Data.Models/Enumerations/`
+* **ApplicationUser:** Добавено `MembershipTier` свойство с default `Free`
+* **Бизнес логика:** В `OrganizationController.Create [GET]` — брои съществуващите организации и сравнява с `(int)user.MembershipTier`; ако лимита е достигнат → redirect към `Upgrade`
+* **UI:** Нова страница `Organization/Upgrade.cshtml` с красиви pricing cards (Free/Pro/Enterprise)
+
+### Фаза 3: Tickets (верифицирана)
+* My Tickets + My Trips вече съществуват от предишни сесии; нова функционалност не е нужна
+
+### Фаза 4: Локализация (en-US / bg-BG)
+* **Program.cs:** `AddLocalization(ResourcesPath="Resources")`, `AddViewLocalization()`, `AddDataAnnotationsLocalization()`, `UseRequestLocalization()` с default `en-US`
+* **CultureController:** POST action `SetCulture` — записва избрания език в куки (`CookieRequestCultureProvider`)
+* **_SelectLanguagePartial.cshtml:** Dropdown 🇬🇧/🇧🇬 с form → POST към CultureController; показва текущия език
+* **Resource файлове:** `Resources/Views/Shared/_Layout.bg.resx` + `_LoginPartial.bg.resx` с пълни превод на менюто на Български
+* **_Layout.cshtml + _LoginPartial.cshtml:** Всички navbar линкове използват `@Localizer["..."]`
+* **Резултат:** При избор на 🇧🇬 BG — менюто се превключва на Български; при 🇬🇧 EN — English (запазено в куки за 1 година)
+
+
+
 * **Завършено до момента:** Добавени са Dockerfile-ове за Web и API. Направен е редизайн на картите и формите чрез Bootstrap 5. Оправена е типографията и са добавени базови UX анимации в site.css/js. **Секция 2** (Капацитет) и **Секция 3** (Търсачка) от business_logic_plan.md са завършени.
 * **Секция 3 детайли:** Добавена форма за търсене в `Home/Index.cshtml`, нов `Schedule/Search` екшън и view, нов метод `SearchSchedulesAsync` в ScheduleService (филтрира по FromCity, ToCity, DayOfWeek от датата).
 * **Текущ фокус:** Бизнес логика — `business_logic_plan.md`.
@@ -14,6 +91,24 @@
 * **master_seeder_plan.md — ЗАВЪРШЕН.**
 * **advanced_filtering_pagination_plan.md — ЗАВЪРШЕН (всички 4 точки).**
 * **ultimate_e2e_self_healing_plan.md — ЗАВЪРШЕН (Фаза 1 + Фаза 2, 8/8 теста минават).**
+
+## Локализация City / Street / ContactForm / Home views — ЗАВЪРШЕНА (2026-03-24)
+* **14 view файла** обновени с `@using Microsoft.AspNetCore.Mvc.Localization` + `@inject IViewLocalizer Localizer`
+* **City views (5):** `Index`, `Create`, `Edit`, `Details`, `AddStreet`
+  * Забележка: `City/Delete.cshtml` не съществуваше в проекта (не е намерен при Glob); пропуснат
+* **Street views (3):** `Index`, `Create`, `Edit`
+  * Забележка: `Street/Delete.cshtml` и `Street/Details.cshtml` не съществуват в проекта
+* **ContactForm views (4):** `Index`, `Create`, `Details`, `Delete`
+* **Home views (3):** `Index`, `AboutUs`, `Privacy`
+* Всички hardcoded UI текстове заменени с `@Localizer["..."]`
+* **14 `.bg.resx` файла** създадени в:
+  * `Resources/Views/City/` — `Index.bg.resx`, `Create.bg.resx`, `Edit.bg.resx`, `Details.bg.resx`, `AddStreet.bg.resx`
+  * `Resources/Views/Street/` — `Index.bg.resx`, `Create.bg.resx`, `Edit.bg.resx`
+  * `Resources/Views/ContactForm/` — `Index.bg.resx`, `Create.bg.resx`, `Details.bg.resx`, `Delete.bg.resx`
+  * `Resources/Views/Home/` — `Index.bg.resx`, `AboutUs.bg.resx`, `Privacy.bg.resx`
+* `Home/Index.cshtml` — всички секции (hero, trip search, how it works, features, quick access, CTA, about/contact cards) локализирани
+* `Home/AboutUs.cshtml` — всички параграфи, заглавия и list items преведени на Български
+* C# блокове (`ViewData["Title"]`) НЕ са засегнати; asp-* tag helpers запазени непроменени
 
 ## advanced_filtering_pagination_plan.md детайли:
 * **Нов enum:** `ScheduleSorting` (Default/DepartureAscending/DepartureDescending/ArrivalAscending/ArrivalDescending) — `Web.ViewModels/Schedules/ScheduleSorting.cs`

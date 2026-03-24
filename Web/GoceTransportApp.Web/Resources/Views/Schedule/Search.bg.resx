@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype"><value>text/microsoft-resx</value></resheader>
+  <resheader name="version"><value>2.0</value></resheader>
+  <resheader name="reader"><value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+  <resheader name="writer"><value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+  <data name="Back" xml:space="preserve"><value>Назад</value></data>
+  <data name="Search Results" xml:space="preserve"><value>Резултати от Търсенето</value></data>
+  <data name="From" xml:space="preserve"><value>От</value></data>
+  <data name="To" xml:space="preserve"><value>До</value></data>
+  <data name="Select city" xml:space="preserve"><value>Изберете град</value></data>
+  <data name="Date of Travel" xml:space="preserve"><value>Дата на пътуване</value></data>
+  <data name="Details" xml:space="preserve"><value>Детайли</value></data>
+  <data name="No schedules found for the selected criteria." xml:space="preserve"><value>Няма намерени разписания за избраните критерии.</value></data>
+  <data name="Try changing the cities or selecting a different date." xml:space="preserve"><value>Опитайте с различни градове или дата.</value></data>
+  <data name="Select origin and destination cities to find available trips." xml:space="preserve"><value>Изберете начален и краен град за намиране на налични пътувания.</value></data>
+</root>

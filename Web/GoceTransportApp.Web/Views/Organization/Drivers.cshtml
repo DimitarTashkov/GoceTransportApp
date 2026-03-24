@@ -1,8 +1,10 @@
-﻿@using System.Security.Claims
+@using System.Security.Claims
 @using GoceTransportApp.Services.Data.Users
 @using static GoceTransportApp.Common.GlobalConstants
+@using Microsoft.AspNetCore.Mvc.Localization
 @model GoceTransportApp.Web.ViewModels.Drivers.DriversForOrganizationViewModel
 @inject IUserService userService
+@inject IViewLocalizer Localizer
 
 @{
     var organizationId = Model.OrganizationId;
@@ -18,18 +20,18 @@
 <div class="container mt-5">
     <div class="text-center mb-4">
         <i class="fas fa-user-tie fa-3x text-primary mb-3"></i>
-        <h1 class="h2 fw-bold">Drivers</h1>
+        <h1 class="h2 fw-bold">@Localizer["Drivers"]</h1>
     </div>
     @if (isFounder || isAdmin)
     {
         <div class="mt-4 mb-4">
-            <a asp-action="Create" asp-controller="Driver" asp-route-organizationId="@Model.OrganizationId" class="btn btn-success"><i class="fas fa-plus"></i> Add New Driver</a>
+            <a asp-action="Create" asp-controller="Driver" asp-route-organizationId="@Model.OrganizationId" class="btn btn-success"><i class="fas fa-plus"></i> @Localizer["Add New Driver"]</a>
         </div>
     }
 
     @if (!Model.Drivers.Any())
     {
-        <p>No drivers found for this organization.</p>
+        <p>@Localizer["No drivers found for this organization."]</p>
     }
 
     <div class="row">

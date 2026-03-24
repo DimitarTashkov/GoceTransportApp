@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype"><value>text/microsoft-resx</value></resheader>
+  <resheader name="version"><value>2.0</value></resheader>
+  <resheader name="reader"><value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+  <resheader name="writer"><value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+  <data name="Edit Schedule" xml:space="preserve"><value>Редактирай Разписание</value></data>
+  <data name="Day" xml:space="preserve"><value>Ден</value></data>
+  <data name="Select a Day" xml:space="preserve"><value>Изберете ден</value></data>
+  <data name="Monday" xml:space="preserve"><value>Понеделник</value></data>
+  <data name="Tuesday" xml:space="preserve"><value>Вторник</value></data>
+  <data name="Wednesday" xml:space="preserve"><value>Сряда</value></data>
+  <data name="Thursday" xml:space="preserve"><value>Четвъртък</value></data>
+  <data name="Friday" xml:space="preserve"><value>Петък</value></data>
+  <data name="Saturday" xml:space="preserve"><value>Събота</value></data>
+  <data name="Sunday" xml:space="preserve"><value>Неделя</value></data>
+  <data name="Departure Time" xml:space="preserve"><value>Час на тръгване</value></data>
+  <data name="Arrival Time" xml:space="preserve"><value>Час на пристигане</value></data>
+  <data name="Vehicle" xml:space="preserve"><value>Превозно Средство</value></data>
+  <data name="Select a vehicle" xml:space="preserve"><value>Изберете превозно средство</value></data>
+  <data name="Route" xml:space="preserve"><value>Маршрут</value></data>
+  <data name="Select a route" xml:space="preserve"><value>Изберете маршрут</value></data>
+  <data name="Update" xml:space="preserve"><value>Обнови</value></data>
+  <data name="Cancel" xml:space="preserve"><value>Отказ</value></data>
+</root>

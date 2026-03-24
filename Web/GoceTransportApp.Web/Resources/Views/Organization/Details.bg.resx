@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype"><value>text/microsoft-resx</value></resheader>
+  <resheader name="version"><value>2.0</value></resheader>
+  <resheader name="reader"><value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+  <resheader name="writer"><value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+  <data name="reviews" xml:space="preserve"><value>отзива</value></data>
+  <data name="No ratings yet" xml:space="preserve"><value>Все още без рейтинг</value></data>
+  <data name="Edit" xml:space="preserve"><value>Редактирай</value></data>
+  <data name="Delete" xml:space="preserve"><value>Изтрий</value></data>
+  <data name="Unfollow" xml:space="preserve"><value>Спри следването</value></data>
+  <data name="Follow" xml:space="preserve"><value>Следвай</value></data>
+  <data name="Back to List" xml:space="preserve"><value>Назад към списъка</value></data>
+  <data name="Routes" xml:space="preserve"><value>Маршрути</value></data>
+  <data name="Vehicles" xml:space="preserve"><value>Превозни Средства</value></data>
+  <data name="Drivers" xml:space="preserve"><value>Шофьори</value></data>
+  <data name="Schedules" xml:space="preserve"><value>Разписания</value></data>
+  <data name="Tickets" xml:space="preserve"><value>Билети</value></data>
+  <data name="Reviews" xml:space="preserve"><value>Отзиви</value></data>
+  <data name="Add Route" xml:space="preserve"><value>Добави Маршрут</value></data>
+  <data name="Route" xml:space="preserve"><value>Маршрут</value></data>
+  <data name="Details" xml:space="preserve"><value>Детайли</value></data>
+  <data name="No routes found" xml:space="preserve"><value>Няма намерени маршрути</value></data>
+  <data name="No routes have been added for this organization yet." xml:space="preserve"><value>Все още няма добавени маршрути за тази организация.</value></data>
+  <data name="Add Vehicle" xml:space="preserve"><value>Добави Превозно Средство</value></data>
+  <data name="No vehicles found" xml:space="preserve"><value>Няма намерени превозни средства</value></data>
+  <data name="No vehicles have been added for this organization yet." xml:space="preserve"><value>Все още няма добавени превозни средства за тази организация.</value></data>
+  <data name="Add Driver" xml:space="preserve"><value>Добави Шофьор</value></data>
+  <data name="No drivers found" xml:space="preserve"><value>Няма намерени шофьори</value></data>
+  <data name="No drivers have been added for this organization yet." xml:space="preserve"><value>Все още няма добавени шофьори за тази организация.</value></data>
+  <data name="Add Schedule" xml:space="preserve"><value>Добави Разписание</value></data>
+  <data name="No schedules found" xml:space="preserve"><value>Няма намерени разписания</value></data>
+  <data name="No schedules have been added for this organization yet." xml:space="preserve"><value>Все още няма добавени разписания за тази организация.</value></data>
+  <data name="Add Ticket" xml:space="preserve"><value>Добави Билет</value></data>
+  <data name="Issued" xml:space="preserve"><value>Издаден</value></data>
+  <data name="Expires" xml:space="preserve"><value>Изтича</value></data>
+  <data name="Price" xml:space="preserve"><value>Цена</value></data>
+  <data name="No tickets found" xml:space="preserve"><value>Няма намерени билети</value></data>
+  <data name="No tickets have been issued for this organization yet." xml:space="preserve"><value>Все още няма издадени билети за тази организация.</value></data>
+  <data name="Leave a Review" xml:space="preserve"><value>Остави Отзив</value></data>
+  <data name="Rating" xml:space="preserve"><value>Рейтинг</value></data>
+  <data name="Excellent" xml:space="preserve"><value>Отличен</value></data>
+  <data name="Good" xml:space="preserve"><value>Добър</value></data>
+  <data name="Average" xml:space="preserve"><value>Среден</value></data>
+  <data name="Poor" xml:space="preserve"><value>Слаб</value></data>
+  <data name="Terrible" xml:space="preserve"><value>Ужасен</value></data>
+  <data name="Comment (optional)" xml:space="preserve"><value>Коментар (по избор)</value></data>
+  <data name="Share your experience..." xml:space="preserve"><value>Споделете опита си...</value></data>
+  <data name="Submit Review" xml:space="preserve"><value>Изпрати Отзив</value></data>
+  <data name="No reviews yet" xml:space="preserve"><value>Все още няма отзиви</value></data>
+  <data name="Be the first to share your experience with this carrier." xml:space="preserve"><value>Бъдете първият, споделили опит с този превозвач.</value></data>
+</root>

@@ -108,6 +108,9 @@ namespace GoceTransportApp.Data.Migrations
                     b.Property<DateTimeOffset?>("LockoutEnd")
                         .HasColumnType("datetimeoffset");
 
+                    b.Property<int>("MembershipTier")
+                        .HasColumnType("int");
+
                     b.Property<DateTime?>("ModifiedOn")
                         .HasColumnType("datetime2");
 
@@ -701,6 +704,24 @@ namespace GoceTransportApp.Data.Migrations
                     b.ToTable("Tickets");
                 });
 
+            modelBuilder.Entity("GoceTransportApp.Data.Models.UserFavoriteOrganization", b =>
+                {
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<Guid>("OrganizationId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("UserId", "OrganizationId");
+
+                    b.HasIndex("OrganizationId");
+
+                    b.ToTable("UserFavoriteOrganizations");
+                });
+
             modelBuilder.Entity("GoceTransportApp.Data.Models.UserTicket", b =>
                 {
                     b.Property<string>("CustomerId")
@@ -1096,6 +1117,25 @@ namespace GoceTransportApp.Data.Migrations
                     b.Navigation("TimeTable");
                 });
 
+            modelBuilder.Entity("GoceTransportApp.Data.Models.UserFavoriteOrganization", b =>
+                {
+                    b.HasOne("GoceTransportApp.Data.Models.Organization", "Organization")
+                        .WithMany()
+                        .HasForeignKey("OrganizationId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("GoceTransportApp.Data.Models.ApplicationUser", "User")
+                        .WithMany("FavoriteOrganizations")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Organization");
+
+                    b.Navigation("User");
+                });
+
             modelBuilder.Entity("GoceTransportApp.Data.Models.UserTicket", b =>
                 {
                     b.HasOne("GoceTransportApp.Data.Models.ApplicationUser", "Customer")
@@ -1180,6 +1220,8 @@ namespace GoceTransportApp.Data.Migrations
             modelBuilder.Entity("GoceTransportApp.Data.Models.ApplicationUser", b =>
                 {
                     b.Navigation("Claims");
+
+                    b.Navigation("FavoriteOrganizations");
 
                     b.Navigation("Logins");
 

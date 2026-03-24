@@ -1,0 +1,40 @@
+@using Microsoft.AspNetCore.Localization
+@{
+    var currentCulture = Context.Features.Get<IRequestCultureFeature>()?.RequestCulture.UICulture.Name ?? "en-US";
+    var returnUrl = Context.Request.Path + Context.Request.QueryString;
+}
+
+<li class="nav-item dropdown">
+    <a class="nav-link dropdown-toggle fw-semibold px-2" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false" title="Language">
+        @if (currentCulture.StartsWith("bg"))
+        {
+            <span>🇧🇬 BG</span>
+        }
+        else
+        {
+            <span>🇬🇧 EN</span>
+        }
+    </a>
+    <ul class="dropdown-menu dropdown-menu-end">
+        <li>
+            <form method="post" asp-controller="Culture" asp-action="SetCulture">
+                @Html.AntiForgeryToken()
+                <input type="hidden" name="culture" value="en-US" />
+                <input type="hidden" name="returnUrl" value="@returnUrl" />
+                <button type="submit" class="dropdown-item @(currentCulture.StartsWith("en") ? "active" : "")">
+                    🇬🇧 English
+                </button>
+            </form>
+        </li>
+        <li>
+            <form method="post" asp-controller="Culture" asp-action="SetCulture">
+                @Html.AntiForgeryToken()
+                <input type="hidden" name="culture" value="bg-BG" />
+                <input type="hidden" name="returnUrl" value="@returnUrl" />
+                <button type="submit" class="dropdown-item @(currentCulture.StartsWith("bg") ? "active" : "")">
+                    🇧🇬 Български
+                </button>
+            </form>
+        </li>
+    </ul>
+</li>

@@ -70,11 +70,16 @@
                 options.MultipartBodyLengthLimit = 10 * 1024 * 1024; // 10 MB
             });
 
+            services.AddLocalization(options => options.ResourcesPath = "Resources");
+
             services.AddControllersWithViews(
                 options =>
                 {
                     options.Filters.Add(new AutoValidateAntiforgeryTokenAttribute());
-                }).AddRazorRuntimeCompilation();
+                })
+                .AddViewLocalization()
+                .AddDataAnnotationsLocalization()
+                .AddRazorRuntimeCompilation();
             services.AddRazorPages();
 
             services.AddDatabaseDeveloperPageExceptionFilter();
@@ -158,6 +163,13 @@
                 app.UseExceptionHandler("/Home/Error");
                 app.UseHsts();
             }
+
+            var supportedCultures = new[] { "en-US", "bg-BG" };
+            var localizationOptions = new Microsoft.AspNetCore.Builder.RequestLocalizationOptions()
+                .SetDefaultCulture("en-US")
+                .AddSupportedCultures(supportedCultures)
+                .AddSupportedUICultures(supportedCultures);
+            app.UseRequestLocalization(localizationOptions);
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();

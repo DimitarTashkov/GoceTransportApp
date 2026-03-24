@@ -1,9 +1,11 @@
-﻿@model GoceTransportApp.Web.ViewModels.Schedules.ScheduleDetailsViewModel
+@model GoceTransportApp.Web.ViewModels.Schedules.ScheduleDetailsViewModel
+@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer Localizer
 
 @{
     ViewData["Title"] = "Schedule Details";
 }
 
-<h1 class="h2 fw-bold text-dark text-center mt-4 mb-4">@ViewData["Title"]</h1>
+<h1 class="h2 fw-bold text-dark text-center mt-4 mb-4">@Localizer["Schedule Details"]</h1>
 
 <partial name="_ScheduleDetails" model="Model" />

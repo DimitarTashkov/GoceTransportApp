@@ -1,4 +1,6 @@
 @model GoceTransportApp.Web.ViewModels.Vehicles.VehicleInputModel
+@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer Localizer
 
 @{
     ViewData["Title"] = "Add Vehicle";
@@ -8,7 +10,7 @@
     <div class="col-lg-6">
         <div class="text-center mb-4">
             <i class="fas fa-bus fa-3x text-primary mb-3"></i>
-            <h1 class="h3 fw-bold">Create Vehicle</h1>
+            <h1 class="h3 fw-bold">@Localizer["Create Vehicle"]</h1>
         </div>
         <div class="card border-0 shadow-sm rounded-4">
             <div class="card-body p-5">
@@ -17,46 +19,46 @@
                     <input asp-for="Status" type="hidden" />
 
                     <div class="form-floating mb-3">
-                        <input asp-for="Number" class="form-control rounded-3" placeholder="Number" />
-                        <label asp-for="Number">Number</label>
+                        <input asp-for="Number" class="form-control rounded-3" placeholder="@Localizer["Number"]" />
+                        <label asp-for="Number">@Localizer["Number"]</label>
                         <span asp-validation-for="Number" class="text-danger small"></span>
                     </div>
 
                     <div class="form-floating mb-3">
-                        <input asp-for="Type" class="form-control rounded-3" placeholder="Type" />
-                        <label asp-for="Type">Type</label>
+                        <input asp-for="Type" class="form-control rounded-3" placeholder="@Localizer["Type"]" />
+                        <label asp-for="Type">@Localizer["Type"]</label>
                         <span asp-validation-for="Type" class="text-danger small"></span>
                     </div>
 
                     <div class="form-floating mb-3">
-                        <input asp-for="Manufacturer" class="form-control rounded-3" placeholder="Manufacturer" />
-                        <label asp-for="Manufacturer">Manufacturer</label>
+                        <input asp-for="Manufacturer" class="form-control rounded-3" placeholder="@Localizer["Manufacturer"]" />
+                        <label asp-for="Manufacturer">@Localizer["Manufacturer"]</label>
                         <span asp-validation-for="Manufacturer" class="text-danger small"></span>
                     </div>
 
                     <div class="form-floating mb-3">
-                        <input asp-for="Model" class="form-control rounded-3" placeholder="Model" />
-                        <label asp-for="Model">Model</label>
+                        <input asp-for="Model" class="form-control rounded-3" placeholder="@Localizer["Model"]" />
+                        <label asp-for="Model">@Localizer["Model"]</label>
                         <span asp-validation-for="Model" class="text-danger small"></span>
                     </div>
 
                     <div class="form-floating mb-3">
-                        <input asp-for="Capacity" class="form-control rounded-3" placeholder="Capacity" />
-                        <label asp-for="Capacity">Capacity</label>
+                        <input asp-for="Capacity" class="form-control rounded-3" placeholder="@Localizer["Capacity"]" />
+                        <label asp-for="Capacity">@Localizer["Capacity"]</label>
                         <span asp-validation-for="Capacity" class="text-danger small"></span>
                     </div>
 
                     <div class="form-floating mb-4">
-                        <input asp-for="FuelConsumption" class="form-control rounded-3" placeholder="Fuel Consumption" />
-                        <label asp-for="FuelConsumption">Fuel Consumption (L/100km)</label>
+                        <input asp-for="FuelConsumption" class="form-control rounded-3" placeholder="@Localizer["Fuel Consumption (L/100km)"]" />
+                        <label asp-for="FuelConsumption">@Localizer["Fuel Consumption (L/100km)"]</label>
                         <span asp-validation-for="FuelConsumption" class="text-danger small"></span>
                     </div>
 
                     <button type="submit" class="btn btn-primary btn-lg w-100 rounded-pill">
-                        <i class="fas fa-save me-2"></i>Create
+                        <i class="fas fa-save me-2"></i>@Localizer["Create"]
                     </button>
                     <a asp-action="Index" class="btn btn-outline-secondary rounded-pill w-100 mt-2">
-                        <i class="fas fa-times me-2"></i>Cancel
+                        <i class="fas fa-times me-2"></i>@Localizer["Cancel"]
                     </a>
                 </form>
             </div>

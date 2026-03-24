@@ -1,8 +1,10 @@
-﻿@using System.Security.Claims
+@using System.Security.Claims
 @using GoceTransportApp.Services.Data.Users
 @using static GoceTransportApp.Common.GlobalConstants
+@using Microsoft.AspNetCore.Mvc.Localization
 @model GoceTransportApp.Web.ViewModels.Schedules.SchedulesForOrganizationViewModel
 @inject IUserService userService
+@inject IViewLocalizer Localizer
 
 @{
     var organizationId = Model.OrganizationId;
@@ -18,16 +20,16 @@
 <div class="container mt-5">
     <div class="text-center mb-4">
         <i class="fas fa-calendar-alt fa-3x text-primary mb-3"></i>
-        <h1 class="h2 fw-bold">Schedules</h1>
+        <h1 class="h2 fw-bold">@Localizer["Schedules"]</h1>
     </div>
     @if (isFounder || isAdmin)
     {
-        <a asp-action="Create" asp-controller="Schedule" asp-route-organizationId="@Model.OrganizationId" class="btn btn-success"><i class="fas fa-plus"></i> Add New Schedule</a>
+        <a asp-action="Create" asp-controller="Schedule" asp-route-organizationId="@Model.OrganizationId" class="btn btn-success"><i class="fas fa-plus"></i> @Localizer["Add New Schedule"]</a>
     }
 
     @if (!Model.Schedules.Any())
     {
-        <p>No schedules found for this organization.</p>
+        <p>@Localizer["No schedules found for this organization."]</p>
     }
 
     <div class="row mt-4">

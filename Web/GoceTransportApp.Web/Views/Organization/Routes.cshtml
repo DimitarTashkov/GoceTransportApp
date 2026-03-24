@@ -1,8 +1,10 @@
-﻿@using System.Security.Claims
+@using System.Security.Claims
 @using GoceTransportApp.Services.Data.Users
 @using static GoceTransportApp.Common.GlobalConstants
+@using Microsoft.AspNetCore.Mvc.Localization
 @model GoceTransportApp.Web.ViewModels.Routes.RoutesForOrganizationViewModel
 @inject IUserService userService
+@inject IViewLocalizer Localizer
 
 @{
     var organizationId = Model.OrganizationId;
@@ -18,18 +20,18 @@
 <div class="container mt-5">
     <div class="text-center mb-4">
         <i class="fas fa-route fa-3x text-primary mb-3"></i>
-        <h1 class="h2 fw-bold">Routes</h1>
+        <h1 class="h2 fw-bold">@Localizer["Routes"]</h1>
     </div>
     @if (isFounder || isAdmin)
     {
         <div class="mt-4 mb-4">
-            <a asp-action="Create" asp-controller="Route" asp-route-organizationId="@Model.OrganizationId" class="btn btn-success"><i class="fas fa-plus"></i> Add New Route</a>
+            <a asp-action="Create" asp-controller="Route" asp-route-organizationId="@Model.OrganizationId" class="btn btn-success"><i class="fas fa-plus"></i> @Localizer["Add New Route"]</a>
         </div>
     }
 
     @if (!Model.Routes.Any())
     {
-        <p>No routes found for this organization.</p>
+        <p>@Localizer["No routes found for this organization."]</p>
     }
 
     <div class="row">

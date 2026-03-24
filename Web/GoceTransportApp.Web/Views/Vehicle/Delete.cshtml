@@ -1,4 +1,6 @@
-﻿@model GoceTransportApp.Web.ViewModels.Vehicles.RemoveVehicleViewModel
+@model GoceTransportApp.Web.ViewModels.Vehicles.RemoveVehicleViewModel
+@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer Localizer
 
 @{
     ViewData["Title"] = "Remove Vehicle";
@@ -11,20 +13,20 @@
     }
 }
 
-<h1 class="mb-4">Delete Vehicle</h1>
+<h1 class="mb-4">@Localizer["Delete Vehicle"]</h1>
 
 <div class="card shadow-sm border-0 rounded-4">
     <div class="card-body">
-        <h5 class="card-title">Are you sure you want to delete this vehicle?</h5>
+        <h5 class="card-title">@Localizer["Are you sure you want to delete this vehicle?"]</h5>
         <p class="card-text">
-            <strong>Number:</strong> @Model.Number <br />
+            <strong>@Localizer["Number"]:</strong> @Model.Number <br />
         </p>
         <form asp-action="Delete" method="post">
             <input type="hidden" asp-for="Id" />
             <input asp-for="OrganizationId" type="hidden" />
 
-            <button type="submit" class="btn btn-danger">Delete</button>
-            <a href="@returnUrl" class="btn btn-secondary"><i class="fas fa-times"></i> Cancel</a>
+            <button type="submit" class="btn btn-danger">@Localizer["Delete"]</button>
+            <a href="@returnUrl" class="btn btn-secondary"><i class="fas fa-times"></i> @Localizer["Cancel"]</a>
         </form>
     </div>
 </div>

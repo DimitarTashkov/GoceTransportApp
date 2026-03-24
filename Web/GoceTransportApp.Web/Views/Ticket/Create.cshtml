@@ -1,4 +1,6 @@
 @model GoceTransportApp.Web.ViewModels.Tickets.TicketInputModel
+@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer Localizer
 
 @{
     ViewData["Title"] = "Create Ticket";
@@ -8,7 +10,7 @@
     <div class="col-lg-6">
         <div class="text-center mb-4">
             <i class="fas fa-ticket-alt fa-3x text-primary mb-3"></i>
-            <h1 class="h3 fw-bold">Create Ticket</h1>
+            <h1 class="h3 fw-bold">@Localizer["Create Ticket"]</h1>
         </div>
         <div class="card border-0 shadow-sm rounded-4">
             <div class="card-body p-5">
@@ -16,27 +18,27 @@
                     <input asp-for="OrganizationId" type="hidden" />
 
                     <div class="mb-3">
-                        <label asp-for="IssuedDate" class="form-label text-muted">Issued Date</label>
+                        <label asp-for="IssuedDate" class="form-label text-muted">@Localizer["Issued Date"]</label>
                         <input asp-for="IssuedDate" type="date" class="form-control rounded-3" />
                         <span asp-validation-for="IssuedDate" class="text-danger small"></span>
                     </div>
 
                     <div class="mb-3">
-                        <label asp-for="ExpiryDate" class="form-label text-muted">Expiry Date</label>
+                        <label asp-for="ExpiryDate" class="form-label text-muted">@Localizer["Expiry Date"]</label>
                         <input asp-for="ExpiryDate" type="date" class="form-control rounded-3" />
                         <span asp-validation-for="ExpiryDate" class="text-danger small"></span>
                     </div>
 
                     <div class="form-floating mb-3">
                         <input asp-for="Price" class="form-control rounded-3" placeholder="Price" />
-                        <label asp-for="Price">Price ($)</label>
+                        <label asp-for="Price">@Localizer["Price ($)"]</label>
                         <span asp-validation-for="Price" class="text-danger small"></span>
                     </div>
 
                     <div class="mb-3">
-                        <label asp-for="RouteId" class="form-label text-muted">Route</label>
+                        <label asp-for="RouteId" class="form-label text-muted">@Localizer["Route"]</label>
                         <select asp-for="RouteId" class="form-select rounded-3">
-                            <option value="">Select a route</option>
+                            <option value="">@Localizer["Select a route"]</option>
                             @foreach (var route in Model.Routes)
                             {
                                 <option value="@route.Value">@route.Text</option>
@@ -46,9 +48,9 @@
                     </div>
 
                     <div class="mb-4">
-                        <label asp-for="ScheduleId" class="form-label text-muted">Schedule</label>
+                        <label asp-for="ScheduleId" class="form-label text-muted">@Localizer["Schedule"]</label>
                         <select asp-for="ScheduleId" class="form-select rounded-3">
-                            <option value="">Select a schedule</option>
+                            <option value="">@Localizer["Select a schedule"]</option>
                             @foreach (var schedule in Model.Schedules)
                             {
                                 <option value="@schedule.Value">@schedule.Text</option>
@@ -58,7 +60,7 @@
                     </div>
 
                     <button type="submit" class="btn btn-primary btn-lg w-100 rounded-pill">
-                        <i class="fas fa-save me-2"></i>Create
+                        <i class="fas fa-save me-2"></i>@Localizer["Create"]
                     </button>
                 </form>
             </div>

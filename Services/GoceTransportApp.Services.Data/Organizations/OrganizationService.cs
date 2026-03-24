@@ -1,5 +1,6 @@
 ﻿using GoceTransportApp.Data.Common.Repositories;
 using GoceTransportApp.Data.Models;
+using Microsoft.EntityFrameworkCore;
 using GoceTransportApp.Services.Data.Base;
 using GoceTransportApp.Web.ViewModels.Drivers;
 using GoceTransportApp.Web.ViewModels.Organizations;
@@ -25,6 +26,7 @@ namespace GoceTransportApp.Services.Data.Organizations
         public readonly IDeletableEntityRepository<Vehicle> vehicleRepository;
         public readonly IDeletableEntityRepository<Ticket> ticketRepository;
         public readonly IDeletableEntityRepository<Schedule> scheduleRepository;
+        private readonly IRepository<UserFavoriteOrganization> favoriteRepository;
 
         public OrganizationService(
             IDeletableEntityRepository<Organization> organizationRepository,
@@ -32,7 +34,8 @@ namespace GoceTransportApp.Services.Data.Organizations
             IDeletableEntityRepository<Driver> driverRepository,
             IDeletableEntityRepository<Vehicle> vehicleRepository,
             IDeletableEntityRepository<Ticket> ticketRepository,
-            IDeletableEntityRepository<Schedule> scheduleRepository)
+            IDeletableEntityRepository<Schedule> scheduleRepository,
+            IRepository<UserFavoriteOrganization> favoriteRepository)
         {
             this.organizationRepository = organizationRepository;
             this.routeRepository = routeRepository;
@@ -40,6 +43,7 @@ namespace GoceTransportApp.Services.Data.Organizations
             this.vehicleRepository = vehicleRepository;
             this.ticketRepository = ticketRepository;
             this.scheduleRepository = scheduleRepository;
+            this.favoriteRepository = favoriteRepository;
         }
 
         public async Task<Guid> CreateAsync(OrganizationInputModel inputModel, string? imageUrl)
@@ -357,6 +361,59 @@ namespace GoceTransportApp.Services.Data.Organizations
             await organizationRepository.DeleteAsync(organization);
 
             return true;
+        }
+
+        public async Task<bool> ToggleFavoriteAsync(string userId, string orgId)
+        {
+            if (!Guid.TryParse(orgId, out Guid orgGuid))
+            {
+                return false;
+            }
+
+            var existing = await favoriteRepository
+                .FirstOrDefaultAsync(f => f.UserId == userId && f.OrganizationId == orgGuid);
+
+            if (existing != null)
+            {
+                await favoriteRepository.DeleteAsync(existing);
+                return false;
+            }
+
+            await favoriteRepository.AddAsync(new UserFavoriteOrganization
+            {
+                UserId = userId,
+                OrganizationId = orgGuid,
+                CreatedOn = DateTime.UtcNow,
+            });
+            await favoriteRepository.SaveChangesAsync();
+            return true;
+        }
+
+        public async Task<bool> IsOrganizationFavoriteAsync(string userId, string orgId)
+        {
+            if (string.IsNullOrEmpty(userId) || !Guid.TryParse(orgId, out Guid orgGuid))
+            {
+                return false;
+            }
+
+            return await favoriteRepository.AllAsNoTracking()
+                .AnyAsync(f => f.UserId == userId && f.OrganizationId == orgGuid);
+        }
+
+        public async Task<IEnumerable<OrganizationDataViewModel>> GetFavoriteOrganizationsByUserIdAsync(string userId)
+        {
+            return await favoriteRepository.AllAsNoTracking()
+                .Where(f => f.UserId == userId)
+                .Select(f => new OrganizationDataViewModel
+                {
+                    Id = f.Organization.Id.ToString(),
+                    Name = f.Organization.Name,
+                    Address = f.Organization.Address,
+                    ImageUrl = f.Organization.ImageUrl,
+                    FounderId = f.Organization.FounderId,
+                    Founder = f.Organization.Founder.UserName,
+                })
+                .ToArrayAsync();
         }
     }
 }

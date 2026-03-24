@@ -1,5 +1,7 @@
 @using System.Security.Claims
+@using Microsoft.AspNetCore.Mvc.Localization
 @model GoceTransportApp.Web.ViewModels.Organizations.OrganizationDetailsViewModel
+@inject IViewLocalizer Localizer
 
 @{
     ViewData["Title"] = Model.Name;
@@ -67,11 +69,11 @@
                     @if (Model.AverageRating > 0)
                     {
                         <span class="ms-1 fw-semibold text-dark">@Model.AverageRating.ToString("0.0")</span>
-                        <span class="text-muted small">/ 5 (@Model.Reviews.Count() reviews)</span>
+                        <span class="text-muted small">/ 5 (@Model.Reviews.Count() @Localizer["reviews"])</span>
                     }
                     else
                     {
-                        <span class="text-muted small ms-1">No ratings yet</span>
+                        <span class="text-muted small ms-1">@Localizer["No ratings yet"]</span>
                     }
                 </div>
             </div>
@@ -81,19 +83,40 @@
                 <div class="card-footer bg-white border-0 pb-4 d-flex gap-2 justify-content-center">
                     <a asp-action="Edit" asp-route-id="@Model.Id"
                        class="btn btn-sm btn-outline-secondary rounded-pill px-3">
-                        <i class="fas fa-edit me-1"></i>Edit
+                        <i class="fas fa-edit me-1"></i>@Localizer["Edit"]
                     </a>
                     <a asp-action="Delete" asp-route-id="@Model.Id"
                        class="btn btn-sm btn-outline-danger rounded-pill px-3">
-                        <i class="fas fa-trash-alt me-1"></i>Delete
+                        <i class="fas fa-trash-alt me-1"></i>@Localizer["Delete"]
                     </a>
                 </div>
             }
         </div>
 
+        @if (User.Identity.IsAuthenticated && currentUserId != Model.FounderId)
+        {
+            <div class="card-footer bg-white border-0 pb-3 text-center">
+                <form asp-action="ToggleFavorite" asp-controller="Organization" method="post">
+                    <input type="hidden" name="id" value="@Model.Id" />
+                    @if (Model.IsFavorite)
+                    {
+                        <button type="submit" class="btn btn-warning rounded-pill px-4">
+                            <i class="fas fa-heart me-1"></i>@Localizer["Unfollow"]
+                        </button>
+                    }
+                    else
+                    {
+                        <button type="submit" class="btn btn-outline-danger rounded-pill px-4">
+                            <i class="far fa-heart me-1"></i>@Localizer["Follow"]
+                        </button>
+                    }
+                </form>
+            </div>
+        }
+
         <div class="mt-3 text-center">
             <a asp-action="Index" asp-controller="Organization" class="btn btn-link text-muted text-decoration-none">
-                <i class="fas fa-arrow-left me-1"></i>Back to List
+                <i class="fas fa-arrow-left me-1"></i>@Localizer["Back to List"]
             </a>
         </div>
     </div>
@@ -103,37 +126,37 @@
         <ul class="nav nav-tabs mb-4" id="orgTabs" role="tablist">
             <li class="nav-item" role="presentation">
                 <button class="nav-link active" id="routes-tab" data-bs-toggle="tab" data-bs-target="#routes" type="button" role="tab">
-                    <i class="fas fa-route me-1"></i>Routes
+                    <i class="fas fa-route me-1"></i>@Localizer["Routes"]
                     <span class="badge bg-secondary ms-1">@Model.OrganizationRoutes.Count</span>
                 </button>
             </li>
             <li class="nav-item" role="presentation">
                 <button class="nav-link" id="vehicles-tab" data-bs-toggle="tab" data-bs-target="#vehicles" type="button" role="tab">
-                    <i class="fas fa-bus me-1"></i>Vehicles
+                    <i class="fas fa-bus me-1"></i>@Localizer["Vehicles"]
                     <span class="badge bg-secondary ms-1">@Model.OrganizationVehicles.Count</span>
                 </button>
             </li>
             <li class="nav-item" role="presentation">
                 <button class="nav-link" id="drivers-tab" data-bs-toggle="tab" data-bs-target="#drivers" type="button" role="tab">
-                    <i class="fas fa-id-card me-1"></i>Drivers
+                    <i class="fas fa-id-card me-1"></i>@Localizer["Drivers"]
                     <span class="badge bg-secondary ms-1">@Model.OrganizationDrivers.Count</span>
                 </button>
             </li>
             <li class="nav-item" role="presentation">
                 <button class="nav-link" id="schedules-tab" data-bs-toggle="tab" data-bs-target="#schedules" type="button" role="tab">
-                    <i class="fas fa-calendar-alt me-1"></i>Schedules
+                    <i class="fas fa-calendar-alt me-1"></i>@Localizer["Schedules"]
                     <span class="badge bg-secondary ms-1">@Model.OrganizationSchedules.Count</span>
                 </button>
             </li>
             <li class="nav-item" role="presentation">
                 <button class="nav-link" id="tickets-tab" data-bs-toggle="tab" data-bs-target="#tickets" type="button" role="tab">
-                    <i class="fas fa-ticket-alt me-1"></i>Tickets
+                    <i class="fas fa-ticket-alt me-1"></i>@Localizer["Tickets"]
                     <span class="badge bg-secondary ms-1">@Model.OrganizationTickets.Count</span>
                 </button>
             </li>
             <li class="nav-item" role="presentation">
                 <button class="nav-link" id="reviews-tab" data-bs-toggle="tab" data-bs-target="#reviews" type="button" role="tab">
-                    <i class="bi bi-star me-1"></i>Reviews
+                    <i class="bi bi-star me-1"></i>@Localizer["Reviews"]
                     <span class="badge bg-secondary ms-1">@Model.Reviews.Count()</span>
                 </button>
             </li>
@@ -148,7 +171,7 @@
                     <div class="mb-3">
                         <a asp-controller="Route" asp-action="Create" asp-route-organizationId="@Model.Id"
                            class="btn btn-sm btn-primary rounded-pill px-3">
-                            <i class="fas fa-plus me-1"></i>Add Route
+                            <i class="fas fa-plus me-1"></i>@Localizer["Add Route"]
                         </a>
                     </div>
                 }
@@ -160,7 +183,7 @@
                             <div class="card-body d-flex justify-content-between align-items-center py-3">
                                 <div>
                                     <i class="fas fa-route text-danger me-2"></i>
-                                    <span class="fw-semibold">Route</span>
+                                    <span class="fw-semibold">@Localizer["Route"]</span>
                                     @{
                                         int rDurMins = (int)route.Duration;
                                         string rDurFormatted = rDurMins >= 60
@@ -171,7 +194,7 @@
                                 </div>
                                 <div class="d-flex gap-2">
                                     <a asp-controller="Route" asp-action="Details" asp-route-id="@route.Id" asp-route-organizationId="@Model.Id"
-                                       class="btn btn-sm btn-outline-secondary rounded-pill">Details</a>
+                                       class="btn btn-sm btn-outline-secondary rounded-pill">@Localizer["Details"]</a>
                                     @if (isOwnerOrAdmin)
                                     {
                                         <a asp-controller="Route" asp-action="Edit" asp-route-id="@route.Id" asp-route-organizationId="@Model.Id"
@@ -188,8 +211,8 @@
                 {
                     <div class="text-center py-5 bg-white rounded-4 shadow-sm">
                         <div class="fs-1 text-muted mb-3">📭</div>
-                        <h4 class="fw-semibold">No routes found</h4>
-                        <p class="text-muted">No routes have been added for this organization yet.</p>
+                        <h4 class="fw-semibold">@Localizer["No routes found"]</h4>
+                        <p class="text-muted">@Localizer["No routes have been added for this organization yet."]</p>
                     </div>
                 }
             </div>
@@ -201,7 +224,7 @@
                     <div class="mb-3">
                         <a asp-controller="Vehicle" asp-action="Create" asp-route-organizationId="@Model.Id"
                            class="btn btn-sm btn-primary rounded-pill px-3">
-                            <i class="fas fa-plus me-1"></i>Add Vehicle
+                            <i class="fas fa-plus me-1"></i>@Localizer["Add Vehicle"]
                         </a>
                     </div>
                 }
@@ -218,7 +241,7 @@
                                 </div>
                                 <div class="d-flex gap-2">
                                     <a asp-controller="Vehicle" asp-action="Details" asp-route-id="@vehicle.Id" asp-route-organizationId="@Model.Id"
-                                       class="btn btn-sm btn-outline-secondary rounded-pill">Details</a>
+                                       class="btn btn-sm btn-outline-secondary rounded-pill">@Localizer["Details"]</a>
                                     @if (isOwnerOrAdmin)
                                     {
                                         <a asp-controller="Vehicle" asp-action="Edit" asp-route-id="@vehicle.Id" asp-route-organizationId="@Model.Id"
@@ -235,8 +258,8 @@
                 {
                     <div class="text-center py-5 bg-white rounded-4 shadow-sm">
                         <div class="fs-1 text-muted mb-3">📭</div>
-                        <h4 class="fw-semibold">No vehicles found</h4>
-                        <p class="text-muted">No vehicles have been added for this organization yet.</p>
+                        <h4 class="fw-semibold">@Localizer["No vehicles found"]</h4>
+                        <p class="text-muted">@Localizer["No vehicles have been added for this organization yet."]</p>
                     </div>
                 }
             </div>
@@ -248,7 +271,7 @@
                     <div class="mb-3">
                         <a asp-controller="Driver" asp-action="Create" asp-route-organizationId="@Model.Id"
                            class="btn btn-sm btn-primary rounded-pill px-3">
-                            <i class="fas fa-plus me-1"></i>Add Driver
+                            <i class="fas fa-plus me-1"></i>@Localizer["Add Driver"]
                         </a>
                     </div>
                 }
@@ -264,7 +287,7 @@
                                 </div>
                                 <div class="d-flex gap-2">
                                     <a asp-controller="Driver" asp-action="Details" asp-route-id="@driver.Id" asp-route-organizationId="@Model.Id"
-                                       class="btn btn-sm btn-outline-secondary rounded-pill">Details</a>
+                                       class="btn btn-sm btn-outline-secondary rounded-pill">@Localizer["Details"]</a>
                                     @if (isOwnerOrAdmin)
                                     {
                                         <a asp-controller="Driver" asp-action="Edit" asp-route-id="@driver.Id" asp-route-organizationId="@Model.Id"
@@ -281,8 +304,8 @@
                 {
                     <div class="text-center py-5 bg-white rounded-4 shadow-sm">
                         <div class="fs-1 text-muted mb-3">📭</div>
-                        <h4 class="fw-semibold">No drivers found</h4>
-                        <p class="text-muted">No drivers have been added for this organization yet.</p>
+                        <h4 class="fw-semibold">@Localizer["No drivers found"]</h4>
+                        <p class="text-muted">@Localizer["No drivers have been added for this organization yet."]</p>
                     </div>
                 }
             </div>
@@ -294,7 +317,7 @@
                     <div class="mb-3">
                         <a asp-controller="Schedule" asp-action="Create" asp-route-organizationId="@Model.Id"
                            class="btn btn-sm btn-primary rounded-pill px-3">
-                            <i class="fas fa-plus me-1"></i>Add Schedule
+                            <i class="fas fa-plus me-1"></i>@Localizer["Add Schedule"]
                         </a>
                     </div>
                 }
@@ -312,7 +335,7 @@
                                 </div>
                                 <div class="d-flex gap-2">
                                     <a asp-controller="Schedule" asp-action="Details" asp-route-id="@schedule.Id" asp-route-organizationId="@Model.Id"
-                                       class="btn btn-sm btn-outline-secondary rounded-pill">Details</a>
+                                       class="btn btn-sm btn-outline-secondary rounded-pill">@Localizer["Details"]</a>
                                     @if (isOwnerOrAdmin)
                                     {
                                         <a asp-controller="Schedule" asp-action="Edit" asp-route-id="@schedule.Id" asp-route-organizationId="@Model.Id"
@@ -329,8 +352,8 @@
                 {
                     <div class="text-center py-5 bg-white rounded-4 shadow-sm">
                         <div class="fs-1 text-muted mb-3">📭</div>
-                        <h4 class="fw-semibold">No schedules found</h4>
-                        <p class="text-muted">No schedules have been added for this organization yet.</p>
+                        <h4 class="fw-semibold">@Localizer["No schedules found"]</h4>
+                        <p class="text-muted">@Localizer["No schedules have been added for this organization yet."]</p>
                     </div>
                 }
             </div>
@@ -342,7 +365,7 @@
                     <div class="mb-3">
                         <a asp-controller="Ticket" asp-action="Create" asp-route-organizationId="@Model.Id"
                            class="btn btn-sm btn-primary rounded-pill px-3">
-                            <i class="fas fa-plus me-1"></i>Add Ticket
+                            <i class="fas fa-plus me-1"></i>@Localizer["Add Ticket"]
                         </a>
                     </div>
                 }
@@ -352,10 +375,10 @@
                         <table class="table table-hover align-middle rounded-3 overflow-hidden">
                             <thead class="table-light">
                                 <tr>
-                                    <th>Route</th>
-                                    <th>Issued</th>
-                                    <th>Expires</th>
-                                    <th>Price</th>
+                                    <th>@Localizer["Route"]</th>
+                                    <th>@Localizer["Issued"]</th>
+                                    <th>@Localizer["Expires"]</th>
+                                    <th>@Localizer["Price"]</th>
                                     @if (isOwnerOrAdmin)
                                     {
                                         <th></th>
@@ -383,7 +406,7 @@
                                         {
                                             <td class="text-end">
                                                 <a asp-controller="Ticket" asp-action="Details" asp-route-id="@ticket.Id" asp-route-organizationId="@Model.Id"
-                                                   class="btn btn-sm btn-outline-secondary rounded-pill">Details</a>
+                                                   class="btn btn-sm btn-outline-secondary rounded-pill">@Localizer["Details"]</a>
                                                 <a asp-controller="Ticket" asp-action="Edit" asp-route-id="@ticket.Id" asp-route-organizationId="@Model.Id"
                                                    class="btn btn-sm btn-outline-secondary rounded-pill"><i class="fas fa-edit"></i></a>
                                                 <a asp-controller="Ticket" asp-action="Delete" asp-route-id="@ticket.Id" asp-route-organizationId="@Model.Id"
@@ -400,8 +423,8 @@
                 {
                     <div class="text-center py-5 bg-white rounded-4 shadow-sm">
                         <div class="fs-1 text-muted mb-3">🎫</div>
-                        <h4 class="fw-semibold">No tickets found</h4>
-                        <p class="text-muted">No tickets have been issued for this organization yet.</p>
+                        <h4 class="fw-semibold">@Localizer["No tickets found"]</h4>
+                        <p class="text-muted">@Localizer["No tickets have been issued for this organization yet."]</p>
                     </div>
                 }
             </div>
@@ -414,25 +437,25 @@
                 {
                     <div class="card border-0 shadow-sm rounded-3 mb-4">
                         <div class="card-body">
-                            <h6 class="fw-semibold mb-3">Leave a Review</h6>
+                            <h6 class="fw-semibold mb-3">@Localizer["Leave a Review"]</h6>
                             <form asp-action="AddReview" asp-controller="Organization" method="post">
                                 <input type="hidden" name="organizationId" value="@Model.Id" />
                                 <div class="mb-3">
-                                    <label class="form-label">Rating</label>
+                                    <label class="form-label">@Localizer["Rating"]</label>
                                     <select name="rating" class="form-select form-select-sm w-auto">
-                                        <option value="5">&#9733;&#9733;&#9733;&#9733;&#9733; — Excellent</option>
-                                        <option value="4">&#9733;&#9733;&#9733;&#9733;&#9734; — Good</option>
-                                        <option value="3">&#9733;&#9733;&#9733;&#9734;&#9734; — Average</option>
-                                        <option value="2">&#9733;&#9733;&#9734;&#9734;&#9734; — Poor</option>
-                                        <option value="1">&#9733;&#9734;&#9734;&#9734;&#9734; — Terrible</option>
+                                        <option value="5">&#9733;&#9733;&#9733;&#9733;&#9733; — @Localizer["Excellent"]</option>
+                                        <option value="4">&#9733;&#9733;&#9733;&#9733;&#9734; — @Localizer["Good"]</option>
+                                        <option value="3">&#9733;&#9733;&#9733;&#9734;&#9734; — @Localizer["Average"]</option>
+                                        <option value="2">&#9733;&#9733;&#9734;&#9734;&#9734; — @Localizer["Poor"]</option>
+                                        <option value="1">&#9733;&#9734;&#9734;&#9734;&#9734; — @Localizer["Terrible"]</option>
                                     </select>
                                 </div>
                                 <div class="mb-3">
-                                    <label class="form-label">Comment <span class="text-muted small">(optional)</span></label>
-                                    <textarea name="comment" class="form-control" rows="2" maxlength="500" placeholder="Share your experience..."></textarea>
+                                    <label class="form-label">@Localizer["Comment (optional)"]</label>
+                                    <textarea name="comment" class="form-control" rows="2" maxlength="500" placeholder="@Localizer["Share your experience..."]"></textarea>
                                 </div>
                                 <button type="submit" class="btn btn-sm btn-primary rounded-pill px-4">
-                                    <i class="bi bi-send me-1"></i>Submit Review
+                                    <i class="bi bi-send me-1"></i>@Localizer["Submit Review"]
                                 </button>
                             </form>
                         </div>
@@ -472,8 +495,8 @@
                 {
                     <div class="text-center py-5 bg-white rounded-4 shadow-sm">
                         <div class="fs-1 text-muted mb-3">&#11088;</div>
-                        <h4 class="fw-semibold">No reviews yet</h4>
-                        <p class="text-muted">Be the first to share your experience with this carrier.</p>
+                        <h4 class="fw-semibold">@Localizer["No reviews yet"]</h4>
+                        <p class="text-muted">@Localizer["Be the first to share your experience with this carrier."]</p>
                     </div>
                 }
             </div>

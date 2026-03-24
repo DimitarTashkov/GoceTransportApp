@@ -1,8 +1,10 @@
+@using Microsoft.AspNetCore.Mvc.Localization
 @model GoceTransportApp.Web.ViewModels.Schedules.TravelSearchViewModel
 @using GoceTransportApp.Data.Models
 @using Microsoft.AspNetCore.Identity
 
 @inject SignInManager<ApplicationUser> SignInManager
+@inject IViewLocalizer Localizer
 
 @{
     ViewData["Title"] = "Home";
@@ -11,16 +13,16 @@
 
 <section class="py-5 text-center">
     <i class="fas fa-bus fa-4x text-primary mb-4"></i>
-    <h1 class="display-4 fw-bold mb-3">Welcome to GoceTransportApp</h1>
+    <h1 class="display-4 fw-bold mb-3">@Localizer["Welcome to GoceTransportApp"]</h1>
     <p class="lead text-muted mb-5 col-lg-7 mx-auto">
-        Your one-stop platform for discovering routes, checking schedules, and managing transport organizations — all in one place.
+        @Localizer["Your one-stop platform for discovering routes, checking schedules, and managing transport organizations — all in one place."]
     </p>
     <div class="d-flex justify-content-center gap-3 flex-wrap">
         <a asp-controller="Route" asp-action="Index" class="btn btn-primary btn-lg rounded-pill px-5">
-            <i class="fas fa-route me-2"></i>Explore Routes
+            <i class="fas fa-route me-2"></i>@Localizer["Explore Routes"]
         </a>
         <a asp-controller="Schedule" asp-action="Index" class="btn btn-outline-primary btn-lg rounded-pill px-5">
-            <i class="fas fa-calendar-alt me-2"></i>View Schedules
+            <i class="fas fa-calendar-alt me-2"></i>@Localizer["View Schedules"]
         </a>
     </div>
 </section>
@@ -28,14 +30,14 @@
 
 <section class="py-5">
     <div class="card border-0 shadow rounded-4 p-4 p-md-5 hover-elevate">
-        <h2 class="fw-bold mb-1 text-center">Find Your Trip</h2>
-        <p class="text-muted text-center mb-4">Search available schedules by origin, destination and date.</p>
+        <h2 class="fw-bold mb-1 text-center">@Localizer["Find Your Trip"]</h2>
+        <p class="text-muted text-center mb-4">@Localizer["Search available schedules by origin, destination and date."]</p>
         <form asp-controller="Schedule" asp-action="Search" method="get">
             <div class="row g-3 align-items-end">
                 <div class="col-md-4">
-                    <label class="form-label fw-semibold">From</label>
+                    <label class="form-label fw-semibold">@Localizer["From"]</label>
                     <select name="FromCityId" class="form-select rounded-3">
-                        <option value="">— Select city —</option>
+                        <option value="">— @Localizer["Select city"] —</option>
                         @foreach (var city in Model.Cities)
                         {
                             if (Model.FromCityId == city.Id.ToString())
@@ -50,9 +52,9 @@
                     </select>
                 </div>
                 <div class="col-md-4">
-                    <label class="form-label fw-semibold">To</label>
+                    <label class="form-label fw-semibold">@Localizer["To"]</label>
                     <select name="ToCityId" class="form-select rounded-3">
-                        <option value="">— Select city —</option>
+                        <option value="">— @Localizer["Select city"] —</option>
                         @foreach (var city in Model.Cities)
                         {
                             if (Model.ToCityId == city.Id.ToString())
@@ -67,7 +69,7 @@
                     </select>
                 </div>
                 <div class="col-md-3">
-                    <label class="form-label fw-semibold">Date of Travel</label>
+                    <label class="form-label fw-semibold">@Localizer["Date of Travel"]</label>
                     <input type="date" name="DepartureDate" class="form-control rounded-3"
                            value="@(Model.DepartureDate.HasValue ? Model.DepartureDate.Value.ToString("yyyy-MM-dd") : "")" />
                 </div>
@@ -84,8 +86,8 @@
 
 <section class="py-5">
     <div class="text-center mb-5">
-        <h2 class="fw-bold mb-2">How It Works</h2>
-        <p class="text-muted lead">Three simple steps to plan your journey.</p>
+        <h2 class="fw-bold mb-2">@Localizer["How It Works"]</h2>
+        <p class="text-muted lead">@Localizer["Three simple steps to plan your journey."]</p>
     </div>
     <div class="row g-4">
         <div class="col-md-4">
@@ -94,8 +96,8 @@
                     <div class="rounded-circle bg-primary bg-opacity-10 d-inline-flex align-items-center justify-content-center mb-4" style="width:72px;height:72px">
                         <i class="fas fa-map-marked-alt fa-2x text-primary"></i>
                     </div>
-                    <h5 class="fw-bold mb-2">1. Find a Route</h5>
-                    <p class="text-muted small mb-0">Browse all available routes, filter by departing and arriving city, and find the connection that fits your journey.</p>
+                    <h5 class="fw-bold mb-2">@Localizer["1. Find a Route"]</h5>
+                    <p class="text-muted small mb-0">@Localizer["Browse all available routes, filter by departing and arriving city, and find the connection that fits your journey."]</p>
                 </div>
             </div>
         </div>
@@ -105,8 +107,8 @@
                     <div class="rounded-circle bg-primary bg-opacity-10 d-inline-flex align-items-center justify-content-center mb-4" style="width:72px;height:72px">
                         <i class="fas fa-clock fa-2x text-primary"></i>
                     </div>
-                    <h5 class="fw-bold mb-2">2. Check the Schedule</h5>
-                    <p class="text-muted small mb-0">See departure times, days of operation, and available vehicles. Filter by day or time to find what suits you best.</p>
+                    <h5 class="fw-bold mb-2">@Localizer["2. Check the Schedule"]</h5>
+                    <p class="text-muted small mb-0">@Localizer["See departure times, days of operation, and available vehicles."]</p>
                 </div>
             </div>
         </div>
@@ -116,8 +118,8 @@
                     <div class="rounded-circle bg-primary bg-opacity-10 d-inline-flex align-items-center justify-content-center mb-4" style="width:72px;height:72px">
                         <i class="fas fa-ticket-alt fa-2x text-primary"></i>
                     </div>
-                    <h5 class="fw-bold mb-2">3. Get Your Ticket</h5>
-                    <p class="text-muted small mb-0">Browse available tickets, check validity dates and pricing, and keep track of all your purchased tickets in one place.</p>
+                    <h5 class="fw-bold mb-2">@Localizer["3. Get Your Ticket"]</h5>
+                    <p class="text-muted small mb-0">@Localizer["Browse available tickets, check validity dates and pricing, and keep track of all your purchased tickets in one place."]</p>
                 </div>
             </div>
         </div>
@@ -133,15 +135,15 @@
             </div>
         </div>
         <div class="col-md-6">
-            <h2 class="fw-bold mb-4">Everything You Need in One App</h2>
+            <h2 class="fw-bold mb-4">@Localizer["Everything You Need in One App"]</h2>
             <div class="d-flex flex-column gap-3">
                 <div class="d-flex align-items-start gap-3">
                     <div class="rounded-circle bg-primary bg-opacity-10 d-inline-flex align-items-center justify-content-center flex-shrink-0" style="width:48px;height:48px">
                         <i class="fas fa-route text-primary"></i>
                     </div>
                     <div>
-                        <h6 class="fw-bold mb-1">Routes</h6>
-                        <p class="text-muted small mb-0">Discover all travel routes between cities, with complete street-level details and distance information.</p>
+                        <h6 class="fw-bold mb-1">@Localizer["Routes"]</h6>
+                        <p class="text-muted small mb-0">@Localizer["Discover all travel routes between cities, with complete street-level details and distance information."]</p>
                     </div>
                 </div>
                 <div class="d-flex align-items-start gap-3">
@@ -149,8 +151,8 @@
                         <i class="fas fa-calendar-alt text-primary"></i>
                     </div>
                     <div>
-                        <h6 class="fw-bold mb-1">Schedules</h6>
-                        <p class="text-muted small mb-0">View full operating schedules for every route — filter by day and time to plan your trip with precision.</p>
+                        <h6 class="fw-bold mb-1">@Localizer["Schedules"]</h6>
+                        <p class="text-muted small mb-0">@Localizer["View full operating schedules for every route — filter by day and time to plan your trip with precision."]</p>
                     </div>
                 </div>
                 <div class="d-flex align-items-start gap-3">
@@ -158,8 +160,8 @@
                         <i class="fas fa-building text-primary"></i>
                     </div>
                     <div>
-                        <h6 class="fw-bold mb-1">Organizations</h6>
-                        <p class="text-muted small mb-0">Browse transport organizations, their fleets, and the routes and drivers they manage across the network.</p>
+                        <h6 class="fw-bold mb-1">@Localizer["Organizations"]</h6>
+                        <p class="text-muted small mb-0">@Localizer["Browse transport organizations, their fleets, and the routes and drivers they manage across the network."]</p>
                     </div>
                 </div>
                 <div class="d-flex align-items-start gap-3">
@@ -167,8 +169,8 @@
                         <i class="fas fa-bus text-primary"></i>
                     </div>
                     <div>
-                        <h6 class="fw-bold mb-1">Vehicles & Drivers</h6>
-                        <p class="text-muted small mb-0">Get detailed information about the vehicles in service and the experienced drivers operating each route.</p>
+                        <h6 class="fw-bold mb-1">@Localizer["Vehicles & Drivers"]</h6>
+                        <p class="text-muted small mb-0">@Localizer["Get detailed information about the vehicles in service and the experienced drivers operating each route."]</p>
                     </div>
                 </div>
             </div>
@@ -179,16 +181,16 @@
 
 <section class="py-5">
     <div class="text-center mb-5">
-        <h2 class="fw-bold mb-2">Quick Access</h2>
-        <p class="text-muted lead">Jump straight to what you need.</p>
+        <h2 class="fw-bold mb-2">@Localizer["Quick Access"]</h2>
+        <p class="text-muted lead">@Localizer["Jump straight to what you need."]</p>
     </div>
     <div class="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-4">
         <div class="col">
             <a asp-controller="Route" asp-action="Index" class="card border-0 shadow-sm rounded-4 h-100 text-center text-decoration-none p-4 hover-elevate">
                 <div class="card-body">
                     <i class="fas fa-route fa-2x text-primary mb-3"></i>
-                    <h6 class="fw-bold text-body mb-1">Routes</h6>
-                    <p class="text-muted small mb-0">All travel routes</p>
+                    <h6 class="fw-bold text-body mb-1">@Localizer["Routes"]</h6>
+                    <p class="text-muted small mb-0">@Localizer["All travel routes"]</p>
                 </div>
             </a>
         </div>
@@ -196,8 +198,8 @@
             <a asp-controller="Schedule" asp-action="Index" class="card border-0 shadow-sm rounded-4 h-100 text-center text-decoration-none p-4 hover-elevate">
                 <div class="card-body">
                     <i class="fas fa-calendar-alt fa-2x text-primary mb-3"></i>
-                    <h6 class="fw-bold text-body mb-1">Schedules</h6>
-                    <p class="text-muted small mb-0">Departure times</p>
+                    <h6 class="fw-bold text-body mb-1">@Localizer["Schedules"]</h6>
+                    <p class="text-muted small mb-0">@Localizer["Departure times"]</p>
                 </div>
             </a>
         </div>
@@ -206,7 +208,7 @@
                 <div class="card-body">
                     <i class="fas fa-ticket-alt fa-2x text-primary mb-3"></i>
                     <h6 class="fw-bold text-body mb-1">Tickets</h6>
-                    <p class="text-muted small mb-0">Available tickets</p>
+                    <p class="text-muted small mb-0">@Localizer["Available tickets"]</p>
                 </div>
             </a>
         </div>
@@ -214,8 +216,8 @@
             <a asp-controller="Organization" asp-action="Index" class="card border-0 shadow-sm rounded-4 h-100 text-center text-decoration-none p-4 hover-elevate">
                 <div class="card-body">
                     <i class="fas fa-building fa-2x text-primary mb-3"></i>
-                    <h6 class="fw-bold text-body mb-1">Organizations</h6>
-                    <p class="text-muted small mb-0">Transport operators</p>
+                    <h6 class="fw-bold text-body mb-1">@Localizer["Organizations"]</h6>
+                    <p class="text-muted small mb-0">@Localizer["Transport operators"]</p>
                 </div>
             </a>
         </div>
@@ -226,12 +228,12 @@
 <section class="py-5 bg-body-secondary rounded-4 px-4 my-4">
     <div class="row align-items-center g-4">
         <div class="col-md-8">
-            <h2 class="fw-bold mb-2">Ready to Get Started?</h2>
-            <p class="text-muted mb-0">Create an account to manage your own organization, add routes and drivers, and take full control of your transport network.</p>
+            <h2 class="fw-bold mb-2">@Localizer["Ready to Get Started?"]</h2>
+            <p class="text-muted mb-0">@Localizer["Create an account to manage your own organization..."]</p>
         </div>
         <div class="col-md-4 text-md-end">
             <a asp-controller="Organization" asp-action="UserOrganizations" class="btn btn-primary btn-lg rounded-pill px-5">
-                <i class="fas fa-user-plus me-2"></i>Get Started
+                <i class="fas fa-user-plus me-2"></i>@Localizer["Get Started"]
             </a>
         </div>
     </div>
@@ -243,10 +245,10 @@
         <div class="card border-0 shadow-sm rounded-4 h-100 p-4 hover-elevate">
             <div class="card-body text-center">
                 <i class="fas fa-info-circle fa-2x text-primary mb-3"></i>
-                <h5 class="fw-bold mb-2">About Us</h5>
-                <p class="text-muted small mb-4">Learn more about GoceTransportApp and our mission to make travel planning easier for everyone.</p>
+                <h5 class="fw-bold mb-2">@Localizer["About Us"]</h5>
+                <p class="text-muted small mb-4">@Localizer["Learn more about GoceTransportApp and our mission to make travel planning easier for everyone."]</p>
                 <a asp-controller="Home" asp-action="AboutUs" class="btn btn-outline-primary rounded-pill px-4">
-                    <i class="fas fa-info me-1"></i>Learn More
+                    <i class="fas fa-info me-1"></i>@Localizer["Learn More"]
                 </a>
             </div>
         </div>
@@ -255,10 +257,10 @@
         <div class="card border-0 shadow-sm rounded-4 h-100 p-4 hover-elevate">
             <div class="card-body text-center">
                 <i class="fas fa-envelope fa-2x text-primary mb-3"></i>
-                <h5 class="fw-bold mb-2">Contact Us</h5>
-                <p class="text-muted small mb-4">Have a question or feedback? Our team is happy to help — reach out and we'll get back to you promptly.</p>
+                <h5 class="fw-bold mb-2">@Localizer["Contact Us"]</h5>
+                <p class="text-muted small mb-4">@Localizer["Have a question or feedback? Our team is happy to help..."]</p>
                 <a asp-controller="ContactForm" asp-action="Create" class="btn btn-outline-primary rounded-pill px-4">
-                    <i class="fas fa-paper-plane me-1"></i>Contact
+                    <i class="fas fa-paper-plane me-1"></i>@Localizer["Contact"]
                 </a>
             </div>
         </div>

@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Home" xml:space="preserve">
+    <value>Начало</value>
+  </data>
+  <data name="Explore" xml:space="preserve">
+    <value>Разгледай</value>
+  </data>
+  <data name="Routes" xml:space="preserve">
+    <value>Маршрути</value>
+  </data>
+  <data name="Schedules" xml:space="preserve">
+    <value>Разписания</value>
+  </data>
+  <data name="Tickets" xml:space="preserve">
+    <value>Билети</value>
+  </data>
+  <data name="Organizations" xml:space="preserve">
+    <value>Организации</value>
+  </data>
+  <data name="Cities" xml:space="preserve">
+    <value>Градове</value>
+  </data>
+  <data name="Streets" xml:space="preserve">
+    <value>Улици</value>
+  </data>
+  <data name="About Us" xml:space="preserve">
+    <value>За Нас</value>
+  </data>
+  <data name="Contact Us" xml:space="preserve">
+    <value>Контакти</value>
+  </data>
+  <data name="My Organizations" xml:space="preserve">
+    <value>Моите Организации</value>
+  </data>
+  <data name="My Trips" xml:space="preserve">
+    <value>Моите Пътувания</value>
+  </data>
+  <data name="Favorites" xml:space="preserve">
+    <value>Любими</value>
+  </data>
+  <data name="Logout" xml:space="preserve">
+    <value>Изход</value>
+  </data>
+  <data name="Register" xml:space="preserve">
+    <value>Регистрация</value>
+  </data>
+  <data name="Login" xml:space="preserve">
+    <value>Вход</value>
+  </data>
+  <data name="Admin" xml:space="preserve">
+    <value>Администратор</value>
+  </data>
+  <data name="Manage Users" xml:space="preserve">
+    <value>Управление на Потребители</value>
+  </data>
+  <data name="Manage forms" xml:space="preserve">
+    <value>Форми</value>
+  </data>
+  <data name="Dashboard" xml:space="preserve">
+    <value>Табло</value>
+  </data>
+  <data name="Transport Info" xml:space="preserve">
+    <value>Транспортна Информация</value>
+  </data>
+  <data name="Plan your journey with real-time routes, schedules, and tickets across the network." xml:space="preserve">
+    <value>Планирайте пътуването си с маршрути, разписания и билети в реално време.</value>
+  </data>
+  <data name="All rights reserved." xml:space="preserve">
+    <value>Всички права запазени.</value>
+  </data>
+</root>

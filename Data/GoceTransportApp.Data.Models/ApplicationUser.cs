@@ -2,6 +2,7 @@
 namespace GoceTransportApp.Data.Models
 {
     using GoceTransportApp.Data.Common.Models;
+    using GoceTransportApp.Data.Models.Enumerations;
     using Microsoft.AspNetCore.Identity;
     using System;
     using System.Collections.Generic;
@@ -54,6 +55,8 @@ namespace GoceTransportApp.Data.Models
         [PersonalData]
         public string City { get; set; }
 
+        public MembershipTier MembershipTier { get; set; } = MembershipTier.Free;
+
         public HashSet<UserTicket> UsersTickets { get; set; }
         = new HashSet<UserTicket>();
 
@@ -65,5 +68,8 @@ namespace GoceTransportApp.Data.Models
 
         public HashSet<ContactForm> UserContactForms { get; set; }
        = new HashSet<ContactForm>();
+
+        public HashSet<UserFavoriteOrganization> FavoriteOrganizations { get; set; }
+        = new HashSet<UserFavoriteOrganization>();
     }
 }

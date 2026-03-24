@@ -1,4 +1,6 @@
 @model GoceTransportApp.Web.ViewModels.Drivers.EditDriverInputModel
+@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer Localizer
 
 @{
     ViewData["Title"] = "Edit Driver";
@@ -10,7 +12,7 @@
     <div class="col-lg-6">
         <div class="text-center mb-4">
             <i class="fas fa-user-tie fa-3x text-primary mb-3"></i>
-            <h1 class="h3 fw-bold">Edit Driver</h1>
+            <h1 class="h3 fw-bold">@Localizer["Edit Driver"]</h1>
         </div>
         <div class="card border-0 shadow-sm rounded-4">
             <div class="card-body p-5">
@@ -19,36 +21,36 @@
                     <input asp-for="OrganizationId" type="hidden" />
 
                     <div class="form-floating mb-3">
-                        <input asp-for="FirstName" class="form-control rounded-3" placeholder="First Name" />
-                        <label asp-for="FirstName">First Name</label>
+                        <input asp-for="FirstName" class="form-control rounded-3" placeholder="@Localizer["First Name"]" />
+                        <label asp-for="FirstName">@Localizer["First Name"]</label>
                         <span asp-validation-for="FirstName" class="text-danger small"></span>
                     </div>
 
                     <div class="form-floating mb-3">
-                        <input asp-for="LastName" class="form-control rounded-3" placeholder="Last Name" />
-                        <label asp-for="LastName">Last Name</label>
+                        <input asp-for="LastName" class="form-control rounded-3" placeholder="@Localizer["Last Name"]" />
+                        <label asp-for="LastName">@Localizer["Last Name"]</label>
                         <span asp-validation-for="LastName" class="text-danger small"></span>
                     </div>
 
                     <div class="form-floating mb-3">
-                        <input asp-for="Age" class="form-control rounded-3" placeholder="Age" />
-                        <label asp-for="Age">Age</label>
+                        <input asp-for="Age" class="form-control rounded-3" placeholder="@Localizer["Age"]" />
+                        <label asp-for="Age">@Localizer["Age"]</label>
                         <span asp-validation-for="Age" class="text-danger small"></span>
                     </div>
 
                     <div class="mb-4">
-                        <label asp-for="DrivingExperience" class="form-label text-muted">Driving Experience</label>
+                        <label asp-for="DrivingExperience" class="form-label text-muted">@Localizer["Driving Experience"]</label>
                         <select asp-for="DrivingExperience" class="form-select rounded-3" asp-items="Html.GetEnumSelectList<GoceTransportApp.Data.Models.Enumerations.DriverExperience>()">
-                            <option value="">Select Experience</option>
+                            <option value="">@Localizer["Select Experience"]</option>
                         </select>
                         <span asp-validation-for="DrivingExperience" class="text-danger small"></span>
                     </div>
 
                     <button type="submit" class="btn btn-primary btn-lg w-100 rounded-pill">
-                        <i class="fas fa-save me-2"></i>Update Driver
+                        <i class="fas fa-save me-2"></i>@Localizer["Update Driver"]
                     </button>
                     <a href="@returnUrl" class="btn btn-outline-secondary rounded-pill w-100 mt-2">
-                        <i class="fas fa-times me-2"></i>Cancel
+                        <i class="fas fa-times me-2"></i>@Localizer["Cancel"]
                     </a>
                 </form>
             </div>

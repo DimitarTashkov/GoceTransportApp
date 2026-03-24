@@ -1,17 +1,24 @@
 @using GoceTransportApp.Common
 @using GoceTransportApp.Data.Models
 @using Microsoft.AspNetCore.Identity
+@using Microsoft.AspNetCore.Mvc.Localization
 @inject SignInManager<ApplicationUser> SignInManager
 @inject UserManager<ApplicationUser> UserManager
+@inject IViewLocalizer Localizer
 
 <ul class="navbar-nav">
     @if (this.SignInManager.IsSignedIn(this.User))
     {
         <li class="nav-item">
-            <a class="nav-link fw-semibold" asp-area="" asp-controller="Organization" asp-action="UserOrganizations">My Organizations</a>
+            <a class="nav-link fw-semibold" asp-area="" asp-controller="Organization" asp-action="UserOrganizations">@Localizer["My Organizations"]</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link fw-semibold" asp-area="" asp-controller="Ticket" asp-action="MyTickets">My Trips</a>
+            <a class="nav-link fw-semibold" asp-area="" asp-controller="Ticket" asp-action="MyTickets">@Localizer["My Trips"]</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link fw-semibold" asp-area="" asp-controller="Organization" asp-action="Favorites">
+                <i class="far fa-heart me-1"></i>@Localizer["Favorites"]
+            </a>
         </li>
         <li class="nav-item">
             <a class="nav-link fw-semibold" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Hello @this.User.Identity.Name!</a>
@@ -20,28 +27,28 @@
         {
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle fw-semibold" href="#" id="adminDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                    Admin
+                    @Localizer["Admin"]
                 </a>
                 <ul class="dropdown-menu">
-                    <li><a class="dropdown-item" asp-area="Administration" asp-controller="UserAdministration" asp-action="Index">Manage Users</a></li>
-                    <li><a class="dropdown-item" asp-area="" asp-controller="ContactForm" asp-action="Index">Manage forms</a></li>
-                    <li><a class="dropdown-item" asp-area="Administration" asp-controller="Dashboard" asp-action="Index">Dashboard</a></li>
+                    <li><a class="dropdown-item" asp-area="Administration" asp-controller="UserAdministration" asp-action="Index">@Localizer["Manage Users"]</a></li>
+                    <li><a class="dropdown-item" asp-area="" asp-controller="ContactForm" asp-action="Index">@Localizer["Manage forms"]</a></li>
+                    <li><a class="dropdown-item" asp-area="Administration" asp-controller="Dashboard" asp-action="Index">@Localizer["Dashboard"]</a></li>
                 </ul>
             </li>
         }
         <li class="nav-item">
             <form class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@this.Url.Action("Index", "Home", new { area = string.Empty })">
-                <button type="submit" class="nav-link btn btn-link fw-semibold text-decoration-none">Logout</button>
+                <button type="submit" class="nav-link btn btn-link fw-semibold text-decoration-none">@Localizer["Logout"]</button>
             </form>
         </li>
     }
     else
     {
         <li class="nav-item">
-            <a class="nav-link fw-semibold" asp-area="Identity" asp-page="/Account/Register">Register</a>
+            <a class="nav-link fw-semibold" asp-area="Identity" asp-page="/Account/Register">@Localizer["Register"]</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link fw-semibold" asp-area="Identity" asp-page="/Account/Login">Login</a>
+            <a class="nav-link fw-semibold" asp-area="Identity" asp-page="/Account/Login">@Localizer["Login"]</a>
         </li>
     }
 </ul>

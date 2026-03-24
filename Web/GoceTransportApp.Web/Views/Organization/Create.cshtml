@@ -1,4 +1,6 @@
+@using Microsoft.AspNetCore.Mvc.Localization
 @model GoceTransportApp.Web.ViewModels.Organizations.OrganizationInputModel
+@inject IViewLocalizer Localizer
 
 @{
     ViewData["Title"] = "Create Organization";
@@ -8,7 +10,7 @@
     <div class="col-lg-6">
         <div class="text-center mb-4">
             <i class="fas fa-building fa-3x text-primary mb-3"></i>
-            <h1 class="h3 fw-bold">Create Organization</h1>
+            <h1 class="h3 fw-bold">@Localizer["Create Organization"]</h1>
         </div>
         <div class="card border-0 shadow-sm rounded-4">
             <div class="card-body p-5">
@@ -16,34 +18,34 @@
                     <input asp-for="FounderId" type="hidden" />
 
                     <div class="form-floating mb-3">
-                        <input asp-for="Name" class="form-control rounded-3" placeholder="Organization Name" />
-                        <label asp-for="Name" class="form-label text-muted">Name</label>
+                        <input asp-for="Name" class="form-control rounded-3" placeholder="@Localizer["Name"]" />
+                        <label asp-for="Name" class="form-label text-muted">@Localizer["Name"]</label>
                         <span asp-validation-for="Name" class="text-danger small"></span>
                     </div>
 
                     <div class="form-floating mb-3">
-                        <input asp-for="Address" class="form-control rounded-3" placeholder="Address" />
-                        <label asp-for="Address" class="form-label text-muted">Address</label>
+                        <input asp-for="Address" class="form-control rounded-3" placeholder="@Localizer["Address"]" />
+                        <label asp-for="Address" class="form-label text-muted">@Localizer["Address"]</label>
                         <span asp-validation-for="Address" class="text-danger small"></span>
                     </div>
 
                     <div class="form-floating mb-4">
-                        <input asp-for="Phone" class="form-control rounded-3" placeholder="Phone" />
-                        <label asp-for="Phone" class="form-label text-muted">Phone</label>
+                        <input asp-for="Phone" class="form-control rounded-3" placeholder="@Localizer["Phone"]" />
+                        <label asp-for="Phone" class="form-label text-muted">@Localizer["Phone"]</label>
                         <span asp-validation-for="Phone" class="text-danger small"></span>
                     </div>
 
                     <div class="mb-4">
-                        <label asp-for="Image" class="form-label text-muted">Organization Logo</label>
+                        <label asp-for="Image" class="form-label text-muted">@Localizer["Organization Logo"]</label>
                         <input asp-for="Image" type="file" class="form-control form-control-lg" accept="image/*" />
                         <span asp-validation-for="Image" class="text-danger small"></span>
                     </div>
 
                     <button type="submit" class="btn btn-primary btn-lg w-100 rounded-pill">
-                        <i class="fas fa-save me-2"></i>Create
+                        <i class="fas fa-save me-2"></i>@Localizer["Create"]
                     </button>
                     <a asp-action="Index" class="btn btn-outline-secondary rounded-pill w-100 mt-2">
-                        <i class="fas fa-times me-2"></i>Cancel
+                        <i class="fas fa-times me-2"></i>@Localizer["Cancel"]
                     </a>
                 </form>
             </div>

@@ -1,4 +1,5 @@
-﻿using GoceTransportApp.Services.Data.Organizations;
+﻿using GoceTransportApp.Data.Models.Enumerations;
+using GoceTransportApp.Services.Data.Organizations;
 using GoceTransportApp.Services.Data.Reviews;
 using GoceTransportApp.Services.Data.Vehicles;
 using GoceTransportApp.Web.ViewModels.Vehicles;
@@ -22,6 +23,8 @@ using GoceTransportApp.Services.Data.Routes;
 using System.Collections.Generic;
 using Microsoft.AspNetCore.Hosting;
 using System.IO;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 
 namespace GoceTransportApp.Web.Controllers
 {
@@ -31,13 +34,22 @@ namespace GoceTransportApp.Web.Controllers
         private readonly IOrganizationService organizationService;
         private readonly IReviewService reviewService;
         private readonly IWebHostEnvironment webHostEnvironment;
+        private readonly UserManager<ApplicationUser> userManager;
+        private readonly IDeletableEntityRepository<Organization> organizationRepository;
 
-        public OrganizationController(IOrganizationService organizationService, IReviewService reviewService, IDeletableEntityRepository<Organization> organizationRepository, IWebHostEnvironment webHostEnvironment)
+        public OrganizationController(
+            IOrganizationService organizationService,
+            IReviewService reviewService,
+            IDeletableEntityRepository<Organization> organizationRepository,
+            IWebHostEnvironment webHostEnvironment,
+            UserManager<ApplicationUser> userManager)
             : base(organizationRepository)
         {
             this.organizationService = organizationService;
             this.reviewService = reviewService;
             this.webHostEnvironment = webHostEnvironment;
+            this.userManager = userManager;
+            this.organizationRepository = organizationRepository;
         }
 
         [HttpGet]
@@ -80,10 +92,27 @@ namespace GoceTransportApp.Web.Controllers
         {
             string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
+            // Membership limit check
+            var user = await userManager.FindByIdAsync(userId);
+            int existingCount = await organizationRepository.AllAsNoTracking()
+                .CountAsync(o => o.FounderId == userId);
+
+            if (user != null && existingCount >= (int)user.MembershipTier)
+            {
+                TempData["UpgradeReason"] = $"You have reached the limit of {(int)user.MembershipTier} organization(s) on the {user.MembershipTier} plan.";
+                return RedirectToAction(nameof(Upgrade));
+            }
+
             OrganizationInputModel model = new OrganizationInputModel();
             model.FounderId = userId;
 
             return View(model);
+        }
+
+        [HttpGet]
+        public IActionResult Upgrade()
+        {
+            return View();
         }
 
         [HttpPost]
@@ -309,6 +338,12 @@ namespace GoceTransportApp.Web.Controllers
             model.Reviews = await this.reviewService.GetReviewsForOrganizationAsync(id!);
             model.AverageRating = await this.reviewService.GetAverageRatingAsync(id!);
 
+            string? userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            if (!string.IsNullOrEmpty(userId))
+            {
+                model.IsFavorite = await this.organizationService.IsOrganizationFavoriteAsync(userId, id!);
+            }
+
             return View(model);
         }
 
@@ -440,6 +475,31 @@ namespace GoceTransportApp.Web.Controllers
             };
 
             return View(viewModel);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> ToggleFavorite(string id)
+        {
+            string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            if (string.IsNullOrEmpty(userId))
+            {
+                return RedirectToAction(nameof(Details), new { id });
+            }
+
+            await organizationService.ToggleFavoriteAsync(userId, id);
+
+            return RedirectToAction(nameof(Details), new { id });
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Favorites()
+        {
+            string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            var favorites = await organizationService.GetFavoriteOrganizationsByUserIdAsync(userId);
+
+            return View(favorites);
         }
     }
 }

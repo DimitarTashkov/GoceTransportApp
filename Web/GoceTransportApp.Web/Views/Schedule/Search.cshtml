@@ -1,4 +1,6 @@
 @model GoceTransportApp.Web.ViewModels.Schedules.TravelSearchViewModel
+@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer Localizer
 
 @{
     ViewData["Title"] = "Search Results";
@@ -6,18 +8,18 @@
 
 <div class="d-flex align-items-center mb-4 gap-3">
     <a asp-controller="Home" asp-action="Index" class="btn btn-outline-secondary rounded-pill">
-        <i class="fas fa-arrow-left me-1"></i> Back
+        <i class="fas fa-arrow-left me-1"></i> @Localizer["Back"]
     </a>
-    <h2 class="fw-bold mb-0">Search Results</h2>
+    <h2 class="fw-bold mb-0">@Localizer["Search Results"]</h2>
 </div>
 
 <div class="card border-0 shadow-sm rounded-4 p-4 mb-4">
     <form asp-controller="Schedule" asp-action="Search" method="get">
         <div class="row g-3 align-items-end">
             <div class="col-md-4">
-                <label class="form-label fw-semibold">From</label>
+                <label class="form-label fw-semibold">@Localizer["From"]</label>
                 <select name="FromCityId" class="form-select rounded-3">
-                    <option value="">— Select city —</option>
+                    <option value="">— @Localizer["Select city"] —</option>
                     @foreach (var city in Model.Cities)
                     {
                         if (Model.FromCityId == city.Id.ToString())
@@ -32,9 +34,9 @@
                 </select>
             </div>
             <div class="col-md-4">
-                <label class="form-label fw-semibold">To</label>
+                <label class="form-label fw-semibold">@Localizer["To"]</label>
                 <select name="ToCityId" class="form-select rounded-3">
-                    <option value="">— Select city —</option>
+                    <option value="">— @Localizer["Select city"] —</option>
                     @foreach (var city in Model.Cities)
                     {
                         if (Model.ToCityId == city.Id.ToString())
@@ -49,7 +51,7 @@
                 </select>
             </div>
             <div class="col-md-3">
-                <label class="form-label fw-semibold">Date of Travel</label>
+                <label class="form-label fw-semibold">@Localizer["Date of Travel"]</label>
                 <input type="date" name="DepartureDate" class="form-control rounded-3"
                        value="@(Model.DepartureDate.HasValue ? Model.DepartureDate.Value.ToString("yyyy-MM-dd") : "")" />
             </div>
@@ -91,7 +93,7 @@
                                asp-route-id="@schedule.Id"
                                asp-route-organizationId="@schedule.OrganizationId"
                                class="btn btn-outline-primary btn-sm rounded-pill w-100">
-                                <i class="fas fa-info-circle me-1"></i>View Details
+                                <i class="fas fa-info-circle me-1"></i>@Localizer["Details"]
                             </a>
                         </div>
                     </div>
@@ -103,8 +105,8 @@
     {
         <div class="text-center py-5">
             <i class="fas fa-search fa-3x text-muted mb-3"></i>
-            <h5 class="text-muted">No schedules found for the selected criteria.</h5>
-            <p class="text-muted small">Try changing the cities or selecting a different date.</p>
+            <h5 class="text-muted">@Localizer["No schedules found for the selected criteria."]</h5>
+            <p class="text-muted small">@Localizer["Try changing the cities or selecting a different date."]</p>
         </div>
     }
 }
@@ -112,6 +114,6 @@ else
 {
     <div class="text-center py-5">
         <i class="fas fa-bus fa-3x text-muted mb-3"></i>
-        <p class="text-muted">Select origin and destination cities to find available trips.</p>
+        <p class="text-muted">@Localizer["Select origin and destination cities to find available trips."]</p>
     </div>
 }

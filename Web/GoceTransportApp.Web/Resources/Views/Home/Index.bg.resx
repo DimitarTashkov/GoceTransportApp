@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype"><value>text/microsoft-resx</value></resheader>
+  <resheader name="version"><value>2.0</value></resheader>
+  <resheader name="reader"><value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+  <resheader name="writer"><value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+  <data name="Welcome to GoceTransportApp" xml:space="preserve"><value>Добре дошли в GoceTransportApp</value></data>
+  <data name="Your one-stop platform for discovering routes, checking schedules, and managing transport organizations — all in one place." xml:space="preserve"><value>Вашата платформа за маршрути, разписания и управление на транспортни организации — всичко на едно място.</value></data>
+  <data name="Explore Routes" xml:space="preserve"><value>Разгледай Маршрути</value></data>
+  <data name="View Schedules" xml:space="preserve"><value>Виж Разписания</value></data>
+  <data name="Find Your Trip" xml:space="preserve"><value>Намерете Своето Пътуване</value></data>
+  <data name="Search available schedules by origin, destination and date." xml:space="preserve"><value>Търсете налични разписания по начален град, краен град и дата.</value></data>
+  <data name="From" xml:space="preserve"><value>От</value></data>
+  <data name="Select city" xml:space="preserve"><value>Изберете град</value></data>
+  <data name="To" xml:space="preserve"><value>До</value></data>
+  <data name="Date of Travel" xml:space="preserve"><value>Дата на пътуване</value></data>
+  <data name="How It Works" xml:space="preserve"><value>Как Работи</value></data>
+  <data name="Three simple steps to plan your journey." xml:space="preserve"><value>Три прости стъпки за планиране на вашето пътуване.</value></data>
+  <data name="1. Find a Route" xml:space="preserve"><value>1. Намерете Маршрут</value></data>
+  <data name="Browse all available routes, filter by departing and arriving city, and find the connection that fits your journey." xml:space="preserve"><value>Разгледайте всички налични маршрути, филтрирайте по начален и краен град.</value></data>
+  <data name="2. Check the Schedule" xml:space="preserve"><value>2. Проверете Разписанието</value></data>
+  <data name="See departure times, days of operation, and available vehicles." xml:space="preserve"><value>Вижте часовете на тръгване, дните на работа и наличните превозни средства.</value></data>
+  <data name="3. Get Your Ticket" xml:space="preserve"><value>3. Вземете Билета Си</value></data>
+  <data name="Browse available tickets, check validity dates and pricing, and keep track of all your purchased tickets in one place." xml:space="preserve"><value>Разгледайте наличните билети, проверете датите на валидност и цените.</value></data>
+  <data name="Everything You Need in One App" xml:space="preserve"><value>Всичко Необходимо в Едно Приложение</value></data>
+  <data name="Routes" xml:space="preserve"><value>Маршрути</value></data>
+  <data name="Discover all travel routes between cities, with complete street-level details and distance information." xml:space="preserve"><value>Открийте всички маршрути между градовете с пълни детайли.</value></data>
+  <data name="Schedules" xml:space="preserve"><value>Разписания</value></data>
+  <data name="View full operating schedules for every route — filter by day and time to plan your trip with precision." xml:space="preserve"><value>Вижте пълните разписания за всеки маршрут.</value></data>
+  <data name="Organizations" xml:space="preserve"><value>Организации</value></data>
+  <data name="Browse transport organizations, their fleets, and the routes and drivers they manage across the network." xml:space="preserve"><value>Разгледайте транспортните организации, техния автопарк и маршрути.</value></data>
+  <data name="Vehicles &amp; Drivers" xml:space="preserve"><value>Превозни Средства и Шофьори</value></data>
+  <data name="Get detailed information about the vehicles in service and the experienced drivers operating each route." xml:space="preserve"><value>Получете подробна информация за превозните средства и шофьорите.</value></data>
+  <data name="Quick Access" xml:space="preserve"><value>Бърз Достъп</value></data>
+  <data name="Jump straight to what you need." xml:space="preserve"><value>Преминете директно към нужното ви.</value></data>
+  <data name="All travel routes" xml:space="preserve"><value>Всички маршрути</value></data>
+  <data name="Departure times" xml:space="preserve"><value>Времена за тръгване</value></data>
+  <data name="Available tickets" xml:space="preserve"><value>Налични билети</value></data>
+  <data name="Transport operators" xml:space="preserve"><value>Транспортни оператори</value></data>
+  <data name="Ready to Get Started?" xml:space="preserve"><value>Готови ли сте да Започнете?</value></data>
+  <data name="Create an account to manage your own organization..." xml:space="preserve"><value>Създайте акаунт за управление на организация...</value></data>
+  <data name="Get Started" xml:space="preserve"><value>Започнете</value></data>
+  <data name="About Us" xml:space="preserve"><value>За Нас</value></data>
+  <data name="Learn more about GoceTransportApp and our mission to make travel planning easier for everyone." xml:space="preserve"><value>Научете повече за GoceTransportApp и нашата мисия.</value></data>
+  <data name="Learn More" xml:space="preserve"><value>Научете Повече</value></data>
+  <data name="Contact Us" xml:space="preserve"><value>Свържете се с Нас</value></data>
+  <data name="Have a question or feedback? Our team is happy to help..." xml:space="preserve"><value>Имате въпрос или обратна връзка? Нашият екип ще се радва да помогне...</value></data>
+  <data name="Contact" xml:space="preserve"><value>Контакт</value></data>
+  <data name="Search" xml:space="preserve"><value>Търсене</value></data>
+</root>

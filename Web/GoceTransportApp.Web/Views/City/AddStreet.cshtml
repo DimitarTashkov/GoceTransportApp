@@ -1,16 +1,18 @@
-﻿@model GoceTransportApp.Web.ViewModels.Cities.CityAddStreetInputModel
+@using Microsoft.AspNetCore.Mvc.Localization
+@model GoceTransportApp.Web.ViewModels.Cities.CityAddStreetInputModel
+@inject IViewLocalizer Localizer
 
 @{
     ViewData["Title"] = "Add Street to City";
 }
 
-<h2>Add streets to city</h2>
+<h2>@Localizer["Add streets to city"]</h2>
 
 <form asp-action="AddStreet" method="post">
     <input type="hidden" asp-for="Id" />
     <input type="hidden" asp-for="Name" />
 
-    <h3>Select Streets:</h3>
+    <h3>@Localizer["Select Streets"]:</h3>
 
     <div class="form-group">
         @for (var i = 0; i < Model.Streets.Count; i++)
@@ -26,6 +28,6 @@
     </div>
 
     <button type="submit" class="btn btn-primary">
-        <i class="fas fa-check-circle"></i> Confirm
+        <i class="fas fa-check-circle"></i> @Localizer["Confirm"]
     </button>
 </form>

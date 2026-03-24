@@ -1,4 +1,6 @@
-﻿@model GoceTransportApp.Web.ViewModels.Routes.RemoveRouteViewModel
+@model GoceTransportApp.Web.ViewModels.Routes.RemoveRouteViewModel
+@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer Localizer
 
 @{
     ViewData["Title"] = "Delete route";
@@ -11,23 +13,23 @@
     }
 }
 
-<h1>Delete Route</h1>
+<h1>@Localizer["Delete Route"]</h1>
 
 <div class="card shadow-sm">
     <div class="card-body">
-        <h5 class="card-title">Route: @Model.DepartingCity → @Model.ArrivingCity</h5>
+        <h5 class="card-title">@Localizer["Route"]: @Model.DepartingCity → @Model.ArrivingCity</h5>
         <p class="card-text">
-            <strong>Departing Street:</strong> @Model.DepartingStreet<br />
-            <strong>Arriving Street:</strong> @Model.ArrivingStreet
+            <strong>@Localizer["Departing Street"]:</strong> @Model.DepartingStreet<br />
+            <strong>@Localizer["Arriving Street"]:</strong> @Model.ArrivingStreet
         </p>
         <form asp-action="Delete" method="post">
             <input asp-for="OrganizationId" type="hidden" />
 
             <input type="hidden" asp-for="Id" />
             <button type="submit" class="btn btn-danger">
-                <i class="fas fa-trash-alt"></i> Confirm Delete
+                <i class="fas fa-trash-alt"></i> @Localizer["Confirm Delete"]
             </button>
-            <a href="@returnUrl" class="btn btn-secondary"><i class="fas fa-times"></i> Cancel</a>
+            <a href="@returnUrl" class="btn btn-secondary"><i class="fas fa-times"></i> @Localizer["Cancel"]</a>
         </form>
     </div>
 </div>

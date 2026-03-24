@@ -44,8 +44,8 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{7AEA1550-FA0A-43EF-9DAC-4FEE1088246A}"
 	ProjectSection(SolutionItems) = preProject
 		CLAUDE.md = CLAUDE.md
+		advanced_features_and_localization_plan.md = advanced_features_and_localization_plan.md
 		PROGRESS.md = PROGRESS.md
-		ultimate_e2e_self_healing_plan.md = ultimate_e2e_self_healing_plan.md
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GoceTransportApp.E2ETests", "Tests\GoceTransportApp.E2ETests\GoceTransportApp.E2ETests.csproj", "{3E80AAEE-588E-474D-8773-9B11FA7EFF4C}"

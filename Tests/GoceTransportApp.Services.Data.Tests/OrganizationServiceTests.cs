@@ -1,4 +1,5 @@
-﻿using GoceTransportApp.Data.Models;
+﻿using GoceTransportApp.Data.Common.Repositories;
+using GoceTransportApp.Data.Models;
 using GoceTransportApp.Data.Repositories;
 using GoceTransportApp.Data;
 using GoceTransportApp.Services.Data.Organizations;
@@ -32,10 +33,11 @@ namespace GoceTransportApp.Services.Data.Tests
             var vehicleRepository = new EfDeletableEntityRepository<Vehicle>(dbContext);
             var ticketRepository = new EfDeletableEntityRepository<Ticket>(dbContext);
             var scheduleRepository = new EfDeletableEntityRepository<Schedule>(dbContext);
+            var favoriteRepository = new EfRepository<UserFavoriteOrganization>(dbContext);
 
             organizationService = new OrganizationService(
                 organizationRepository, routeRepository, driverRepository,
-                vehicleRepository, ticketRepository, scheduleRepository);
+                vehicleRepository, ticketRepository, scheduleRepository, favoriteRepository);
         }
 
         public void Dispose()

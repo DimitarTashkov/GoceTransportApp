@@ -1,5 +1,7 @@
 @model GoceTransportApp.Web.ViewModels.Tickets.MyTicketsViewModel
 @using static GoceTransportApp.Common.ResultMessages.GeneralMessages
+@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer Localizer
 
 @{
     ViewData["Title"] = "My Trips";
@@ -7,7 +9,7 @@
 
 <div class="d-flex align-items-center mb-4 gap-3">
     <i class="fas fa-ticket-alt fa-2x text-primary"></i>
-    <h2 class="fw-bold mb-0">My Trips</h2>
+    <h2 class="fw-bold mb-0">@Localizer["My Trips"]</h2>
 </div>
 
 @if (TempData[nameof(SuccessMessage)] != null)
@@ -25,7 +27,7 @@
     </div>
 }
 
-<h4 class="fw-semibold mb-3"><i class="fas fa-calendar-check text-primary me-2"></i>Upcoming Trips</h4>
+<h4 class="fw-semibold mb-3"><i class="fas fa-calendar-check text-primary me-2"></i>@Localizer["Upcoming Trips"]</h4>
 
 @if (Model.Upcoming.Any())
 {
@@ -57,8 +59,8 @@
                             <form asp-action="Cancel" asp-controller="Ticket" method="post">
                                 <input type="hidden" name="ticketId" value="@ticket.TicketId" />
                                 <button type="submit" class="btn btn-outline-danger btn-sm rounded-pill w-100"
-                                        onclick="return confirm('Are you sure you want to cancel this ticket?')">
-                                    <i class="fas fa-times-circle me-1"></i>Cancel Ticket
+                                        onclick="return confirm('@Localizer["Are you sure you want to cancel this ticket?"]')">
+                                    <i class="fas fa-times-circle me-1"></i>@Localizer["Cancel Ticket"]
                                 </button>
                             </form>
                         </div>
@@ -66,7 +68,7 @@
                     else
                     {
                         <div class="card-footer bg-transparent border-0 pb-3 px-4">
-                            <span class="text-muted small"><i class="fas fa-lock me-1"></i>Cancellation not available (less than 24h)</span>
+                            <span class="text-muted small"><i class="fas fa-lock me-1"></i>@Localizer["Cancellation not available (less than 24h)"]</span>
                         </div>
                     }
                 </div>
@@ -78,16 +80,16 @@ else
 {
     <div class="text-center py-4 mb-5">
         <i class="fas fa-calendar-times fa-2x text-muted mb-2"></i>
-        <p class="text-muted">No upcoming trips.</p>
+        <p class="text-muted">@Localizer["No upcoming trips."]</p>
         <a asp-controller="Home" asp-action="Index" class="btn btn-primary rounded-pill px-4">
-            <i class="fas fa-search me-1"></i>Find a Trip
+            <i class="fas fa-search me-1"></i>@Localizer["Find a Trip"]
         </a>
     </div>
 }
 
 <hr class="my-4">
 
-<h4 class="fw-semibold mb-3"><i class="fas fa-history text-secondary me-2"></i>Past Trips</h4>
+<h4 class="fw-semibold mb-3"><i class="fas fa-history text-secondary me-2"></i>@Localizer["Past Trips"]</h4>
 
 @if (Model.Past.Any())
 {
@@ -122,6 +124,6 @@ else
 {
     <div class="text-center py-4">
         <i class="fas fa-inbox fa-2x text-muted mb-2"></i>
-        <p class="text-muted">No past trips yet.</p>
+        <p class="text-muted">@Localizer["No past trips yet."]</p>
     </div>
 }

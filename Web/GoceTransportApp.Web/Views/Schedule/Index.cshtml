@@ -3,6 +3,8 @@
 @using GoceTransportApp.Web.ViewModels.Schedules
 @model GoceTransportApp.Web.ViewModels.Schedules.AllSchedulesSearchFilterViewModel
 @inject IUserService userService
+@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer Localizer
 
 @{
     var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
@@ -23,13 +25,13 @@
 
 <div class="d-flex justify-content-between align-items-end mb-4 border-bottom pb-4">
     <div>
-        <h2 class="fw-bold text-dark mb-1">Schedules &amp; Departures</h2>
-        <p class="lead text-muted mb-0">Up-to-date information on departure and arrival times.</p>
+        <h2 class="fw-bold text-dark mb-1">@Localizer["Schedules & Departures"]</h2>
+        <p class="lead text-muted mb-0">@Localizer["Up-to-date information on departure and arrival times."]</p>
     </div>
     @if (userId != null)
     {
         <a asp-action="Create" class="btn btn-primary rounded-pill px-4">
-            <i class="fas fa-plus me-1"></i>Add Schedule
+            <i class="fas fa-plus me-1"></i>@Localizer["Add Schedule"]
         </a>
     }
 </div>
@@ -40,16 +42,16 @@
     <div class="col-md-3">
         <div class="card border-0 shadow-sm rounded-4 p-3">
             <h6 class="fw-semibold text-muted text-uppercase mb-3 small">
-                <i class="fas fa-sliders-h me-2"></i>Filters
+                <i class="fas fa-sliders-h me-2"></i>@Localizer["Filters"]
             </h6>
 
             <form method="get" id="filterForm">
 
                 @* FROM CITY *@
                 <div class="mb-3">
-                    <label class="form-label small fw-semibold">From</label>
+                    <label class="form-label small fw-semibold">@Localizer["From"]</label>
                     <select name="FromCityId" class="form-select form-select-sm rounded-3">
-                        <option value="">-- All --</option>
+                        <option value="">-- @Localizer["All"] --</option>
                         @foreach (var city in Model.AvailableCities)
                         {
                             if (Model.FromCityId == city.Id.ToString())
@@ -66,9 +68,9 @@
 
                 @* TO CITY *@
                 <div class="mb-3">
-                    <label class="form-label small fw-semibold">To</label>
+                    <label class="form-label small fw-semibold">@Localizer["To"]</label>
                     <select name="ToCityId" class="form-select form-select-sm rounded-3">
-                        <option value="">-- All --</option>
+                        <option value="">-- @Localizer["All"] --</option>
                         @foreach (var city in Model.AvailableCities)
                         {
                             if (Model.ToCityId == city.Id.ToString())
@@ -85,9 +87,9 @@
 
                 @* DAY *@
                 <div class="mb-3">
-                    <label class="form-label small fw-semibold"><i class="fas fa-calendar-day me-1"></i>Day</label>
+                    <label class="form-label small fw-semibold"><i class="fas fa-calendar-day me-1"></i>@Localizer["Day"]</label>
                     <select name="DayFilter" class="form-select form-select-sm rounded-3">
-                        <option value="">-- All Days --</option>
+                        <option value="">-- @Localizer["All Days"] --</option>
                         @foreach (DayOfWeek day in Enum.GetValues(typeof(DayOfWeek)))
                         {
                             if (Model.DayFilter == day)
@@ -104,7 +106,7 @@
 
                 @* TIME *@
                 <div class="mb-3">
-                    <label class="form-label small fw-semibold"><i class="fas fa-clock me-1"></i>Time (dep / arr)</label>
+                    <label class="form-label small fw-semibold"><i class="fas fa-clock me-1"></i>@Localizer["Time (dep / arr)"]</label>
                     <input type="time" name="TimeFilter"
                            value="@Model.TimeFilter?.ToString(@"hh\:mm")"
                            class="form-control form-control-sm rounded-3" />
@@ -114,9 +116,9 @@
                 @if (Model.AvailableOrganizations.Any())
                 {
                     <div class="mb-3">
-                        <label class="form-label small fw-semibold"><i class="fas fa-building me-1"></i>Carrier</label>
+                        <label class="form-label small fw-semibold"><i class="fas fa-building me-1"></i>@Localizer["Carrier"]</label>
                         <select name="OrganizationId" class="form-select form-select-sm rounded-3">
-                            <option value="">-- All Carriers --</option>
+                            <option value="">-- @Localizer["All Carriers"] --</option>
                             @foreach (var org in Model.AvailableOrganizations)
                             {
                                 if (Model.OrganizationId == org.Id)
@@ -134,7 +136,7 @@
 
                 @* RESULTS PER PAGE *@
                 <div class="mb-4">
-                    <label class="form-label small fw-semibold">Results per page</label>
+                    <label class="form-label small fw-semibold">@Localizer["Results per page"]</label>
                     <select name="EntitiesPerPage" class="form-select form-select-sm rounded-3">
                         @foreach (var n in new[] { 10, 20, 50 })
                         {
@@ -151,13 +153,13 @@
                 </div>
 
                 <button type="submit" class="btn btn-primary w-100 rounded-pill">
-                    <i class="fas fa-search me-1"></i>Apply Filters
+                    <i class="fas fa-search me-1"></i>@Localizer["Apply Filters"]
                 </button>
 
                 @if (hasActiveFilters)
                 {
                     <a asp-action="Index" class="btn btn-outline-secondary w-100 rounded-pill mt-2">
-                        <i class="fas fa-times me-1"></i>Clear Filters
+                        <i class="fas fa-times me-1"></i>@Localizer["Clear Filters"]
                     </a>
                 }
             </form>
@@ -186,11 +188,11 @@
                         style="width:auto" onchange="document.getElementById('sortForm').submit()">
                     @{
                         var sortOpts = new[] {
-                            (Val: 0, Label: "Sort: Default",    Key: ScheduleSorting.Default),
-                            (Val: 1, Label: "Departure \u2191",  Key: ScheduleSorting.DepartureAscending),
-                            (Val: 2, Label: "Departure \u2193",  Key: ScheduleSorting.DepartureDescending),
-                            (Val: 3, Label: "Arrival \u2191",    Key: ScheduleSorting.ArrivalAscending),
-                            (Val: 4, Label: "Arrival \u2193",    Key: ScheduleSorting.ArrivalDescending),
+                            (Val: 0, Label: Localizer["Sort: Default"].Value,    Key: ScheduleSorting.Default),
+                            (Val: 1, Label: Localizer["Departure \u2191"].Value,  Key: ScheduleSorting.DepartureAscending),
+                            (Val: 2, Label: Localizer["Departure \u2193"].Value,  Key: ScheduleSorting.DepartureDescending),
+                            (Val: 3, Label: Localizer["Arrival \u2191"].Value,    Key: ScheduleSorting.ArrivalAscending),
+                            (Val: 4, Label: Localizer["Arrival \u2193"].Value,    Key: ScheduleSorting.ArrivalDescending),
                         };
                     }
                     @foreach (var opt in sortOpts)
@@ -222,8 +224,8 @@
                 <div class="col-12">
                     <div class="text-center py-5 bg-white rounded-4 shadow-sm">
                         <div class="fs-1 text-muted mb-3">📭</div>
-                        <h4 class="fw-semibold">No records found</h4>
-                        <p class="text-muted">Try adjusting your filters.</p>
+                        <h4 class="fw-semibold">@Localizer["No records found"]</h4>
+                        <p class="text-muted">@Localizer["Try adjusting your filters."]</p>
                     </div>
                 </div>
             }

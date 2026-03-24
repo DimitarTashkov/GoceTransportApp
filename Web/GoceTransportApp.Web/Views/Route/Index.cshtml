@@ -1,8 +1,10 @@
-﻿@using GoceTransportApp.Services.Data.Users
+@using GoceTransportApp.Services.Data.Users
 @using GoceTransportApp.Web.ViewModels.Routes
 @using System.Security.Claims
 @model AllRoutesSearchFilterViewModel
 @inject IUserService userService
+@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer Localizer
 
 @{
     var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
@@ -15,17 +17,17 @@
 
 <div class="d-flex justify-content-between align-items-end mb-5 border-bottom pb-4">
     <div>
-        <h2 class="fw-bold text-dark mb-2">Destinations & Routes</h2>
-        <p class="lead text-muted mb-0">Find the perfect route for your next journey. Browse all active lines and plan with ease.</p>
+        <h2 class="fw-bold text-dark mb-2">@Localizer["Destinations & Routes"]</h2>
+        <p class="lead text-muted mb-0">@Localizer["Find the perfect route for your next journey."]</p>
     </div>
     <div></div>
 </div>
 
 <div class="d-flex gap-2 mb-4 flex-wrap align-items-center">
     <form method="get" class="d-flex gap-2 flex-grow-1 flex-wrap">
-        <input type="text" name="SearchQuery" value="@Model.SearchQuery" class="form-control rounded-pill" placeholder="Search by street or city..." />
-        <input type="text" name="DepartingCityFilter" value="@Model.DepartingCityFilter" class="form-control rounded-pill" placeholder="Departing city..." />
-        <input type="text" name="ArrivingCityFilter" value="@Model.ArrivingCityFilter" class="form-control rounded-pill" placeholder="Arriving city..." />
+        <input type="text" name="SearchQuery" value="@Model.SearchQuery" class="form-control rounded-pill" placeholder="@Localizer["Search by street or city..."]" />
+        <input type="text" name="DepartingCityFilter" value="@Model.DepartingCityFilter" class="form-control rounded-pill" placeholder="@Localizer["Departing city..."]" />
+        <input type="text" name="ArrivingCityFilter" value="@Model.ArrivingCityFilter" class="form-control rounded-pill" placeholder="@Localizer["Arriving city..."]" />
         <button type="submit" class="btn btn-primary rounded-pill px-4">
             <i class="fas fa-search"></i>
         </button>
@@ -33,7 +35,7 @@
     @if (userId != null)
     {
         <a asp-action="Create" class="btn btn-primary rounded-pill px-4">
-            <i class="fas fa-plus me-1"></i>Add Route
+            <i class="fas fa-plus me-1"></i>@Localizer["Add Route"]
         </a>
     }
 </div>
@@ -51,8 +53,8 @@
             <div class="col-12">
                 <div class="text-center py-5 bg-white rounded-4 shadow-sm">
                     <div class="fs-1 text-muted mb-3">📭</div>
-                    <h4 class="fw-semibold">No records found</h4>
-                    <p class="text-muted">No information has been added here yet.</p>
+                    <h4 class="fw-semibold">@Localizer["No records found"]</h4>
+                    <p class="text-muted">@Localizer["No information has been added here yet."]</p>
                 </div>
             </div>
         }
@@ -66,7 +68,7 @@
                 {
                     <li class="page-item">
                         <a class="page-link" href="?SearchQuery=@Model.SearchQuery&DepartingCityFilter=@Model.DepartingCityFilter&ArrivingCityFilter=@Model.ArrivingCityFilter&CurrentPage=@(Model.CurrentPage - 1)&EntitiesPerPage=@Model.EntitiesPerPage">
-                            <i class="fas fa-chevron-left"></i> Previous
+                            <i class="fas fa-chevron-left"></i> @Localizer["Previous"]
                         </a>
                     </li>
                 }
@@ -82,7 +84,7 @@
                 {
                     <li class="page-item">
                         <a class="page-link" href="?SearchQuery=@Model.SearchQuery&DepartingCityFilter=@Model.DepartingCityFilter&ArrivingCityFilter=@Model.ArrivingCityFilter&CurrentPage=@(Model.CurrentPage + 1)&EntitiesPerPage=@Model.EntitiesPerPage">
-                            <i class="fas fa-chevron-right"></i> Next
+                            <i class="fas fa-chevron-right"></i> @Localizer["Next"]
                         </a>
                     </li>
                 }

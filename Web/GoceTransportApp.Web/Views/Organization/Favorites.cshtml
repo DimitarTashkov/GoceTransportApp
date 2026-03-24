@@ -1,0 +1,71 @@
+@using Microsoft.AspNetCore.Mvc.Localization
+@model IEnumerable<GoceTransportApp.Web.ViewModels.Organizations.OrganizationDataViewModel>
+@inject IViewLocalizer Localizer
+
+@{
+    ViewData["Title"] = "Favorite Carriers";
+}
+
+<div class="d-flex align-items-center justify-content-between mb-4">
+    <h2 class="fw-bold mb-0">
+        <i class="fas fa-heart text-danger me-2"></i>@Localizer["My Favorite Carriers"]
+    </h2>
+    <a asp-action="Index" asp-controller="Organization" class="btn btn-outline-secondary rounded-pill px-3">
+        <i class="fas fa-search me-1"></i>@Localizer["Browse All"]
+    </a>
+</div>
+
+@if (!Model.Any())
+{
+    <div class="text-center py-5">
+        <div class="display-1 mb-3">💔</div>
+        <h4 class="text-muted">@Localizer["No favorites yet"]</h4>
+        <p class="text-muted">@Localizer["Visit an organization's page and click Follow to add it here."]</p>
+        <a asp-action="Index" asp-controller="Organization" class="btn btn-primary rounded-pill px-4 mt-2">
+            <i class="fas fa-building me-2"></i>@Localizer["Explore Organizations"]
+        </a>
+    </div>
+}
+else
+{
+    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+        @foreach (var org in Model)
+        {
+            <div class="col">
+                <div class="card border-0 shadow-sm rounded-4 h-100">
+                    <div class="card-body text-center pt-4">
+                        @if (!string.IsNullOrEmpty(org.ImageUrl))
+                        {
+                            <img src="@org.ImageUrl" alt="@org.Name"
+                                 class="rounded-circle border shadow-sm mb-3"
+                                 style="width:80px;height:80px;object-fit:cover;" />
+                        }
+                        else
+                        {
+                            <div class="rounded-circle bg-primary bg-opacity-10 text-primary d-flex align-items-center justify-content-center fw-bold mx-auto mb-3"
+                                 style="width:80px;height:80px;font-size:1.8rem;">
+                                @org.Name.Substring(0, 1).ToUpper()
+                            </div>
+                        }
+                        <h5 class="fw-bold mb-1">@org.Name</h5>
+                        @if (!string.IsNullOrEmpty(org.Address))
+                        {
+                            <p class="text-muted small mb-1">
+                                <i class="fas fa-map-marker-alt me-1 text-primary"></i>@org.Address
+                            </p>
+                        }
+                        <p class="text-muted small mb-0">
+                            <i class="fas fa-user me-1 text-primary"></i>@org.Founder
+                        </p>
+                    </div>
+                    <div class="card-footer bg-white border-0 pb-3 text-center">
+                        <a asp-action="Details" asp-controller="Organization" asp-route-id="@org.Id"
+                           class="btn btn-sm btn-primary rounded-pill px-4">
+                            <i class="fas fa-eye me-1"></i>@Localizer["View Details"]
+                        </a>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+}

@@ -56,6 +56,7 @@
 
         public DbSet<Review> Reviews { get; set; }
 
+        public DbSet<UserFavoriteOrganization> UserFavoriteOrganizations { get; set; }
 
         public override int SaveChanges() => this.SaveChanges(true);
 
@@ -80,6 +81,22 @@
         {
             // Set Vehichle's Number to unique constraint
             builder.Entity<Vehicle>().HasIndex(v => v.Number).IsUnique();
+
+            // UserFavoriteOrganization composite PK
+            builder.Entity<UserFavoriteOrganization>()
+                .HasKey(f => new { f.UserId, f.OrganizationId });
+
+            builder.Entity<UserFavoriteOrganization>()
+                .HasOne(f => f.User)
+                .WithMany(u => u.FavoriteOrganizations)
+                .HasForeignKey(f => f.UserId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            builder.Entity<UserFavoriteOrganization>()
+                .HasOne(f => f.Organization)
+                .WithMany()
+                .HasForeignKey(f => f.OrganizationId)
+                .OnDelete(DeleteBehavior.Restrict);
 
             // Needed for Identity models configuration
             base.OnModelCreating(builder);

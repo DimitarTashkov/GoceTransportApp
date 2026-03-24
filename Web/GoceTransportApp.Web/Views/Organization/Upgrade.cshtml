@@ -1,0 +1,95 @@
+@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer Localizer
+
+@{
+    ViewData["Title"] = "Upgrade Your Plan";
+    var upgradeReason = TempData["UpgradeReason"]?.ToString();
+}
+
+<div class="text-center mb-5">
+    <h1 class="display-5 fw-bold">@Localizer["Upgrade Your Plan"]</h1>
+    <p class="lead text-muted">@Localizer["Unlock more organizations and features for your transport business."]</p>
+
+    @if (!string.IsNullOrEmpty(upgradeReason))
+    {
+        <div class="alert alert-warning d-inline-flex align-items-center gap-2 rounded-3 px-4" role="alert">
+            <i class="fas fa-lock me-1"></i> @upgradeReason
+        </div>
+    }
+</div>
+
+<div class="row row-cols-1 row-cols-md-3 g-4 justify-content-center mb-5">
+
+    @* Free *@
+    <div class="col">
+        <div class="card border-2 rounded-4 shadow-sm h-100 text-center">
+            <div class="card-body p-4">
+                <div class="mb-3">
+                    <span class="badge bg-secondary rounded-pill px-3 py-2">@Localizer["Current Plan"]</span>
+                </div>
+                <h3 class="fw-bold">Free</h3>
+                <div class="display-4 fw-bolder my-3">$0<small class="fs-5 text-muted fw-normal">/mo</small></div>
+                <ul class="list-unstyled text-start mb-4">
+                    <li class="mb-2"><i class="fas fa-check text-success me-2"></i>1 Organization</li>
+                    <li class="mb-2"><i class="fas fa-check text-success me-2"></i>Unlimited Schedules</li>
+                    <li class="mb-2"><i class="fas fa-check text-success me-2"></i>Basic Support</li>
+                    <li class="mb-2 text-muted"><i class="fas fa-times text-danger me-2"></i>Analytics Dashboard</li>
+                    <li class="mb-2 text-muted"><i class="fas fa-times text-danger me-2"></i>Priority Support</li>
+                </ul>
+                <button class="btn btn-outline-secondary rounded-pill w-100" disabled>@Localizer["Current Plan"]</button>
+            </div>
+        </div>
+    </div>
+
+    @* Pro *@
+    <div class="col">
+        <div class="card border-primary border-2 rounded-4 shadow h-100 text-center position-relative">
+            <div class="position-absolute top-0 start-50 translate-middle">
+                <span class="badge bg-primary rounded-pill px-3 py-2">@Localizer["Most Popular"]</span>
+            </div>
+            <div class="card-body p-4 pt-5">
+                <h3 class="fw-bold text-primary">Pro</h3>
+                <div class="display-4 fw-bolder my-3">$19<small class="fs-5 text-muted fw-normal">/mo</small></div>
+                <ul class="list-unstyled text-start mb-4">
+                    <li class="mb-2"><i class="fas fa-check text-success me-2"></i>3 Organizations</li>
+                    <li class="mb-2"><i class="fas fa-check text-success me-2"></i>Unlimited Schedules</li>
+                    <li class="mb-2"><i class="fas fa-check text-success me-2"></i>Email Notifications</li>
+                    <li class="mb-2"><i class="fas fa-check text-success me-2"></i>Analytics Dashboard</li>
+                    <li class="mb-2 text-muted"><i class="fas fa-times text-danger me-2"></i>Priority Support</li>
+                </ul>
+                <a href="#" class="btn btn-primary rounded-pill w-100">
+                    <i class="fas fa-arrow-up me-1"></i>@Localizer["Upgrade to Pro"]
+                </a>
+            </div>
+        </div>
+    </div>
+
+    @* Enterprise *@
+    <div class="col">
+        <div class="card border-warning border-2 rounded-4 shadow-sm h-100 text-center">
+            <div class="card-body p-4">
+                <div class="mb-3">
+                    <span class="badge bg-warning text-dark rounded-pill px-3 py-2">Enterprise</span>
+                </div>
+                <h3 class="fw-bold">Enterprise</h3>
+                <div class="display-4 fw-bolder my-3">$99<small class="fs-5 text-muted fw-normal">/mo</small></div>
+                <ul class="list-unstyled text-start mb-4">
+                    <li class="mb-2"><i class="fas fa-check text-success me-2"></i>Unlimited Organizations</li>
+                    <li class="mb-2"><i class="fas fa-check text-success me-2"></i>Unlimited Schedules</li>
+                    <li class="mb-2"><i class="fas fa-check text-success me-2"></i>Email Notifications</li>
+                    <li class="mb-2"><i class="fas fa-check text-success me-2"></i>Analytics Dashboard</li>
+                    <li class="mb-2"><i class="fas fa-check text-success me-2"></i>Priority 24/7 Support</li>
+                </ul>
+                <a href="#" class="btn btn-warning rounded-pill w-100 text-dark">
+                    <i class="fas fa-rocket me-1"></i>@Localizer["Go Enterprise"]
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="text-center">
+    <a asp-action="UserOrganizations" class="btn btn-link text-muted text-decoration-none">
+        <i class="fas fa-arrow-left me-1"></i>@Localizer["Back to My Organizations"]
+    </a>
+</div>

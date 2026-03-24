@@ -1,9 +1,11 @@
-﻿@model GoceTransportApp.Web.ViewModels.Tickets.TicketDetailsViewModel
+@model GoceTransportApp.Web.ViewModels.Tickets.TicketDetailsViewModel
+@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer Localizer
 
 @{
     ViewData["Title"] = "Ticket Details";
 }
 
-<h1 class="h2 fw-bold text-dark text-center mt-4 mb-4"><i class="fas fa-info-circle me-2"></i>Ticket Details</h1>
+<h1 class="h2 fw-bold text-dark text-center mt-4 mb-4"><i class="fas fa-info-circle me-2"></i>@Localizer["Ticket Details"]</h1>
 
 <partial name="_TicketDetailsPartial" model="Model" />

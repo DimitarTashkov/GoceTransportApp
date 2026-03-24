@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype"><value>text/microsoft-resx</value></resheader>
+  <resheader name="version"><value>2.0</value></resheader>
+  <resheader name="reader"><value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+  <resheader name="writer"><value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+  <data name="Schedules &amp; Departures" xml:space="preserve"><value>Разписания и Тръгвания</value></data>
+  <data name="Up-to-date information on departure and arrival times." xml:space="preserve"><value>Актуална информация за времена на тръгване и пристигане.</value></data>
+  <data name="Add Schedule" xml:space="preserve"><value>Добави Разписание</value></data>
+  <data name="Filters" xml:space="preserve"><value>Филтри</value></data>
+  <data name="From" xml:space="preserve"><value>От</value></data>
+  <data name="All" xml:space="preserve"><value>Всички</value></data>
+  <data name="To" xml:space="preserve"><value>До</value></data>
+  <data name="Day" xml:space="preserve"><value>Ден</value></data>
+  <data name="All Days" xml:space="preserve"><value>Всички Дни</value></data>
+  <data name="Time (dep / arr)" xml:space="preserve"><value>Час (тръгване / пристигане)</value></data>
+  <data name="Carrier" xml:space="preserve"><value>Превозвач</value></data>
+  <data name="All Carriers" xml:space="preserve"><value>Всички Превозвачи</value></data>
+  <data name="Results per page" xml:space="preserve"><value>Резултати на страница</value></data>
+  <data name="Apply Filters" xml:space="preserve"><value>Приложи Филтри</value></data>
+  <data name="Clear Filters" xml:space="preserve"><value>Изчисти Филтри</value></data>
+  <data name="Sort: Default" xml:space="preserve"><value>Сортиране: По подразбиране</value></data>
+  <data name="Departure ↑" xml:space="preserve"><value>Тръгване ↑</value></data>
+  <data name="Departure ↓" xml:space="preserve"><value>Тръгване ↓</value></data>
+  <data name="Arrival ↑" xml:space="preserve"><value>Пристигане ↑</value></data>
+  <data name="Arrival ↓" xml:space="preserve"><value>Пристигане ↓</value></data>
+  <data name="No records found" xml:space="preserve"><value>Няма намерени записи</value></data>
+  <data name="Try adjusting your filters." xml:space="preserve"><value>Опитайте да промените филтрите.</value></data>
+</root>

@@ -1,8 +1,10 @@
-﻿@using GoceTransportApp.Services.Data.Users
+@using GoceTransportApp.Services.Data.Users
 @using System.Security.Claims
 @using static GoceTransportApp.Common.GlobalConstants
 @model GoceTransportApp.Web.ViewModels.Drivers.DriverDetailsViewModel
 @inject IUserService userService
+@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer Localizer
 @{
     var organizationId = Model.OrganizationId;
     var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
@@ -13,13 +15,13 @@
     ViewData["Title"] = "Driver Details";
 }
 
-<h1 class="h2 fw-bold text-dark mb-4">Driver Details</h1>
+<h1 class="h2 fw-bold text-dark mb-4">@Localizer["Driver Details"]</h1>
 
 <partial name="_DriverDetailsPartial" model="Model" />
 
 @if (isFounder || isAdmin)
 {
-    <a asp-action="Edit" asp-controller="Driver" asp-route-id="@Model.Id" asp-route-organizationId="@Model.OrganizationId" class="btn btn-warning "><i class="fas fa-edit"></i> Edit</a>
-    <a asp-action="Delete" asp-controller="Driver" asp-route-id="@Model.Id" asp-route-organizationId="@Model.OrganizationId" class="btn btn-danger "><i class="fas fa-trash"></i> Delete</a>
+    <a asp-action="Edit" asp-controller="Driver" asp-route-id="@Model.Id" asp-route-organizationId="@Model.OrganizationId" class="btn btn-warning "><i class="fas fa-edit"></i> @Localizer["Edit"]</a>
+    <a asp-action="Delete" asp-controller="Driver" asp-route-id="@Model.Id" asp-route-organizationId="@Model.OrganizationId" class="btn btn-danger "><i class="fas fa-trash"></i> @Localizer["Delete"]</a>
 }
-<a asp-action="Drivers" asp-controller="Organization" asp-route-organizationId="@Model.OrganizationId" class="btn btn-secondary "><i class="fas fa-info-circle"></i> Back to List</a>
+<a asp-action="Drivers" asp-controller="Organization" asp-route-organizationId="@Model.OrganizationId" class="btn btn-secondary "><i class="fas fa-info-circle"></i> @Localizer["Back to List"]</a>

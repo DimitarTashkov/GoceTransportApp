@@ -3,6 +3,8 @@
 @using System.Security.Claims
 @model AllVehiclesSearchFilterViewModel
 @inject IUserService userService
+@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer Localizer
 
 @{
     var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
@@ -11,15 +13,15 @@
 
 <div class="d-flex justify-content-between align-items-end mb-5 border-bottom pb-4">
     <div>
-        <h2 class="fw-bold text-dark mb-2">Vehicles</h2>
-        <p class="lead text-muted mb-0">A modern and reliable fleet maintained to the highest safety standards.</p>
+        <h2 class="fw-bold text-dark mb-2">@Localizer["Vehicles"]</h2>
+        <p class="lead text-muted mb-0">@Localizer["A modern and reliable fleet maintained to the highest safety standards."]</p>
     </div>
     <div></div>
 </div>
 
 <div class="d-flex gap-2 mb-4 flex-wrap align-items-center">
     <form method="get" class="d-flex gap-2 flex-grow-1">
-        <input type="text" name="SearchQuery" value="@Model.SearchQuery" class="form-control rounded-pill" placeholder="Search by number, type, manufacturer, or model..." />
+        <input type="text" name="SearchQuery" value="@Model.SearchQuery" class="form-control rounded-pill" placeholder="@Localizer["Search by number, type, manufacturer, or model..."]" />
         <button type="submit" class="btn btn-primary rounded-pill px-4">
             <i class="fas fa-search"></i>
         </button>
@@ -27,7 +29,7 @@
     @if (userId != null)
     {
         <a asp-action="Create" class="btn btn-primary rounded-pill px-4">
-            <i class="fas fa-plus me-1"></i>Add Vehicle
+            <i class="fas fa-plus me-1"></i>@Localizer["Add Vehicle"]
         </a>
     }
 </div>
@@ -45,8 +47,8 @@
         <div class="col-12">
             <div class="text-center py-5 bg-white rounded-4 shadow-sm">
                 <div class="fs-1 text-muted mb-3">📭</div>
-                <h4 class="fw-semibold">No records found</h4>
-                <p class="text-muted">No information has been added here yet.</p>
+                <h4 class="fw-semibold">@Localizer["No records found"]</h4>
+                <p class="text-muted">@Localizer["No information has been added here yet."]</p>
             </div>
         </div>
     }
@@ -59,7 +61,7 @@
             @if (Model.CurrentPage > 1)
             {
                 <li class="page-item">
-                    <a class="page-link" href="?SearchQuery=@Model.SearchQuery&CurrentPage=@(Model.CurrentPage - 1)&EntitiesPerPage=@Model.EntitiesPerPage">Previous</a>
+                    <a class="page-link" href="?SearchQuery=@Model.SearchQuery&CurrentPage=@(Model.CurrentPage - 1)&EntitiesPerPage=@Model.EntitiesPerPage">@Localizer["Previous"]</a>
                 </li>
             }
 
@@ -73,7 +75,7 @@
             @if (Model.CurrentPage < Model.TotalPages)
             {
                 <li class="page-item">
-                    <a class="page-link" href="?SearchQuery=@Model.SearchQuery&CurrentPage=@(Model.CurrentPage + 1)&EntitiesPerPage=@Model.EntitiesPerPage">Next</a>
+                    <a class="page-link" href="?SearchQuery=@Model.SearchQuery&CurrentPage=@(Model.CurrentPage + 1)&EntitiesPerPage=@Model.EntitiesPerPage">@Localizer["Next"]</a>
                 </li>
             }
         </ul>

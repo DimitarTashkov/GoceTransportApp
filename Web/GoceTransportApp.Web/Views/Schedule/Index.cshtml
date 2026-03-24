@@ -1,44 +1,31 @@
 @using System.Security.Claims
 @using GoceTransportApp.Services.Data.Users
+@using GoceTransportApp.Web.ViewModels.Schedules
 @model GoceTransportApp.Web.ViewModels.Schedules.AllSchedulesSearchFilterViewModel
 @inject IUserService userService
 
 @{
     var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
     ViewData["Title"] = "Schedules";
+
+    // Build a base dictionary of all active filter values — used by pagination links
+    var filterParams = new Dictionary<string, string>();
+    if (!string.IsNullOrEmpty(Model.FromCityId))      filterParams["FromCityId"]     = Model.FromCityId;
+    if (!string.IsNullOrEmpty(Model.ToCityId))        filterParams["ToCityId"]       = Model.ToCityId;
+    if (Model.DayFilter.HasValue)                     filterParams["DayFilter"]      = Model.DayFilter.ToString();
+    if (Model.TimeFilter.HasValue)                    filterParams["TimeFilter"]     = Model.TimeFilter.Value.ToString(@"hh\:mm");
+    if (!string.IsNullOrEmpty(Model.OrganizationId)) filterParams["OrganizationId"] = Model.OrganizationId;
+    if (Model.SortBy != ScheduleSorting.Default)      filterParams["SortBy"]         = ((int)Model.SortBy).ToString();
+    filterParams["EntitiesPerPage"] = Model.EntitiesPerPage.ToString();
+
+    bool hasActiveFilters = filterParams.Count > 1; // more than just EntitiesPerPage
 }
 
-<div class="d-flex justify-content-between align-items-end mb-5 border-bottom pb-4">
+<div class="d-flex justify-content-between align-items-end mb-4 border-bottom pb-4">
     <div>
-        <h2 class="fw-bold text-dark mb-2">Schedules & Departures</h2>
-        <p class="lead text-muted mb-0">Up-to-date information on departure and arrival times. Always be on time.</p>
+        <h2 class="fw-bold text-dark mb-1">Schedules &amp; Departures</h2>
+        <p class="lead text-muted mb-0">Up-to-date information on departure and arrival times.</p>
     </div>
-    <div></div>
-</div>
-
-<div class="d-flex gap-2 mb-4 flex-wrap align-items-end">
-    <form method="get" class="d-flex gap-2 flex-wrap flex-grow-1 align-items-end">
-        <div>
-            <label asp-for="DayFilter" class="form-label text-muted small"><i class="fas fa-calendar-day me-1"></i>Day</label>
-            <select asp-for="DayFilter" class="form-select rounded-pill">
-                <option value="">-- All Days --</option>
-                <option value="Monday">Monday</option>
-                <option value="Tuesday">Tuesday</option>
-                <option value="Wednesday">Wednesday</option>
-                <option value="Thursday">Thursday</option>
-                <option value="Friday">Friday</option>
-                <option value="Saturday">Saturday</option>
-                <option value="Sunday">Sunday</option>
-            </select>
-        </div>
-        <div>
-            <label for="TimeFilter" class="form-label text-muted small">Time</label>
-            <input type="time" name="TimeFilter" value="@Model.TimeFilter?.ToString(@"hh\:mm")" class="form-control rounded-pill" id="filterTime" />
-        </div>
-        <button type="submit" class="btn btn-primary rounded-pill px-4">
-            <i class="fas fa-search"></i>
-        </button>
-    </form>
     @if (userId != null)
     {
         <a asp-action="Create" class="btn btn-primary rounded-pill px-4">
@@ -47,58 +34,277 @@
     }
 </div>
 
-<div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
-    @if (Model.Schedules != null && Model.Schedules.Any())
-    {
-        @foreach (var item in Model.Schedules)
-        {
-            <partial name="_ScheduleCard" model="item" />
-        }
-    }
-    else
-    {
-        <div class="col-12">
-            <div class="text-center py-5 bg-white rounded-4 shadow-sm">
-                <div class="fs-1 text-muted mb-3">📭</div>
-                <h4 class="fw-semibold">No records found</h4>
-                <p class="text-muted">No information has been added here yet.</p>
-            </div>
+<div class="row g-4">
+
+    @* ════════════  LEFT: FILTER PANEL  ════════════ *@
+    <div class="col-md-3">
+        <div class="card border-0 shadow-sm rounded-4 p-3">
+            <h6 class="fw-semibold text-muted text-uppercase mb-3 small">
+                <i class="fas fa-sliders-h me-2"></i>Filters
+            </h6>
+
+            <form method="get" id="filterForm">
+
+                @* FROM CITY *@
+                <div class="mb-3">
+                    <label class="form-label small fw-semibold">From</label>
+                    <select name="FromCityId" class="form-select form-select-sm rounded-3">
+                        <option value="">-- All --</option>
+                        @foreach (var city in Model.AvailableCities)
+                        {
+                            if (Model.FromCityId == city.Id.ToString())
+                            {
+                                <option value="@city.Id" selected>@city.Name</option>
+                            }
+                            else
+                            {
+                                <option value="@city.Id">@city.Name</option>
+                            }
+                        }
+                    </select>
+                </div>
+
+                @* TO CITY *@
+                <div class="mb-3">
+                    <label class="form-label small fw-semibold">To</label>
+                    <select name="ToCityId" class="form-select form-select-sm rounded-3">
+                        <option value="">-- All --</option>
+                        @foreach (var city in Model.AvailableCities)
+                        {
+                            if (Model.ToCityId == city.Id.ToString())
+                            {
+                                <option value="@city.Id" selected>@city.Name</option>
+                            }
+                            else
+                            {
+                                <option value="@city.Id">@city.Name</option>
+                            }
+                        }
+                    </select>
+                </div>
+
+                @* DAY *@
+                <div class="mb-3">
+                    <label class="form-label small fw-semibold"><i class="fas fa-calendar-day me-1"></i>Day</label>
+                    <select name="DayFilter" class="form-select form-select-sm rounded-3">
+                        <option value="">-- All Days --</option>
+                        @foreach (DayOfWeek day in Enum.GetValues(typeof(DayOfWeek)))
+                        {
+                            if (Model.DayFilter == day)
+                            {
+                                <option value="@day" selected>@day</option>
+                            }
+                            else
+                            {
+                                <option value="@day">@day</option>
+                            }
+                        }
+                    </select>
+                </div>
+
+                @* TIME *@
+                <div class="mb-3">
+                    <label class="form-label small fw-semibold"><i class="fas fa-clock me-1"></i>Time (dep / arr)</label>
+                    <input type="time" name="TimeFilter"
+                           value="@Model.TimeFilter?.ToString(@"hh\:mm")"
+                           class="form-control form-control-sm rounded-3" />
+                </div>
+
+                @* CARRIER *@
+                @if (Model.AvailableOrganizations.Any())
+                {
+                    <div class="mb-3">
+                        <label class="form-label small fw-semibold"><i class="fas fa-building me-1"></i>Carrier</label>
+                        <select name="OrganizationId" class="form-select form-select-sm rounded-3">
+                            <option value="">-- All Carriers --</option>
+                            @foreach (var org in Model.AvailableOrganizations)
+                            {
+                                if (Model.OrganizationId == org.Id)
+                                {
+                                    <option value="@org.Id" selected>@org.Name</option>
+                                }
+                                else
+                                {
+                                    <option value="@org.Id">@org.Name</option>
+                                }
+                            }
+                        </select>
+                    </div>
+                }
+
+                @* RESULTS PER PAGE *@
+                <div class="mb-4">
+                    <label class="form-label small fw-semibold">Results per page</label>
+                    <select name="EntitiesPerPage" class="form-select form-select-sm rounded-3">
+                        @foreach (var n in new[] { 10, 20, 50 })
+                        {
+                            if (Model.EntitiesPerPage == n)
+                            {
+                                <option value="@n" selected>@n</option>
+                            }
+                            else
+                            {
+                                <option value="@n">@n</option>
+                            }
+                        }
+                    </select>
+                </div>
+
+                <button type="submit" class="btn btn-primary w-100 rounded-pill">
+                    <i class="fas fa-search me-1"></i>Apply Filters
+                </button>
+
+                @if (hasActiveFilters)
+                {
+                    <a asp-action="Index" class="btn btn-outline-secondary w-100 rounded-pill mt-2">
+                        <i class="fas fa-times me-1"></i>Clear Filters
+                    </a>
+                }
+            </form>
         </div>
-    }
+    </div>
+
+    @* ════════════  RIGHT: RESULTS  ════════════ *@
+    <div class="col-md-9">
+
+        @* Sorting bar *@
+        <div class="d-flex justify-content-between align-items-center mb-3">
+            <small class="text-muted">
+                @if (Model.TotalPages.HasValue && Model.TotalPages > 0)
+                {
+                    <span>Page @Model.CurrentPage of @Model.TotalPages</span>
+                }
+            </small>
+            <form method="get" id="sortForm">
+                @* Preserve all active filters when sorting changes *@
+                @foreach (var kv in filterParams.Where(k => k.Key != "SortBy"))
+                {
+                    <input type="hidden" name="@kv.Key" value="@kv.Value" />
+                }
+                <input type="hidden" name="CurrentPage" value="1" />
+                <select name="SortBy" class="form-select form-select-sm rounded-pill"
+                        style="width:auto" onchange="document.getElementById('sortForm').submit()">
+                    @{
+                        var sortOpts = new[] {
+                            (Val: 0, Label: "Sort: Default",    Key: ScheduleSorting.Default),
+                            (Val: 1, Label: "Departure \u2191",  Key: ScheduleSorting.DepartureAscending),
+                            (Val: 2, Label: "Departure \u2193",  Key: ScheduleSorting.DepartureDescending),
+                            (Val: 3, Label: "Arrival \u2191",    Key: ScheduleSorting.ArrivalAscending),
+                            (Val: 4, Label: "Arrival \u2193",    Key: ScheduleSorting.ArrivalDescending),
+                        };
+                    }
+                    @foreach (var opt in sortOpts)
+                    {
+                        if (Model.SortBy == opt.Key)
+                        {
+                            <option value="@opt.Val" selected>@opt.Label</option>
+                        }
+                        else
+                        {
+                            <option value="@opt.Val">@opt.Label</option>
+                        }
+                    }
+                </select>
+            </form>
+        </div>
+
+        @* Results grid *@
+        <div class="row row-cols-1 row-cols-md-2 row-cols-xl-3 g-4">
+            @if (Model.Schedules != null && Model.Schedules.Any())
+            {
+                @foreach (var item in Model.Schedules)
+                {
+                    <partial name="_ScheduleCard" model="item" />
+                }
+            }
+            else
+            {
+                <div class="col-12">
+                    <div class="text-center py-5 bg-white rounded-4 shadow-sm">
+                        <div class="fs-1 text-muted mb-3">📭</div>
+                        <h4 class="fw-semibold">No records found</h4>
+                        <p class="text-muted">Try adjusting your filters.</p>
+                    </div>
+                </div>
+            }
+        </div>
+
+        @* ════  PAGINATION  ════ *@
+        @if (Model.TotalPages > 1)
+        {
+            int totalP   = Model.TotalPages.Value;
+            int curP     = Model.CurrentPage.Value;
+            int winStart = Math.Max(1, curP - 2);
+            int winEnd   = Math.Min(totalP, curP + 2);
+
+            <nav aria-label="Page navigation" class="mt-4">
+                <ul class="pagination justify-content-center flex-wrap">
+
+                    @* Previous *@
+                    @if (curP > 1)
+                    {
+                        var prevParams = new Dictionary<string, string>(filterParams);
+                        prevParams["CurrentPage"] = (curP - 1).ToString();
+                        <li class="page-item">
+                            <a class="page-link rounded-pill me-1" asp-action="Index" asp-all-route-data="prevParams">
+                                <i class="fas fa-chevron-left"></i>
+                            </a>
+                        </li>
+                    }
+
+                    @* First page + ellipsis *@
+                    @if (winStart > 1)
+                    {
+                        var p1Params = new Dictionary<string, string>(filterParams);
+                        p1Params["CurrentPage"] = "1";
+                        <li class="page-item">
+                            <a class="page-link rounded-pill me-1" asp-action="Index" asp-all-route-data="p1Params">1</a>
+                        </li>
+                        if (winStart > 2)
+                        {
+                            <li class="page-item disabled"><span class="page-link">&hellip;</span></li>
+                        }
+                    }
+
+                    @* Page window *@
+                    @for (int i = winStart; i <= winEnd; i++)
+                    {
+                        var pageParams = new Dictionary<string, string>(filterParams);
+                        pageParams["CurrentPage"] = i.ToString();
+                        <li class="page-item @(curP == i ? "active" : "")">
+                            <a class="page-link rounded-pill me-1" asp-action="Index" asp-all-route-data="pageParams">@i</a>
+                        </li>
+                    }
+
+                    @* Ellipsis + last page *@
+                    @if (winEnd < totalP)
+                    {
+                        if (winEnd < totalP - 1)
+                        {
+                            <li class="page-item disabled"><span class="page-link">&hellip;</span></li>
+                        }
+                        var lastParams = new Dictionary<string, string>(filterParams);
+                        lastParams["CurrentPage"] = totalP.ToString();
+                        <li class="page-item">
+                            <a class="page-link rounded-pill me-1" asp-action="Index" asp-all-route-data="lastParams">@totalP</a>
+                        </li>
+                    }
+
+                    @* Next *@
+                    @if (curP < totalP)
+                    {
+                        var nextParams = new Dictionary<string, string>(filterParams);
+                        nextParams["CurrentPage"] = (curP + 1).ToString();
+                        <li class="page-item">
+                            <a class="page-link rounded-pill" asp-action="Index" asp-all-route-data="nextParams">
+                                <i class="fas fa-chevron-right"></i>
+                            </a>
+                        </li>
+                    }
+
+                </ul>
+            </nav>
+        }
+
+    </div>
 </div>
-
-@if (Model.TotalPages > 1)
-{
-    <nav aria-label="Page navigation" class="mt-4">
-        <ul class="pagination justify-content-center">
-            @if (Model.CurrentPage > 1)
-            {
-                <li class="page-item">
-                    <a class="page-link" href="?DayFilter=@Model.DayFilter&TimeFilter=@Model.TimeFilter&CurrentPage=@(Model.CurrentPage - 1)&EntitiesPerPage=@Model.EntitiesPerPage">
-                        <i class="fas fa-chevron-left"></i> Previous
-                    </a>
-                </li>
-            }
-
-            @for (int i = 1; i <= Model.TotalPages; i++)
-            {
-                <li class="page-item @(Model.CurrentPage == i ? "active" : "")">
-                    <a class="page-link" href="?DayFilter=@Model.DayFilter&TimeFilter=@Model.TimeFilter&CurrentPage=@i&EntitiesPerPage=@Model.EntitiesPerPage">@i</a>
-                </li>
-            }
-
-            @if (Model.CurrentPage < Model.TotalPages)
-            {
-                <li class="page-item">
-                    <a class="page-link" href="?DayFilter=@Model.DayFilter&TimeFilter=@Model.TimeFilter&CurrentPage=@(Model.CurrentPage + 1)&EntitiesPerPage=@Model.EntitiesPerPage">
-                        Next <i class="fas fa-chevron-right"></i>
-                    </a>
-                </li>
-            }
-        </ul>
-    </nav>
-}
-
-@section Scripts{
-    <script src="~/js/timePlaceholderHandler.js"></script>
-}

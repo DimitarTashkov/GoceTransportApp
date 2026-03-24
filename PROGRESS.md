@@ -12,6 +12,15 @@
 * **feature2_emails_plan.md — ЗАВЪРШЕН (всички 4 стъпки).**
 * **ux_fixes_plan.md — ЗАВЪРШЕН (всички 3 стъпки).**
 * **master_seeder_plan.md — ЗАВЪРШЕН.**
+* **advanced_filtering_pagination_plan.md — ЗАВЪРШЕН (всички 4 точки).**
+* **ultimate_e2e_self_healing_plan.md — ЗАВЪРШЕН (Фаза 1 + Фаза 2, 8/8 теста минават).**
+
+## advanced_filtering_pagination_plan.md детайли:
+* **Нов enum:** `ScheduleSorting` (Default/DepartureAscending/DepartureDescending/ArrivalAscending/ArrivalDescending) — `Web.ViewModels/Schedules/ScheduleSorting.cs`
+* **AllSchedulesSearchFilterViewModel** — добавени: `FromCityId`, `ToCityId`, `OrganizationId` (single dropdown), `SortBy`, `AvailableCities`, `AvailableOrganizations`; `EntitiesPerPage` default намален от 20 → 10
+* **ScheduleService** — рефакториран с private `BuildFilteredQuery()` helper: прилага всички филтри + сортиране върху IQueryable. `GetSchedulesCountByFilterAsync` вече ползва същия helper (оправен bug: `>=` → `==` за TimeFilter). Двете заявки в Index action се изпълняват паралелно с `Task.WhenAll`.
+* **ScheduleController.Index** — зарежда `AvailableCities` и `AvailableOrganizations` за dropdown-ите (Admin вижда всички орг.; User вижда само своите)
+* **Views/Schedule/Index.cshtml** — пълен редизайн: 2-колонен layout (col-md-3 ляво филтри + col-md-9 дясно резултати), sorting dropdown с auto-submit, Bootstrap pagination с windowing (±2 страни + ellipsis), всички филтри се запазват в URL при смяна на страница чрез `asp-all-route-data`
 
 ## TestScenarioSeeder детайли:
 * Файл: `Data/GoceTransportApp.Data/Seeding/TestScenarioSeeder.cs`
@@ -90,3 +99,16 @@
 * `OrganizationController.Create` [POST] → `RedirectToAction(Details, id=newId)`
 * `OrganizationController.Edit` [POST] → `RedirectToAction(Details, id=formModel.Id)`
 * `VehicleController`, `DriverController`, `RouteController`, `ScheduleController` → след Create/Edit/Delete вече redirect-ват към `Organization/Details/{organizationId}` вместо към sub-list pages
+
+## ultimate_e2e_self_healing_plan.md детайли:
+* **Проект:** `Tests/GoceTransportApp.E2ETests` (NUnit + Microsoft.Playwright.NUnit, net10.0)
+* **BaseTest.cs** — cookie consent, LoginAsync, GetOrganizationIdAsync(orgName), SubmitFormAsync, AssertSuccessToastAsync
+* **Фаза 1 (CRUD):**
+  * `OrganizationUITests.cs` — Create + validation error test (2 теста)
+  * `VehicleUITests.cs` — Create vehicle към seeded "Express Lines" org (1 тест)
+  * `RouteUITests.cs` — Create route с AJAX street loading (1 тест)
+* **Фаза 2 (Business Logic):**
+  * `ScheduleUITests.cs` — Create schedule с Vehicle/Route dropdowns (1 тест)
+  * `TicketCheckoutTests.cs` — OrgOwner create ticket + Passenger MyTickets (2 теста)
+* **DiagnosticTests.cs** — диагностичен тест за login + org create flow (1 тест)
+* **Bug fix (Self-Healing):** `loadStreetsInCity.js` — AJAX URL беше `/Street/GetStreetsByCity/${cityId}` (route segment), но endpoint-ът очаква query string `?id=`. Оправено на `?id=${cityId}`

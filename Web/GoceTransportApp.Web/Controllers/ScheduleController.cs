@@ -19,6 +19,8 @@ using GoceTransportApp.Services.Data.Tickets;
 using GoceTransportApp.Web.ViewModels.Tickets;
 using System.Collections.Generic;
 using System.Linq;
+using GoceTransportApp.Web.ViewModels.Organizations;
+using Microsoft.EntityFrameworkCore;
 
 namespace GoceTransportApp.Web.Controllers
 {
@@ -30,6 +32,7 @@ namespace GoceTransportApp.Web.Controllers
         private readonly IRouteService routeService;
         private readonly ICityService cityService;
         private readonly ITicketService ticketService;
+        private readonly IDeletableEntityRepository<Organization> organizationRepository;
 
         public ScheduleController(
             IScheduleService scheduleService,
@@ -41,6 +44,7 @@ namespace GoceTransportApp.Web.Controllers
             : base(organizationRepository)
         {
             this.scheduleService = scheduleService;
+            this.organizationRepository = organizationRepository;
             this.vehicleService = vehicleService;
             this.routeService = routeService;
             this.cityService = cityService;
@@ -51,29 +55,47 @@ namespace GoceTransportApp.Web.Controllers
         [AllowAnonymous]
         public async Task<IActionResult> Index(AllSchedulesSearchFilterViewModel inputModel)
         {
-            if (User.Identity.IsAuthenticated && !User.IsInRole(AdministratorRoleName))
+            string? userId = User.Identity.IsAuthenticated
+                ? User.FindFirstValue(ClaimTypes.NameIdentifier)
+                : null;
+
+            // Security: non-admin users see only their organisations
+            if (userId != null && !User.IsInRole(AdministratorRoleName))
             {
-                string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
                 inputModel.OrganizationFilter = await this.GetUserOrganizationIdsAsync(userId);
             }
 
-            IEnumerable<ScheduleDataViewModel> allSchedules =
-            await scheduleService.GetAllSchedulesAsync(inputModel);
+            var schedules = await scheduleService.GetAllSchedulesAsync(inputModel);
+            var schedulesCount = await scheduleService.GetSchedulesCountByFilterAsync(inputModel);
 
-            int allTicketsCount = await scheduleService.GetSchedulesCountByFilterAsync(inputModel);
+            // Load dropdown data for the filter panel
+            var cities = await cityService.GetAllCitiesForDropDownsAsync();
 
-            AllSchedulesSearchFilterViewModel viewModel = new AllSchedulesSearchFilterViewModel
+            IEnumerable<OrganizationDataViewModel> availableOrgs;
+            if (User.IsInRole(AdministratorRoleName))
             {
-                Schedules = allSchedules,
-                DayFilter = inputModel.DayFilter,
-                TimeFilter = inputModel.TimeFilter,
-                CurrentPage = inputModel.CurrentPage,
-                EntitiesPerPage = inputModel.EntitiesPerPage,
-                TotalPages = (int)Math.Ceiling((double)allTicketsCount / inputModel.EntitiesPerPage.Value),
-                OrganizationFilter = inputModel.OrganizationFilter,
-            };
+                availableOrgs = await organizationRepository.AllAsNoTracking()
+                    .Select(o => new OrganizationDataViewModel { Id = o.Id.ToString(), Name = o.Name })
+                    .ToListAsync();
+            }
+            else if (userId != null)
+            {
+                availableOrgs = await organizationRepository.AllAsNoTracking()
+                    .Where(o => o.FounderId == userId)
+                    .Select(o => new OrganizationDataViewModel { Id = o.Id.ToString(), Name = o.Name })
+                    .ToListAsync();
+            }
+            else
+            {
+                availableOrgs = Array.Empty<OrganizationDataViewModel>();
+            }
 
-            return this.View(viewModel);
+            inputModel.Schedules = schedules;
+            inputModel.TotalPages = (int)Math.Ceiling((double)schedulesCount / inputModel.EntitiesPerPage.Value);
+            inputModel.AvailableCities = cities;
+            inputModel.AvailableOrganizations = availableOrgs;
+
+            return this.View(inputModel);
         }
 
         [HttpGet]

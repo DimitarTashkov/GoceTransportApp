@@ -1,0 +1,10 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(dotnet build:*)",
+      "Bash(dotnet test:*)",
+      "Bash(curl -sk -o /dev/null -w \"%{http_code}\" https://localhost:5001/)",
+      "Bash(dotnet run:*)"
+    ]
+  }
+}

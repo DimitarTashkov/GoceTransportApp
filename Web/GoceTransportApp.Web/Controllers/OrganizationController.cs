@@ -126,7 +126,7 @@ namespace GoceTransportApp.Web.Controllers
                 imageUrl = $"/images/organizations/{uniqueFileName}";
             }
 
-            Guid newId = await organizationService.CreateAsync(model, imageUrl);
+            Guid newId = await organizationService.CreateAsync(model, imageUrl ?? "/images/no-organization-image.png");
             TempData[nameof(SuccessMessage)] = SuccessMessage;
 
             return RedirectToAction(nameof(Details), new { id = newId.ToString() });

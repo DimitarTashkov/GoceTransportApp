@@ -45,7 +45,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 	ProjectSection(SolutionItems) = preProject
 		CLAUDE.md = CLAUDE.md
 		PROGRESS.md = PROGRESS.md
-		fix_identity_layout_localization_plan.md = fix_identity_layout_localization_plan.md
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GoceTransportApp.E2ETests", "Tests\GoceTransportApp.E2ETests\GoceTransportApp.E2ETests.csproj", "{3E80AAEE-588E-474D-8773-9B11FA7EFF4C}"

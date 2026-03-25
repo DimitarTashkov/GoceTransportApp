@@ -1,5 +1,50 @@
 # Текущ прогрес на проекта
 
+## Premium UI/UX Redesign — ЗАВЪРШЕН (2026-03-25)
+Изпълнени 6-те точки от `ultimate_ui_ux_dashboards_plan.md`:
+
+### 1. Глобална Навигация и Хедър
+* `_LoginPartial.cshtml` — премахнат "Hello user@email.com!", заменен с профилен dropdown (аватар + "My Account") с бърз достъп до Dashboard, Organizations, Trips, Favorites, Settings, Admin секция и Logout
+* `_SelectLanguagePartial.cshtml` — флагове само (emoji), без текстови лейбъли в навигацията; dropdown стилизиран с shadow и rounded corners
+* Добавен "Get Started" CTA бутон в navbar (водещ към Organizations)
+* Login/Register за неаутентикирани потребители са pill бутони
+
+### 2. Начална Страница (Landing Page)
+* Нов Hero layout: лява колона с headline + CTA бутони, дясна колона с Trip Search формата (card)
+* Stats bar секция: 500+ Routes, 50+ Organizations, 100+ Cities, 10K+ Tickets
+* Нова Partner CTA секция: "Own a Transport Company?" с бутони "Register Organization" и "View Plans" + 4 feature mini-cards
+* Запазени: How It Works, Features, Quick Access, CTA, About/Contact cards
+
+### 3. Потребителско Табло (User Dashboard)
+* Нов `DashboardController` (user-facing, не Admin)
+* Нов `UserDashboardViewModel` в `Web.ViewModels/Dashboard/`
+* Нов `Views/Dashboard/Index.cshtml`:
+  * Лява колона: профилна карта (аватар, име, email, Membership Tier badge), Quick Links
+  * Дясна колона: 4 stats cards (Upcoming, Past, Organizations, Favorites) + табове (Upcoming Trips, Favorites, History)
+* Достъпен от профилния dropdown в навигацията
+
+### 4. Табло за Организации (Organization Dashboard)
+* `Organization/Details.cshtml` — добавени 4 metric widgets за owner/admin:
+  * Active Routes, Vehicles, Drivers, Tickets (цветни кръгове с икони и числа)
+  * Показват се само за собственик или администратор
+* Empty states сменени от emoji към Font Awesome икони
+
+### 5. Страница за Абонаменти (Pricing)
+* `Organization/Upgrade.cshtml` — пълен редизайн:
+  * Badge header "Pricing", нов headline "Choose Your Plan"
+  * Всяка карта с кръгла иконка (paper-plane, rocket, crown)
+  * Подзаглавия (For individual operators, For growing businesses, For large fleets)
+  * Enterprise с "Custom Branding" feature
+  * Нова Compare Plans таблица с feature matrix (checkmarks/crosses)
+
+### 6. Професионален Footer
+* `_Layout.cshtml` footer → bg-dark с 4 колони:
+  * Brand & Mission + social media icons
+  * For Passengers (Find a Trip, My Trips, Routes, Contact)
+  * For Partners (Register Organization, Pricing, Dashboard, Organizations)
+  * Contact (адрес, email, телефон, About Us бутон)
+* Copyright + Privacy Policy / Terms of Service линкове
+
 ## Пълна локализация (en-US / bg-BG) — ЗАВЪРШЕНА (2026-03-24)
 Всички Razor view файлове в приложението са локализирани. При избор на 🇧🇬 BG от езиковия превключвател, целият UI се превключва на Български.
 

@@ -1,0 +1,278 @@
+@using Microsoft.AspNetCore.Mvc.Localization
+@model GoceTransportApp.Web.ViewModels.Dashboard.UserDashboardViewModel
+@inject IViewLocalizer Localizer
+
+@{
+    ViewData["Title"] = "Dashboard";
+    var hasName = !string.IsNullOrEmpty(Model.FirstName);
+    var displayName = hasName ? Model.FirstName : Model.UserName;
+    var initial = displayName.Substring(0, 1).ToUpper();
+}
+
+<div class="row g-4">
+    <!-- Left Sidebar: Profile -->
+    <div class="col-lg-4">
+        <div class="card border-0 shadow-sm rounded-4 text-center">
+            <div class="card-body p-4">
+                @if (!string.IsNullOrEmpty(Model.ProfilePictureUrl) && !Model.ProfilePictureUrl.Contains("default"))
+                {
+                    <img src="@Model.ProfilePictureUrl" alt="@displayName"
+                         class="rounded-circle border shadow-sm mb-3"
+                         style="width:100px;height:100px;object-fit:cover;" />
+                }
+                else
+                {
+                    <div class="rounded-circle bg-primary text-white d-flex align-items-center justify-content-center fw-bold mx-auto mb-3"
+                         style="width:100px;height:100px;font-size:2.2rem;">
+                        @initial
+                    </div>
+                }
+
+                <h4 class="fw-bold mb-1">
+                    @if (hasName)
+                    {
+                        @($"{Model.FirstName} {Model.LastName}")
+                    }
+                    else
+                    {
+                        @Model.UserName
+                    }
+                </h4>
+                <p class="text-muted small mb-2">@Model.Email</p>
+
+                <span class="badge rounded-pill px-3 py-2 mb-3
+                    @(Model.MembershipTier.ToString() == "Free" ? "bg-secondary" :
+                      Model.MembershipTier.ToString() == "Pro" ? "bg-primary" : "bg-warning text-dark")">
+                    <i class="fas fa-crown me-1"></i>@Model.MembershipTier @Localizer["Plan"]
+                </span>
+
+                <div class="d-flex flex-column gap-2 mt-3">
+                    <a asp-area="Identity" asp-page="/Account/Manage/Index" class="btn btn-outline-secondary btn-sm rounded-pill">
+                        <i class="fas fa-cog me-1"></i>@Localizer["Account Settings"]
+                    </a>
+                    <a asp-controller="Organization" asp-action="Upgrade" class="btn btn-outline-primary btn-sm rounded-pill">
+                        <i class="fas fa-gem me-1"></i>@Localizer["Upgrade Plan"]
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- My Organizations shortcut -->
+        <a asp-controller="Organization" asp-action="UserOrganizations" class="card border-0 shadow-sm rounded-4 mt-3 text-decoration-none hover-elevate">
+            <div class="card-body p-3 d-flex align-items-center gap-3">
+                <div class="rounded-circle bg-primary bg-opacity-10 d-flex align-items-center justify-content-center flex-shrink-0" style="width:40px;height:40px;">
+                    <i class="fas fa-building text-primary"></i>
+                </div>
+                <div>
+                    <div class="fw-semibold text-body">@Localizer["My Organizations"]</div>
+                    <div class="text-muted small">@Model.TotalOrganizations @Localizer["Organizations"]</div>
+                </div>
+                <i class="fas fa-chevron-right text-muted ms-auto"></i>
+            </div>
+        </a>
+    </div>
+
+    <!-- Right: Main Content -->
+    <div class="col-lg-8">
+        <!-- Stats Cards -->
+        <div class="row g-3 mb-4">
+            <div class="col-6 col-md-3">
+                <div class="card border-0 shadow-sm rounded-4 text-center p-3 h-100">
+                    <div class="fw-bold fs-3 text-primary">@Model.TotalUpcomingTrips</div>
+                    <div class="text-muted small fw-semibold">@Localizer["Upcoming"]</div>
+                </div>
+            </div>
+            <div class="col-6 col-md-3">
+                <div class="card border-0 shadow-sm rounded-4 text-center p-3 h-100">
+                    <div class="fw-bold fs-3 text-secondary">@Model.TotalPastTrips</div>
+                    <div class="text-muted small fw-semibold">@Localizer["Past Trips"]</div>
+                </div>
+            </div>
+            <div class="col-6 col-md-3">
+                <div class="card border-0 shadow-sm rounded-4 text-center p-3 h-100">
+                    <div class="fw-bold fs-3 text-success">@Model.TotalOrganizations</div>
+                    <div class="text-muted small fw-semibold">@Localizer["Organizations"]</div>
+                </div>
+            </div>
+            <div class="col-6 col-md-3">
+                <div class="card border-0 shadow-sm rounded-4 text-center p-3 h-100">
+                    <div class="fw-bold fs-3 text-danger">@Model.TotalFavorites</div>
+                    <div class="text-muted small fw-semibold">@Localizer["Favorites"]</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tabs -->
+        <ul class="nav nav-tabs mb-4" id="dashTabs" role="tablist">
+            <li class="nav-item" role="presentation">
+                <button class="nav-link active fw-semibold" id="upcoming-tab" data-bs-toggle="tab" data-bs-target="#upcoming" type="button" role="tab">
+                    <i class="fas fa-calendar-check me-1 text-primary"></i>@Localizer["Upcoming Trips"]
+                    @if (Model.TotalUpcomingTrips > 0)
+                    {
+                        <span class="badge bg-primary ms-1">@Model.TotalUpcomingTrips</span>
+                    }
+                </button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link fw-semibold" id="favorites-tab" data-bs-toggle="tab" data-bs-target="#favorites" type="button" role="tab">
+                    <i class="fas fa-heart me-1 text-danger"></i>@Localizer["Favorites"]
+                    @if (Model.TotalFavorites > 0)
+                    {
+                        <span class="badge bg-danger ms-1">@Model.TotalFavorites</span>
+                    }
+                </button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link fw-semibold" id="history-tab" data-bs-toggle="tab" data-bs-target="#history" type="button" role="tab">
+                    <i class="fas fa-history me-1 text-secondary"></i>@Localizer["History"]
+                    @if (Model.TotalPastTrips > 0)
+                    {
+                        <span class="badge bg-secondary ms-1">@Model.TotalPastTrips</span>
+                    }
+                </button>
+            </li>
+        </ul>
+
+        <div class="tab-content" id="dashTabsContent">
+            <!-- Upcoming Trips Tab -->
+            <div class="tab-pane fade show active" id="upcoming" role="tabpanel">
+                @if (Model.UpcomingTrips.Any())
+                {
+                    <div class="row g-3">
+                        @foreach (var ticket in Model.UpcomingTrips)
+                        {
+                            <div class="col-md-6">
+                                <div class="card border-0 shadow-sm rounded-4 h-100">
+                                    <div class="card-body p-4">
+                                        <div class="d-flex justify-content-between align-items-start mb-3">
+                                            <span class="badge bg-primary rounded-pill px-3 py-2">@ticket.Day</span>
+                                            <span class="fw-bold text-primary">@ticket.Price лв.</span>
+                                        </div>
+                                        <div class="d-flex align-items-center gap-2 mb-2">
+                                            <i class="fas fa-map-marker-alt text-primary"></i>
+                                            <span class="fw-semibold">@ticket.FromCity</span>
+                                            <i class="fas fa-arrow-right text-muted mx-1"></i>
+                                            <span class="fw-semibold">@ticket.ToCity</span>
+                                        </div>
+                                        <div class="d-flex align-items-center gap-4 text-muted small mb-2">
+                                            <span><i class="fas fa-plane-departure me-1"></i>@ticket.DepartingTime</span>
+                                            <span><i class="fas fa-plane-arrival me-1"></i>@ticket.ArrivingTime</span>
+                                        </div>
+                                        <p class="text-muted small mb-0"><i class="fas fa-building me-1"></i>@ticket.OrganizationName</p>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                }
+                else
+                {
+                    <div class="text-center py-5">
+                        <i class="fas fa-calendar-times fa-3x text-muted mb-3"></i>
+                        <h5 class="text-muted">@Localizer["No upcoming trips"]</h5>
+                        <p class="text-muted small">@Localizer["Search for routes and book your next journey!"]</p>
+                        <a asp-controller="Home" asp-action="Index" class="btn btn-primary rounded-pill px-4">
+                            <i class="fas fa-search me-1"></i>@Localizer["Find a Trip"]
+                        </a>
+                    </div>
+                }
+            </div>
+
+            <!-- Favorites Tab -->
+            <div class="tab-pane fade" id="favorites" role="tabpanel">
+                @if (Model.FavoriteOrganizations.Any())
+                {
+                    <div class="row g-3">
+                        @foreach (var org in Model.FavoriteOrganizations)
+                        {
+                            <div class="col-md-6">
+                                <div class="card border-0 shadow-sm rounded-4 h-100">
+                                    <div class="card-body p-3 d-flex align-items-center gap-3">
+                                        @if (!string.IsNullOrEmpty(org.ImageUrl))
+                                        {
+                                            <img src="@org.ImageUrl" alt="@org.Name"
+                                                 class="rounded-circle border shadow-sm flex-shrink-0"
+                                                 style="width:56px;height:56px;object-fit:cover;" />
+                                        }
+                                        else
+                                        {
+                                            <div class="rounded-circle bg-primary bg-opacity-10 text-primary d-flex align-items-center justify-content-center fw-bold flex-shrink-0"
+                                                 style="width:56px;height:56px;font-size:1.3rem;">
+                                                @org.Name.Substring(0, 1).ToUpper()
+                                            </div>
+                                        }
+                                        <div class="flex-grow-1 min-w-0">
+                                            <h6 class="fw-bold mb-0 text-truncate">@org.Name</h6>
+                                            @if (!string.IsNullOrEmpty(org.Address))
+                                            {
+                                                <p class="text-muted small mb-0 text-truncate">
+                                                    <i class="fas fa-map-marker-alt me-1"></i>@org.Address
+                                                </p>
+                                            }
+                                        </div>
+                                        <a asp-controller="Organization" asp-action="Details" asp-route-id="@org.Id"
+                                           class="btn btn-sm btn-outline-primary rounded-pill flex-shrink-0">
+                                            <i class="fas fa-eye"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                }
+                else
+                {
+                    <div class="text-center py-5">
+                        <i class="fas fa-heart fa-3x text-muted mb-3"></i>
+                        <h5 class="text-muted">@Localizer["No favorites yet"]</h5>
+                        <p class="text-muted small">@Localizer["Follow transport companies to see them here."]</p>
+                        <a asp-controller="Organization" asp-action="Index" class="btn btn-primary rounded-pill px-4">
+                            <i class="fas fa-building me-1"></i>@Localizer["Explore Organizations"]
+                        </a>
+                    </div>
+                }
+            </div>
+
+            <!-- History Tab -->
+            <div class="tab-pane fade" id="history" role="tabpanel">
+                @if (Model.PastTrips.Any())
+                {
+                    <div class="row g-3">
+                        @foreach (var ticket in Model.PastTrips)
+                        {
+                            <div class="col-md-6">
+                                <div class="card border-0 shadow-sm rounded-4 h-100 opacity-75">
+                                    <div class="card-body p-4">
+                                        <div class="d-flex justify-content-between align-items-start mb-3">
+                                            <span class="badge bg-secondary rounded-pill px-3 py-2">@ticket.Day</span>
+                                            <span class="fw-bold text-secondary">@ticket.Price лв.</span>
+                                        </div>
+                                        <div class="d-flex align-items-center gap-2 mb-2">
+                                            <i class="fas fa-map-marker-alt text-secondary"></i>
+                                            <span class="fw-semibold">@ticket.FromCity</span>
+                                            <i class="fas fa-arrow-right text-muted mx-1"></i>
+                                            <span class="fw-semibold">@ticket.ToCity</span>
+                                        </div>
+                                        <div class="d-flex align-items-center gap-4 text-muted small mb-2">
+                                            <span><i class="fas fa-plane-departure me-1"></i>@ticket.DepartingTime</span>
+                                            <span><i class="fas fa-plane-arrival me-1"></i>@ticket.ArrivingTime</span>
+                                        </div>
+                                        <p class="text-muted small mb-0"><i class="fas fa-building me-1"></i>@ticket.OrganizationName</p>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                }
+                else
+                {
+                    <div class="text-center py-5">
+                        <i class="fas fa-inbox fa-3x text-muted mb-3"></i>
+                        <h5 class="text-muted">@Localizer["No past trips"]</h5>
+                        <p class="text-muted small">@Localizer["Your travel history will appear here."]</p>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>

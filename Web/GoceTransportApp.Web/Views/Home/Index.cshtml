@@ -10,80 +10,113 @@
     ViewData["Title"] = "Home";
 }
 
-
-<section class="py-5 text-center">
-    <i class="fas fa-bus fa-4x text-primary mb-4"></i>
-    <h1 class="display-4 fw-bold mb-3">@Localizer["Welcome to GoceTransportApp"]</h1>
-    <p class="lead text-muted mb-5 col-lg-7 mx-auto">
-        @Localizer["Your one-stop platform for discovering routes, checking schedules, and managing transport organizations — all in one place."]
-    </p>
-    <div class="d-flex justify-content-center gap-3 flex-wrap">
-        <a asp-controller="Route" asp-action="Index" class="btn btn-primary btn-lg rounded-pill px-5">
-            <i class="fas fa-route me-2"></i>@Localizer["Explore Routes"]
-        </a>
-        <a asp-controller="Schedule" asp-action="Index" class="btn btn-outline-primary btn-lg rounded-pill px-5">
-            <i class="fas fa-calendar-alt me-2"></i>@Localizer["View Schedules"]
-        </a>
-    </div>
-</section>
-
-
+<!-- Hero Section: Trip Search -->
 <section class="py-5">
-    <div class="card border-0 shadow rounded-4 p-4 p-md-5 hover-elevate">
-        <h2 class="fw-bold mb-1 text-center">@Localizer["Find Your Trip"]</h2>
-        <p class="text-muted text-center mb-4">@Localizer["Search available schedules by origin, destination and date."]</p>
-        <form asp-controller="Schedule" asp-action="Search" method="get">
-            <div class="row g-3 align-items-end">
-                <div class="col-md-4">
-                    <label class="form-label fw-semibold">@Localizer["From"]</label>
-                    <select name="FromCityId" class="form-select rounded-3">
-                        <option value="">— @Localizer["Select city"] —</option>
-                        @foreach (var city in Model.Cities)
-                        {
-                            if (Model.FromCityId == city.Id.ToString())
-                            {
-                                <option value="@city.Id" selected>@city.Name</option>
-                            }
-                            else
-                            {
-                                <option value="@city.Id">@city.Name</option>
-                            }
-                        }
-                    </select>
-                </div>
-                <div class="col-md-4">
-                    <label class="form-label fw-semibold">@Localizer["To"]</label>
-                    <select name="ToCityId" class="form-select rounded-3">
-                        <option value="">— @Localizer["Select city"] —</option>
-                        @foreach (var city in Model.Cities)
-                        {
-                            if (Model.ToCityId == city.Id.ToString())
-                            {
-                                <option value="@city.Id" selected>@city.Name</option>
-                            }
-                            else
-                            {
-                                <option value="@city.Id">@city.Name</option>
-                            }
-                        }
-                    </select>
-                </div>
-                <div class="col-md-3">
-                    <label class="form-label fw-semibold">@Localizer["Date of Travel"]</label>
-                    <input type="date" name="DepartureDate" class="form-control rounded-3"
-                           value="@(Model.DepartureDate.HasValue ? Model.DepartureDate.Value.ToString("yyyy-MM-dd") : "")" />
-                </div>
-                <div class="col-md-1">
-                    <button type="submit" class="btn btn-primary w-100 rounded-3">
-                        <i class="fas fa-search"></i>
-                    </button>
-                </div>
+    <div class="row align-items-center g-5">
+        <div class="col-lg-6">
+            <span class="badge bg-primary bg-opacity-10 text-primary rounded-pill px-3 py-2 mb-3 fw-semibold">
+                <i class="fas fa-map-marked-alt me-1"></i>@Localizer["Travel Made Simple"]
+            </span>
+            <h1 class="display-4 fw-bold mb-3 lh-sm">
+                @Localizer["Find Your Next"]
+                <span class="text-primary">@Localizer["Journey"]</span>
+            </h1>
+            <p class="lead text-muted mb-4">
+                @Localizer["Search routes, compare schedules, and book tickets — all in one place. Your adventure starts here."]
+            </p>
+            <div class="d-flex gap-3 flex-wrap">
+                <a asp-controller="Route" asp-action="Index" class="btn btn-primary btn-lg rounded-pill px-4">
+                    <i class="fas fa-route me-2"></i>@Localizer["Explore Routes"]
+                </a>
+                <a asp-controller="Schedule" asp-action="Index" class="btn btn-outline-primary btn-lg rounded-pill px-4">
+                    <i class="fas fa-calendar-alt me-2"></i>@Localizer["View Schedules"]
+                </a>
             </div>
-        </form>
+        </div>
+        <div class="col-lg-6">
+            <div class="card border-0 shadow rounded-4 p-4 bg-body">
+                <h4 class="fw-bold mb-1"><i class="fas fa-search text-primary me-2"></i>@Localizer["Find Your Trip"]</h4>
+                <p class="text-muted small mb-4">@Localizer["Search available schedules by origin, destination and date."]</p>
+                <form asp-controller="Schedule" asp-action="Search" method="get">
+                    <div class="mb-3">
+                        <label class="form-label fw-semibold small">@Localizer["From"]</label>
+                        <select name="FromCityId" class="form-select rounded-3">
+                            <option value="">— @Localizer["Select city"] —</option>
+                            @foreach (var city in Model.Cities)
+                            {
+                                if (Model.FromCityId == city.Id.ToString())
+                                {
+                                    <option value="@city.Id" selected>@city.Name</option>
+                                }
+                                else
+                                {
+                                    <option value="@city.Id">@city.Name</option>
+                                }
+                            }
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label fw-semibold small">@Localizer["To"]</label>
+                        <select name="ToCityId" class="form-select rounded-3">
+                            <option value="">— @Localizer["Select city"] —</option>
+                            @foreach (var city in Model.Cities)
+                            {
+                                if (Model.ToCityId == city.Id.ToString())
+                                {
+                                    <option value="@city.Id" selected>@city.Name</option>
+                                }
+                                else
+                                {
+                                    <option value="@city.Id">@city.Name</option>
+                                }
+                            }
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label fw-semibold small">@Localizer["Date of Travel"]</label>
+                        <input type="date" name="DepartureDate" class="form-control rounded-3"
+                               value="@(Model.DepartureDate.HasValue ? Model.DepartureDate.Value.ToString("yyyy-MM-dd") : "")" />
+                    </div>
+                    <button type="submit" class="btn btn-primary w-100 rounded-3 py-2 fw-semibold">
+                        <i class="fas fa-search me-2"></i>@Localizer["Find Trips"]
+                    </button>
+                </form>
+            </div>
+        </div>
     </div>
 </section>
 
+<!-- Stats Bar -->
+<section class="py-4">
+    <div class="row g-3 text-center">
+        <div class="col-6 col-md-3">
+            <div class="card border-0 bg-primary bg-opacity-10 rounded-4 p-3">
+                <div class="fw-bold fs-3 text-primary">500+</div>
+                <div class="text-muted small fw-semibold">@Localizer["Routes"]</div>
+            </div>
+        </div>
+        <div class="col-6 col-md-3">
+            <div class="card border-0 bg-success bg-opacity-10 rounded-4 p-3">
+                <div class="fw-bold fs-3 text-success">50+</div>
+                <div class="text-muted small fw-semibold">@Localizer["Organizations"]</div>
+            </div>
+        </div>
+        <div class="col-6 col-md-3">
+            <div class="card border-0 bg-warning bg-opacity-10 rounded-4 p-3">
+                <div class="fw-bold fs-3 text-warning">100+</div>
+                <div class="text-muted small fw-semibold">@Localizer["Cities"]</div>
+            </div>
+        </div>
+        <div class="col-6 col-md-3">
+            <div class="card border-0 bg-info bg-opacity-10 rounded-4 p-3">
+                <div class="fw-bold fs-3 text-info">10K+</div>
+                <div class="text-muted small fw-semibold">@Localizer["Tickets"]</div>
+            </div>
+        </div>
+    </div>
+</section>
 
+<!-- How It Works -->
 <section class="py-5">
     <div class="text-center mb-5">
         <h2 class="fw-bold mb-2">@Localizer["How It Works"]</h2>
@@ -126,7 +159,7 @@
     </div>
 </section>
 
-
+<!-- Features -->
 <section class="py-5">
     <div class="row align-items-center g-5">
         <div class="col-md-6">
@@ -178,7 +211,7 @@
     </div>
 </section>
 
-
+<!-- Quick Access -->
 <section class="py-5">
     <div class="text-center mb-5">
         <h2 class="fw-bold mb-2">@Localizer["Quick Access"]</h2>
@@ -207,7 +240,7 @@
             <a asp-controller="Ticket" asp-action="Index" class="card border-0 shadow-sm rounded-4 h-100 text-center text-decoration-none p-4 hover-elevate">
                 <div class="card-body">
                     <i class="fas fa-ticket-alt fa-2x text-primary mb-3"></i>
-                    <h6 class="fw-bold text-body mb-1">Tickets</h6>
+                    <h6 class="fw-bold text-body mb-1">@Localizer["Tickets"]</h6>
                     <p class="text-muted small mb-0">@Localizer["Available tickets"]</p>
                 </div>
             </a>
@@ -224,7 +257,62 @@
     </div>
 </section>
 
+<!-- Partner CTA Section -->
+<section class="py-5 my-4">
+    <div class="card border-0 bg-primary bg-opacity-10 rounded-4 overflow-hidden">
+        <div class="card-body p-5">
+            <div class="row align-items-center g-4">
+                <div class="col-lg-7">
+                    <span class="badge bg-primary rounded-pill px-3 py-2 mb-3">
+                        <i class="fas fa-handshake me-1"></i>@Localizer["For Business"]
+                    </span>
+                    <h2 class="fw-bold mb-3">@Localizer["Own a Transport Company?"]</h2>
+                    <p class="text-muted mb-4 fs-6">
+                        @Localizer["Expand your business by joining our platform. Manage routes, schedules, vehicles, and sell tickets online — all from one dashboard."]
+                    </p>
+                    <div class="d-flex gap-3 flex-wrap">
+                        <a asp-controller="Organization" asp-action="Create" class="btn btn-primary btn-lg rounded-pill px-4">
+                            <i class="fas fa-plus-circle me-2"></i>@Localizer["Register Organization"]
+                        </a>
+                        <a asp-controller="Organization" asp-action="Upgrade" class="btn btn-outline-primary btn-lg rounded-pill px-4">
+                            <i class="fas fa-gem me-2"></i>@Localizer["View Plans"]
+                        </a>
+                    </div>
+                </div>
+                <div class="col-lg-5 text-center">
+                    <div class="row g-3">
+                        <div class="col-6">
+                            <div class="card border-0 shadow-sm rounded-4 p-3 bg-body">
+                                <i class="fas fa-chart-line fa-2x text-primary mb-2"></i>
+                                <div class="fw-bold small">@Localizer["Analytics"]</div>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="card border-0 shadow-sm rounded-4 p-3 bg-body">
+                                <i class="fas fa-users fa-2x text-success mb-2"></i>
+                                <div class="fw-bold small">@Localizer["Reach Customers"]</div>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="card border-0 shadow-sm rounded-4 p-3 bg-body">
+                                <i class="fas fa-headset fa-2x text-warning mb-2"></i>
+                                <div class="fw-bold small">@Localizer["Support"]</div>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="card border-0 shadow-sm rounded-4 p-3 bg-body">
+                                <i class="fas fa-shield-alt fa-2x text-info mb-2"></i>
+                                <div class="fw-bold small">@Localizer["Secure"]</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
 
+<!-- CTA -->
 <section class="py-5 bg-body-secondary rounded-4 px-4 my-4">
     <div class="row align-items-center g-4">
         <div class="col-md-8">
@@ -239,7 +327,7 @@
     </div>
 </section>
 
-
+<!-- Info Cards -->
 <div class="row g-4 mt-2">
     <div class="col-md-6">
         <div class="card border-0 shadow-sm rounded-4 h-100 p-4 hover-elevate">

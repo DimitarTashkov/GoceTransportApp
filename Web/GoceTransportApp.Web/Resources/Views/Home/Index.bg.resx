@@ -73,4 +73,20 @@
   <data name="Have a question or feedback? Our team is happy to help..." xml:space="preserve"><value>Имате въпрос или обратна връзка? Нашият екип ще се радва да помогне...</value></data>
   <data name="Contact" xml:space="preserve"><value>Контакт</value></data>
   <data name="Search" xml:space="preserve"><value>Търсене</value></data>
+  <data name="Travel Made Simple" xml:space="preserve"><value>Пътуването е Лесно</value></data>
+  <data name="Find Your Next" xml:space="preserve"><value>Намерете Вашето Следващо</value></data>
+  <data name="Journey" xml:space="preserve"><value>Пътуване</value></data>
+  <data name="Search routes, compare schedules, and book tickets — all in one place. Your adventure starts here." xml:space="preserve"><value>Търсете маршрути, сравнявайте разписания и купувайте билети — всичко на едно място. Вашето приключение започва тук.</value></data>
+  <data name="Find Trips" xml:space="preserve"><value>Намери Пътувания</value></data>
+  <data name="Own a Transport Company?" xml:space="preserve"><value>Имате Транспортна Компания?</value></data>
+  <data name="Expand your business by joining our platform. Manage routes, schedules, vehicles, and sell tickets online — all from one dashboard." xml:space="preserve"><value>Разширете бизнеса си, като се присъедините към платформата ни. Управлявайте маршрути, разписания, превозни средства и продавайте билети онлайн — всичко от едно табло.</value></data>
+  <data name="Register Organization" xml:space="preserve"><value>Регистрирай Организация</value></data>
+  <data name="View Plans" xml:space="preserve"><value>Виж Плановете</value></data>
+  <data name="For Business" xml:space="preserve"><value>За Бизнеса</value></data>
+  <data name="Analytics" xml:space="preserve"><value>Анализи</value></data>
+  <data name="Reach Customers" xml:space="preserve"><value>Достигни Клиенти</value></data>
+  <data name="Support" xml:space="preserve"><value>Поддръжка</value></data>
+  <data name="Secure" xml:space="preserve"><value>Сигурност</value></data>
+  <data name="Tickets" xml:space="preserve"><value>Билети</value></data>
+  <data name="Cities" xml:space="preserve"><value>Градове</value></data>
 </root>

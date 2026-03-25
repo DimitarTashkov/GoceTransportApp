@@ -164,9 +164,9 @@
                 app.UseHsts();
             }
 
-            var supportedCultures = new[] { "en-US", "bg-BG" };
+            var supportedCultures = new[] { "bg-BG", "en-US" };
             var localizationOptions = new Microsoft.AspNetCore.Builder.RequestLocalizationOptions()
-                .SetDefaultCulture("en-US")
+                .SetDefaultCulture("bg-BG")
                 .AddSupportedCultures(supportedCultures)
                 .AddSupportedUICultures(supportedCultures);
             app.UseRequestLocalization(localizationOptions);

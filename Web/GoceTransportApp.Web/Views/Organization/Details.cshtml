@@ -9,6 +9,65 @@
     var isOwnerOrAdmin = currentUserId == Model.FounderId || User.IsInRole("Administrator");
 }
 
+<!-- Organization Dashboard Metrics (Owner/Admin only) -->
+@if (isOwnerOrAdmin)
+{
+    <div class="row g-3 mb-4">
+        <div class="col-6 col-lg-3">
+            <div class="card border-0 shadow-sm rounded-4 p-3 h-100">
+                <div class="d-flex align-items-center gap-3">
+                    <div class="rounded-circle bg-primary bg-opacity-10 d-flex align-items-center justify-content-center flex-shrink-0" style="width:48px;height:48px;">
+                        <i class="fas fa-route text-primary fs-5"></i>
+                    </div>
+                    <div>
+                        <div class="fw-bold fs-4">@Model.OrganizationRoutes.Count</div>
+                        <div class="text-muted small fw-semibold">@Localizer["Active Routes"]</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-6 col-lg-3">
+            <div class="card border-0 shadow-sm rounded-4 p-3 h-100">
+                <div class="d-flex align-items-center gap-3">
+                    <div class="rounded-circle bg-info bg-opacity-10 d-flex align-items-center justify-content-center flex-shrink-0" style="width:48px;height:48px;">
+                        <i class="fas fa-bus text-info fs-5"></i>
+                    </div>
+                    <div>
+                        <div class="fw-bold fs-4">@Model.OrganizationVehicles.Count</div>
+                        <div class="text-muted small fw-semibold">@Localizer["Vehicles"]</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-6 col-lg-3">
+            <div class="card border-0 shadow-sm rounded-4 p-3 h-100">
+                <div class="d-flex align-items-center gap-3">
+                    <div class="rounded-circle bg-success bg-opacity-10 d-flex align-items-center justify-content-center flex-shrink-0" style="width:48px;height:48px;">
+                        <i class="fas fa-id-card text-success fs-5"></i>
+                    </div>
+                    <div>
+                        <div class="fw-bold fs-4">@Model.OrganizationDrivers.Count</div>
+                        <div class="text-muted small fw-semibold">@Localizer["Drivers"]</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-6 col-lg-3">
+            <div class="card border-0 shadow-sm rounded-4 p-3 h-100">
+                <div class="d-flex align-items-center gap-3">
+                    <div class="rounded-circle bg-warning bg-opacity-10 d-flex align-items-center justify-content-center flex-shrink-0" style="width:48px;height:48px;">
+                        <i class="fas fa-ticket-alt text-warning fs-5"></i>
+                    </div>
+                    <div>
+                        <div class="fw-bold fs-4">@Model.OrganizationTickets.Count</div>
+                        <div class="text-muted small fw-semibold">@Localizer["Tickets"]</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
 <div class="row g-4 mt-2">
 
     @* Left column: profile card *@
@@ -95,7 +154,7 @@
 
         @if (User.Identity.IsAuthenticated && currentUserId != Model.FounderId)
         {
-            <div class="card-footer bg-white border-0 pb-3 text-center">
+            <div class="card border-0 shadow-sm rounded-4 mt-3 text-center p-3">
                 <form asp-action="ToggleFavorite" asp-controller="Organization" method="post">
                     <input type="hidden" name="id" value="@Model.Id" />
                     @if (Model.IsFavorite)
@@ -209,8 +268,8 @@
                 }
                 else
                 {
-                    <div class="text-center py-5 bg-white rounded-4 shadow-sm">
-                        <div class="fs-1 text-muted mb-3">📭</div>
+                    <div class="text-center py-5 bg-body rounded-4 shadow-sm">
+                        <i class="fas fa-route fa-3x text-muted mb-3"></i>
                         <h4 class="fw-semibold">@Localizer["No routes found"]</h4>
                         <p class="text-muted">@Localizer["No routes have been added for this organization yet."]</p>
                     </div>
@@ -256,8 +315,8 @@
                 }
                 else
                 {
-                    <div class="text-center py-5 bg-white rounded-4 shadow-sm">
-                        <div class="fs-1 text-muted mb-3">📭</div>
+                    <div class="text-center py-5 bg-body rounded-4 shadow-sm">
+                        <i class="fas fa-bus fa-3x text-muted mb-3"></i>
                         <h4 class="fw-semibold">@Localizer["No vehicles found"]</h4>
                         <p class="text-muted">@Localizer["No vehicles have been added for this organization yet."]</p>
                     </div>
@@ -302,8 +361,8 @@
                 }
                 else
                 {
-                    <div class="text-center py-5 bg-white rounded-4 shadow-sm">
-                        <div class="fs-1 text-muted mb-3">📭</div>
+                    <div class="text-center py-5 bg-body rounded-4 shadow-sm">
+                        <i class="fas fa-user-tie fa-3x text-muted mb-3"></i>
                         <h4 class="fw-semibold">@Localizer["No drivers found"]</h4>
                         <p class="text-muted">@Localizer["No drivers have been added for this organization yet."]</p>
                     </div>
@@ -350,8 +409,8 @@
                 }
                 else
                 {
-                    <div class="text-center py-5 bg-white rounded-4 shadow-sm">
-                        <div class="fs-1 text-muted mb-3">📭</div>
+                    <div class="text-center py-5 bg-body rounded-4 shadow-sm">
+                        <i class="fas fa-calendar-alt fa-3x text-muted mb-3"></i>
                         <h4 class="fw-semibold">@Localizer["No schedules found"]</h4>
                         <p class="text-muted">@Localizer["No schedules have been added for this organization yet."]</p>
                     </div>
@@ -421,8 +480,8 @@
                 }
                 else
                 {
-                    <div class="text-center py-5 bg-white rounded-4 shadow-sm">
-                        <div class="fs-1 text-muted mb-3">🎫</div>
+                    <div class="text-center py-5 bg-body rounded-4 shadow-sm">
+                        <i class="fas fa-ticket-alt fa-3x text-muted mb-3"></i>
                         <h4 class="fw-semibold">@Localizer["No tickets found"]</h4>
                         <p class="text-muted">@Localizer["No tickets have been issued for this organization yet."]</p>
                     </div>
@@ -493,8 +552,8 @@
                 }
                 else
                 {
-                    <div class="text-center py-5 bg-white rounded-4 shadow-sm">
-                        <div class="fs-1 text-muted mb-3">&#11088;</div>
+                    <div class="text-center py-5 bg-body rounded-4 shadow-sm">
+                        <i class="bi bi-star fa-3x text-muted mb-3 fs-1"></i>
                         <h4 class="fw-semibold">@Localizer["No reviews yet"]</h4>
                         <p class="text-muted">@Localizer["Be the first to share your experience with this carrier."]</p>
                     </div>

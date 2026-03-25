@@ -81,4 +81,13 @@
   <data name="Login" xml:space="preserve">
     <value>Вход</value>
   </data>
+  <data name="My Account" xml:space="preserve">
+    <value>Моят Акаунт</value>
+  </data>
+  <data name="Account Settings" xml:space="preserve">
+    <value>Настройки на Акаунта</value>
+  </data>
+  <data name="Admin Dashboard" xml:space="preserve">
+    <value>Администраторско Табло</value>
+  </data>
 </root>

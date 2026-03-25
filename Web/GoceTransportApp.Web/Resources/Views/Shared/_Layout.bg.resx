@@ -127,4 +127,40 @@
   <data name="All rights reserved." xml:space="preserve">
     <value>Всички права запазени.</value>
   </data>
+  <data name="Get Started" xml:space="preserve">
+    <value>Започнете</value>
+  </data>
+  <data name="For Passengers" xml:space="preserve">
+    <value>За Пътници</value>
+  </data>
+  <data name="For Partners" xml:space="preserve">
+    <value>За Партньори</value>
+  </data>
+  <data name="Find a Trip" xml:space="preserve">
+    <value>Намери Пътуване</value>
+  </data>
+  <data name="Register Organization" xml:space="preserve">
+    <value>Регистрирай Организация</value>
+  </data>
+  <data name="Pricing &amp; Plans" xml:space="preserve">
+    <value>Цени и Планове</value>
+  </data>
+  <data name="Organization Dashboard" xml:space="preserve">
+    <value>Табло на Организацията</value>
+  </data>
+  <data name="Contact" xml:space="preserve">
+    <value>Контакт</value>
+  </data>
+  <data name="Your trusted platform for discovering routes, booking tickets, and managing transport organizations across Bulgaria." xml:space="preserve">
+    <value>Вашата надеждна платформа за маршрути, билети и управление на транспортни организации в България.</value>
+  </data>
+  <data name="Privacy Policy" xml:space="preserve">
+    <value>Политика за Поверителност</value>
+  </data>
+  <data name="Terms of Service" xml:space="preserve">
+    <value>Условия за Ползване</value>
+  </data>
+  <data name="Tickets" xml:space="preserve">
+    <value>Билети</value>
+  </data>
 </root>

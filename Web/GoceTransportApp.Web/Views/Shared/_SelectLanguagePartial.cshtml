@@ -5,24 +5,24 @@
 }
 
 <li class="nav-item dropdown">
-    <a class="nav-link dropdown-toggle fw-semibold px-2" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false" title="Language">
+    <a class="nav-link dropdown-toggle fw-semibold px-2 py-1" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false" title="Language">
         @if (currentCulture.StartsWith("bg"))
         {
-            <span>🇧🇬 BG</span>
+            <span class="fs-5">&#127463;&#127468;</span>
         }
         else
         {
-            <span>🇬🇧 EN</span>
+            <span class="fs-5">&#127468;&#127463;</span>
         }
     </a>
-    <ul class="dropdown-menu dropdown-menu-end">
+    <ul class="dropdown-menu dropdown-menu-end shadow border-0 rounded-3 py-1" style="min-width: auto;">
         <li>
             <form method="post" asp-controller="Culture" asp-action="SetCulture">
                 @Html.AntiForgeryToken()
                 <input type="hidden" name="culture" value="en-US" />
                 <input type="hidden" name="returnUrl" value="@returnUrl" />
-                <button type="submit" class="dropdown-item @(currentCulture.StartsWith("en") ? "active" : "")">
-                    🇬🇧 English
+                <button type="submit" class="dropdown-item d-flex align-items-center gap-2 px-3 py-2 @(currentCulture.StartsWith("en") ? "active" : "")">
+                    <span class="fs-5">&#127468;&#127463;</span> English
                 </button>
             </form>
         </li>
@@ -31,8 +31,8 @@
                 @Html.AntiForgeryToken()
                 <input type="hidden" name="culture" value="bg-BG" />
                 <input type="hidden" name="returnUrl" value="@returnUrl" />
-                <button type="submit" class="dropdown-item @(currentCulture.StartsWith("bg") ? "active" : "")">
-                    🇧🇬 Български
+                <button type="submit" class="dropdown-item d-flex align-items-center gap-2 px-3 py-2 @(currentCulture.StartsWith("bg") ? "active" : "")">
+                    <span class="fs-5">&#127463;&#127468;</span> Български
                 </button>
             </form>
         </li>

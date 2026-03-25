@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype"><value>text/microsoft-resx</value></resheader>
+  <resheader name="version"><value>2.0</value></resheader>
+  <resheader name="reader"><value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+  <resheader name="writer"><value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+  <data name="Plan" xml:space="preserve"><value>План</value></data>
+  <data name="Account Settings" xml:space="preserve"><value>Настройки на Акаунта</value></data>
+  <data name="Upgrade Plan" xml:space="preserve"><value>Надградете Плана</value></data>
+  <data name="Quick Links" xml:space="preserve"><value>Бързи Връзки</value></data>
+  <data name="My Organizations" xml:space="preserve"><value>Моите Организации</value></data>
+  <data name="My Trips" xml:space="preserve"><value>Моите Пътувания</value></data>
+  <data name="Favorites" xml:space="preserve"><value>Любими</value></data>
+  <data name="Find a Trip" xml:space="preserve"><value>Намери Пътуване</value></data>
+  <data name="Upcoming" xml:space="preserve"><value>Предстоящи</value></data>
+  <data name="Past Trips" xml:space="preserve"><value>Минали Пътувания</value></data>
+  <data name="Organizations" xml:space="preserve"><value>Организации</value></data>
+  <data name="Upcoming Trips" xml:space="preserve"><value>Предстоящи Пътувания</value></data>
+  <data name="History" xml:space="preserve"><value>История</value></data>
+  <data name="No upcoming trips" xml:space="preserve"><value>Няма предстоящи пътувания</value></data>
+  <data name="Search for routes and book your next journey!" xml:space="preserve"><value>Търсете маршрути и резервирайте следващото си пътуване!</value></data>
+  <data name="No favorites yet" xml:space="preserve"><value>Все още нямате любими</value></data>
+  <data name="Follow transport companies to see them here." xml:space="preserve"><value>Последвайте транспортни компании, за да ги видите тук.</value></data>
+  <data name="Explore Organizations" xml:space="preserve"><value>Разгледай Организации</value></data>
+  <data name="No past trips" xml:space="preserve"><value>Няма минали пътувания</value></data>
+  <data name="Your travel history will appear here." xml:space="preserve"><value>Историята на вашите пътувания ще се появи тук.</value></data>
+</root>

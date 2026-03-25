@@ -3,6 +3,7 @@
 @using Microsoft.AspNetCore.Identity
 @using Microsoft.EntityFrameworkCore
 @model AllUsersSearchFilterViewModel
+@inject IViewLocalizer Localizer
 
 @inject RoleManager<ApplicationRole> roleManager
 
@@ -30,12 +31,12 @@
 
 <div class="text-center mb-4">
     <i class="fas fa-users fa-3x text-primary mb-3"></i>
-    <h1 class="h2 fw-bold">User Management</h1>
+    <h1 class="h2 fw-bold">@Localizer["User Management"]</h1>
 </div>
 
 <div class="d-flex gap-2 mb-4">
     <form method="get" class="d-flex gap-2 flex-grow-1">
-        <input type="text" name="SearchQuery" value="@Model.SearchQuery" class="form-control rounded-pill" placeholder="Search for user..." />
+        <input type="text" name="SearchQuery" value="@Model.SearchQuery" class="form-control rounded-pill" placeholder="@Localizer["Search for user..."]" />
         <button type="submit" class="btn btn-primary rounded-pill px-4">
             <i class="fas fa-search"></i>
         </button>
@@ -46,9 +47,9 @@
     <table class="table table-borderless table-hover align-middle mb-0">
         <thead>
             <tr>
-                <th class="text-uppercase text-secondary fw-semibold small"><i class="fas fa-envelope me-2"></i>Email</th>
-                <th class="text-uppercase text-secondary fw-semibold small"><i class="fas fa-user-tag me-2"></i>Roles</th>
-                <th class="text-uppercase text-secondary fw-semibold small"><i class="fas fa-tools me-2"></i>Actions</th>
+                <th class="text-uppercase text-secondary fw-semibold small"><i class="fas fa-envelope me-2"></i>@Localizer["Email"]</th>
+                <th class="text-uppercase text-secondary fw-semibold small"><i class="fas fa-user-tag me-2"></i>@Localizer["Roles"]</th>
+                <th class="text-uppercase text-secondary fw-semibold small"><i class="fas fa-tools me-2"></i>@Localizer["Actions"]</th>
             </tr>
         </thead>
         <tbody>
@@ -72,7 +73,7 @@
                                 }
                             </select>
                             <button type="submit" class="btn btn-primary btn-sm rounded-pill ms-1">
-                                <i class="fas fa-plus-circle me-1"></i>Assign
+                                <i class="fas fa-plus-circle me-1"></i>@Localizer["Assign"]
                             </button>
                         </form>
 
@@ -85,7 +86,7 @@
                                 }
                             </select>
                             <button type="submit" class="btn btn-outline-warning btn-sm rounded-pill ms-1">
-                                <i class="fas fa-minus-circle me-1"></i>Remove
+                                <i class="fas fa-minus-circle me-1"></i>@Localizer["Remove"]
                             </button>
                         </form>
 

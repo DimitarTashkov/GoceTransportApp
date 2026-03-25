@@ -37,4 +37,25 @@
   <data name="Upgrade to Pro" xml:space="preserve"><value>Надградете до Pro</value></data>
   <data name="Go Enterprise" xml:space="preserve"><value>Enterprise план</value></data>
   <data name="Back to My Organizations" xml:space="preserve"><value>Назад към Моите Организации</value></data>
+  <data name="Pricing" xml:space="preserve"><value>Ценоразпис</value></data>
+  <data name="Choose Your Plan" xml:space="preserve"><value>Изберете Своя План</value></data>
+  <data name="For individual operators" xml:space="preserve"><value>За индивидуални оператори</value></data>
+  <data name="For growing businesses" xml:space="preserve"><value>За растящи бизнеси</value></data>
+  <data name="For large fleets" xml:space="preserve"><value>За големи автопаркове</value></data>
+  <data name="Forever free" xml:space="preserve"><value>Завинаги безплатен</value></data>
+  <data name="Billed monthly" xml:space="preserve"><value>Месечно плащане</value></data>
+  <data name="Organization" xml:space="preserve"><value>Организация</value></data>
+  <data name="Organizations" xml:space="preserve"><value>Организации</value></data>
+  <data name="Unlimited Schedules" xml:space="preserve"><value>Неограничен брой Разписания</value></data>
+  <data name="Basic Support" xml:space="preserve"><value>Базова Поддръжка</value></data>
+  <data name="Analytics Dashboard" xml:space="preserve"><value>Аналитично Табло</value></data>
+  <data name="Email Notifications" xml:space="preserve"><value>Имейл Известия</value></data>
+  <data name="Priority Support" xml:space="preserve"><value>Приоритетна Поддръжка</value></data>
+  <data name="Priority 24/7 Support" xml:space="preserve"><value>Приоритетна 24/7 Поддръжка</value></data>
+  <data name="Custom Branding" xml:space="preserve"><value>Персонализиран Бранд</value></data>
+  <data name="Unlimited" xml:space="preserve"><value>Неограничен</value></data>
+  <data name="Contact Sales" xml:space="preserve"><value>Свържете се с нас</value></data>
+  <data name="Compare Plans" xml:space="preserve"><value>Сравнение на Плановете</value></data>
+  <data name="Feature" xml:space="preserve"><value>Функционалност</value></data>
+  <data name="Schedules" xml:space="preserve"><value>Разписания</value></data>
 </root>

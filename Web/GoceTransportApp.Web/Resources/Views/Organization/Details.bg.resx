@@ -75,4 +75,5 @@
   <data name="Submit Review" xml:space="preserve"><value>Изпрати Отзив</value></data>
   <data name="No reviews yet" xml:space="preserve"><value>Все още няма отзиви</value></data>
   <data name="Be the first to share your experience with this carrier." xml:space="preserve"><value>Бъдете първият, споделили опит с този превозвач.</value></data>
+  <data name="Active Routes" xml:space="preserve"><value>Активни Маршрути</value></data>
 </root>

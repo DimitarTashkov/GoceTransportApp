@@ -1,15 +1,16 @@
 @page
 @model LoginModel
+@inject IViewLocalizer Localizer
 @{
-    ViewData["Title"] = "Log in";
+    ViewData["Title"] = Localizer["Log in"].Value;
 }
 
-<div class="row justify-content-center">
-    <div class="col-lg-5">
+<div class="row justify-content-center py-5">
+    <div class="col-lg-5 col-md-7">
         <div class="text-center mb-4">
             <i class="fas fa-sign-in-alt fa-3x text-primary mb-3"></i>
-            <h1 class="h3 fw-bold">Welcome back</h1>
-            <p class="text-muted">Sign in to your account</p>
+            <h1 class="h3 fw-bold">@Localizer["Welcome back"]</h1>
+            <p class="text-muted">@Localizer["Sign in to your account"]</p>
         </div>
         <div class="card border-0 shadow-sm rounded-4">
             <div class="card-body p-5">
@@ -18,34 +19,34 @@
 
                     <div class="form-floating mb-3">
                         <input asp-for="Input.Email" class="form-control rounded-3" autocomplete="username" placeholder="name@example.com" />
-                        <label asp-for="Input.Email">Email</label>
+                        <label asp-for="Input.Email">@Localizer["Email"]</label>
                         <span asp-validation-for="Input.Email" class="text-danger small"></span>
                     </div>
 
                     <div class="form-floating mb-3">
                         <input asp-for="Input.Password" type="password" class="form-control rounded-3 password-field" autocomplete="current-password" placeholder="Password" />
-                        <label asp-for="Input.Password">Password</label>
+                        <label asp-for="Input.Password">@Localizer["Password"]</label>
                         <span asp-validation-for="Input.Password" class="text-danger small"></span>
                     </div>
 
                     <div class="d-flex justify-content-between align-items-center mb-4">
                         <div class="form-check">
                             <input class="form-check-input" asp-for="Input.RememberMe" />
-                            <label class="form-check-label" asp-for="Input.RememberMe">@Html.DisplayNameFor(m => m.Input.RememberMe)</label>
+                            <label class="form-check-label" asp-for="Input.RememberMe">@Localizer["Remember me"]</label>
                         </div>
                         <div class="form-check">
                             <input type="checkbox" class="form-check-input" id="showPasswordToggle">
-                            <label class="form-check-label" for="showPasswordToggle">Show password</label>
+                            <label class="form-check-label" for="showPasswordToggle">@Localizer["Show password"]</label>
                         </div>
                     </div>
 
                     <button id="login-submit" type="submit" class="btn btn-primary btn-lg w-100 rounded-pill">
-                        <i class="fas fa-sign-in-alt me-2"></i>Log in
+                        <i class="fas fa-sign-in-alt me-2"></i>@Localizer["Log in"]
                     </button>
 
                     <p class="text-center mt-4 mb-0 text-muted small">
-                        Don't have an account?
-                        <a asp-page="./Register" asp-route-returnUrl="@Model.ReturnUrl" class="text-primary fw-semibold">Register</a>
+                        @Localizer["Don't have an account?"]
+                        <a asp-page="./Register" asp-route-returnUrl="@Model.ReturnUrl" class="text-primary fw-semibold">@Localizer["Register"]</a>
                     </p>
                 </form>
             </div>

@@ -1,16 +1,17 @@
 @page
 @using GoceTransportApp.Common
 @model RegisterModel
+@inject IViewLocalizer Localizer
 @{
-    ViewData["Title"] = "Register";
+    ViewData["Title"] = Localizer["Register"].Value;
 }
 
-<div class="row justify-content-center">
-    <div class="col-lg-5">
+<div class="row justify-content-center py-5">
+    <div class="col-lg-5 col-md-7">
         <div class="text-center mb-4">
             <i class="fas fa-user-plus fa-3x text-primary mb-3"></i>
-            <h1 class="h3 fw-bold">Create an account</h1>
-            <p class="text-muted">Join @GlobalConstants.SystemName today</p>
+            <h1 class="h3 fw-bold">@Localizer["Create an account"]</h1>
+            <p class="text-muted">@Localizer["Join today", GlobalConstants.SystemName]</p>
         </div>
         <div class="card border-0 shadow-sm rounded-4">
             <div class="card-body p-5">
@@ -19,40 +20,40 @@
 
                     <div class="form-floating mb-3">
                         <input asp-for="Input.Email" class="form-control rounded-3" autocomplete="username" aria-required="true" placeholder="name@example.com" />
-                        <label asp-for="Input.Email">Email</label>
+                        <label asp-for="Input.Email">@Localizer["Email"]</label>
                         <span asp-validation-for="Input.Email" class="text-danger small"></span>
                     </div>
 
                     <div class="form-floating mb-3">
                         <input asp-for="Input.Username" class="form-control rounded-3" autocomplete="username" aria-required="true" placeholder="Username" />
-                        <label asp-for="Input.Username">Username</label>
+                        <label asp-for="Input.Username">@Localizer["Username"]</label>
                         <span asp-validation-for="Input.Username" class="text-danger small"></span>
                     </div>
 
                     <div class="form-floating mb-3">
                         <input asp-for="Input.Password" type="password" class="form-control rounded-3 password-field" autocomplete="new-password" aria-required="true" placeholder="Password" />
-                        <label asp-for="Input.Password">Password</label>
+                        <label asp-for="Input.Password">@Localizer["Password"]</label>
                         <span asp-validation-for="Input.Password" class="text-danger small"></span>
                     </div>
 
                     <div class="form-floating mb-4">
                         <input asp-for="Input.ConfirmPassword" type="password" class="form-control rounded-3 password-field" autocomplete="new-password" aria-required="true" placeholder="Confirm Password" />
-                        <label asp-for="Input.ConfirmPassword">Confirm Password</label>
+                        <label asp-for="Input.ConfirmPassword">@Localizer["Confirm Password"]</label>
                         <span asp-validation-for="Input.ConfirmPassword" class="text-danger small"></span>
                     </div>
 
                     <div class="form-check mb-4">
                         <input type="checkbox" class="form-check-input" id="showPasswordToggle">
-                        <label class="form-check-label" for="showPasswordToggle">Show passwords</label>
+                        <label class="form-check-label" for="showPasswordToggle">@Localizer["Show passwords"]</label>
                     </div>
 
                     <button id="registerSubmit" type="submit" class="btn btn-primary btn-lg w-100 rounded-pill">
-                        <i class="fas fa-user-plus me-2"></i>Register
+                        <i class="fas fa-user-plus me-2"></i>@Localizer["Register"]
                     </button>
 
                     <p class="text-center mt-4 mb-0 text-muted small">
-                        Already have an account?
-                        <a asp-page="./Login" class="text-primary fw-semibold">Log in</a>
+                        @Localizer["Already have an account?"]
+                        <a asp-page="./Login" class="text-primary fw-semibold">@Localizer["Log in"]</a>
                     </p>
                 </form>
             </div>

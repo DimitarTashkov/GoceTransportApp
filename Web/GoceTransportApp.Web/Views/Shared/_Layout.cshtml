@@ -45,12 +45,12 @@
                                 @Localizer["Explore"]
                             </a>
                             <ul class="dropdown-menu shadow border-0 rounded-3">
-                                <li><a class="dropdown-item py-2" asp-controller="Route" asp-action="Index"><i class="fas fa-route me-2 text-primary"></i>@Localizer["Routes"]</a></li>
-                                <li><a class="dropdown-item py-2" asp-controller="Schedule" asp-action="Index"><i class="fas fa-calendar-alt me-2 text-primary"></i>@Localizer["Schedules"]</a></li>
-                                <li><a class="dropdown-item py-2" asp-controller="Ticket" asp-action="Index"><i class="fas fa-ticket-alt me-2 text-primary"></i>@Localizer["Tickets"]</a></li>
+                                <li><a class="dropdown-item py-2" asp-area="" asp-controller="Route" asp-action="Index"><i class="fas fa-route me-2 text-primary"></i>@Localizer["Routes"]</a></li>
+                                <li><a class="dropdown-item py-2" asp-area="" asp-controller="Schedule" asp-action="Index"><i class="fas fa-calendar-alt me-2 text-primary"></i>@Localizer["Schedules"]</a></li>
+                                <li><a class="dropdown-item py-2" asp-area="" asp-controller="Ticket" asp-action="Index"><i class="fas fa-ticket-alt me-2 text-primary"></i>@Localizer["Tickets"]</a></li>
                                 <li><hr class="dropdown-divider my-1" /></li>
-                                <li><a class="dropdown-item py-2" asp-controller="Organization" asp-action="Index"><i class="fas fa-building me-2 text-primary"></i>@Localizer["Organizations"]</a></li>
-                                <li><a class="dropdown-item py-2" asp-controller="City" asp-action="Index"><i class="fas fa-city me-2 text-primary"></i>@Localizer["Cities"]</a></li>
+                                <li><a class="dropdown-item py-2" asp-area="" asp-controller="Organization" asp-action="Index"><i class="fas fa-building me-2 text-primary"></i>@Localizer["Organizations"]</a></li>
+                                <li><a class="dropdown-item py-2" asp-area="" asp-controller="City" asp-action="Index"><i class="fas fa-city me-2 text-primary"></i>@Localizer["Cities"]</a></li>
                             </ul>
                         </li>
                         <li class="nav-item">
@@ -62,7 +62,7 @@
                     </ul>
 
                     <div class="d-flex align-items-center gap-2">
-                        <a asp-controller="Organization" asp-action="Index" class="btn btn-primary btn-sm rounded-pill px-3 fw-semibold d-none d-lg-inline-block">
+                        <a asp-area="" asp-controller="Organization" asp-action="Index" class="btn btn-primary btn-sm rounded-pill px-3 fw-semibold d-none d-lg-inline-block">
                             <i class="fas fa-rocket me-1"></i>@Localizer["Get Started"]
                         </a>
 
@@ -120,10 +120,10 @@
                 <div class="col-lg-2 col-md-6 col-6 mb-3">
                     <h6 class="fw-bold text-white mb-3">@Localizer["For Passengers"]</h6>
                     <ul class="list-unstyled small">
-                        <li class="mb-2"><a class="text-white-50 text-decoration-none" asp-controller="Schedule" asp-action="Search"><i class="fas fa-search me-1"></i>@Localizer["Find a Trip"]</a></li>
-                        <li class="mb-2"><a class="text-white-50 text-decoration-none" asp-controller="Dashboard" asp-action="Index"><i class="fas fa-ticket-alt me-1"></i>@Localizer["My Trips"]</a></li>
-                        <li class="mb-2"><a class="text-white-50 text-decoration-none" asp-controller="Route" asp-action="Index"><i class="fas fa-route me-1"></i>@Localizer["Routes"]</a></li>
-                        <li class="mb-2"><a class="text-white-50 text-decoration-none" asp-controller="ContactForm" asp-action="Create"><i class="fas fa-question-circle me-1"></i>@Localizer["Contact Us"]</a></li>
+                        <li class="mb-2"><a class="text-white-50 text-decoration-none" asp-area="" asp-controller="Schedule" asp-action="Search"><i class="fas fa-search me-1"></i>@Localizer["Find a Trip"]</a></li>
+                        <li class="mb-2"><a class="text-white-50 text-decoration-none" asp-area="" asp-controller="Dashboard" asp-action="Index"><i class="fas fa-ticket-alt me-1"></i>@Localizer["My Trips"]</a></li>
+                        <li class="mb-2"><a class="text-white-50 text-decoration-none" asp-area="" asp-controller="Route" asp-action="Index"><i class="fas fa-route me-1"></i>@Localizer["Routes"]</a></li>
+                        <li class="mb-2"><a class="text-white-50 text-decoration-none" asp-area="" asp-controller="ContactForm" asp-action="Create"><i class="fas fa-question-circle me-1"></i>@Localizer["Contact Us"]</a></li>
                     </ul>
                 </div>
 
@@ -131,10 +131,10 @@
                 <div class="col-lg-3 col-md-6 col-6 mb-3">
                     <h6 class="fw-bold text-white mb-3">@Localizer["For Partners"]</h6>
                     <ul class="list-unstyled small">
-                        <li class="mb-2"><a class="text-white-50 text-decoration-none" asp-controller="Organization" asp-action="Create"><i class="fas fa-plus-circle me-1"></i>@Localizer["Register Organization"]</a></li>
-                        <li class="mb-2"><a class="text-white-50 text-decoration-none" asp-controller="Organization" asp-action="Upgrade"><i class="fas fa-gem me-1"></i>@Localizer["Pricing & Plans"]</a></li>
-                        <li class="mb-2"><a class="text-white-50 text-decoration-none" asp-controller="Organization" asp-action="UserOrganizations"><i class="fas fa-tachometer-alt me-1"></i>@Localizer["Organization Dashboard"]</a></li>
-                        <li class="mb-2"><a class="text-white-50 text-decoration-none" asp-controller="Organization" asp-action="Index"><i class="fas fa-building me-1"></i>@Localizer["Organizations"]</a></li>
+                        <li class="mb-2"><a class="text-white-50 text-decoration-none" asp-area="" asp-controller="Organization" asp-action="Create"><i class="fas fa-plus-circle me-1"></i>@Localizer["Register Organization"]</a></li>
+                        <li class="mb-2"><a class="text-white-50 text-decoration-none" asp-area="" asp-controller="Organization" asp-action="Upgrade"><i class="fas fa-gem me-1"></i>@Localizer["Pricing & Plans"]</a></li>
+                        <li class="mb-2"><a class="text-white-50 text-decoration-none" asp-area="" asp-controller="Organization" asp-action="UserOrganizations"><i class="fas fa-tachometer-alt me-1"></i>@Localizer["Organization Dashboard"]</a></li>
+                        <li class="mb-2"><a class="text-white-50 text-decoration-none" asp-area="" asp-controller="Organization" asp-action="Index"><i class="fas fa-building me-1"></i>@Localizer["Organizations"]</a></li>
                     </ul>
                 </div>
 
@@ -161,8 +161,8 @@
                     <p class="mb-0 small text-white-50">&copy; @DateTime.Now.Year @GlobalConstants.SystemName. @Localizer["All rights reserved."]</p>
                 </div>
                 <div class="col-md-6 text-center text-md-end">
-                    <a asp-controller="Home" asp-action="Privacy" class="text-white-50 text-decoration-none small me-3">@Localizer["Privacy Policy"]</a>
-                    <a asp-controller="Home" asp-action="AboutUs" class="text-white-50 text-decoration-none small">@Localizer["Terms of Service"]</a>
+                    <a asp-area="" asp-controller="Home" asp-action="Privacy" class="text-white-50 text-decoration-none small me-3">@Localizer["Privacy Policy"]</a>
+                    <a asp-area="" asp-controller="Home" asp-action="AboutUs" class="text-white-50 text-decoration-none small">@Localizer["Terms of Service"]</a>
                 </div>
             </div>
         </div>

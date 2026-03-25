@@ -1,5 +1,13 @@
 # Текущ прогрес на проекта
 
+## Identity Layout + Локализация — ЗАВЪРШЕНА (2026-03-26)
+* `Areas/Identity/Pages/_ViewStart.cshtml` — Layout сменен от `_AdminLayout` на `/Views/Shared/_Layout.cshtml` (глобалния layout с navbar и footer)
+* `Areas/Identity/Pages/_ViewImports.cshtml` — поправени неверни `CinemaApp.*` namespace-и на `GoceTransportApp.*`; добавен `@using Microsoft.AspNetCore.Mvc.Localization`
+* `Login.cshtml` — добавен `@inject IViewLocalizer Localizer`; всички UI текстове преведени
+* `Register.cshtml` — добавен `@inject IViewLocalizer Localizer`; всички UI текстове преведени
+* **2 `.bg.resx` файла** в `Resources/Areas/Identity/Pages/Account/`: `Login.bg.resx`, `Register.bg.resx`
+* Добавен `py-5` padding за центрирано вертикално позициониране в рамките на глобалния layout
+
 ## Premium UI/UX Redesign — ЗАВЪРШЕН (2026-03-25)
 Изпълнени 6-те точки от `ultimate_ui_ux_dashboards_plan.md`:
 

@@ -17,7 +17,7 @@
     </a>
     <ul class="dropdown-menu dropdown-menu-end shadow border-0 rounded-3 py-1" style="min-width: auto;">
         <li>
-            <form method="post" asp-controller="Culture" asp-action="SetCulture">
+            <form method="post" asp-area="" asp-controller="Culture" asp-action="SetCulture">
                 @Html.AntiForgeryToken()
                 <input type="hidden" name="culture" value="en-US" />
                 <input type="hidden" name="returnUrl" value="@returnUrl" />
@@ -27,7 +27,7 @@
             </form>
         </li>
         <li>
-            <form method="post" asp-controller="Culture" asp-action="SetCulture">
+            <form method="post" asp-area="" asp-controller="Culture" asp-action="SetCulture">
                 @Html.AntiForgeryToken()
                 <input type="hidden" name="culture" value="bg-BG" />
                 <input type="hidden" name="returnUrl" value="@returnUrl" />

@@ -24,6 +24,7 @@ namespace GoceTransportApp.Services.Data.Tickets
 
         Task<TicketDetailsViewModel> GetTicketDetailsAsync(Guid id);
         Task<bool> BuyTicketsAsync(Guid ticketId, int quantity);
+        Task<bool> PurchaseTicketAsync(string userId, Guid ticketId);
         Task<int> GetTicketsCountByFilterAsync(AllTicketsSearchFilterViewModel inputModel);
         Task<MyTicketsViewModel> GetMyTicketsAsync(string userId);
         Task<bool> CancelTicketAsync(string userId, Guid ticketId);

@@ -1,13 +1,16 @@
 @using System.Security.Claims
 @using GoceTransportApp.Services.Data.Users
 @using static GoceTransportApp.Common.GlobalConstants
+@using Microsoft.AspNetCore.Mvc.Localization
 @model GoceTransportApp.Web.ViewModels.Tickets.TicketDetailsViewModel
 @inject IUserService userService
+@inject IViewLocalizer Localizer
 @{
     var organizationId = Model.OrganizationId;
     var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
     var isFounder = await userService.HasUserCreatedOrganizationAsync(userId, organizationId);
     var isAdmin = User.IsInRole(AdministratorRoleName);
+    var isAuthenticated = User.Identity?.IsAuthenticated == true;
 }
 <div class="row justify-content-center">
     <div class="col-lg-8">
@@ -15,31 +18,40 @@
             <div class="card-body p-4">
                 <div class="mb-3">
                     <i class="fas fa-ticket-alt fa-2x text-primary mb-2"></i>
-                    <h5 class="card-title fw-semibold">Ticket Details</h5>
+                    <h5 class="card-title fw-semibold">@Localizer["Ticket Details"]</h5>
                 </div>
                 <p class="card-text">
-                    <strong>Issued Date:</strong> @Model.IssuedDate<br />
-                    <strong>Expiry Date:</strong> @Model.ExpiryDate<br />
-                    <strong>Price:</strong> $@Model.Price<br />
-                    <strong>Day:</strong> @Model.Day<br />
-                    <strong>Departure Time:</strong> @Model.DepartingTime<br />
-                    <strong>Arrival Time:</strong> @Model.ArrivingTime<br />
-                    <strong>From:</strong> @Model.FromCity, @Model.FromStreet<br />
-                    <strong>To:</strong> @Model.ToCity, @Model.ToStreet<br />
-                    <strong>Organization:</strong> @Model.OrganizationName
+                    <strong>@Localizer["Issued Date"]:</strong> @Model.IssuedDate<br />
+                    <strong>@Localizer["Expiry Date"]:</strong> @Model.ExpiryDate<br />
+                    <strong>@Localizer["Price"]:</strong> @Model.Price BGN<br />
+                    <strong>@Localizer["Day"]:</strong> @Model.Day<br />
+                    <strong>@Localizer["Departure Time"]:</strong> @Model.DepartingTime<br />
+                    <strong>@Localizer["Arrival Time"]:</strong> @Model.ArrivingTime<br />
+                    <strong>@Localizer["From"]:</strong> @Model.FromCity, @Model.FromStreet<br />
+                    <strong>@Localizer["To"]:</strong> @Model.ToCity, @Model.ToStreet<br />
+                    <strong>@Localizer["Organization"]:</strong> @Model.OrganizationName
                 </p>
                 <div class="d-flex flex-column gap-2 mt-3">
+                    @if (isAuthenticated && !isFounder && !isAdmin)
+                    {
+                        <form asp-action="Purchase" asp-controller="Ticket" asp-route-id="@Model.Id" asp-route-organizationId="@Model.OrganizationId" method="post">
+                            @Html.AntiForgeryToken()
+                            <button type="submit" class="btn btn-success rounded-pill w-100">
+                                <i class="fas fa-shopping-cart me-2"></i>@Localizer["Buy Ticket"]
+                            </button>
+                        </form>
+                    }
                     @if (isFounder || isAdmin)
                     {
                         <a asp-action="Edit" asp-controller="Ticket" asp-route-id="@Model.Id" asp-route-organizationId="@Model.OrganizationId" class="btn btn-outline-warning rounded-pill w-100">
-                            <i class="fas fa-edit"></i> Edit
+                            <i class="fas fa-edit"></i> @Localizer["Edit"]
                         </a>
                         <a asp-action="Delete" asp-controller="Ticket" asp-route-id="@Model.Id" asp-route-organizationId="@Model.OrganizationId" class="btn btn-outline-danger rounded-pill w-100">
-                            <i class="fas fa-trash"></i> Delete
+                            <i class="fas fa-trash"></i> @Localizer["Delete"]
                         </a>
                     }
                     <a asp-action="Index" asp-controller="Ticket" class="btn btn-outline-secondary rounded-pill w-100">
-                        <i class="fas fa-arrow-left"></i> Back to List
+                        <i class="fas fa-arrow-left"></i> @Localizer["Back to List"]
                     </a>
                 </div>
             </div>

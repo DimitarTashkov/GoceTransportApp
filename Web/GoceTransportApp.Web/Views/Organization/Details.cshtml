@@ -461,17 +461,26 @@
                                         <td>
                                             <span class="badge bg-success bg-opacity-10 text-success fw-semibold">@ticket.Price.ToString("F2") BGN</span>
                                         </td>
-                                        @if (isOwnerOrAdmin)
-                                        {
-                                            <td class="text-end">
+                                        <td class="text-end">
+                                            @if (isOwnerOrAdmin)
+                                            {
                                                 <a asp-controller="Ticket" asp-action="Details" asp-route-id="@ticket.Id" asp-route-organizationId="@Model.Id"
                                                    class="btn btn-sm btn-outline-secondary rounded-pill">@Localizer["Details"]</a>
                                                 <a asp-controller="Ticket" asp-action="Edit" asp-route-id="@ticket.Id" asp-route-organizationId="@Model.Id"
                                                    class="btn btn-sm btn-outline-secondary rounded-pill"><i class="fas fa-edit"></i></a>
                                                 <a asp-controller="Ticket" asp-action="Delete" asp-route-id="@ticket.Id" asp-route-organizationId="@Model.Id"
                                                    class="btn btn-sm btn-outline-danger rounded-pill"><i class="fas fa-trash-alt"></i></a>
-                                            </td>
-                                        }
+                                            }
+                                            @if (!isOwnerOrAdmin && User.Identity != null && User.Identity.IsAuthenticated)
+                                            {
+                                                <form asp-controller="Ticket" asp-action="Purchase" asp-route-id="@ticket.Id" asp-route-organizationId="@Model.Id" method="post" class="d-inline">
+                                                    @Html.AntiForgeryToken()
+                                                    <button type="submit" class="btn btn-sm btn-success rounded-pill">
+                                                        <i class="fas fa-shopping-cart me-1"></i>@Localizer["Buy"]
+                                                    </button>
+                                                </form>
+                                            }
+                                        </td>
                                     </tr>
                                 }
                             </tbody>

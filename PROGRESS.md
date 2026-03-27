@@ -1,5 +1,25 @@
 # Текущ прогрес на проекта
 
+## Ticket Purchase + Manage локализация — ЗАВЪРШЕНО (2026-03-27)
+
+### 1. Покупка на билет за пасажери
+* `ITicketService` + `TicketService` — нов метод `PurchaseTicketAsync(string userId, Guid ticketId)`: създава нов `UserTicket` (или увеличава `AvailableTickets` ако вече съществува)
+* `TicketController` — нов `[HttpPost] Purchase(string? id, string organizationId)` action: извиква `PurchaseTicketAsync`, redirect → MyTickets
+* `_TicketDetailsPartial.cshtml` — добавен бутон "Buy Ticket" (зелен, с иконка shopping-cart) видим само за логнати НЕ-собственици/НЕ-admin; всички текстове локализирани с `@Localizer`
+* `Organization/Details.cshtml` Tickets tab — добавен бутон "Buy" (зелен, малък) до всеки билет за логнати пасажери
+
+### 2. Локализация на Identity Manage pages
+* `_ViewImports.cshtml` — поправен: добавени и двата namespace-а (`testappHelper.` за моделите + `GoceTransportApp.Web.` за `ManageNavPages`) + `@inject IViewLocalizer Localizer`
+* `Index.cshtml` — всички текстове с `@Localizer["..."]`
+* `ChangePassword.cshtml` — всички текстове с `@Localizer["..."]`
+* `Email.cshtml` — всички текстове с `@Localizer["..."]`
+* `PersonalData.cshtml` — всички текстове с `@Localizer["..."]`
+* `_ManageNav.cshtml` — навигационните линкове с `@Localizer["..."]`
+* **5 `.bg.resx` файла** в `Resources/Areas/Identity/Pages/Account/Manage/`:
+  `Index.bg.resx`, `ChangePassword.bg.resx`, `Email.bg.resx`, `PersonalData.bg.resx`, `_ManageNav.bg.resx`
+
+
+
 ## Identity Layout + Локализация — ЗАВЪРШЕНА (2026-03-26)
 * `Areas/Identity/Pages/_ViewStart.cshtml` — Layout сменен от `_AdminLayout` на `/Views/Shared/_Layout.cshtml` (глобалния layout с navbar и footer)
 * `Areas/Identity/Pages/_ViewImports.cshtml` — поправени неверни `CinemaApp.*` namespace-и на `GoceTransportApp.*`; добавен `@using Microsoft.AspNetCore.Mvc.Localization`

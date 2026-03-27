@@ -321,8 +321,34 @@ namespace GoceTransportApp.Web.Controllers
             return RedirectToAction(nameof(MyTickets));
         }
 
+        [HttpPost]
+        public async Task<IActionResult> Purchase(string? id, string organizationId)
+        {
+            string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            Guid ticketGuid = Guid.Empty;
+            bool isIdValid = IsGuidValid(id, ref ticketGuid);
+            if (!isIdValid)
+            {
+                TempData[nameof(FailMessage)] = FailMessage;
+                return RedirectToAction("Details", "Organization", new { id = organizationId });
+            }
+
+            bool success = await this.ticketService.PurchaseTicketAsync(userId, ticketGuid);
+            if (!success)
+            {
+                TempData[nameof(FailMessage)] = "Ticket could not be purchased.";
+            }
+            else
+            {
+                TempData[nameof(SuccessMessage)] = "Ticket purchased successfully!";
+            }
+
+            return RedirectToAction(nameof(MyTickets));
+        }
+
         //[HttpGet]
-        //public async Task<IActionResult> Purchase(string? id, string organizationId)
+        //public async Task<IActionResult> Purchase_OLD(string? id, string organizationId)
         //{
         //    Guid ticketGuid = Guid.Empty;
         //    bool isIdValid = IsGuidValid(id, ref ticketGuid);

@@ -258,6 +258,37 @@ namespace GoceTransportApp.Services.Data.Tickets
             return true;
         }
 
+        public async Task<bool> PurchaseTicketAsync(string userId, Guid ticketId)
+        {
+            Ticket ticket = await ticketRepository.FirstOrDefaultAsync(t => t.Id == ticketId);
+            if (ticket == null)
+            {
+                return false;
+            }
+
+            UserTicket existing = await userTicketRepository
+                .FirstOrDefaultAsync(ut => ut.CustomerId == userId && ut.TicketId == ticketId);
+
+            if (existing != null)
+            {
+                existing.AvailableTickets += 1;
+                await userTicketRepository.SaveChangesAsync();
+                return true;
+            }
+
+            UserTicket newUserTicket = new UserTicket
+            {
+                CustomerId = userId,
+                TicketId = ticketId,
+                AvailableTickets = 1,
+                IsBoarded = false,
+            };
+
+            await userTicketRepository.AddAsync(newUserTicket);
+            await userTicketRepository.SaveChangesAsync();
+            return true;
+        }
+
         public async Task<MyTicketsViewModel> GetMyTicketsAsync(string userId)
         {
             var userTickets = await userTicketRepository

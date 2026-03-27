@@ -1,32 +1,31 @@
-﻿@page
-@using GoceTransportApp.Web.Areas.Identity.Pages.Account.Manage
+@page
+@using testappHelper.Areas.Identity.Pages.Account.Manage
 @model PersonalDataModel
 @{
-    ViewData["Title"] = "Personal Data";
+    ViewData["Title"] = Localizer["Personal Data"].Value;
     ViewData["ActivePage"] = ManageNavPages.PersonalData;
 }
 
 <h3>
-    <i class="fas fa-user-shield me-2 text-primary"></i>@ViewData["Title"]
+    <i class="fas fa-user-shield me-2 text-primary"></i>@Localizer["Personal Data"]
 </h3>
 
 <div class="row mt-4">
     <div class="col-md-6">
         <p>
-            <i class="fas fa-info-circle me-2"></i>Your account contains personal data that you have given us.
-            This page allows you to download or delete that data.
+            <i class="fas fa-info-circle me-2"></i>@Localizer["Your account contains personal data that you have given us. This page allows you to download or delete that data."]
         </p>
         <p>
-            <i class="fas fa-exclamation-circle me-2 text-danger"></i><strong>Deleting this data will permanently remove your account, and this cannot be recovered.</strong>
+            <i class="fas fa-exclamation-circle me-2 text-danger"></i><strong>@Localizer["Deleting this data will permanently remove your account, and this cannot be recovered."]</strong>
         </p>
         <form id="download-data" asp-page="DownloadPersonalData" method="post">
             <button class="btn btn-primary" type="submit">
-                <i class="fas fa-download me-2"></i>Download
+                <i class="fas fa-download me-2"></i>@Localizer["Download"]
             </button>
         </form>
         <p class="mt-3">
             <a id="delete" asp-page="DeletePersonalData" class="btn btn-danger">
-                <i class="fas fa-trash-alt me-2"></i>Delete
+                <i class="fas fa-trash-alt me-2"></i>@Localizer["Delete"]
             </a>
         </p>
     </div>

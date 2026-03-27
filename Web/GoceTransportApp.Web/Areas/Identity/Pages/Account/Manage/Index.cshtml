@@ -1,13 +1,13 @@
-﻿@page
-@using GoceTransportApp.Web.Areas.Identity.Pages.Account.Manage
+@page
+@using testappHelper.Areas.Identity.Pages.Account.Manage
 @model IndexModel
 @{
-    ViewData["Title"] = "Profile";
+    ViewData["Title"] = Localizer["Profile"].Value;
     ViewData["ActivePage"] = ManageNavPages.Index;
 }
 
 <h3>
-    <i class="fas fa-user-circle me-2 text-primary"></i>@ViewData["Title"]
+    <i class="fas fa-user-circle me-2 text-primary"></i>@Localizer["Profile"]
 </h3>
 <partial name="_StatusMessage" for="StatusMessage" />
 <div class="row mt-4">
@@ -19,7 +19,7 @@
             <div class="form-floating mb-3">
                 <input asp-for="Username" class="form-control" placeholder="Please choose your username." disabled />
                 <label asp-for="Username" class="form-label">
-                    <i class="fas fa-user me-2"></i>Username
+                    <i class="fas fa-user me-2"></i>@Localizer["Username"]
                 </label>
             </div>
 
@@ -27,7 +27,7 @@
             <div class="form-floating mb-3">
                 <input asp-for="Input.FirstName" class="form-control" placeholder="Please enter your first name." />
                 <label asp-for="Input.FirstName" class="form-label">
-                    <i class="fas fa-id-card me-2"></i>First Name
+                    <i class="fas fa-id-card me-2"></i>@Localizer["First Name"]
                 </label>
                 <span asp-validation-for="Input.FirstName" class="text-danger"></span>
             </div>
@@ -36,7 +36,7 @@
             <div class="form-floating mb-3">
                 <input asp-for="Input.LastName" class="form-control" placeholder="Please enter your last name." />
                 <label asp-for="Input.LastName" class="form-label">
-                    <i class="fas fa-id-card-alt me-2"></i>Last Name
+                    <i class="fas fa-id-card-alt me-2"></i>@Localizer["Last Name"]
                 </label>
                 <span asp-validation-for="Input.LastName" class="text-danger"></span>
             </div>
@@ -45,14 +45,14 @@
             <div class="form-floating mb-3">
                 <input asp-for="Input.PhoneNumber" class="form-control" placeholder="Please enter your phone number." />
                 <label asp-for="Input.PhoneNumber" class="form-label">
-                    <i class="fas fa-phone me-2"></i>Phone Number
+                    <i class="fas fa-phone me-2"></i>@Localizer["Phone Number"]
                 </label>
                 <span asp-validation-for="Input.PhoneNumber" class="text-danger"></span>
             </div>
 
             <!-- Save Button -->
             <button id="update-profile-button" type="submit" class="w-100 btn btn-lg btn-primary">
-                <i class="fas fa-save me-2"></i>Save
+                <i class="fas fa-save me-2"></i>@Localizer["Save"]
             </button>
         </form>
     </div>

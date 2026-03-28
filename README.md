@@ -260,11 +260,6 @@ Contributions are welcome! If you'd like to help improve GoceTransportApp:
 
 > Please make sure your code compiles (`dotnet build`) and existing tests pass before submitting.
 
----
-
-## 📄 License
-
-This project is licensed under the **MIT License**. See the [LICENSE](LICENSE) file for details.
 
 ---
 

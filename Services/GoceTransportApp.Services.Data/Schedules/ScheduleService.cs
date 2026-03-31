@@ -280,6 +280,7 @@ namespace GoceTransportApp.Services.Data.Schedules
                     .ThenInclude(r => r.FromCity)
                 .Include(s => s.Route)
                     .ThenInclude(r => r.ToCity)
+                .Include(s => s.Organization)
                 .Where(s => s.Route.FromCity.Id == fromCityId && s.Route.ToCity.Id == toCityId);
 
             if (dayOfWeek.HasValue)
@@ -288,6 +289,7 @@ namespace GoceTransportApp.Services.Data.Schedules
             }
 
             return await query
+                .OrderBy(s => s.Departure)
                 .Select(s => new ScheduleDataViewModel()
                 {
                     Id = s.Id.ToString(),
@@ -297,6 +299,7 @@ namespace GoceTransportApp.Services.Data.Schedules
                     FromCity = s.Route.FromCity.Name,
                     ToCity = s.Route.ToCity.Name,
                     OrganizationId = s.OrganizationId.ToString(),
+                    OrganizationName = s.Organization.Name,
                 })
                 .ToArrayAsync();
         }

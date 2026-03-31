@@ -21,5 +21,7 @@ namespace GoceTransportApp.Web.ViewModels.Schedules
         public string ToCity { get; set; } = null!;
 
         public string OrganizationId { get; set; } = null!;
+
+        public string? OrganizationName { get; set; }
     }
 }

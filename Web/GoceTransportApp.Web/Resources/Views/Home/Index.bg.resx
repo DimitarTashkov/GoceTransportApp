@@ -89,4 +89,15 @@
   <data name="Secure" xml:space="preserve"><value>Сигурност</value></data>
   <data name="Tickets" xml:space="preserve"><value>Билети</value></data>
   <data name="Cities" xml:space="preserve"><value>Градове</value></data>
+  <data name="Next Departures" xml:space="preserve"><value>Следващи тръгвания</value></data>
+  <data name="Upcoming buses from your selected city" xml:space="preserve"><value>Предстоящи автобуси от избрания от вас град</value></data>
+  <data name="Select city" xml:space="preserve"><value>Изберете град</value></data>
+  <data name="Select a city to see upcoming departures" xml:space="preserve"><value>Изберете град, за да видите предстоящите тръгвания</value></data>
+  <data name="View All Schedules" xml:space="preserve"><value>Всички разписания</value></data>
+  <data name="Find Your Bus" xml:space="preserve"><value>Намерете Автобуса Си</value></data>
+  <data name="All Schedules" xml:space="preserve"><value>Всички разписания</value></data>
+  <data name="Popular Routes" xml:space="preserve"><value>Популярни маршрути</value></data>
+  <data name="Travel Illustration" xml:space="preserve"><value>Илюстрация за пътуване</value></data>
+  <data name="Loading..." xml:space="preserve"><value>Зареждане...</value></data>
+  <data name="Unable to load departures." xml:space="preserve"><value>Неуспешно зареждане на тръгвания.</value></data>
 </root>

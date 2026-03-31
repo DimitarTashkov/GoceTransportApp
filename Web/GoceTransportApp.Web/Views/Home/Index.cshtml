@@ -11,21 +11,23 @@
     ViewData["MetaDescription"] = "GoceTrans — find bus routes, compare schedules and book tickets for intercity travel across Bulgaria. Fast, easy, reliable.";
 }
 
-<!-- Hero Section: Search-first layout -->
+<!-- ══════════════════════════════════════════════
+     HERO — Search first, headline second (mobile-first)
+     ══════════════════════════════════════════════ -->
 <section class="py-4 py-lg-5">
     <div class="row align-items-center g-4">
 
-        <!-- Search Form — first on mobile (order-1), right on desktop (order-lg-2) -->
+        <!-- Search Card — first on mobile, right on desktop -->
         <div class="col-12 col-lg-5 order-1 order-lg-2">
             <div class="card border-0 shadow-lg rounded-4 p-4 bg-body">
                 <h2 class="fw-bold mb-1 fs-4">
                     <i class="fas fa-bus-alt text-primary me-2"></i>@Localizer["Find Your Bus"]
                 </h2>
                 <p class="text-muted small mb-4">@Localizer["Search available schedules by origin, destination and date."]</p>
-                <form asp-controller="Schedule" asp-action="Search" method="get">
+                <form id="searchForm" asp-controller="Schedule" asp-action="Search" method="get">
                     <div class="mb-3">
                         <label class="form-label fw-semibold">@Localizer["From"]</label>
-                        <select name="FromCityId" class="form-select form-select-lg rounded-3">
+                        <select id="fromCitySelect" name="FromCityId" class="form-select form-select-lg rounded-3">
                             <option value="">— @Localizer["Select city"] —</option>
                             @foreach (var city in Model.Cities)
                             {
@@ -42,7 +44,7 @@
                     </div>
                     <div class="mb-3">
                         <label class="form-label fw-semibold">@Localizer["To"]</label>
-                        <select name="ToCityId" class="form-select form-select-lg rounded-3">
+                        <select id="toCitySelect" name="ToCityId" class="form-select form-select-lg rounded-3">
                             <option value="">— @Localizer["Select city"] —</option>
                             @foreach (var city in Model.Cities)
                             {
@@ -69,7 +71,7 @@
             </div>
         </div>
 
-        <!-- Hero Text — second on mobile (order-2), left on desktop (order-lg-1) -->
+        <!-- Hero Text — second on mobile, left on desktop -->
         <div class="col-12 col-lg-7 order-2 order-lg-1">
             <span class="badge bg-primary bg-opacity-10 text-primary rounded-pill px-3 py-2 mb-3 fw-semibold">
                 <i class="fas fa-map-marked-alt me-1"></i>@Localizer["Travel Made Simple"]
@@ -94,12 +96,86 @@
                     <i class="fas fa-route me-1"></i>@Localizer["Routes"]
                 </a>
             </div>
+
+            <!-- Popular Routes quick-select (uses JS to pre-fill the form) -->
+            @if (Model.Cities.Any())
+            {
+                <div>
+                    <p class="small text-muted fw-semibold mb-2">
+                        <i class="fas fa-fire text-danger me-1"></i>@Localizer["Popular Routes"]
+                    </p>
+                    <div id="popularRoutes" class="d-flex flex-wrap gap-2">
+                        @{
+                            var cityList = Model.Cities.ToList();
+                            int pairCount = 0;
+                            for (int i = 0; i < cityList.Count && pairCount < 4; i++)
+                            {
+                                for (int j = 0; j < cityList.Count && pairCount < 4; j++)
+                                {
+                                    if (i != j)
+                                    {
+                                        <button type="button"
+                                                class="btn btn-light btn-sm rounded-pill border fw-semibold popular-route-btn"
+                                                data-from="@cityList[i].Id"
+                                                data-to="@cityList[j].Id">
+                                            @cityList[i].Name → @cityList[j].Name
+                                        </button>
+                                        pairCount++;
+                                    }
+                                }
+                            }
+                        }
+                    </div>
+                </div>
+            }
         </div>
     </div>
 </section>
 
-<!-- Stats Bar -->
+<!-- ══════════════════════════════════════════════
+     NEXT DEPARTURES — killer feature, right after hero
+     ══════════════════════════════════════════════ -->
 <section class="py-3">
+    <div class="row justify-content-center">
+        <div class="col-lg-9">
+            <div class="card border-0 shadow-sm rounded-4">
+                <div class="card-header bg-body border-0 rounded-top-4 pt-4 pb-2 px-4">
+                    <div class="d-flex align-items-center justify-content-between flex-wrap gap-2">
+                        <div>
+                            <h2 class="h5 fw-bold mb-0">
+                                <i class="fas fa-clock text-primary me-2"></i>@Localizer["Next Departures"]
+                            </h2>
+                            <p class="text-muted small mb-0">@Localizer["Upcoming buses from your selected city"]</p>
+                        </div>
+                        <select id="nextDeparturesCitySelect" class="form-select form-select-sm rounded-pill" style="max-width:220px;">
+                            <option value="">— @Localizer["Select city"] —</option>
+                            @foreach (var city in Model.Cities)
+                            {
+                                <option value="@city.Id">@city.Name</option>
+                            }
+                        </select>
+                    </div>
+                </div>
+                <div class="card-body p-0" id="nextDeparturesContainer">
+                    <div class="text-center py-5 text-muted">
+                        <i class="fas fa-bus fa-2x mb-2 d-block opacity-50"></i>
+                        <span class="small">@Localizer["Select a city to see upcoming departures"]</span>
+                    </div>
+                </div>
+                <div class="card-footer bg-body border-0 rounded-bottom-4 text-center pb-3">
+                    <a asp-controller="Schedule" asp-action="Index" class="btn btn-outline-primary btn-sm rounded-pill px-4 fw-semibold">
+                        <i class="fas fa-calendar-alt me-1"></i>@Localizer["View All Schedules"]
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ══════════════════════════════════════════════
+     STATS BAR
+     ══════════════════════════════════════════════ -->
+<section class="py-4">
     <div class="row g-3 text-center">
         <div class="col-6 col-md-3">
             <div class="card border-0 bg-primary bg-opacity-10 rounded-4 p-3">
@@ -128,45 +204,9 @@
     </div>
 </section>
 
-<!-- Next Departures Section -->
-<section class="py-4">
-    <div class="row justify-content-center">
-        <div class="col-lg-8">
-            <div class="card border-0 shadow-sm rounded-4">
-                <div class="card-header bg-body border-0 rounded-top-4 pt-4 pb-2 px-4">
-                    <div class="d-flex align-items-center justify-content-between flex-wrap gap-2">
-                        <div>
-                            <h2 class="h5 fw-bold mb-0">
-                                <i class="fas fa-clock text-primary me-2"></i>@Localizer["Next Departures"]
-                            </h2>
-                            <p class="text-muted small mb-0">@Localizer["Upcoming buses from your selected city"]</p>
-                        </div>
-                        <select id="nextDeparturesCitySelect" class="form-select form-select-sm rounded-pill" style="max-width:220px;">
-                            <option value="">— @Localizer["Select city"] —</option>
-                            @foreach (var city in Model.Cities)
-                            {
-                                <option value="@city.Id">@city.Name</option>
-                            }
-                        </select>
-                    </div>
-                </div>
-                <div class="card-body p-0" id="nextDeparturesContainer">
-                    <div class="text-center py-5 text-muted">
-                        <i class="fas fa-bus fa-2x mb-2 d-block text-muted opacity-50"></i>
-                        <span class="small">@Localizer["Select a city to see upcoming departures"]</span>
-                    </div>
-                </div>
-                <div class="card-footer bg-body border-0 rounded-bottom-4 text-center pb-3">
-                    <a asp-controller="Schedule" asp-action="Index" class="btn btn-outline-primary btn-sm rounded-pill px-3 fw-semibold">
-                        <i class="fas fa-calendar-alt me-1"></i>@Localizer["View All Schedules"]
-                    </a>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-
-<!-- How It Works -->
+<!-- ══════════════════════════════════════════════
+     HOW IT WORKS
+     ══════════════════════════════════════════════ -->
 <section class="py-5">
     <div class="text-center mb-5">
         <h2 class="fw-bold mb-2">@Localizer["How It Works"]</h2>
@@ -209,12 +249,14 @@
     </div>
 </section>
 
-<!-- Features -->
+<!-- ══════════════════════════════════════════════
+     FEATURES
+     ══════════════════════════════════════════════ -->
 <section class="py-5">
     <div class="row align-items-center g-5">
         <div class="col-md-6">
             <div class="text-center">
-                <img src="~/images/travel_illustration.png" alt="Travel Illustration" class="img-fluid">
+                <img src="~/images/travel_illustration.png" alt="@Localizer["Travel Illustration"]" class="img-fluid" style="max-height:320px;" loading="lazy">
             </div>
         </div>
         <div class="col-md-6">
@@ -261,7 +303,9 @@
     </div>
 </section>
 
-<!-- Quick Access -->
+<!-- ══════════════════════════════════════════════
+     QUICK ACCESS
+     ══════════════════════════════════════════════ -->
 <section class="py-5">
     <div class="text-center mb-5">
         <h2 class="fw-bold mb-2">@Localizer["Quick Access"]</h2>
@@ -307,10 +351,12 @@
     </div>
 </section>
 
-<!-- Partner CTA (for unauthenticated / owners) -->
+<!-- ══════════════════════════════════════════════
+     PARTNER CTA — only for unauthenticated visitors
+     ══════════════════════════════════════════════ -->
 @if (!this.SignInManager.IsSignedIn(this.User))
 {
-    <section class="py-5 my-4">
+    <section class="py-5 my-2">
         <div class="card border-0 bg-primary bg-opacity-10 rounded-4 overflow-hidden">
             <div class="card-body p-5">
                 <div class="row align-items-center g-4">
@@ -331,7 +377,7 @@
                             </a>
                         </div>
                     </div>
-                    <div class="col-lg-5 text-center">
+                    <div class="col-lg-5 text-center d-none d-lg-block">
                         <div class="row g-3">
                             <div class="col-6">
                                 <div class="card border-0 shadow-sm rounded-4 p-3 bg-body">
@@ -365,8 +411,10 @@
     </section>
 }
 
-<!-- Info Cards -->
-<div class="row g-4 mt-2">
+<!-- ══════════════════════════════════════════════
+     INFO CARDS — About + Contact
+     ══════════════════════════════════════════════ -->
+<div class="row g-4 mt-2 mb-4">
     <div class="col-md-6">
         <div class="card border-0 shadow-sm rounded-4 h-100 p-4 hover-elevate">
             <div class="card-body text-center">
@@ -396,20 +444,34 @@
 @section Scripts {
 <script>
     (function () {
-        var select = document.getElementById('nextDeparturesCitySelect');
+        // ── Popular Routes: clicking a pill pre-fills the search form ──
+        document.querySelectorAll('.popular-route-btn').forEach(function (btn) {
+            btn.addEventListener('click', function () {
+                var fromId = this.dataset.from;
+                var toId   = this.dataset.to;
+                var fromSel = document.getElementById('fromCitySelect');
+                var toSel   = document.getElementById('toCitySelect');
+                if (fromSel) fromSel.value = fromId;
+                if (toSel)   toSel.value   = toId;
+                document.getElementById('searchForm').submit();
+            });
+        });
+
+        // ── Next Departures AJAX ──
+        var select    = document.getElementById('nextDeparturesCitySelect');
         var container = document.getElementById('nextDeparturesContainer');
         if (!select || !container) return;
 
         function loadDepartures(cityId) {
             if (!cityId) {
-                container.innerHTML = '<div class="text-center py-5 text-muted"><i class="fas fa-bus fa-2x mb-2 d-block opacity-50"></i><span class="small">Select a city to see upcoming departures</span></div>';
+                container.innerHTML = '<div class="text-center py-5 text-muted"><i class="fas fa-bus fa-2x mb-2 d-block opacity-50"></i><span class="small">@Localizer["Select a city to see upcoming departures"]</span></div>';
                 return;
             }
-            container.innerHTML = '<div class="text-center py-4 text-muted"><i class="fas fa-spinner fa-spin fa-2x mb-2 d-block"></i></div>';
+            container.innerHTML = '<div class="text-center py-4 text-muted"><i class="fas fa-spinner fa-spin fa-2x mb-2 d-block"></i><span class="small">@Localizer["Loading..."]</span></div>';
             fetch('/Home/NextDepartures?fromCityId=' + encodeURIComponent(cityId))
-                .then(function(r) { return r.text(); })
-                .then(function(html) { container.innerHTML = html; })
-                .catch(function() { container.innerHTML = '<div class="text-center py-4 text-muted small">Unable to load departures.</div>'; });
+                .then(function (r) { return r.text(); })
+                .then(function (html) { container.innerHTML = html; })
+                .catch(function () { container.innerHTML = '<div class="text-center py-4 text-muted small">@Localizer["Unable to load departures."]</div>'; });
         }
 
         select.addEventListener('change', function () { loadDepartures(this.value); });

@@ -1,0 +1,23 @@
+User-agent: *
+Allow: /
+Allow: /Schedule/Search
+Allow: /Organization/Index
+Allow: /Route/Index
+Allow: /City/Index
+
+Disallow: /Admin/
+Disallow: /Identity/Account/Manage/
+Disallow: /Ticket/MyTickets
+Disallow: /Dashboard/
+Disallow: /Schedule/Create
+Disallow: /Schedule/Edit/
+Disallow: /Schedule/Delete/
+Disallow: /Route/Create
+Disallow: /Route/Edit/
+Disallow: /Route/Delete/
+Disallow: /Vehicle/
+Disallow: /Driver/
+Disallow: /ContactForm/Index
+Disallow: /ContactForm/Delete/
+
+Sitemap: https://www.gocetransport.com/sitemap.xml

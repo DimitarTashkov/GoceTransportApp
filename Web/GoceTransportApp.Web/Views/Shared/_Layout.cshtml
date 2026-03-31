@@ -13,6 +13,24 @@
     <meta name="apple-mobile-web-app-title" content="GoceTrans" />
     <link rel="apple-touch-icon" href="/images/no-organization-image.png" />
     <title>@this.ViewData["Title"] - @GlobalConstants.SystemName</title>
+    <meta name="description" content="@(this.ViewData["MetaDescription"] ?? "Find bus routes, book tickets and manage transport across Bulgaria. GoceTrans — your trusted platform for intercity travel.")" />
+    <meta name="robots" content="index, follow" />
+    <link rel="canonical" href="https://www.gocetransport.com@(Context.Request.Path)" />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="@GlobalConstants.SystemName" />
+    <meta property="og:title" content="@(this.ViewData["Title"] != null ? this.ViewData["Title"] + " - " + GlobalConstants.SystemName : GlobalConstants.SystemName)" />
+    <meta property="og:description" content="@(this.ViewData["MetaDescription"] ?? "Find bus routes, book tickets and manage transport across Bulgaria.")" />
+    <meta property="og:image" content="https://www.gocetransport.com/images/no-organization-image.png" />
+    <meta property="og:url" content="https://www.gocetransport.com@(Context.Request.Path)" />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="@(this.ViewData["Title"] != null ? this.ViewData["Title"] + " - " + GlobalConstants.SystemName : GlobalConstants.SystemName)" />
+    <meta name="twitter:description" content="@(this.ViewData["MetaDescription"] ?? "Find bus routes, book tickets and manage transport across Bulgaria.")" />
+    <meta name="twitter:image" content="https://www.gocetransport.com/images/no-organization-image.png" />
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">

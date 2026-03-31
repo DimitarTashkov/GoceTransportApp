@@ -415,5 +415,16 @@ namespace GoceTransportApp.Services.Data.Organizations
                 })
                 .ToArrayAsync();
         }
+
+        public async Task<bool> UserHasOrganizationsAsync(string userId)
+        {
+            if (string.IsNullOrEmpty(userId))
+            {
+                return false;
+            }
+
+            return await organizationRepository.AllAsNoTracking()
+                .AnyAsync(o => o.FounderId == userId);
+        }
     }
 }

@@ -47,5 +47,7 @@ namespace GoceTransportApp.Services.Data.Organizations
         Task<bool> IsOrganizationFavoriteAsync(string userId, string orgId);
 
         Task<IEnumerable<OrganizationDataViewModel>> GetFavoriteOrganizationsByUserIdAsync(string userId);
+
+        Task<bool> UserHasOrganizationsAsync(string userId);
     }
 }

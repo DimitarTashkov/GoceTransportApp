@@ -62,9 +62,12 @@
                     </ul>
 
                     <div class="d-flex align-items-center gap-2">
-                        <a asp-area="" asp-controller="Organization" asp-action="Index" class="btn btn-primary btn-sm rounded-pill px-3 fw-semibold d-none d-lg-inline-block">
-                            <i class="fas fa-rocket me-1"></i>@Localizer["Get Started"]
-                        </a>
+                        @if (!this.User.Identity.IsAuthenticated)
+                        {
+                            <a asp-area="" asp-controller="Schedule" asp-action="Index" class="btn btn-primary btn-sm rounded-pill px-3 fw-semibold d-none d-lg-inline-block">
+                                <i class="fas fa-search me-1"></i>@Localizer["Find a Bus"]
+                            </a>
+                        }
 
                         <ul class="navbar-nav">
                             <partial name="_SelectLanguagePartial" />

@@ -2,6 +2,7 @@ namespace GoceTransportApp.Web
 {
     using System;
     using System.Reflection;
+    using System.Threading.RateLimiting;
 
     using GoceTransportApp.Data;
     using GoceTransportApp.Data.Common;
@@ -31,6 +32,7 @@ namespace GoceTransportApp.Web
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Http;
     using Microsoft.AspNetCore.Mvc;
+    using Microsoft.AspNetCore.RateLimiting;
     using Microsoft.EntityFrameworkCore;
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
@@ -86,6 +88,41 @@ namespace GoceTransportApp.Web
             services.AddDatabaseDeveloperPageExceptionFilter();
 
             services.AddMemoryCache();
+
+            services.AddRateLimiter(options =>
+            {
+                // Global: 100 requests/minute per IP
+                options.GlobalLimiter = PartitionedRateLimiter.Create<HttpContext, string>(
+                    context => RateLimitPartition.GetFixedWindowLimiter(
+                        context.Connection.RemoteIpAddress?.ToString() ?? "unknown",
+                        _ => new FixedWindowRateLimiterOptions
+                        {
+                            PermitLimit = 100,
+                            Window = TimeSpan.FromMinutes(1),
+                        }));
+
+                // Strict limit for login: 10 attempts/5 min per IP
+                options.AddPolicy("login", context =>
+                    RateLimitPartition.GetFixedWindowLimiter(
+                        context.Connection.RemoteIpAddress?.ToString() ?? "unknown",
+                        _ => new FixedWindowRateLimiterOptions
+                        {
+                            PermitLimit = 10,
+                            Window = TimeSpan.FromMinutes(5),
+                        }));
+
+                // Strict limit for ticket purchase: 20 attempts/min per IP
+                options.AddPolicy("purchase", context =>
+                    RateLimitPartition.GetFixedWindowLimiter(
+                        context.Connection.RemoteIpAddress?.ToString() ?? "unknown",
+                        _ => new FixedWindowRateLimiterOptions
+                        {
+                            PermitLimit = 20,
+                            Window = TimeSpan.FromMinutes(1),
+                        }));
+
+                options.RejectionStatusCode = StatusCodes.Status429TooManyRequests;
+            });
 
             services.AddSingleton(configuration);
 
@@ -172,6 +209,7 @@ namespace GoceTransportApp.Web
                 .AddSupportedUICultures(supportedCultures);
             app.UseRequestLocalization(localizationOptions);
 
+            app.UseRateLimiter();
             app.UseMiddleware<SecurityHeadersMiddleware>();
             app.UseHttpsRedirection();
             app.UseStaticFiles();

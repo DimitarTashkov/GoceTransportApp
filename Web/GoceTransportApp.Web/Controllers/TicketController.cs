@@ -322,6 +322,7 @@ namespace GoceTransportApp.Web.Controllers
         }
 
         [HttpPost]
+        [Microsoft.AspNetCore.RateLimiting.EnableRateLimiting("purchase")]
         public async Task<IActionResult> Purchase(string? id, string organizationId)
         {
             string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);

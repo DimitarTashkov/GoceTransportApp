@@ -4,6 +4,9 @@ namespace GoceTransportApp.Web
     using System.Reflection;
     using System.Threading.RateLimiting;
 
+    using Microsoft.AspNetCore.Diagnostics.HealthChecks;
+    using Microsoft.AspNetCore.ResponseCompression;
+
     using GoceTransportApp.Data;
     using GoceTransportApp.Data.Common;
     using GoceTransportApp.Data.Common.Repositories;
@@ -97,6 +100,16 @@ namespace GoceTransportApp.Web
             services.AddDatabaseDeveloperPageExceptionFilter();
 
             services.AddMemoryCache();
+
+            services.AddResponseCompression(options =>
+            {
+                options.EnableForHttps = true;
+                options.Providers.Add<BrotliCompressionProvider>();
+                options.Providers.Add<GzipCompressionProvider>();
+            });
+
+            services.AddHealthChecks()
+                .AddCheck("self", () => Microsoft.Extensions.Diagnostics.HealthChecks.HealthCheckResult.Healthy());
 
             services.AddRateLimiter(options =>
             {
@@ -211,6 +224,25 @@ namespace GoceTransportApp.Web
                 app.UseHsts();
             }
 
+            // Security headers — early in pipeline
+            app.UseMiddleware<SecurityHeadersMiddleware>();
+            app.UseHttpsRedirection();
+
+            // Response compression — before static files and routing
+            app.UseResponseCompression();
+
+            // Static files with 7-day cache
+            app.UseStaticFiles(new StaticFileOptions
+            {
+                OnPrepareResponse = ctx =>
+                    ctx.Context.Response.Headers.Append("Cache-Control", "public,max-age=604800"),
+            });
+
+            app.UseCookiePolicy();
+
+            app.UseRouting();
+
+            // Localization — after routing, before auth
             var supportedCultures = new[] { "bg-BG", "en-US" };
             var localizationOptions = new Microsoft.AspNetCore.Builder.RequestLocalizationOptions()
                 .SetDefaultCulture("bg-BG")
@@ -218,13 +250,8 @@ namespace GoceTransportApp.Web
                 .AddSupportedUICultures(supportedCultures);
             app.UseRequestLocalization(localizationOptions);
 
+            // Rate limiting — after routing (required for endpoint-based rate limiting attributes)
             app.UseRateLimiter();
-            app.UseMiddleware<SecurityHeadersMiddleware>();
-            app.UseHttpsRedirection();
-            app.UseStaticFiles();
-            app.UseCookiePolicy();
-
-            app.UseRouting();
 
             app.UseAuthentication();
             app.UseAuthorization();
@@ -233,6 +260,7 @@ namespace GoceTransportApp.Web
             app.MapControllerRoute("Errors", "{controller=Home}/{action=Index}/{statusCode?}");
             app.MapControllerRoute("default", "{controller=Home}/{action=Index}/{id?}");
             app.MapRazorPages();
+            app.MapHealthChecks("/health");
         }
     }
 }

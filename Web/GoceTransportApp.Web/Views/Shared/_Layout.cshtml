@@ -177,6 +177,54 @@
         </div>
     </footer>
 
+    <!-- Mobile Bottom Navigation Bar (visible only on small screens) -->
+    <nav class="d-flex d-lg-none fixed-bottom bg-body border-top shadow-sm" style="z-index:1050;">
+        <a asp-controller="Home" asp-action="Index"
+           class="flex-fill d-flex flex-column align-items-center justify-content-center py-2 text-decoration-none text-muted small fw-semibold"
+           style="min-height:56px;">
+            <i class="fas fa-search fs-5 mb-1"></i>
+            <span>@Localizer["Search"]</span>
+        </a>
+        <a asp-controller="Schedule" asp-action="Index"
+           class="flex-fill d-flex flex-column align-items-center justify-content-center py-2 text-decoration-none text-muted small fw-semibold"
+           style="min-height:56px;">
+            <i class="fas fa-calendar-alt fs-5 mb-1"></i>
+            <span>@Localizer["Schedules"]</span>
+        </a>
+        @if (this.User.Identity.IsAuthenticated)
+        {
+            <a asp-controller="Ticket" asp-action="MyTickets"
+               class="flex-fill d-flex flex-column align-items-center justify-content-center py-2 text-decoration-none text-muted small fw-semibold"
+               style="min-height:56px;">
+                <i class="fas fa-ticket-alt fs-5 mb-1"></i>
+                <span>@Localizer["My Tickets"]</span>
+            </a>
+            <a asp-area="Identity" asp-page="/Account/Manage/Index"
+               class="flex-fill d-flex flex-column align-items-center justify-content-center py-2 text-decoration-none text-muted small fw-semibold"
+               style="min-height:56px;">
+                <i class="fas fa-user-circle fs-5 mb-1"></i>
+                <span>@Localizer["Profile"]</span>
+            </a>
+        }
+        else
+        {
+            <a asp-controller="Organization" asp-action="Index"
+               class="flex-fill d-flex flex-column align-items-center justify-content-center py-2 text-decoration-none text-muted small fw-semibold"
+               style="min-height:56px;">
+                <i class="fas fa-building fs-5 mb-1"></i>
+                <span>@Localizer["Organizations"]</span>
+            </a>
+            <a asp-area="Identity" asp-page="/Account/Login"
+               class="flex-fill d-flex flex-column align-items-center justify-content-center py-2 text-decoration-none text-muted small fw-semibold"
+               style="min-height:56px;">
+                <i class="fas fa-sign-in-alt fs-5 mb-1"></i>
+                <span>@Localizer["Login"]</span>
+            </a>
+        }
+    </nav>
+    <!-- Bottom nav spacer on mobile -->
+    <div class="d-block d-lg-none" style="height:64px;"></div>
+
     <script src="~/lib/jquery/dist/jquery.min.js" asp-append-version="true"></script>
     <script src="~/lib/jquery-validation/dist/jquery.validate.min.js" asp-append-version="true"></script>
     <script src="~/lib/jquery-validation-unobtrusive/dist/jquery.validate.unobtrusive.min.js" asp-append-version="true"></script>

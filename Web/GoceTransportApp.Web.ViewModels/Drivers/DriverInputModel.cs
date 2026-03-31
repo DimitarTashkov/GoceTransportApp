@@ -23,6 +23,7 @@ namespace GoceTransportApp.Web.ViewModels.Drivers
         [MaxLength(MaxNameLength)]
         public string LastName { get; set; } = null!;
 
+        [Range(MinAgeLength, MaxAgeLength, ErrorMessage = "Age must be between 18 and 100")]
         public int? Age { get; set; }
 
 

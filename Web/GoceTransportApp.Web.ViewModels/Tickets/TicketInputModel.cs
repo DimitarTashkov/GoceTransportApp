@@ -25,6 +25,7 @@ namespace GoceTransportApp.Web.ViewModels.Tickets
         public DateTime ExpiryDate { get; set; }
 
         [Required]
+        [Range(0.01, 10000, ErrorMessage = "Price must be between 0.01 and 10,000")]
         public decimal Price { get; set; }
 
         [Required]

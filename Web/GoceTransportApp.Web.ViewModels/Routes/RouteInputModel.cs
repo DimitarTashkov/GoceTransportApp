@@ -29,10 +29,12 @@ namespace GoceTransportApp.Web.ViewModels.Routes
         public string OrganizationId { get; set; }
 
         [Required(ErrorMessage = RouteDistanceRequiredMessage)]
+        [Range(0.1, 10000, ErrorMessage = "Distance must be between 0.1 and 10,000 km")]
         public double Distance { get; set; }
 
         [Required(ErrorMessage = RouteDurationRequiredMessage)]
         [Display(Name = "Duration (minutes)")]
+        [Range(1, 1440, ErrorMessage = "Duration must be between 1 and 1440 minutes (24h)")]
         public double Duration { get; set; }
     }
 }

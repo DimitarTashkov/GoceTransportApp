@@ -308,5 +308,50 @@ namespace GoceTransportApp.Services.Data.Schedules
         {
             return await BuildFilteredQuery(inputModel).CountAsync();
         }
+
+        public async Task<IEnumerable<NextDepartureViewModel>> GetNextDeparturesAsync(Guid fromCityId, int limit = 5)
+        {
+            var now = DateTime.UtcNow;
+            var tomorrow = now.Date.AddDays(2); // include today + tomorrow
+
+            var upcoming = await scheduleRepository
+                .AllAsNoTracking()
+                .Include(s => s.Route)
+                    .ThenInclude(r => r.FromCity)
+                .Include(s => s.Route)
+                    .ThenInclude(r => r.ToCity)
+                .Include(s => s.Organization)
+                .Where(s => s.Route.FromCityId == fromCityId && s.Departure >= now && s.Departure < tomorrow)
+                .OrderBy(s => s.Departure)
+                .Take(limit)
+                .ToListAsync();
+
+            return upcoming.Select(s =>
+            {
+                var minutesUntil = (int)(s.Departure - now).TotalMinutes;
+                string relative;
+                if (minutesUntil < 60)
+                    relative = $"in {minutesUntil} min";
+                else
+                {
+                    int h = minutesUntil / 60;
+                    int m = minutesUntil % 60;
+                    relative = m > 0 ? $"in {h}h {m}m" : $"in {h}h";
+                }
+
+                return new NextDepartureViewModel
+                {
+                    ScheduleId = s.Id.ToString(),
+                    FromCity = s.Route.FromCity.Name,
+                    ToCity = s.Route.ToCity.Name,
+                    OrganizationName = s.Organization.Name,
+                    OrganizationId = s.OrganizationId.ToString(),
+                    Departure = s.Departure,
+                    DepartureTime = s.Departure.ToString("HH:mm"),
+                    MinutesUntil = relative,
+                    IsToday = s.Departure.Date == now.Date,
+                };
+            }).ToList();
+        }
     }
 }

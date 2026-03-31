@@ -31,5 +31,7 @@ namespace GoceTransportApp.Services.Data.Schedules
         Task<int> GetSchedulesCountByFilterAsync(AllSchedulesSearchFilterViewModel inputModel);
 
         Task<IEnumerable<ScheduleDataViewModel>> SearchSchedulesAsync(Guid fromCityId, Guid toCityId, DayOfWeek? dayOfWeek);
+
+        Task<IEnumerable<NextDepartureViewModel>> GetNextDeparturesAsync(Guid fromCityId, int limit = 5);
     }
 }

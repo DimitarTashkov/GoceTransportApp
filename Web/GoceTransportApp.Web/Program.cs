@@ -1,4 +1,4 @@
-﻿namespace GoceTransportApp.Web
+namespace GoceTransportApp.Web
 {
     using System;
     using System.Reflection;
@@ -24,6 +24,7 @@
     using GoceTransportApp.Services.Data.Vehicles;
     using GoceTransportApp.Services.Mapping;
     using GoceTransportApp.Services.Messaging;
+    using GoceTransportApp.Web.Middleware;
     using Microsoft.Extensions.Logging;
     using GoceTransportApp.Web.ViewModels;
     using Microsoft.AspNetCore.Authentication.Cookies;
@@ -160,7 +161,7 @@
             }
             else
             {
-                app.UseExceptionHandler("/Home/Error");
+                app.UseMiddleware<GlobalExceptionMiddleware>();
                 app.UseHsts();
             }
 
@@ -171,6 +172,7 @@
                 .AddSupportedUICultures(supportedCultures);
             app.UseRequestLocalization(localizationOptions);
 
+            app.UseMiddleware<SecurityHeadersMiddleware>();
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseCookiePolicy();

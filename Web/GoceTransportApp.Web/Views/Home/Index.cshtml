@@ -10,37 +10,21 @@
     ViewData["Title"] = "Home";
 }
 
-<!-- Hero Section: Trip Search -->
-<section class="py-5">
-    <div class="row align-items-center g-5">
-        <div class="col-lg-6">
-            <span class="badge bg-primary bg-opacity-10 text-primary rounded-pill px-3 py-2 mb-3 fw-semibold">
-                <i class="fas fa-map-marked-alt me-1"></i>@Localizer["Travel Made Simple"]
-            </span>
-            <h1 class="display-4 fw-bold mb-3 lh-sm">
-                @Localizer["Find Your Next"]
-                <span class="text-primary">@Localizer["Journey"]</span>
-            </h1>
-            <p class="lead text-muted mb-4">
-                @Localizer["Search routes, compare schedules, and book tickets — all in one place. Your adventure starts here."]
-            </p>
-            <div class="d-flex gap-3 flex-wrap">
-                <a asp-controller="Route" asp-action="Index" class="btn btn-primary btn-lg rounded-pill px-4">
-                    <i class="fas fa-route me-2"></i>@Localizer["Explore Routes"]
-                </a>
-                <a asp-controller="Schedule" asp-action="Index" class="btn btn-outline-primary btn-lg rounded-pill px-4">
-                    <i class="fas fa-calendar-alt me-2"></i>@Localizer["View Schedules"]
-                </a>
-            </div>
-        </div>
-        <div class="col-lg-6">
-            <div class="card border-0 shadow rounded-4 p-4 bg-body">
-                <h4 class="fw-bold mb-1"><i class="fas fa-search text-primary me-2"></i>@Localizer["Find Your Trip"]</h4>
+<!-- Hero Section: Search-first layout -->
+<section class="py-4 py-lg-5">
+    <div class="row align-items-center g-4">
+
+        <!-- Search Form — first on mobile (order-1), right on desktop (order-lg-2) -->
+        <div class="col-12 col-lg-5 order-1 order-lg-2">
+            <div class="card border-0 shadow-lg rounded-4 p-4 bg-body">
+                <h2 class="fw-bold mb-1 fs-4">
+                    <i class="fas fa-bus-alt text-primary me-2"></i>@Localizer["Find Your Bus"]
+                </h2>
                 <p class="text-muted small mb-4">@Localizer["Search available schedules by origin, destination and date."]</p>
                 <form asp-controller="Schedule" asp-action="Search" method="get">
                     <div class="mb-3">
-                        <label class="form-label fw-semibold small">@Localizer["From"]</label>
-                        <select name="FromCityId" class="form-select rounded-3">
+                        <label class="form-label fw-semibold">@Localizer["From"]</label>
+                        <select name="FromCityId" class="form-select form-select-lg rounded-3">
                             <option value="">— @Localizer["Select city"] —</option>
                             @foreach (var city in Model.Cities)
                             {
@@ -56,8 +40,8 @@
                         </select>
                     </div>
                     <div class="mb-3">
-                        <label class="form-label fw-semibold small">@Localizer["To"]</label>
-                        <select name="ToCityId" class="form-select rounded-3">
+                        <label class="form-label fw-semibold">@Localizer["To"]</label>
+                        <select name="ToCityId" class="form-select form-select-lg rounded-3">
                             <option value="">— @Localizer["Select city"] —</option>
                             @foreach (var city in Model.Cities)
                             {
@@ -72,22 +56,49 @@
                             }
                         </select>
                     </div>
-                    <div class="mb-3">
-                        <label class="form-label fw-semibold small">@Localizer["Date of Travel"]</label>
-                        <input type="date" name="DepartureDate" class="form-control rounded-3"
+                    <div class="mb-4">
+                        <label class="form-label fw-semibold">@Localizer["Date of Travel"]</label>
+                        <input type="date" name="DepartureDate" class="form-control form-control-lg rounded-3"
                                value="@(Model.DepartureDate.HasValue ? Model.DepartureDate.Value.ToString("yyyy-MM-dd") : "")" />
                     </div>
-                    <button type="submit" class="btn btn-primary w-100 rounded-3 py-2 fw-semibold">
-                        <i class="fas fa-search me-2"></i>@Localizer["Find Trips"]
+                    <button type="submit" class="btn btn-primary btn-lg w-100 rounded-3 fw-bold py-3 fs-5">
+                        <i class="fas fa-search me-2"></i>@Localizer["Search"]
                     </button>
                 </form>
+            </div>
+        </div>
+
+        <!-- Hero Text — second on mobile (order-2), left on desktop (order-lg-1) -->
+        <div class="col-12 col-lg-7 order-2 order-lg-1">
+            <span class="badge bg-primary bg-opacity-10 text-primary rounded-pill px-3 py-2 mb-3 fw-semibold">
+                <i class="fas fa-map-marked-alt me-1"></i>@Localizer["Travel Made Simple"]
+            </span>
+            <h1 class="display-5 fw-bold mb-3 lh-sm">
+                @Localizer["Find Your Next"]
+                <span class="text-primary">@Localizer["Journey"]</span>
+            </h1>
+            <p class="lead text-muted mb-4">
+                @Localizer["Search routes, compare schedules, and book tickets — all in one place. Your adventure starts here."]
+            </p>
+
+            <!-- Quick access pills -->
+            <div class="d-flex flex-wrap gap-2 mb-4">
+                <a asp-controller="Schedule" asp-action="Index" class="btn btn-outline-primary rounded-pill fw-semibold">
+                    <i class="fas fa-calendar-alt me-1"></i>@Localizer["All Schedules"]
+                </a>
+                <a asp-controller="Organization" asp-action="Index" class="btn btn-outline-secondary rounded-pill fw-semibold">
+                    <i class="fas fa-building me-1"></i>@Localizer["Organizations"]
+                </a>
+                <a asp-controller="Route" asp-action="Index" class="btn btn-outline-secondary rounded-pill fw-semibold">
+                    <i class="fas fa-route me-1"></i>@Localizer["Routes"]
+                </a>
             </div>
         </div>
     </div>
 </section>
 
 <!-- Stats Bar -->
-<section class="py-4">
+<section class="py-3">
     <div class="row g-3 text-center">
         <div class="col-6 col-md-3">
             <div class="card border-0 bg-primary bg-opacity-10 rounded-4 p-3">
@@ -257,75 +268,63 @@
     </div>
 </section>
 
-<!-- Partner CTA Section -->
-<section class="py-5 my-4">
-    <div class="card border-0 bg-primary bg-opacity-10 rounded-4 overflow-hidden">
-        <div class="card-body p-5">
-            <div class="row align-items-center g-4">
-                <div class="col-lg-7">
-                    <span class="badge bg-primary rounded-pill px-3 py-2 mb-3">
-                        <i class="fas fa-handshake me-1"></i>@Localizer["For Business"]
-                    </span>
-                    <h2 class="fw-bold mb-3">@Localizer["Own a Transport Company?"]</h2>
-                    <p class="text-muted mb-4 fs-6">
-                        @Localizer["Expand your business by joining our platform. Manage routes, schedules, vehicles, and sell tickets online — all from one dashboard."]
-                    </p>
-                    <div class="d-flex gap-3 flex-wrap">
-                        <a asp-controller="Organization" asp-action="Create" class="btn btn-primary btn-lg rounded-pill px-4">
-                            <i class="fas fa-plus-circle me-2"></i>@Localizer["Register Organization"]
-                        </a>
-                        <a asp-controller="Organization" asp-action="Upgrade" class="btn btn-outline-primary btn-lg rounded-pill px-4">
-                            <i class="fas fa-gem me-2"></i>@Localizer["View Plans"]
-                        </a>
+<!-- Partner CTA (for unauthenticated / owners) -->
+@if (!this.SignInManager.IsSignedIn(this.User))
+{
+    <section class="py-5 my-4">
+        <div class="card border-0 bg-primary bg-opacity-10 rounded-4 overflow-hidden">
+            <div class="card-body p-5">
+                <div class="row align-items-center g-4">
+                    <div class="col-lg-7">
+                        <span class="badge bg-primary rounded-pill px-3 py-2 mb-3">
+                            <i class="fas fa-handshake me-1"></i>@Localizer["For Business"]
+                        </span>
+                        <h2 class="fw-bold mb-3">@Localizer["Own a Transport Company?"]</h2>
+                        <p class="text-muted mb-4 fs-6">
+                            @Localizer["Expand your business by joining our platform. Manage routes, schedules, vehicles, and sell tickets online — all from one dashboard."]
+                        </p>
+                        <div class="d-flex gap-3 flex-wrap">
+                            <a asp-controller="Organization" asp-action="Create" class="btn btn-primary btn-lg rounded-pill px-4">
+                                <i class="fas fa-plus-circle me-2"></i>@Localizer["Register Organization"]
+                            </a>
+                            <a asp-controller="Organization" asp-action="Upgrade" class="btn btn-outline-primary btn-lg rounded-pill px-4">
+                                <i class="fas fa-gem me-2"></i>@Localizer["View Plans"]
+                            </a>
+                        </div>
                     </div>
-                </div>
-                <div class="col-lg-5 text-center">
-                    <div class="row g-3">
-                        <div class="col-6">
-                            <div class="card border-0 shadow-sm rounded-4 p-3 bg-body">
-                                <i class="fas fa-chart-line fa-2x text-primary mb-2"></i>
-                                <div class="fw-bold small">@Localizer["Analytics"]</div>
+                    <div class="col-lg-5 text-center">
+                        <div class="row g-3">
+                            <div class="col-6">
+                                <div class="card border-0 shadow-sm rounded-4 p-3 bg-body">
+                                    <i class="fas fa-chart-line fa-2x text-primary mb-2"></i>
+                                    <div class="fw-bold small">@Localizer["Analytics"]</div>
+                                </div>
                             </div>
-                        </div>
-                        <div class="col-6">
-                            <div class="card border-0 shadow-sm rounded-4 p-3 bg-body">
-                                <i class="fas fa-users fa-2x text-success mb-2"></i>
-                                <div class="fw-bold small">@Localizer["Reach Customers"]</div>
+                            <div class="col-6">
+                                <div class="card border-0 shadow-sm rounded-4 p-3 bg-body">
+                                    <i class="fas fa-users fa-2x text-success mb-2"></i>
+                                    <div class="fw-bold small">@Localizer["Reach Customers"]</div>
+                                </div>
                             </div>
-                        </div>
-                        <div class="col-6">
-                            <div class="card border-0 shadow-sm rounded-4 p-3 bg-body">
-                                <i class="fas fa-headset fa-2x text-warning mb-2"></i>
-                                <div class="fw-bold small">@Localizer["Support"]</div>
+                            <div class="col-6">
+                                <div class="card border-0 shadow-sm rounded-4 p-3 bg-body">
+                                    <i class="fas fa-headset fa-2x text-warning mb-2"></i>
+                                    <div class="fw-bold small">@Localizer["Support"]</div>
+                                </div>
                             </div>
-                        </div>
-                        <div class="col-6">
-                            <div class="card border-0 shadow-sm rounded-4 p-3 bg-body">
-                                <i class="fas fa-shield-alt fa-2x text-info mb-2"></i>
-                                <div class="fw-bold small">@Localizer["Secure"]</div>
+                            <div class="col-6">
+                                <div class="card border-0 shadow-sm rounded-4 p-3 bg-body">
+                                    <i class="fas fa-shield-alt fa-2x text-info mb-2"></i>
+                                    <div class="fw-bold small">@Localizer["Secure"]</div>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-</section>
-
-<!-- CTA -->
-<section class="py-5 bg-body-secondary rounded-4 px-4 my-4">
-    <div class="row align-items-center g-4">
-        <div class="col-md-8">
-            <h2 class="fw-bold mb-2">@Localizer["Ready to Get Started?"]</h2>
-            <p class="text-muted mb-0">@Localizer["Create an account to manage your own organization..."]</p>
-        </div>
-        <div class="col-md-4 text-md-end">
-            <a asp-controller="Organization" asp-action="UserOrganizations" class="btn btn-primary btn-lg rounded-pill px-5">
-                <i class="fas fa-user-plus me-2"></i>@Localizer["Get Started"]
-            </a>
-        </div>
-    </div>
-</section>
+    </section>
+}
 
 <!-- Info Cards -->
 <div class="row g-4 mt-2">

@@ -190,18 +190,6 @@
                 </button>
             </li>
             <li class="nav-item" role="presentation">
-                <button class="nav-link" id="vehicles-tab" data-bs-toggle="tab" data-bs-target="#vehicles" type="button" role="tab">
-                    <i class="fas fa-bus me-1"></i>@Localizer["Vehicles"]
-                    <span class="badge bg-secondary ms-1">@Model.OrganizationVehicles.Count</span>
-                </button>
-            </li>
-            <li class="nav-item" role="presentation">
-                <button class="nav-link" id="drivers-tab" data-bs-toggle="tab" data-bs-target="#drivers" type="button" role="tab">
-                    <i class="fas fa-id-card me-1"></i>@Localizer["Drivers"]
-                    <span class="badge bg-secondary ms-1">@Model.OrganizationDrivers.Count</span>
-                </button>
-            </li>
-            <li class="nav-item" role="presentation">
                 <button class="nav-link" id="schedules-tab" data-bs-toggle="tab" data-bs-target="#schedules" type="button" role="tab">
                     <i class="fas fa-calendar-alt me-1"></i>@Localizer["Schedules"]
                     <span class="badge bg-secondary ms-1">@Model.OrganizationSchedules.Count</span>
@@ -219,6 +207,21 @@
                     <span class="badge bg-secondary ms-1">@Model.Reviews.Count()</span>
                 </button>
             </li>
+            @if (isOwnerOrAdmin)
+            {
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="vehicles-tab" data-bs-toggle="tab" data-bs-target="#vehicles" type="button" role="tab">
+                        <i class="fas fa-bus me-1"></i>@Localizer["Vehicles"]
+                        <span class="badge bg-secondary ms-1">@Model.OrganizationVehicles.Count</span>
+                    </button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="drivers-tab" data-bs-toggle="tab" data-bs-target="#drivers" type="button" role="tab">
+                        <i class="fas fa-id-card me-1"></i>@Localizer["Drivers"]
+                        <span class="badge bg-secondary ms-1">@Model.OrganizationDrivers.Count</span>
+                    </button>
+                </li>
+            }
         </ul>
 
         <div class="tab-content" id="orgTabsContent">

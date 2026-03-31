@@ -266,6 +266,12 @@ namespace GoceTransportApp.Services.Data.Tickets
                 return false;
             }
 
+            // Prevent purchasing tickets for past departures
+            if (ticket.ExpiryDate <= DateTime.UtcNow)
+            {
+                return false;
+            }
+
             UserTicket existing = await userTicketRepository
                 .FirstOrDefaultAsync(ut => ut.CustomerId == userId && ut.TicketId == ticketId);
 

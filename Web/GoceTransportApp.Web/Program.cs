@@ -42,16 +42,43 @@ namespace GoceTransportApp.Web
     using Microsoft.Extensions.Hosting;
     using Polly;
     using Polly.Extensions.Http;
+    using Serilog;
 
     public class Program
     {
         public static void Main(string[] args)
         {
-            var builder = WebApplication.CreateBuilder(args);
-            ConfigureServices(builder.Services, builder.Configuration);
-            var app = builder.Build();
-            Configure(app);
-            app.Run();
+            Log.Logger = new LoggerConfiguration()
+                .MinimumLevel.Information()
+                .MinimumLevel.Override("Microsoft", Serilog.Events.LogEventLevel.Warning)
+                .MinimumLevel.Override("Microsoft.EntityFrameworkCore", Serilog.Events.LogEventLevel.Warning)
+                .Enrich.FromLogContext()
+                .WriteTo.Console()
+                .WriteTo.File(
+                    path: "logs/goce-transport-.log",
+                    rollingInterval: RollingInterval.Day,
+                    retainedFileCountLimit: 30,
+                    outputTemplate: "{Timestamp:yyyy-MM-dd HH:mm:ss} [{Level:u3}] {Message:lj}{NewLine}{Exception}")
+                .CreateLogger();
+
+            try
+            {
+                Log.Information("Starting GoceTransportApp web host");
+                var builder = WebApplication.CreateBuilder(args);
+                builder.Host.UseSerilog();
+                ConfigureServices(builder.Services, builder.Configuration);
+                var app = builder.Build();
+                Configure(app);
+                app.Run();
+            }
+            catch (Exception ex)
+            {
+                Log.Fatal(ex, "Host terminated unexpectedly");
+            }
+            finally
+            {
+                Log.CloseAndFlush();
+            }
         }
 
         private static void ConfigureServices(IServiceCollection services, IConfiguration configuration)
@@ -147,6 +174,24 @@ namespace GoceTransportApp.Web
             });
 
             services.AddSingleton(configuration);
+
+            // CORS — locked to production domain in Production, open in Development
+            services.AddCors(options =>
+            {
+                options.AddPolicy("Production", policy =>
+                {
+                    policy.WithOrigins(
+                            "https://gocetransport.app",
+                            "https://www.gocetransport.app")
+                        .AllowAnyHeader()
+                        .AllowAnyMethod()
+                        .AllowCredentials();
+                });
+                options.AddPolicy("Development", policy =>
+                {
+                    policy.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod();
+                });
+            });
 
             // HTTP client for the Transport API (used in Cloud Run: Web → API over HTTP)
             // Retry: 3 attempts with exponential backoff (2s, 4s, 8s) — handles Cloud Run cold starts
@@ -249,6 +294,9 @@ namespace GoceTransportApp.Web
                 .AddSupportedCultures(supportedCultures)
                 .AddSupportedUICultures(supportedCultures);
             app.UseRequestLocalization(localizationOptions);
+
+            // CORS — between Routing and Authentication
+            app.UseCors(app.Environment.IsDevelopment() ? "Development" : "Production");
 
             // Rate limiting — after routing (required for endpoint-based rate limiting attributes)
             app.UseRateLimiter();

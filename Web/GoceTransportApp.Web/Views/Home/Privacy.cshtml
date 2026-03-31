@@ -3,7 +3,177 @@
 
 @{
     this.ViewData["Title"] = "Privacy Policy";
+    ViewData["MetaDescription"] = "GoceTrans Privacy Policy — how we collect, use and protect your personal data in accordance with GDPR and Bulgarian law.";
 }
-<h1>@this.ViewData["Title"]</h1>
 
-<p>@Localizer["Use this page to detail your site's privacy policy."]</p>
+<div class="row justify-content-center">
+    <div class="col-lg-9">
+        <div class="mb-4">
+            <h1 class="fw-bold">@Localizer["Privacy Policy"]</h1>
+            <p class="text-muted small">@Localizer["Last updated: January 1, 2025"]</p>
+        </div>
+
+        <div class="card border-0 shadow-sm mb-4">
+            <div class="card-body p-4">
+                <h2 class="h5 fw-bold mb-3"><i class="fas fa-info-circle text-primary me-2"></i>@Localizer["1. Who We Are"]</h2>
+                <p>@Localizer["GoceTrans (\"we\", \"us\", \"our\") is a digital transport platform operated from Sofia, Bulgaria. We provide route discovery, schedule browsing, and ticket booking services for intercity bus travel across Bulgaria."]</p>
+                <p>@Localizer["Contact: support@gocetransport.com | +359 2 000 0000 | Sofia, Bulgaria"]</p>
+            </div>
+        </div>
+
+        <div class="card border-0 shadow-sm mb-4">
+            <div class="card-body p-4">
+                <h2 class="h5 fw-bold mb-3"><i class="fas fa-database text-primary me-2"></i>@Localizer["2. Data We Collect"]</h2>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item px-0"><strong>@Localizer["Account data:"]</strong> @Localizer["email address, username, password (hashed)"]</li>
+                    <li class="list-group-item px-0"><strong>@Localizer["Booking data:"]</strong> @Localizer["tickets purchased, travel history, cancellations"]</li>
+                    <li class="list-group-item px-0"><strong>@Localizer["Organization data:"]</strong> @Localizer["company name, routes, schedules (for transport operators)"]</li>
+                    <li class="list-group-item px-0"><strong>@Localizer["Contact data:"]</strong> @Localizer["messages sent via the contact form"]</li>
+                    <li class="list-group-item px-0"><strong>@Localizer["Technical data:"]</strong> @Localizer["IP address, browser type, pages visited (server logs, retained 30 days)"]</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="card border-0 shadow-sm mb-4">
+            <div class="card-body p-4">
+                <h2 class="h5 fw-bold mb-3"><i class="fas fa-balance-scale text-primary me-2"></i>@Localizer["3. Legal Basis for Processing"]</h2>
+                <table class="table table-sm table-bordered">
+                    <thead class="table-light">
+                        <tr>
+                            <th>@Localizer["Purpose"]</th>
+                            <th>@Localizer["Legal Basis (GDPR Art.)"]</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>@Localizer["Account creation and authentication"]</td>
+                            <td>@Localizer["Art. 6(1)(b) — contract performance"]</td>
+                        </tr>
+                        <tr>
+                            <td>@Localizer["Ticket booking and travel management"]</td>
+                            <td>@Localizer["Art. 6(1)(b) — contract performance"]</td>
+                        </tr>
+                        <tr>
+                            <td>@Localizer["Email confirmations and notifications"]</td>
+                            <td>@Localizer["Art. 6(1)(b) — contract performance"]</td>
+                        </tr>
+                        <tr>
+                            <td>@Localizer["Security and fraud prevention"]</td>
+                            <td>@Localizer["Art. 6(1)(f) — legitimate interests"]</td>
+                        </tr>
+                        <tr>
+                            <td>@Localizer["Contact form responses"]</td>
+                            <td>@Localizer["Art. 6(1)(f) — legitimate interests"]</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="card border-0 shadow-sm mb-4">
+            <div class="card-body p-4">
+                <h2 class="h5 fw-bold mb-3"><i class="fas fa-clock text-primary me-2"></i>@Localizer["4. Data Retention"]</h2>
+                <ul>
+                    <li>@Localizer["Account data: retained until account deletion, then 30 days before permanent removal."]</li>
+                    <li>@Localizer["Booking history: retained for 5 years for legal and tax compliance."]</li>
+                    <li>@Localizer["Contact form messages: retained for 12 months."]</li>
+                    <li>@Localizer["Server logs: retained for 30 days."]</li>
+                    <li>@Localizer["Authentication cookies: 30 days (sliding expiration)."]</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="card border-0 shadow-sm mb-4">
+            <div class="card-body p-4">
+                <h2 class="h5 fw-bold mb-3"><i class="fas fa-share-alt text-primary me-2"></i>@Localizer["5. Data Sharing"]</h2>
+                <p>@Localizer["We do not sell your personal data. We may share data with:"]</p>
+                <ul>
+                    <li>@Localizer["Transport operators: route and ticket data visible to the organization that issued the ticket."]</li>
+                    <li>@Localizer["Email provider (SendGrid): used only to deliver transactional emails."]</li>
+                    <li>@Localizer["Hosting infrastructure (Microsoft Azure): data stored within the EU."]</li>
+                    <li>@Localizer["Law enforcement: only when legally required."]</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="card border-0 shadow-sm mb-4">
+            <div class="card-body p-4">
+                <h2 class="h5 fw-bold mb-3"><i class="fas fa-user-shield text-primary me-2"></i>@Localizer["6. Your Rights Under GDPR"]</h2>
+                <p>@Localizer["As a data subject, you have the following rights:"]</p>
+                <div class="row g-3">
+                    <div class="col-md-6">
+                        <div class="d-flex gap-2">
+                            <i class="fas fa-check-circle text-success mt-1"></i>
+                            <div><strong>@Localizer["Right of access"]</strong> — @Localizer["request a copy of your data"]</div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="d-flex gap-2">
+                            <i class="fas fa-check-circle text-success mt-1"></i>
+                            <div><strong>@Localizer["Right to rectification"]</strong> — @Localizer["correct inaccurate data"]</div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="d-flex gap-2">
+                            <i class="fas fa-check-circle text-success mt-1"></i>
+                            <div><strong>@Localizer["Right to erasure"]</strong> — @Localizer["\"right to be forgotten\""]</div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="d-flex gap-2">
+                            <i class="fas fa-check-circle text-success mt-1"></i>
+                            <div><strong>@Localizer["Right to portability"]</strong> — @Localizer["receive your data in a machine-readable format"]</div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="d-flex gap-2">
+                            <i class="fas fa-check-circle text-success mt-1"></i>
+                            <div><strong>@Localizer["Right to object"]</strong> — @Localizer["object to processing based on legitimate interests"]</div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="d-flex gap-2">
+                            <i class="fas fa-check-circle text-success mt-1"></i>
+                            <div><strong>@Localizer["Right to restriction"]</strong> — @Localizer["limit how we use your data"]</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="alert alert-info mt-3 mb-0">
+                    <i class="fas fa-envelope me-2"></i>@Localizer["To exercise any of these rights, email us at:"] <strong>support&#64;gocetransport.com</strong>. @Localizer["We respond within 30 days."]
+                </div>
+            </div>
+        </div>
+
+        <div class="card border-0 shadow-sm mb-4">
+            <div class="card-body p-4">
+                <h2 class="h5 fw-bold mb-3"><i class="fas fa-gavel text-primary me-2"></i>@Localizer["7. Supervisory Authority — КЗЛД"]</h2>
+                <p>@Localizer["If you believe your data rights have been violated, you have the right to lodge a complaint with the Bulgarian Commission for Personal Data Protection (КЗЛД):"]</p>
+                <ul class="list-unstyled">
+                    <li><i class="fas fa-map-marker-alt me-2 text-muted"></i>@Localizer["Address: 2 Prof. Tsvetan Lazarov Blvd, Sofia 1592, Bulgaria"]</li>
+                    <li><i class="fas fa-globe me-2 text-muted"></i>@Localizer["Website: www.cpdp.bg"]</li>
+                    <li><i class="fas fa-phone me-2 text-muted"></i>@Localizer["Phone: +359 2 915 3518"]</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="card border-0 shadow-sm mb-4">
+            <div class="card-body p-4">
+                <h2 class="h5 fw-bold mb-3"><i class="fas fa-cookie-bite text-primary me-2"></i>@Localizer["8. Cookies"]</h2>
+                <p>@Localizer["We use essential cookies only:"]</p>
+                <ul>
+                    <li>@Localizer["Authentication session cookie (HttpOnly, Secure) — expires after 30 days of inactivity."]</li>
+                    <li>@Localizer["Language preference cookie — expires after 1 year."]</li>
+                    <li>@Localizer["Anti-forgery token cookie — session-scoped."]</li>
+                    <li>@Localizer["Cookie consent cookie — records your consent, expires after 1 year."]</li>
+                </ul>
+                <p class="mb-0">@Localizer["We do not use analytics, advertising, or third-party tracking cookies."]</p>
+            </div>
+        </div>
+
+        <p class="text-muted small">
+            @Localizer["This policy may be updated periodically. Changes will be posted on this page with an updated date."]
+            <a asp-controller="Home" asp-action="Terms" class="text-decoration-none">@Localizer["Terms of Service"]</a> |
+            <a asp-controller="ContactForm" asp-action="Create" class="text-decoration-none">@Localizer["Contact Us"]</a>
+        </p>
+    </div>
+</div>

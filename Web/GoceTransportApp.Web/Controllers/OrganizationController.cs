@@ -119,6 +119,17 @@ namespace GoceTransportApp.Web.Controllers
         [RequestSizeLimit(10 * 1024 * 1024)]
         public async Task<IActionResult> Create(OrganizationInputModel model)
         {
+            string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var user = await userManager.FindByIdAsync(userId);
+            int existingCount = await organizationRepository.AllAsNoTracking()
+                .CountAsync(o => o.FounderId == userId);
+
+            if (user != null && existingCount >= (int)user.MembershipTier)
+            {
+                TempData["UpgradeReason"] = $"You have reached the limit of {(int)user.MembershipTier} organization(s) on the {user.MembershipTier} plan.";
+                return RedirectToAction(nameof(Upgrade));
+            }
+
             if (!ModelState.IsValid)
             {
                 return View(model);

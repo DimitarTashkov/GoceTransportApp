@@ -68,6 +68,15 @@ namespace GoceTransportApp.Web
                     options.MinimumSameSitePolicy = SameSiteMode.None;
                 });
 
+            services.ConfigureApplicationCookie(options =>
+            {
+                options.Cookie.HttpOnly = true;
+                options.Cookie.SecurePolicy = CookieSecurePolicy.Always;
+                options.Cookie.SameSite = SameSiteMode.Lax;
+                options.ExpireTimeSpan = TimeSpan.FromDays(30);
+                options.SlidingExpiration = true;
+            });
+
             services.Configure<Microsoft.AspNetCore.Http.Features.FormOptions>(options =>
             {
                 options.MultipartBodyLengthLimit = 10 * 1024 * 1024; // 10 MB

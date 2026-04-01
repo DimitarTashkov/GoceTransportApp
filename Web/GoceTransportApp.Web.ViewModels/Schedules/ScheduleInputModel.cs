@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 
 using GoceTransportApp.Web.Infrastructure.ValidationAttributes;
 using static GoceTransportApp.Common.ResultMessages.ScheduleMessages;
+using static GoceTransportApp.Common.EntityValidationConstants.ScheduleConstants;
 using System.Web.Mvc;
 
 namespace GoceTransportApp.Web.ViewModels.Schedules
@@ -16,6 +17,8 @@ namespace GoceTransportApp.Web.ViewModels.Schedules
     public class ScheduleInputModel
     {
         [Required]
+        [MinLength(MinDayLength)]
+        [MaxLength(MaxDayLength)]
         public string Day { get; set; }
 
         [Required]

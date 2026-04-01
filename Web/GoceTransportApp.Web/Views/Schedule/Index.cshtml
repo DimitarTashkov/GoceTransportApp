@@ -28,18 +28,26 @@
         <h2 class="fw-bold text-dark mb-1">@Localizer["Schedules & Departures"]</h2>
         <p class="lead text-muted mb-0">@Localizer["Up-to-date information on departure and arrival times."]</p>
     </div>
-    @if (userId != null)
-    {
-        <a asp-action="Create" class="btn btn-primary rounded-pill px-4">
-            <i class="fas fa-plus me-1"></i>@Localizer["Add Schedule"]
-        </a>
-    }
+    <div class="d-flex gap-2 align-items-center">
+        @* Mobile filter toggle *@
+        <button class="btn btn-outline-secondary btn-sm rounded-pill d-md-none"
+                type="button" data-bs-toggle="collapse" data-bs-target="#filterPanel" aria-expanded="false">
+            <i class="fas fa-sliders-h me-1"></i>@Localizer["Filters"]
+        </button>
+        @if (userId != null)
+        {
+            <a asp-action="Create" class="btn btn-primary rounded-pill px-4">
+                <i class="fas fa-plus me-1"></i>@Localizer["Add Schedule"]
+            </a>
+        }
+    </div>
 </div>
 
 <div class="row g-4">
 
     @* ════════════  LEFT: FILTER PANEL  ════════════ *@
     <div class="col-md-3">
+        <div class="collapse d-md-block" id="filterPanel">
         <div class="card border-0 shadow-sm rounded-4 p-3">
             <h6 class="fw-semibold text-muted text-uppercase mb-3 small">
                 <i class="fas fa-sliders-h me-2"></i>@Localizer["Filters"]
@@ -164,6 +172,7 @@
                 }
             </form>
         </div>
+        </div>
     </div>
 
     @* ════════════  RIGHT: RESULTS  ════════════ *@
@@ -177,6 +186,16 @@
                     <span>Page @Model.CurrentPage of @Model.TotalPages</span>
                 }
             </small>
+            <div class="d-flex gap-2 align-items-center">
+                @* View toggle *@
+                <div class="btn-group btn-group-sm" role="group" aria-label="View mode">
+                    <button type="button" id="btnGridView" class="btn btn-outline-secondary active" title="@Localizer["Card view"]" onclick="setView('grid')">
+                        <i class="fas fa-th-large"></i>
+                    </button>
+                    <button type="button" id="btnListView" class="btn btn-outline-secondary" title="@Localizer["Timeline view"]" onclick="setView('list')">
+                        <i class="fas fa-list"></i>
+                    </button>
+                </div>
             <form method="get" id="sortForm">
                 @* Preserve all active filters when sorting changes *@
                 @foreach (var kv in filterParams.Where(k => k.Key != "SortBy"))
@@ -208,10 +227,11 @@
                     }
                 </select>
             </form>
+            </div>
         </div>
 
-        @* Results grid *@
-        <div class="row row-cols-1 row-cols-md-2 row-cols-xl-3 g-4">
+        @* Results — Card Grid view *@
+        <div id="gridView" class="row row-cols-1 row-cols-md-2 row-cols-xl-3 g-4">
             @if (Model.Schedules != null && Model.Schedules.Any())
             {
                 @foreach (var item in Model.Schedules)
@@ -227,6 +247,51 @@
                         <h4 class="fw-semibold">@Localizer["No records found"]</h4>
                         <p class="text-muted">@Localizer["Try adjusting your filters."]</p>
                     </div>
+                </div>
+            }
+        </div>
+
+        @* Results — Timeline list view (hidden by default) *@
+        <div id="listView" class="d-none">
+            @if (Model.Schedules != null && Model.Schedules.Any())
+            {
+                <div class="card border-0 shadow-sm rounded-4 overflow-hidden">
+                    <div class="list-group list-group-flush">
+                        @foreach (var item in Model.Schedules)
+                        {
+                            <div class="list-group-item px-4 py-3 d-flex align-items-center gap-3">
+                                <div class="text-center flex-shrink-0" style="min-width:60px;">
+                                    <div class="fs-4 fw-bold text-primary lh-1">@item.Departing</div>
+                                    <div class="text-muted small">→ @item.Arriving</div>
+                                </div>
+                                <div class="vr d-none d-sm-block"></div>
+                                <div class="flex-grow-1">
+                                    <div class="fw-semibold"><i class="fas fa-route text-primary me-1 small"></i>@item.FromCity → @item.ToCity</div>
+                                    <div class="text-muted small"><i class="fas fa-calendar-day me-1"></i>@item.Day
+                                        @if (!string.IsNullOrEmpty(item.OrganizationName))
+                                        {
+                                            <span class="ms-2"><i class="fas fa-building me-1"></i>@item.OrganizationName</span>
+                                        }
+                                    </div>
+                                </div>
+                                <div class="flex-shrink-0">
+                                    <a asp-action="Details" asp-controller="Schedule"
+                                       asp-route-id="@item.Id" asp-route-organizationId="@item.OrganizationId"
+                                       class="btn btn-sm btn-outline-primary rounded-pill">
+                                        @Localizer["Details"]
+                                    </a>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
+            }
+            else
+            {
+                <div class="text-center py-5 bg-white rounded-4 shadow-sm">
+                    <div class="fs-1 text-muted mb-3">📭</div>
+                    <h4 class="fw-semibold">@Localizer["No records found"]</h4>
+                    <p class="text-muted">@Localizer["Try adjusting your filters."]</p>
                 </div>
             }
         </div>
@@ -310,3 +375,30 @@
 
     </div>
 </div>
+
+@section Scripts {
+<script>
+    function setView(mode) {
+        var grid = document.getElementById('gridView');
+        var list = document.getElementById('listView');
+        var btnGrid = document.getElementById('btnGridView');
+        var btnList = document.getElementById('btnListView');
+        if (mode === 'list') {
+            grid.classList.add('d-none');
+            list.classList.remove('d-none');
+            btnGrid.classList.remove('active');
+            btnList.classList.add('active');
+        } else {
+            list.classList.add('d-none');
+            grid.classList.remove('d-none');
+            btnList.classList.remove('active');
+            btnGrid.classList.add('active');
+        }
+        localStorage.setItem('scheduleView', mode);
+    }
+    (function () {
+        var saved = localStorage.getItem('scheduleView');
+        if (saved === 'list') setView('list');
+    })();
+</script>
+}

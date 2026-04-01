@@ -1,5 +1,102 @@
 # Текущ прогрес на проекта
 
+## GOCE_TRANSPORT_PRODUCTION_LAUNCH_PLAN.md — Стъпки 7–16 (2026-03-31) — ЗАВЪРШЕНИ
+
+### Стъпка 14: SEO — ЗАВЪРШЕНА
+* `wwwroot/robots.txt` — Allow public pages, Disallow admin/personal paths, Sitemap pointer
+* `wwwroot/sitemap.xml` — статични, discovery и partner URL-и с changefreq и priority
+* `_Layout.cshtml` — `<meta name="description">`, canonical URL, Open Graph (og:title/description/image/url), Twitter Card тагове
+* `Home/Index.cshtml` + `Schedule/Search.cshtml` — per-page `ViewData["MetaDescription"]` зададен
+* Commit: `4755722`
+
+### Стъпка 15: GDPR — ЗАВЪРШЕНА
+* `Home/Privacy.cshtml` — пълна GDPR политика: данни, правно основание (GDPR чл. 6), периоди на съхранение, споделяне, права на субектите, контакт с КЗЛД, бисквитки
+* `Home/Terms.cshtml` — нова страница с Общи условия: акаунти, билети, анулиране 24ч, организационни лимити, забранено поведение, отговорност, приложимо право
+* `HomeController` — нов `Terms()` екшън
+* `_Layout.cshtml` footer — "Terms of Service" вече сочи към `Home/Terms` (не `Home/AboutUs`)
+* Commit: `c6d19af`
+
+### Стъпка 16: Authorization одит — ЗАВЪРШЕНА
+* `OrganizationController.Create [POST]` — добавена проверка на MembershipTier лимит (преди беше само в GET). Предотвратява заобикаляне чрез директен POST
+* `ScheduleController.Board [POST]` — вече имаше `HasUserCreatedOrganizationAsync` проверка ✓
+* Commit: `935835c`
+
+---
+
+## GOCE_TRANSPORT_PRODUCTION_LAUNCH_PLAN.md — Стъпки 7, 8, 9 (2026-03-31)
+
+### Стъпка 7 + 9: Security Hardening — ЗАВЪРШЕНА
+
+#### 9.3 SecurityHeadersMiddleware
+* Нов файл `Web/Middleware/SecurityHeadersMiddleware.cs`
+* Headers: `X-Content-Type-Options: nosniff`, `X-Frame-Options: DENY`, `X-XSS-Protection`, `Referrer-Policy`, `Permissions-Policy`, `Content-Security-Policy`
+* Регистриран в `Program.cs` преди `UseHttpsRedirection()`
+
+#### 9.2 Rate Limiting
+* `AddRateLimiter` в `Program.cs`: Global 100 req/min, Login 10/5min policy, Purchase 20/min policy
+* `app.UseRateLimiter()` преди `UseMiddleware<SecurityHeadersMiddleware>()`
+* `[EnableRateLimiting("purchase")]` добавен на `TicketController.Purchase [POST]`
+
+#### 7.4 + 9.8 Identity Security
+* `IdentityOptionsProvider`: Password — RequireDigit/Lowercase/Uppercase=true, RequiredLength=8
+* Lockout: MaxFailedAccessAttempts=5, LockoutTimeSpan=15min, AllowedForNewUsers=true
+* `ConfigureApplicationCookie`: HttpOnly=true, SecurePolicy=Always, SameSite=Lax, ExpireTimeSpan=30d, SlidingExpiration=true
+
+### Стъпка 8: UX/UI — Пътникът на първо място — ЗАВЪРШЕНА
+
+#### 8.4 Role-based Navigation
+* `IOrganizationService` — нов метод `UserHasOrganizationsAsync(string userId)` (AnyAsync заявка)
+* `_LoginPartial.cshtml` — показва различни бързи nav линкове по роля:
+  * Owner/Admin: `Dashboard` + `My Organizations` в navbar
+  * Passenger: `My Tickets` + `Favorites` в navbar
+  * Dropdown съдържа подходящи линкове за всяка роля
+* `_Layout.cshtml` — "Get Started" бутонът → "Find a Bus" (само за неаутентикирани), води към Schedule/Index
+
+#### 8.1 Landing Page Redesign + Polish (caaf3ae)
+* `Home/Index.cshtml` — пълно пренаписване: ред на секции: Hero → Next Departures → Stats → How It Works → Features → Quick Access → Partner CTA → Info Cards
+* Search форма с `id="searchForm"`, `id="fromCitySelect"`, `id="toCitySelect"` за JS таргетиране
+* **Popular Routes pills** — динамични бутони от BD (до 4 двойки градове), JS click → pre-fill form + submit
+* **Next Departures widget** — AJAX partial view с 60s auto-refresh, spinner при зареждане, луна иконка за "no results"
+* Partner CTA декоративни мини-карти скрити на мобилни (`d-none d-lg-block`)
+* `loading="lazy"` на illustration image
+* BG преводи: `Index.bg.resx` + `_NextDeparturesPartial.bg.resx` — всички нови низове преведени
+* Commit: `caaf3ae`
+
+#### 8.2 Schedule/Search Redesign
+* `ScheduleDataViewModel` — добавено поле `OrganizationName`
+* `SearchSchedulesAsync` — добавен `.Include(s => s.Organization)`, `OrganizationName = s.Organization.Name`, сортиране по `Departure` ascending
+* `Search.cshtml` — mobile-first списъчни карти:
+  * Час на тръгване: `fs-3 fw-bold text-primary` (най-видим елемент)
+  * Маршрут + ден + фирма (info hierarchy)
+  * "Details" + "Tickets" / "Login to buy" бутони
+  * Компактна search форма отгоре
+  * Брой резултати и дата
+
+#### 8.11 PWA Manifest
+* `wwwroot/manifest.json` — name, short_name, display=standalone, theme_color=#0d6efd
+* `_Layout.cshtml` — добавени `<link rel="manifest">`, `<meta name="theme-color">`, iOS `apple-mobile-web-app-*` meta тагове
+
+### Стъпка 8.6: Organization/Details — скрий Vehicles/Drivers за пътници — ЗАВЪРШЕНА (2026-04-01)
+* `Organization/Details.cshtml` — Vehicles и Drivers tab-pane div-ове обвити с `@if (isOwnerOrAdmin)` — съдържанието вече не се рендира в HTML за пасажери (вече беше скрито само визуално чрез tab buttons)
+
+### Стъпка 8.5: Schedule/Index прост режим — ЗАВЪРШЕНА (2026-04-01)
+* **Collapsible filters на мобилни** — добавен "Filters" toggle бутон (видим само на `d-md-none`), filter panel обвит с Bootstrap `collapse d-md-block` — на desktop е винаги видим, на мобилни е скриван/показван при клик
+* **Timeline/List view** — добавен toggle бутон (grid/list иконки) в sorting bar; при избор на list изгледа се показва `#listView` — компактни редове: час на тръгване (голям/bold), маршрут, ден, превозвач; при grid — стандартните карти
+* View preference се записва в `localStorage` и се възстановява при зареждане
+
+### Стъпка 9.4: Input Validation одит — ЗАВЪРШЕНА (2026-04-01)
+* `EntityValidationConstants.cs` — добавени нови константи: `DriverConstants.MinExperienceLength/MaxExperienceLength`, `ScheduleConstants.MinDayLength/MaxDayLength`
+* `DriverInputModel.cs` — добавени `[MinLength]`/`[MaxLength]` на `DrivingExperience`
+* `ScheduleInputModel.cs` + `EditScheduleInputModel.cs` — добавени `[MinLength]`/`[MaxLength]` на `Day`
+
+### Стъпка 9.5: Authorization одит — ЗАВЪРШЕНА (2026-04-01)
+* Всички 6 контролера (Route, Vehicle, Driver, Ticket, Schedule, Organization) вече имат `HasUserCreatedOrganizationAsync` проверка на GET и POST Edit/Delete — потвърдено при одит
+
+### Следващи стъпки от плана (невзети):
+* **Стъпки 10-22** от плана (Performance, Monitoring, Email, Deployment, Launch Checklist)
+
+
+
 ## Ticket Purchase + Manage локализация — ЗАВЪРШЕНО (2026-03-27)
 
 ### 1. Покупка на билет за пасажери

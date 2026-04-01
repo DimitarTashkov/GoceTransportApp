@@ -28,6 +28,8 @@ namespace GoceTransportApp.Web.ViewModels.Drivers
 
 
         [Required(ErrorMessage = DriverExperienceRequired)]
+        [MinLength(MinExperienceLength)]
+        [MaxLength(MaxExperienceLength)]
         public string DrivingExperience { get; set; } = null!;
 
         [Required]

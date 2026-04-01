@@ -33,6 +33,14 @@
             public const int MaxNameLength = 50;
             public const int MinAgeLength = 1;
             public const int MaxAgeLength = 100;
+            public const int MinExperienceLength = 3;
+            public const int MaxExperienceLength = 200;
+        }
+
+        public static class ScheduleConstants
+        {
+            public const int MinDayLength = 6;
+            public const int MaxDayLength = 9;
         }
 
         public static class VehicleConstants

@@ -280,6 +280,8 @@
             </div>
 
             @* Vehicles tab *@
+            @if (isOwnerOrAdmin)
+            {
             <div class="tab-pane fade" id="vehicles" role="tabpanel">
                 @if (isOwnerOrAdmin)
                 {
@@ -326,7 +328,11 @@
                 }
             </div>
 
+            }
+
             @* Drivers tab *@
+            @if (isOwnerOrAdmin)
+            {
             <div class="tab-pane fade" id="drivers" role="tabpanel">
                 @if (isOwnerOrAdmin)
                 {
@@ -371,6 +377,7 @@
                     </div>
                 }
             </div>
+            }
 
             @* Schedules tab *@
             <div class="tab-pane fade" id="schedules" role="tabpanel">

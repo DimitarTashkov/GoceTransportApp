@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Web.Mvc;
 using static GoceTransportApp.Common.ResultMessages.ScheduleMessages;
+using static GoceTransportApp.Common.EntityValidationConstants.ScheduleConstants;
 
 namespace GoceTransportApp.Web.ViewModels.Schedules
 {
@@ -17,6 +18,8 @@ namespace GoceTransportApp.Web.ViewModels.Schedules
         public string Id { get; set; } = null!;
 
         [Required]
+        [MinLength(MinDayLength)]
+        [MaxLength(MaxDayLength)]
         public string Day { get; set; }
 
         [Required]

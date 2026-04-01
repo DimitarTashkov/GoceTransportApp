@@ -40,18 +40,15 @@
 
             <div class="d-flex flex-wrap gap-2 mb-4">
                 <a asp-controller="Schedule" asp-action="Index"
-                   class="btn rounded-pill fw-semibold px-4"
-                   style="background:rgba(255,255,255,.22);color:white;border:1px solid rgba(255,255,255,.38);">
-                    <i class="fas fa-calendar-alt me-1"></i>@Localizer["All Schedules"]
+                   class="btn btn-light rounded-pill fw-semibold px-4">
+                    <i class="fas fa-calendar-alt me-1 text-primary"></i>@Localizer["All Schedules"]
                 </a>
                 <a asp-controller="Organization" asp-action="Index"
-                   class="btn rounded-pill fw-semibold px-4"
-                   style="background:rgba(255,255,255,.1);color:white;border:1px solid rgba(255,255,255,.22);">
+                   class="btn btn-outline-light rounded-pill fw-semibold px-4">
                     <i class="fas fa-building me-1"></i>@Localizer["Organizations"]
                 </a>
                 <a asp-controller="Route" asp-action="Index"
-                   class="btn rounded-pill fw-semibold px-4"
-                   style="background:rgba(255,255,255,.1);color:white;border:1px solid rgba(255,255,255,.22);">
+                   class="btn btn-outline-light rounded-pill fw-semibold px-4">
                     <i class="fas fa-route me-1"></i>@Localizer["Routes"]
                 </a>
             </div>
@@ -73,8 +70,7 @@
                                     if (i != j)
                                     {
                                         <button type="button"
-                                                class="btn btn-sm rounded-pill fw-semibold popular-route-btn"
-                                                style="background:rgba(255,255,255,.15);color:white;border:1px solid rgba(255,255,255,.28);font-size:.8rem;"
+                                                class="btn btn-outline-light btn-sm rounded-pill fw-semibold popular-route-btn"
                                                 data-from="@cityList[i].Id"
                                                 data-to="@cityList[j].Id">
                                             @cityList[i].Name → @cityList[j].Name
@@ -138,8 +134,8 @@
                         <input type="date" name="DepartureDate" class="form-control rounded-3"
                                value="@(Model.DepartureDate.HasValue ? Model.DepartureDate.Value.ToString("yyyy-MM-dd") : "")" />
                     </div>
-                    <button type="submit" class="btn btn-lg w-100 rounded-3 fw-bold py-3 text-white border-0"
-                            style="background:linear-gradient(135deg,#0d6efd,#6610f2);box-shadow:0 8px 24px rgba(13,110,253,.4);">
+                    <button type="submit" class="btn btn-primary btn-lg w-100 rounded-3 fw-bold py-3"
+                            style="box-shadow:0 8px 24px rgba(13,110,253,.4);">
                         <i class="fas fa-search me-2"></i>@Localizer["Search"]
                     </button>
                 </form>
@@ -278,8 +274,7 @@
 <!-- ══════════════════════════════════════════════
      FEATURES
      ══════════════════════════════════════════════ -->
-<section class="py-5 px-4 px-lg-5 mb-2 rounded-4"
-         style="background:linear-gradient(135deg,#f8faff 0%,#f2f4ff 100%);">
+<section class="py-5 px-4 px-lg-5 mb-2 rounded-4 bg-body-tertiary">
     <div class="row align-items-center g-5">
         <div class="col-md-6">
             <div class="text-center">
@@ -424,13 +419,11 @@
                 </p>
                 <div class="d-flex gap-3 flex-wrap">
                     <a asp-controller="Organization" asp-action="Create"
-                       class="btn btn-lg rounded-pill px-4 fw-semibold border-0"
-                       style="background:white;color:#0d6efd;">
+                       class="btn btn-light btn-lg rounded-pill px-4 fw-semibold text-primary">
                         <i class="fas fa-plus-circle me-2"></i>@Localizer["Register Organization"]
                     </a>
                     <a asp-controller="Organization" asp-action="Upgrade"
-                       class="btn btn-lg rounded-pill px-4 fw-semibold"
-                       style="background:rgba(255,255,255,.15);color:white;border:1px solid rgba(255,255,255,.4);">
+                       class="btn btn-outline-light btn-lg rounded-pill px-4 fw-semibold">
                         <i class="fas fa-gem me-2"></i>@Localizer["View Plans"]
                     </a>
                 </div>
@@ -502,8 +495,7 @@
                 <h5 class="fw-bold mb-2">@Localizer["Contact Us"]</h5>
                 <p class="text-muted small mb-4">@Localizer["Have a question or feedback? Our team is happy to help..."]</p>
                 <a asp-controller="ContactForm" asp-action="Create"
-                   class="btn rounded-pill px-4 fw-semibold text-white border-0"
-                   style="background:linear-gradient(135deg,#0d6efd,#6610f2);">
+                   class="btn btn-primary rounded-pill px-4 fw-semibold">
                     <i class="fas fa-paper-plane me-1"></i>@Localizer["Contact"]
                 </a>
             </div>

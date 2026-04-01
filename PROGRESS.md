@@ -92,6 +92,43 @@
 ### Стъпка 9.5: Authorization одит — ЗАВЪРШЕНА (2026-04-01)
 * Всички 6 контролера (Route, Vehicle, Driver, Ticket, Schedule, Organization) вече имат `HasUserCreatedOrganizationAsync` проверка на GET и POST Edit/Delete — потвърдено при одит
 
+### Premium Visual Redesign — ЗАВЪРШЕНА (2026-04-01)
+
+#### TASK 1: site.css — добавен SECTION 3 — PREMIUM VISUAL DESIGN SYSTEM
+* `.text-gradient` / `.text-gradient-light` — gradient clip text (blue→purple / light blue→lavender)
+* `.icon-gradient`, `.icon-gradient-green`, `.icon-gradient-orange`, `.icon-gradient-teal` — gradient icon backgrounds
+* `.section-hero` — deep blue-to-purple gradient с две декоративни псевдо-елемент сфери
+* `.section-stats` — тъмен gradient band с точков SVG pattern overlay
+* `.card-glass` — glassmorphism (backdrop-filter blur + полупрозрачна граница) за тъмни секции
+* `.section-badge` — pill badge с gradient tint и uppercase tracking
+* `.step-number` / `.steps-row` — numbered gradient circles с desktop connector line
+* `.quick-card` — spring-bounce hover lift + gradient border-top reveal + icon rotate
+* `.feature-icon` — 52px rounded square с spring-bounce icon hover
+* `.section-cta` — тъмен gradient CTA section с декоративна сфера
+* `.route-pill` — glass-style pills за популярни маршрути в hero секцията
+* `.search-card` — бяла карта с дълбока сянка за floating search form
+* `.departures-card` — left-border акцент с translateX hover
+* `.navbar-premium` — gradient border-bottom (blue→purple) вместо shadow-sm
+* `.stat-number` — 2.5rem/900 weight за hero stats
+* `.live-badge` — pulse box-shadow анимация
+* `.float-card` — 4s bob анимация за search card
+* Reduced-motion guard за всички нови анимации
+
+#### TASK 2: Home/Index.cshtml — пълно пренаписване с premium дизайн
+* Hero: `.section-hero` gradient card, floating `.search-card.float-card`, `.live-badge` section-badge, `.text-gradient-light` за "Journey", glassmorphism quick-access pills, `.route-pill` за популярни маршрути
+* Stats: `.section-stats` тъмна лента с `.card-glass` карти и `.stat-number.text-gradient-light`
+* Next Departures: gradient card-header/footer, `col-lg-10` (от col-lg-9)
+* How It Works: `.section-badge` + `.steps-row` с `.step-number` gradient circles + `.step-item`
+* Features: лилав gradient background секция, `.section-badge`, `.feature-icon` с 4 gradient варианта, `.feature-item` hover
+* Quick Access: `.section-badge`, `.quick-card` с `.qa-icon` gradient circles (4 цветови варианта)
+* Partner CTA: `.section-cta` gradient section, `.card-glass` мини-карти в дясната колона
+* Info Cards: gradient accent `border-top`, gradient icon circles, gradient Contact бутон
+
+#### TASK 3: _Layout.cshtml — 3 целеви промени
+* `<body>` — премахнат `bg-body-tertiary` (позволява hero градиентите да "дишат" без tertiary background)
+* `<main>` — `py-5` → `py-4` (по-компактен spacing)
+* `<nav>` — `shadow-sm` → `navbar-premium` (gradient долна граница)
+
 ### Следващи стъпки от плана (невзети):
 * **Стъпки 10-22** от плана (Performance, Monitoring, Email, Deployment, Launch Checklist)
 

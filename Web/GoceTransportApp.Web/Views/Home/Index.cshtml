@@ -12,22 +12,96 @@
 }
 
 <!-- ══════════════════════════════════════════════
-     HERO — Search first, headline second (mobile-first)
+     HERO — gradient section with floating search card
      ══════════════════════════════════════════════ -->
-<section class="py-4 py-lg-5">
-    <div class="row align-items-center g-4">
+<section class="rounded-4 overflow-hidden mb-4 p-4 p-lg-5 position-relative"
+         style="background:linear-gradient(135deg,#0d47a1 0%,#1565c0 35%,#4527a0 70%,#6a1b9a 100%);">
+    <div class="position-absolute rounded-circle" style="width:440px;height:440px;background:rgba(255,255,255,.05);top:-180px;right:-120px;pointer-events:none;"></div>
+    <div class="position-absolute rounded-circle" style="width:280px;height:280px;background:rgba(255,255,255,.04);bottom:-90px;left:-60px;pointer-events:none;"></div>
 
-        <!-- Search Card — first on mobile, right on desktop -->
+    <div class="row align-items-center g-4 g-lg-5 position-relative" style="z-index:1;">
+
+        <!-- Left: headline + CTAs -->
+        <div class="col-12 col-lg-7 order-2 order-lg-1 text-white">
+            <span class="badge rounded-pill px-3 py-2 mb-3 fw-semibold small"
+                  style="background:rgba(255,255,255,.18);color:white;border:1px solid rgba(255,255,255,.3);letter-spacing:.03em;">
+                <i class="fas fa-map-marked-alt me-1"></i>@Localizer["Travel Made Simple"]
+            </span>
+            <h1 class="display-4 fw-bold lh-sm mb-3">
+                @Localizer["Find Your Next"]
+                <span class="d-block"
+                      style="background:linear-gradient(135deg,#93c5fd,#c4b5fd);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">
+                    @Localizer["Journey"]
+                </span>
+            </h1>
+            <p class="lead mb-4" style="color:rgba(255,255,255,.82);">
+                @Localizer["Search routes, compare schedules, and book tickets — all in one place. Your adventure starts here."]
+            </p>
+
+            <div class="d-flex flex-wrap gap-2 mb-4">
+                <a asp-controller="Schedule" asp-action="Index"
+                   class="btn rounded-pill fw-semibold px-4"
+                   style="background:rgba(255,255,255,.22);color:white;border:1px solid rgba(255,255,255,.38);">
+                    <i class="fas fa-calendar-alt me-1"></i>@Localizer["All Schedules"]
+                </a>
+                <a asp-controller="Organization" asp-action="Index"
+                   class="btn rounded-pill fw-semibold px-4"
+                   style="background:rgba(255,255,255,.1);color:white;border:1px solid rgba(255,255,255,.22);">
+                    <i class="fas fa-building me-1"></i>@Localizer["Organizations"]
+                </a>
+                <a asp-controller="Route" asp-action="Index"
+                   class="btn rounded-pill fw-semibold px-4"
+                   style="background:rgba(255,255,255,.1);color:white;border:1px solid rgba(255,255,255,.22);">
+                    <i class="fas fa-route me-1"></i>@Localizer["Routes"]
+                </a>
+            </div>
+
+            @if (Model.Cities.Any())
+            {
+                <div>
+                    <p class="small fw-semibold mb-2" style="color:rgba(255,255,255,.6);">
+                        <i class="fas fa-fire text-warning me-1"></i>@Localizer["Popular Routes"]
+                    </p>
+                    <div id="popularRoutes" class="d-flex flex-wrap gap-2">
+                        @{
+                            var cityList = Model.Cities.ToList();
+                            int pairCount = 0;
+                            for (int i = 0; i < cityList.Count && pairCount < 4; i++)
+                            {
+                                for (int j = 0; j < cityList.Count && pairCount < 4; j++)
+                                {
+                                    if (i != j)
+                                    {
+                                        <button type="button"
+                                                class="btn btn-sm rounded-pill fw-semibold popular-route-btn"
+                                                style="background:rgba(255,255,255,.15);color:white;border:1px solid rgba(255,255,255,.28);font-size:.8rem;"
+                                                data-from="@cityList[i].Id"
+                                                data-to="@cityList[j].Id">
+                                            @cityList[i].Name → @cityList[j].Name
+                                        </button>
+                                        pairCount++;
+                                    }
+                                }
+                            }
+                        }
+                    </div>
+                </div>
+            }
+        </div>
+
+        <!-- Right: search card -->
         <div class="col-12 col-lg-5 order-1 order-lg-2">
-            <div class="card border-0 shadow-lg rounded-4 p-4 bg-body">
-                <h2 class="fw-bold mb-1 fs-4">
-                    <i class="fas fa-bus-alt text-primary me-2"></i>@Localizer["Find Your Bus"]
+            <div class="card border-0 rounded-4 p-4" style="box-shadow:0 24px 64px rgba(0,0,0,.25);">
+                <h2 class="fw-bold mb-1 fs-5">
+                    <span style="background:linear-gradient(135deg,#0d6efd,#6610f2);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">
+                        <i class="fas fa-bus-alt me-2"></i>@Localizer["Find Your Bus"]
+                    </span>
                 </h2>
                 <p class="text-muted small mb-4">@Localizer["Search available schedules by origin, destination and date."]</p>
                 <form id="searchForm" asp-controller="Schedule" asp-action="Search" method="get">
                     <div class="mb-3">
-                        <label class="form-label fw-semibold">@Localizer["From"]</label>
-                        <select id="fromCitySelect" name="FromCityId" class="form-select form-select-lg rounded-3">
+                        <label class="form-label small fw-semibold text-uppercase text-muted" style="letter-spacing:.04em;font-size:.72rem;">@Localizer["From"]</label>
+                        <select id="fromCitySelect" name="FromCityId" class="form-select rounded-3">
                             <option value="">— @Localizer["Select city"] —</option>
                             @foreach (var city in Model.Cities)
                             {
@@ -43,8 +117,8 @@
                         </select>
                     </div>
                     <div class="mb-3">
-                        <label class="form-label fw-semibold">@Localizer["To"]</label>
-                        <select id="toCitySelect" name="ToCityId" class="form-select form-select-lg rounded-3">
+                        <label class="form-label small fw-semibold text-uppercase text-muted" style="letter-spacing:.04em;font-size:.72rem;">@Localizer["To"]</label>
+                        <select id="toCitySelect" name="ToCityId" class="form-select rounded-3">
                             <option value="">— @Localizer["Select city"] —</option>
                             @foreach (var city in Model.Cities)
                             {
@@ -60,86 +134,71 @@
                         </select>
                     </div>
                     <div class="mb-4">
-                        <label class="form-label fw-semibold">@Localizer["Date of Travel"]</label>
-                        <input type="date" name="DepartureDate" class="form-control form-control-lg rounded-3"
+                        <label class="form-label small fw-semibold text-uppercase text-muted" style="letter-spacing:.04em;font-size:.72rem;">@Localizer["Date of Travel"]</label>
+                        <input type="date" name="DepartureDate" class="form-control rounded-3"
                                value="@(Model.DepartureDate.HasValue ? Model.DepartureDate.Value.ToString("yyyy-MM-dd") : "")" />
                     </div>
-                    <button type="submit" class="btn btn-primary btn-lg w-100 rounded-3 fw-bold py-3 fs-5">
+                    <button type="submit" class="btn btn-lg w-100 rounded-3 fw-bold py-3 text-white border-0"
+                            style="background:linear-gradient(135deg,#0d6efd,#6610f2);box-shadow:0 8px 24px rgba(13,110,253,.4);">
                         <i class="fas fa-search me-2"></i>@Localizer["Search"]
                     </button>
                 </form>
             </div>
         </div>
+    </div>
+</section>
 
-        <!-- Hero Text — second on mobile, left on desktop -->
-        <div class="col-12 col-lg-7 order-2 order-lg-1">
-            <span class="badge bg-primary bg-opacity-10 text-primary rounded-pill px-3 py-2 mb-3 fw-semibold">
-                <i class="fas fa-map-marked-alt me-1"></i>@Localizer["Travel Made Simple"]
-            </span>
-            <h1 class="display-5 fw-bold mb-3 lh-sm">
-                @Localizer["Find Your Next"]
-                <span class="text-primary">@Localizer["Journey"]</span>
-            </h1>
-            <p class="lead text-muted mb-4">
-                @Localizer["Search routes, compare schedules, and book tickets — all in one place. Your adventure starts here."]
-            </p>
-
-            <!-- Quick access pills -->
-            <div class="d-flex flex-wrap gap-2 mb-4">
-                <a asp-controller="Schedule" asp-action="Index" class="btn btn-outline-primary rounded-pill fw-semibold">
-                    <i class="fas fa-calendar-alt me-1"></i>@Localizer["All Schedules"]
-                </a>
-                <a asp-controller="Organization" asp-action="Index" class="btn btn-outline-secondary rounded-pill fw-semibold">
-                    <i class="fas fa-building me-1"></i>@Localizer["Organizations"]
-                </a>
-                <a asp-controller="Route" asp-action="Index" class="btn btn-outline-secondary rounded-pill fw-semibold">
-                    <i class="fas fa-route me-1"></i>@Localizer["Routes"]
-                </a>
+<!-- ══════════════════════════════════════════════
+     STATS — dark gradient band
+     ══════════════════════════════════════════════ -->
+<section class="rounded-4 overflow-hidden mb-4 py-4 px-4"
+         style="background:linear-gradient(135deg,#0a0f23 0%,#111827 55%,#1a1040 100%);">
+    <div class="row g-3 text-center">
+        <div class="col-6 col-md-3">
+            <div class="rounded-4 py-4 px-3 h-100"
+                 style="background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.1);">
+                <div class="fw-black lh-1 mb-1"
+                     style="font-size:2.4rem;letter-spacing:-.02em;background:linear-gradient(135deg,#93c5fd,#c4b5fd);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">500+</div>
+                <div class="small fw-semibold" style="color:rgba(255,255,255,.55);">@Localizer["Routes"]</div>
             </div>
-
-            <!-- Popular Routes quick-select (uses JS to pre-fill the form) -->
-            @if (Model.Cities.Any())
-            {
-                <div>
-                    <p class="small text-muted fw-semibold mb-2">
-                        <i class="fas fa-fire text-danger me-1"></i>@Localizer["Popular Routes"]
-                    </p>
-                    <div id="popularRoutes" class="d-flex flex-wrap gap-2">
-                        @{
-                            var cityList = Model.Cities.ToList();
-                            int pairCount = 0;
-                            for (int i = 0; i < cityList.Count && pairCount < 4; i++)
-                            {
-                                for (int j = 0; j < cityList.Count && pairCount < 4; j++)
-                                {
-                                    if (i != j)
-                                    {
-                                        <button type="button"
-                                                class="btn btn-light btn-sm rounded-pill border fw-semibold popular-route-btn"
-                                                data-from="@cityList[i].Id"
-                                                data-to="@cityList[j].Id">
-                                            @cityList[i].Name → @cityList[j].Name
-                                        </button>
-                                        pairCount++;
-                                    }
-                                }
-                            }
-                        }
-                    </div>
-                </div>
-            }
+        </div>
+        <div class="col-6 col-md-3">
+            <div class="rounded-4 py-4 px-3 h-100"
+                 style="background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.1);">
+                <div class="fw-black lh-1 mb-1"
+                     style="font-size:2.4rem;letter-spacing:-.02em;background:linear-gradient(135deg,#93c5fd,#c4b5fd);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">50+</div>
+                <div class="small fw-semibold" style="color:rgba(255,255,255,.55);">@Localizer["Organizations"]</div>
+            </div>
+        </div>
+        <div class="col-6 col-md-3">
+            <div class="rounded-4 py-4 px-3 h-100"
+                 style="background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.1);">
+                <div class="fw-black lh-1 mb-1"
+                     style="font-size:2.4rem;letter-spacing:-.02em;background:linear-gradient(135deg,#93c5fd,#c4b5fd);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">100+</div>
+                <div class="small fw-semibold" style="color:rgba(255,255,255,.55);">@Localizer["Cities"]</div>
+            </div>
+        </div>
+        <div class="col-6 col-md-3">
+            <div class="rounded-4 py-4 px-3 h-100"
+                 style="background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.1);">
+                <div class="fw-black lh-1 mb-1"
+                     style="font-size:2.4rem;letter-spacing:-.02em;background:linear-gradient(135deg,#93c5fd,#c4b5fd);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">10K+</div>
+                <div class="small fw-semibold" style="color:rgba(255,255,255,.55);">@Localizer["Tickets"]</div>
+            </div>
         </div>
     </div>
 </section>
 
 <!-- ══════════════════════════════════════════════
-     NEXT DEPARTURES — killer feature, right after hero
+     NEXT DEPARTURES
      ══════════════════════════════════════════════ -->
-<section class="py-3">
+<section class="py-3 mb-2">
     <div class="row justify-content-center">
-        <div class="col-lg-9">
-            <div class="card border-0 shadow-sm rounded-4">
-                <div class="card-header bg-body border-0 rounded-top-4 pt-4 pb-2 px-4">
+        <div class="col-lg-10">
+            <div class="card border-0 rounded-4 overflow-hidden"
+                 style="box-shadow:0 4px 24px rgba(13,110,253,.12);border-left:4px solid #0d6efd !important;">
+                <div class="card-header border-0 pt-4 pb-2 px-4"
+                     style="background:linear-gradient(90deg,rgba(13,110,253,.06),rgba(102,16,242,.04));">
                     <div class="d-flex align-items-center justify-content-between flex-wrap gap-2">
                         <div>
                             <h2 class="h5 fw-bold mb-0">
@@ -162,7 +221,8 @@
                         <span class="small">@Localizer["Select a city to see upcoming departures"]</span>
                     </div>
                 </div>
-                <div class="card-footer bg-body border-0 rounded-bottom-4 text-center pb-3">
+                <div class="card-footer border-0 text-center pb-3"
+                     style="background:linear-gradient(90deg,rgba(13,110,253,.04),rgba(102,16,242,.02));">
                     <a asp-controller="Schedule" asp-action="Index" class="btn btn-outline-primary btn-sm rounded-pill px-4 fw-semibold">
                         <i class="fas fa-calendar-alt me-1"></i>@Localizer["View All Schedules"]
                     </a>
@@ -173,77 +233,43 @@
 </section>
 
 <!-- ══════════════════════════════════════════════
-     STATS BAR
-     ══════════════════════════════════════════════ -->
-<section class="py-4">
-    <div class="row g-3 text-center">
-        <div class="col-6 col-md-3">
-            <div class="card border-0 bg-primary bg-opacity-10 rounded-4 p-3">
-                <div class="fw-bold fs-3 text-primary">500+</div>
-                <div class="text-muted small fw-semibold">@Localizer["Routes"]</div>
-            </div>
-        </div>
-        <div class="col-6 col-md-3">
-            <div class="card border-0 bg-success bg-opacity-10 rounded-4 p-3">
-                <div class="fw-bold fs-3 text-success">50+</div>
-                <div class="text-muted small fw-semibold">@Localizer["Organizations"]</div>
-            </div>
-        </div>
-        <div class="col-6 col-md-3">
-            <div class="card border-0 bg-warning bg-opacity-10 rounded-4 p-3">
-                <div class="fw-bold fs-3 text-warning">100+</div>
-                <div class="text-muted small fw-semibold">@Localizer["Cities"]</div>
-            </div>
-        </div>
-        <div class="col-6 col-md-3">
-            <div class="card border-0 bg-info bg-opacity-10 rounded-4 p-3">
-                <div class="fw-bold fs-3 text-info">10K+</div>
-                <div class="text-muted small fw-semibold">@Localizer["Tickets"]</div>
-            </div>
-        </div>
-    </div>
-</section>
-
-<!-- ══════════════════════════════════════════════
      HOW IT WORKS
      ══════════════════════════════════════════════ -->
-<section class="py-5">
+<section class="py-5 mb-2">
     <div class="text-center mb-5">
-        <h2 class="fw-bold mb-2">@Localizer["How It Works"]</h2>
+        <span class="badge bg-primary bg-opacity-10 text-primary rounded-pill px-3 py-2 mb-2 fw-semibold"
+              style="border:1px solid rgba(13,110,253,.2);letter-spacing:.04em;font-size:.8rem;">@Localizer["How It Works"]</span>
+        <h2 class="fw-bold mb-2">
+            @Localizer["Three Steps to Your"]
+            <span style="background:linear-gradient(135deg,#0d6efd,#6610f2);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">@Localizer["Journey"]</span>
+        </h2>
         <p class="text-muted lead">@Localizer["Three simple steps to plan your journey."]</p>
     </div>
-    <div class="row g-4">
-        <div class="col-md-4">
-            <div class="card border-0 shadow-sm rounded-4 h-100 text-center p-4 hover-elevate">
-                <div class="card-body">
-                    <div class="rounded-circle bg-primary bg-opacity-10 d-inline-flex align-items-center justify-content-center mb-4" style="width:72px;height:72px">
-                        <i class="fas fa-map-marked-alt fa-2x text-primary"></i>
-                    </div>
-                    <h5 class="fw-bold mb-2">@Localizer["1. Find a Route"]</h5>
-                    <p class="text-muted small mb-0">@Localizer["Browse all available routes, filter by departing and arriving city, and find the connection that fits your journey."]</p>
-                </div>
+    <div class="row g-4 position-relative">
+        <div class="d-none d-md-block position-absolute"
+             style="top:36px;left:calc(16.67% + 48px);right:calc(16.67% + 48px);height:2px;background:linear-gradient(90deg,rgba(13,110,253,.35),rgba(102,16,242,.35));pointer-events:none;z-index:0;"></div>
+        <div class="col-md-4 text-center">
+            <div class="d-inline-flex align-items-center justify-content-center rounded-circle text-white fw-black mb-4"
+                 style="width:72px;height:72px;font-size:1.6rem;background:linear-gradient(135deg,#0d6efd,#6610f2);box-shadow:0 8px 24px rgba(13,110,253,.35);position:relative;z-index:1;">1</div>
+            <div class="card border-0 shadow-sm rounded-4 p-4 hover-elevate">
+                <h5 class="fw-bold mb-2">@Localizer["Find a Route"]</h5>
+                <p class="text-muted small mb-0">@Localizer["Browse all available routes, filter by departing and arriving city, and find the connection that fits your journey."]</p>
             </div>
         </div>
-        <div class="col-md-4">
-            <div class="card border-0 shadow-sm rounded-4 h-100 text-center p-4 hover-elevate">
-                <div class="card-body">
-                    <div class="rounded-circle bg-primary bg-opacity-10 d-inline-flex align-items-center justify-content-center mb-4" style="width:72px;height:72px">
-                        <i class="fas fa-clock fa-2x text-primary"></i>
-                    </div>
-                    <h5 class="fw-bold mb-2">@Localizer["2. Check the Schedule"]</h5>
-                    <p class="text-muted small mb-0">@Localizer["See departure times, days of operation, and available vehicles."]</p>
-                </div>
+        <div class="col-md-4 text-center">
+            <div class="d-inline-flex align-items-center justify-content-center rounded-circle text-white fw-black mb-4"
+                 style="width:72px;height:72px;font-size:1.6rem;background:linear-gradient(135deg,#0d6efd,#6610f2);box-shadow:0 8px 24px rgba(13,110,253,.35);position:relative;z-index:1;">2</div>
+            <div class="card border-0 shadow-sm rounded-4 p-4 hover-elevate">
+                <h5 class="fw-bold mb-2">@Localizer["Check the Schedule"]</h5>
+                <p class="text-muted small mb-0">@Localizer["See departure times, days of operation, and available vehicles."]</p>
             </div>
         </div>
-        <div class="col-md-4">
-            <div class="card border-0 shadow-sm rounded-4 h-100 text-center p-4 hover-elevate">
-                <div class="card-body">
-                    <div class="rounded-circle bg-primary bg-opacity-10 d-inline-flex align-items-center justify-content-center mb-4" style="width:72px;height:72px">
-                        <i class="fas fa-ticket-alt fa-2x text-primary"></i>
-                    </div>
-                    <h5 class="fw-bold mb-2">@Localizer["3. Get Your Ticket"]</h5>
-                    <p class="text-muted small mb-0">@Localizer["Browse available tickets, check validity dates and pricing, and keep track of all your purchased tickets in one place."]</p>
-                </div>
+        <div class="col-md-4 text-center">
+            <div class="d-inline-flex align-items-center justify-content-center rounded-circle text-white fw-black mb-4"
+                 style="width:72px;height:72px;font-size:1.6rem;background:linear-gradient(135deg,#0d6efd,#6610f2);box-shadow:0 8px 24px rgba(13,110,253,.35);position:relative;z-index:1;">3</div>
+            <div class="card border-0 shadow-sm rounded-4 p-4 hover-elevate">
+                <h5 class="fw-bold mb-2">@Localizer["Get Your Ticket"]</h5>
+                <p class="text-muted small mb-0">@Localizer["Browse available tickets, check validity dates and pricing, and keep track of all your purchased tickets in one place."]</p>
             </div>
         </div>
     </div>
@@ -252,19 +278,27 @@
 <!-- ══════════════════════════════════════════════
      FEATURES
      ══════════════════════════════════════════════ -->
-<section class="py-5">
+<section class="py-5 px-4 px-lg-5 mb-2 rounded-4"
+         style="background:linear-gradient(135deg,#f8faff 0%,#f2f4ff 100%);">
     <div class="row align-items-center g-5">
         <div class="col-md-6">
             <div class="text-center">
-                <img src="~/images/travel_illustration.png" alt="@Localizer["Travel Illustration"]" class="img-fluid" style="max-height:320px;" loading="lazy">
+                <img src="~/images/travel_illustration.png" alt="@Localizer["Travel Illustration"]"
+                     class="img-fluid" style="max-height:320px;" loading="lazy">
             </div>
         </div>
         <div class="col-md-6">
-            <h2 class="fw-bold mb-4">@Localizer["Everything You Need in One App"]</h2>
-            <div class="d-flex flex-column gap-3">
+            <span class="badge bg-primary bg-opacity-10 text-primary rounded-pill px-3 py-2 mb-3 fw-semibold"
+                  style="border:1px solid rgba(13,110,253,.2);font-size:.8rem;">@Localizer["Features"]</span>
+            <h2 class="fw-bold mb-4">
+                @Localizer["Everything You Need in"]
+                <span style="background:linear-gradient(135deg,#0d6efd,#6610f2);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">@Localizer["One App"]</span>
+            </h2>
+            <div class="d-flex flex-column gap-4">
                 <div class="d-flex align-items-start gap-3">
-                    <div class="rounded-circle bg-primary bg-opacity-10 d-inline-flex align-items-center justify-content-center flex-shrink-0" style="width:48px;height:48px">
-                        <i class="fas fa-route text-primary"></i>
+                    <div class="d-inline-flex align-items-center justify-content-center rounded-3 flex-shrink-0"
+                         style="width:52px;height:52px;background:linear-gradient(135deg,#0d6efd,#6610f2);">
+                        <i class="fas fa-route text-white"></i>
                     </div>
                     <div>
                         <h6 class="fw-bold mb-1">@Localizer["Routes"]</h6>
@@ -272,8 +306,9 @@
                     </div>
                 </div>
                 <div class="d-flex align-items-start gap-3">
-                    <div class="rounded-circle bg-primary bg-opacity-10 d-inline-flex align-items-center justify-content-center flex-shrink-0" style="width:48px;height:48px">
-                        <i class="fas fa-calendar-alt text-primary"></i>
+                    <div class="d-inline-flex align-items-center justify-content-center rounded-3 flex-shrink-0"
+                         style="width:52px;height:52px;background:linear-gradient(135deg,#06b6d4,#3b82f6);">
+                        <i class="fas fa-calendar-alt text-white"></i>
                     </div>
                     <div>
                         <h6 class="fw-bold mb-1">@Localizer["Schedules"]</h6>
@@ -281,8 +316,9 @@
                     </div>
                 </div>
                 <div class="d-flex align-items-start gap-3">
-                    <div class="rounded-circle bg-primary bg-opacity-10 d-inline-flex align-items-center justify-content-center flex-shrink-0" style="width:48px;height:48px">
-                        <i class="fas fa-building text-primary"></i>
+                    <div class="d-inline-flex align-items-center justify-content-center rounded-3 flex-shrink-0"
+                         style="width:52px;height:52px;background:linear-gradient(135deg,#0f9b58,#14b8a6);">
+                        <i class="fas fa-building text-white"></i>
                     </div>
                     <div>
                         <h6 class="fw-bold mb-1">@Localizer["Organizations"]</h6>
@@ -290,8 +326,9 @@
                     </div>
                 </div>
                 <div class="d-flex align-items-start gap-3">
-                    <div class="rounded-circle bg-primary bg-opacity-10 d-inline-flex align-items-center justify-content-center flex-shrink-0" style="width:48px;height:48px">
-                        <i class="fas fa-bus text-primary"></i>
+                    <div class="d-inline-flex align-items-center justify-content-center rounded-3 flex-shrink-0"
+                         style="width:52px;height:52px;background:linear-gradient(135deg,#f59e0b,#ef4444);">
+                        <i class="fas fa-bus text-white"></i>
                     </div>
                     <div>
                         <h6 class="fw-bold mb-1">@Localizer["Vehicles & Drivers"]</h6>
@@ -306,46 +343,62 @@
 <!-- ══════════════════════════════════════════════
      QUICK ACCESS
      ══════════════════════════════════════════════ -->
-<section class="py-5">
+<section class="py-5 mb-2">
     <div class="text-center mb-5">
-        <h2 class="fw-bold mb-2">@Localizer["Quick Access"]</h2>
-        <p class="text-muted lead">@Localizer["Jump straight to what you need."]</p>
+        <span class="badge bg-primary bg-opacity-10 text-primary rounded-pill px-3 py-2 mb-2 fw-semibold"
+              style="border:1px solid rgba(13,110,253,.2);font-size:.8rem;">@Localizer["Quick Access"]</span>
+        <h2 class="fw-bold mb-2">
+            @Localizer["Jump Straight to"]
+            <span style="background:linear-gradient(135deg,#0d6efd,#6610f2);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">@Localizer["What You Need"]</span>
+        </h2>
     </div>
     <div class="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-4">
         <div class="col">
-            <a asp-controller="Route" asp-action="Index" class="card border-0 shadow-sm rounded-4 h-100 text-center text-decoration-none p-4 hover-elevate">
-                <div class="card-body">
-                    <i class="fas fa-route fa-2x text-primary mb-3"></i>
-                    <h6 class="fw-bold text-body mb-1">@Localizer["Routes"]</h6>
-                    <p class="text-muted small mb-0">@Localizer["All travel routes"]</p>
+            <a asp-controller="Route" asp-action="Index"
+               class="card border-0 shadow-sm rounded-4 h-100 text-center text-decoration-none p-4 hover-elevate"
+               style="border-top:3px solid #0d6efd !important;">
+                <div class="d-inline-flex align-items-center justify-content-center rounded-circle mb-3 mx-auto"
+                     style="width:64px;height:64px;background:linear-gradient(135deg,#0d6efd,#6610f2);">
+                    <i class="fas fa-route fa-lg text-white"></i>
                 </div>
+                <h6 class="fw-bold text-body mb-1">@Localizer["Routes"]</h6>
+                <p class="text-muted small mb-0">@Localizer["All travel routes"]</p>
             </a>
         </div>
         <div class="col">
-            <a asp-controller="Schedule" asp-action="Index" class="card border-0 shadow-sm rounded-4 h-100 text-center text-decoration-none p-4 hover-elevate">
-                <div class="card-body">
-                    <i class="fas fa-calendar-alt fa-2x text-primary mb-3"></i>
-                    <h6 class="fw-bold text-body mb-1">@Localizer["Schedules"]</h6>
-                    <p class="text-muted small mb-0">@Localizer["Departure times"]</p>
+            <a asp-controller="Schedule" asp-action="Index"
+               class="card border-0 shadow-sm rounded-4 h-100 text-center text-decoration-none p-4 hover-elevate"
+               style="border-top:3px solid #06b6d4 !important;">
+                <div class="d-inline-flex align-items-center justify-content-center rounded-circle mb-3 mx-auto"
+                     style="width:64px;height:64px;background:linear-gradient(135deg,#06b6d4,#3b82f6);">
+                    <i class="fas fa-calendar-alt fa-lg text-white"></i>
                 </div>
+                <h6 class="fw-bold text-body mb-1">@Localizer["Schedules"]</h6>
+                <p class="text-muted small mb-0">@Localizer["Departure times"]</p>
             </a>
         </div>
         <div class="col">
-            <a asp-controller="Ticket" asp-action="Index" class="card border-0 shadow-sm rounded-4 h-100 text-center text-decoration-none p-4 hover-elevate">
-                <div class="card-body">
-                    <i class="fas fa-ticket-alt fa-2x text-primary mb-3"></i>
-                    <h6 class="fw-bold text-body mb-1">@Localizer["Tickets"]</h6>
-                    <p class="text-muted small mb-0">@Localizer["Available tickets"]</p>
+            <a asp-controller="Ticket" asp-action="Index"
+               class="card border-0 shadow-sm rounded-4 h-100 text-center text-decoration-none p-4 hover-elevate"
+               style="border-top:3px solid #0f9b58 !important;">
+                <div class="d-inline-flex align-items-center justify-content-center rounded-circle mb-3 mx-auto"
+                     style="width:64px;height:64px;background:linear-gradient(135deg,#0f9b58,#14b8a6);">
+                    <i class="fas fa-ticket-alt fa-lg text-white"></i>
                 </div>
+                <h6 class="fw-bold text-body mb-1">@Localizer["Tickets"]</h6>
+                <p class="text-muted small mb-0">@Localizer["Available tickets"]</p>
             </a>
         </div>
         <div class="col">
-            <a asp-controller="Organization" asp-action="Index" class="card border-0 shadow-sm rounded-4 h-100 text-center text-decoration-none p-4 hover-elevate">
-                <div class="card-body">
-                    <i class="fas fa-building fa-2x text-primary mb-3"></i>
-                    <h6 class="fw-bold text-body mb-1">@Localizer["Organizations"]</h6>
-                    <p class="text-muted small mb-0">@Localizer["Transport operators"]</p>
+            <a asp-controller="Organization" asp-action="Index"
+               class="card border-0 shadow-sm rounded-4 h-100 text-center text-decoration-none p-4 hover-elevate"
+               style="border-top:3px solid #f59e0b !important;">
+                <div class="d-inline-flex align-items-center justify-content-center rounded-circle mb-3 mx-auto"
+                     style="width:64px;height:64px;background:linear-gradient(135deg,#f59e0b,#ef4444);">
+                    <i class="fas fa-building fa-lg text-white"></i>
                 </div>
+                <h6 class="fw-bold text-body mb-1">@Localizer["Organizations"]</h6>
+                <p class="text-muted small mb-0">@Localizer["Transport operators"]</p>
             </a>
         </div>
     </div>
@@ -356,53 +409,60 @@
      ══════════════════════════════════════════════ -->
 @if (!this.SignInManager.IsSignedIn(this.User))
 {
-    <section class="py-5 my-2">
-        <div class="card border-0 bg-primary bg-opacity-10 rounded-4 overflow-hidden">
-            <div class="card-body p-5">
-                <div class="row align-items-center g-4">
-                    <div class="col-lg-7">
-                        <span class="badge bg-primary rounded-pill px-3 py-2 mb-3">
-                            <i class="fas fa-handshake me-1"></i>@Localizer["For Business"]
-                        </span>
-                        <h2 class="fw-bold mb-3">@Localizer["Own a Transport Company?"]</h2>
-                        <p class="text-muted mb-4 fs-6">
-                            @Localizer["Expand your business by joining our platform. Manage routes, schedules, vehicles, and sell tickets online — all from one dashboard."]
-                        </p>
-                        <div class="d-flex gap-3 flex-wrap">
-                            <a asp-controller="Organization" asp-action="Create" class="btn btn-primary btn-lg rounded-pill px-4">
-                                <i class="fas fa-plus-circle me-2"></i>@Localizer["Register Organization"]
-                            </a>
-                            <a asp-controller="Organization" asp-action="Upgrade" class="btn btn-outline-primary btn-lg rounded-pill px-4">
-                                <i class="fas fa-gem me-2"></i>@Localizer["View Plans"]
-                            </a>
+    <section class="rounded-4 overflow-hidden py-5 px-4 px-lg-5 mb-4 position-relative"
+             style="background:linear-gradient(135deg,#0d47a1 0%,#4527a0 100%);">
+        <div class="position-absolute rounded-circle" style="width:380px;height:380px;background:rgba(255,255,255,.05);top:-120px;right:-80px;pointer-events:none;"></div>
+        <div class="row align-items-center g-4 position-relative" style="z-index:1;">
+            <div class="col-lg-7">
+                <span class="badge rounded-pill px-3 py-2 mb-3 fw-semibold"
+                      style="background:rgba(255,255,255,.18);color:white;border:1px solid rgba(255,255,255,.3);">
+                    <i class="fas fa-handshake me-1"></i>@Localizer["For Business"]
+                </span>
+                <h2 class="fw-bold mb-3 text-white">@Localizer["Own a Transport Company?"]</h2>
+                <p class="mb-4" style="color:rgba(255,255,255,.8);">
+                    @Localizer["Expand your business by joining our platform. Manage routes, schedules, vehicles, and sell tickets online — all from one dashboard."]
+                </p>
+                <div class="d-flex gap-3 flex-wrap">
+                    <a asp-controller="Organization" asp-action="Create"
+                       class="btn btn-lg rounded-pill px-4 fw-semibold border-0"
+                       style="background:white;color:#0d6efd;">
+                        <i class="fas fa-plus-circle me-2"></i>@Localizer["Register Organization"]
+                    </a>
+                    <a asp-controller="Organization" asp-action="Upgrade"
+                       class="btn btn-lg rounded-pill px-4 fw-semibold"
+                       style="background:rgba(255,255,255,.15);color:white;border:1px solid rgba(255,255,255,.4);">
+                        <i class="fas fa-gem me-2"></i>@Localizer["View Plans"]
+                    </a>
+                </div>
+            </div>
+            <div class="col-lg-5 text-center d-none d-lg-block">
+                <div class="row g-3">
+                    <div class="col-6">
+                        <div class="rounded-4 p-3 text-center text-white"
+                             style="background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.15);">
+                            <i class="fas fa-chart-line fa-2x mb-2" style="color:#93c5fd;"></i>
+                            <div class="fw-bold small">@Localizer["Analytics"]</div>
                         </div>
                     </div>
-                    <div class="col-lg-5 text-center d-none d-lg-block">
-                        <div class="row g-3">
-                            <div class="col-6">
-                                <div class="card border-0 shadow-sm rounded-4 p-3 bg-body">
-                                    <i class="fas fa-chart-line fa-2x text-primary mb-2"></i>
-                                    <div class="fw-bold small">@Localizer["Analytics"]</div>
-                                </div>
-                            </div>
-                            <div class="col-6">
-                                <div class="card border-0 shadow-sm rounded-4 p-3 bg-body">
-                                    <i class="fas fa-users fa-2x text-success mb-2"></i>
-                                    <div class="fw-bold small">@Localizer["Reach Customers"]</div>
-                                </div>
-                            </div>
-                            <div class="col-6">
-                                <div class="card border-0 shadow-sm rounded-4 p-3 bg-body">
-                                    <i class="fas fa-headset fa-2x text-warning mb-2"></i>
-                                    <div class="fw-bold small">@Localizer["Support"]</div>
-                                </div>
-                            </div>
-                            <div class="col-6">
-                                <div class="card border-0 shadow-sm rounded-4 p-3 bg-body">
-                                    <i class="fas fa-shield-alt fa-2x text-info mb-2"></i>
-                                    <div class="fw-bold small">@Localizer["Secure"]</div>
-                                </div>
-                            </div>
+                    <div class="col-6">
+                        <div class="rounded-4 p-3 text-center text-white"
+                             style="background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.15);">
+                            <i class="fas fa-users fa-2x mb-2" style="color:#86efac;"></i>
+                            <div class="fw-bold small">@Localizer["Reach Customers"]</div>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="rounded-4 p-3 text-center text-white"
+                             style="background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.15);">
+                            <i class="fas fa-headset fa-2x mb-2" style="color:#fcd34d;"></i>
+                            <div class="fw-bold small">@Localizer["Support"]</div>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="rounded-4 p-3 text-center text-white"
+                             style="background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.15);">
+                            <i class="fas fa-shield-alt fa-2x mb-2" style="color:#67e8f9;"></i>
+                            <div class="fw-bold small">@Localizer["Secure"]</div>
                         </div>
                     </div>
                 </div>
@@ -416,24 +476,34 @@
      ══════════════════════════════════════════════ -->
 <div class="row g-4 mt-2 mb-4">
     <div class="col-md-6">
-        <div class="card border-0 shadow-sm rounded-4 h-100 p-4 hover-elevate">
+        <div class="card border-0 rounded-4 h-100 p-4 hover-elevate"
+             style="box-shadow:0 4px 20px rgba(13,110,253,.1);border-top:3px solid #0d6efd !important;">
             <div class="card-body text-center">
-                <i class="fas fa-info-circle fa-2x text-primary mb-3"></i>
+                <div class="d-inline-flex align-items-center justify-content-center rounded-circle mb-3"
+                     style="width:56px;height:56px;background:linear-gradient(135deg,#0d6efd,#6610f2);">
+                    <i class="fas fa-info-circle fa-lg text-white"></i>
+                </div>
                 <h5 class="fw-bold mb-2">@Localizer["About Us"]</h5>
                 <p class="text-muted small mb-4">@Localizer["Learn more about GoceTransportApp and our mission to make travel planning easier for everyone."]</p>
-                <a asp-controller="Home" asp-action="AboutUs" class="btn btn-outline-primary rounded-pill px-4">
+                <a asp-controller="Home" asp-action="AboutUs" class="btn btn-outline-primary rounded-pill px-4 fw-semibold">
                     <i class="fas fa-info me-1"></i>@Localizer["Learn More"]
                 </a>
             </div>
         </div>
     </div>
     <div class="col-md-6">
-        <div class="card border-0 shadow-sm rounded-4 h-100 p-4 hover-elevate">
+        <div class="card border-0 rounded-4 h-100 p-4 hover-elevate"
+             style="box-shadow:0 4px 20px rgba(102,16,242,.1);border-top:3px solid #6610f2 !important;">
             <div class="card-body text-center">
-                <i class="fas fa-envelope fa-2x text-primary mb-3"></i>
+                <div class="d-inline-flex align-items-center justify-content-center rounded-circle mb-3"
+                     style="width:56px;height:56px;background:linear-gradient(135deg,#0d6efd,#6610f2);">
+                    <i class="fas fa-envelope fa-lg text-white"></i>
+                </div>
                 <h5 class="fw-bold mb-2">@Localizer["Contact Us"]</h5>
                 <p class="text-muted small mb-4">@Localizer["Have a question or feedback? Our team is happy to help..."]</p>
-                <a asp-controller="ContactForm" asp-action="Create" class="btn btn-outline-primary rounded-pill px-4">
+                <a asp-controller="ContactForm" asp-action="Create"
+                   class="btn rounded-pill px-4 fw-semibold text-white border-0"
+                   style="background:linear-gradient(135deg,#0d6efd,#6610f2);">
                     <i class="fas fa-paper-plane me-1"></i>@Localizer["Contact"]
                 </a>
             </div>
@@ -444,7 +514,6 @@
 @section Scripts {
 <script>
     (function () {
-        // ── Popular Routes: clicking a pill pre-fills the search form ──
         document.querySelectorAll('.popular-route-btn').forEach(function (btn) {
             btn.addEventListener('click', function () {
                 var fromId = this.dataset.from;
@@ -457,7 +526,6 @@
             });
         });
 
-        // ── Next Departures AJAX ──
         var select    = document.getElementById('nextDeparturesCitySelect');
         var container = document.getElementById('nextDeparturesContainer');
         if (!select || !container) return;
@@ -476,7 +544,6 @@
 
         select.addEventListener('change', function () { loadDepartures(this.value); });
 
-        // Auto-refresh every 60 seconds when a city is selected
         setInterval(function () {
             if (select.value) loadDepartures(select.value);
         }, 60000);

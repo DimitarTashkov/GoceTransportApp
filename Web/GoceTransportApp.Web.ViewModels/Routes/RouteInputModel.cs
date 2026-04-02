@@ -36,5 +36,17 @@ namespace GoceTransportApp.Web.ViewModels.Routes
         [Display(Name = "Duration (minutes)")]
         [Range(1, 1440, ErrorMessage = "Duration must be between 1 and 1440 minutes (24h)")]
         public double Duration { get; set; }
+
+        public string? FromStopName { get; set; }
+
+        public double? FromLatitude { get; set; }
+
+        public double? FromLongitude { get; set; }
+
+        public string? ToStopName { get; set; }
+
+        public double? ToLatitude { get; set; }
+
+        public double? ToLongitude { get; set; }
     }
 }

@@ -26,5 +26,17 @@ namespace GoceTransportApp.Web.ViewModels.Routes
         public double Distance { get; set; }
 
         public double Duration { get; set; }
+
+        public string? FromStopName { get; set; }
+
+        public double? FromLatitude { get; set; }
+
+        public double? FromLongitude { get; set; }
+
+        public string? ToStopName { get; set; }
+
+        public double? ToLatitude { get; set; }
+
+        public double? ToLongitude { get; set; }
     }
 }

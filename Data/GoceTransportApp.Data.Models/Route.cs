@@ -43,6 +43,18 @@
         [Required]
         public double Distance { get; set; }
 
+        public string? FromStopName { get; set; }
+
+        public double? FromLatitude { get; set; }
+
+        public double? FromLongitude { get; set; }
+
+        public string? ToStopName { get; set; }
+
+        public double? ToLatitude { get; set; }
+
+        public double? ToLongitude { get; set; }
+
         [Required]
         public Guid OrganizationId { get; set; }
 

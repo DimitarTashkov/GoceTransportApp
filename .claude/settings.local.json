@@ -4,7 +4,8 @@
       "Bash(dotnet build:*)",
       "Bash(dotnet test:*)",
       "Bash(curl -sk -o /dev/null -w \"%{http_code}\" https://localhost:5001/)",
-      "Bash(dotnet run:*)"
+      "Bash(dotnet run:*)",
+      "Bash(\"C:\\\\Users\\\\mitko\\\\source\\\\repos\\\\Goce Transport:*)"
     ]
   }
 }

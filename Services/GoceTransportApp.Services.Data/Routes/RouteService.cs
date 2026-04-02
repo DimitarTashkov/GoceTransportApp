@@ -63,6 +63,12 @@ namespace GoceTransportApp.Services.Data.Routes
                 FromStreetId = Guid.Parse(inputModel.FromStreetId),
                 ToStreetId = Guid.Parse(inputModel.ToStreetId),
                 OrganizationId = Guid.Parse(inputModel.OrganizationId),
+                FromStopName = inputModel.FromStopName,
+                FromLatitude = inputModel.FromLatitude,
+                FromLongitude = inputModel.FromLongitude,
+                ToStopName = inputModel.ToStopName,
+                ToLatitude = inputModel.ToLatitude,
+                ToLongitude = inputModel.ToLongitude,
                 CreatedOn = DateTime.UtcNow,
             };
 
@@ -109,6 +115,12 @@ namespace GoceTransportApp.Services.Data.Routes
             route.ToStreetId = Guid.Parse(inputModel.ToStreetId);
             route.ModifiedOn = DateTime.UtcNow;
             route.OrganizationId = Guid.Parse(inputModel.OrganizationId);
+            route.FromStopName = inputModel.FromStopName;
+            route.FromLatitude = inputModel.FromLatitude;
+            route.FromLongitude = inputModel.FromLongitude;
+            route.ToStopName = inputModel.ToStopName;
+            route.ToLatitude = inputModel.ToLatitude;
+            route.ToLongitude = inputModel.ToLongitude;
             route.RouteTickets = inputModel.RouteTickets;
             route.RouteSchedules = inputModel.RouteSchedules;
 
@@ -187,6 +199,12 @@ namespace GoceTransportApp.Services.Data.Routes
                    FromStreetId = route.FromStreetId.ToString(),
                    ToStreetId = route.ToStreetId.ToString(),
                    OrganizationId = route.OrganizationId.ToString(),
+                   FromStopName = route.FromStopName,
+                   FromLatitude = route.FromLatitude,
+                   FromLongitude = route.FromLongitude,
+                   ToStopName = route.ToStopName,
+                   ToLatitude = route.ToLatitude,
+                   ToLongitude = route.ToLongitude,
                    RouteSchedules = route.RouteSchedules,
                    RouteTickets = route.RouteTickets,
                })
@@ -237,6 +255,12 @@ namespace GoceTransportApp.Services.Data.Routes
                 Duration = route.Duration,
                 Organization = route.Organization.Name,
                 OrganizationId = route.OrganizationId.ToString(),
+                FromStopName = route.FromStopName,
+                FromLatitude = route.FromLatitude,
+                FromLongitude = route.FromLongitude,
+                ToStopName = route.ToStopName,
+                ToLatitude = route.ToLatitude,
+                ToLongitude = route.ToLongitude,
             };
 
             return viewModel;

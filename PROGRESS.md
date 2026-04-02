@@ -1,5 +1,21 @@
 # Текущ прогрес на проекта
 
+## Google Maps — Спирки с Гео-координати (2026-04-02) — ЗАВЪРШЕНА
+
+### Функционалност
+* **`Route.cs`** — добавени 6 nullable полета: `FromStopName`, `FromLatitude`, `FromLongitude`, `ToStopName`, `ToLatitude`, `ToLongitude`
+* **Миграция `AddRouteCoordinates`** — генерирана и приложена към базата данни
+* **`RouteInputModel` + `EditRouteInputModel` + `RouteDetailsViewModel`** — добавени всички 6 полета
+* **`RouteService`** — `CreateAsync`, `EditRouteAsync`, `GetRouteForEditAsync`, `ReturnDetailsViewModel` — всички картират новите полета
+* **`appsettings.json`** — добавен `GoogleMaps:ApiKey` placeholder секция
+* **`Route/Create.cshtml`** — Google Maps picker с 2 таба (Тръгване/Пристигане); клик на картата → попълва скрити Lat/Lng полета; зелена/червена карфица
+* **`Route/Edit.cshtml`** — същото, плюс restore на съществуващите координати при отваряне
+* **`_RouteDetailsPartial.cshtml`** — за пътници: badge-ове с наименования на спирките + "Навигация тук" бутон (Google Maps `dir/?destination=`), "Виж на картата" отваря Bootstrap Modal с интерактивна карта
+
+### Следващи стъпки
+* Добави реален Google Maps API Key в `appsettings.json` (или Secret Manager)
+* Тествай Create маршрут → кликни на картата → Save → провери Details страницата с "Виж на картата"
+
 ## GOCE_TRANSPORT_PRODUCTION_LAUNCH_PLAN.md — Стъпки 7–16 (2026-03-31) — ЗАВЪРШЕНИ
 
 ### Стъпка 14: SEO — ЗАВЪРШЕНА

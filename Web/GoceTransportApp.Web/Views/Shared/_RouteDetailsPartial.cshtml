@@ -1,4 +1,5 @@
 @model GoceTransportApp.Web.ViewModels.Routes.RouteDetailsViewModel
+@inject Microsoft.Extensions.Configuration.IConfiguration Configuration
 
 @{
     int durationTotalMins = (int)Model.Duration;
@@ -7,6 +8,16 @@
     string durationFormatted = durationHours > 0
         ? $"{durationHours} h. {durationMins} min."
         : $"{durationMins} min.";
+
+    bool hasFromCoords = Model.FromLatitude.HasValue && Model.FromLongitude.HasValue;
+    bool hasToCoords = Model.ToLatitude.HasValue && Model.ToLongitude.HasValue;
+    bool hasAnyCoords = hasFromCoords || hasToCoords;
+
+    var mapsApiKey = Configuration["GoogleMaps:ApiKey"];
+    var fromLatJs = hasFromCoords ? Model.FromLatitude!.Value.ToString(System.Globalization.CultureInfo.InvariantCulture) : "null";
+    var fromLngJs = hasFromCoords ? Model.FromLongitude!.Value.ToString(System.Globalization.CultureInfo.InvariantCulture) : "null";
+    var toLatJs = hasToCoords ? Model.ToLatitude!.Value.ToString(System.Globalization.CultureInfo.InvariantCulture) : "null";
+    var toLngJs = hasToCoords ? Model.ToLongitude!.Value.ToString(System.Globalization.CultureInfo.InvariantCulture) : "null";
 }
 
 <div class="card border-0 shadow-sm rounded-4">
@@ -22,5 +33,191 @@
             <strong>Distance:</strong> @Model.Distance km<br />
             <strong>Duration:</strong> @durationFormatted
         </p>
+
+        @if (hasFromCoords || hasToCoords)
+        {
+            <hr class="my-3" />
+            <div class="d-flex flex-wrap gap-2 align-items-center">
+                @if (hasFromCoords)
+                {
+                    <div class="d-flex align-items-center gap-2">
+                        <span class="badge bg-success-subtle text-success border border-success rounded-pill px-3 py-2">
+                            <i class="fas fa-map-pin me-1"></i>
+                            @(string.IsNullOrWhiteSpace(Model.FromStopName) ? "Спирка — тръгване" : Model.FromStopName)
+                        </span>
+                        <a href="https://www.google.com/maps/dir/?api=1&destination=@Model.FromLatitude.Value.ToString(System.Globalization.CultureInfo.InvariantCulture),@Model.FromLongitude.Value.ToString(System.Globalization.CultureInfo.InvariantCulture)"
+                           target="_blank" rel="noopener"
+                           class="btn btn-success btn-sm rounded-pill">
+                            <i class="fas fa-directions me-1"></i>Навигация тук
+                        </a>
+                    </div>
+                }
+                @if (hasToCoords)
+                {
+                    <div class="d-flex align-items-center gap-2">
+                        <span class="badge bg-danger-subtle text-danger border border-danger rounded-pill px-3 py-2">
+                            <i class="fas fa-map-pin me-1"></i>
+                            @(string.IsNullOrWhiteSpace(Model.ToStopName) ? "Спирка — пристигане" : Model.ToStopName)
+                        </span>
+                        <a href="https://www.google.com/maps/dir/?api=1&destination=@Model.ToLatitude.Value.ToString(System.Globalization.CultureInfo.InvariantCulture),@Model.ToLongitude.Value.ToString(System.Globalization.CultureInfo.InvariantCulture)"
+                           target="_blank" rel="noopener"
+                           class="btn btn-danger btn-sm rounded-pill">
+                            <i class="fas fa-directions me-1"></i>Навигация тук
+                        </a>
+                    </div>
+                }
+                @if (hasAnyCoords)
+                {
+                    <button type="button" class="btn btn-outline-primary btn-sm rounded-pill" data-bs-toggle="modal" data-bs-target="#routeMapModal">
+                        <i class="fas fa-map me-1"></i>Виж на картата
+                    </button>
+                }
+            </div>
+        }
     </div>
 </div>
+
+@if (hasAnyCoords)
+{
+    <!-- Route Map Modal -->
+    <div class="modal fade" id="routeMapModal" tabindex="-1" aria-labelledby="routeMapModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered">
+            <div class="modal-content rounded-4 border-0 shadow">
+                <div class="modal-header border-0 pb-0">
+                    <h5 class="modal-title fw-semibold" id="routeMapModalLabel">
+                        <i class="fas fa-map-marked-alt text-primary me-2"></i>
+                        @Model.DepartingCity → @Model.ArrivingCity
+                    </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body p-3">
+                    @if (hasFromCoords && hasToCoords)
+                    {
+                        <ul class="nav nav-pills mb-3" id="mapModalTabs" role="tablist">
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link active" id="modal-from-tab" data-bs-toggle="pill" data-bs-target="#modal-from-pane" type="button" role="tab">
+                                    <i class="fas fa-map-pin text-success me-1"></i>
+                                    @(string.IsNullOrWhiteSpace(Model.FromStopName) ? "Тръгване" : Model.FromStopName)
+                                </button>
+                            </li>
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link" id="modal-to-tab" data-bs-toggle="pill" data-bs-target="#modal-to-pane" type="button" role="tab">
+                                    <i class="fas fa-map-pin text-danger me-1"></i>
+                                    @(string.IsNullOrWhiteSpace(Model.ToStopName) ? "Пристигане" : Model.ToStopName)
+                                </button>
+                            </li>
+                        </ul>
+                        <div class="tab-content">
+                            <div class="tab-pane fade show active" id="modal-from-pane" role="tabpanel">
+                                <div id="modalFromMap" class="rounded-3" style="height: 380px;"></div>
+                                <div class="mt-2 d-flex justify-content-end">
+                                    <a href="https://www.google.com/maps/dir/?api=1&destination=@Model.FromLatitude!.Value.ToString(System.Globalization.CultureInfo.InvariantCulture),@Model.FromLongitude!.Value.ToString(System.Globalization.CultureInfo.InvariantCulture)"
+                                       target="_blank" rel="noopener" class="btn btn-success rounded-pill">
+                                        <i class="fas fa-directions me-2"></i>Навигация до спирката (тръгване)
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="tab-pane fade" id="modal-to-pane" role="tabpanel">
+                                <div id="modalToMap" class="rounded-3" style="height: 380px;"></div>
+                                <div class="mt-2 d-flex justify-content-end">
+                                    <a href="https://www.google.com/maps/dir/?api=1&destination=@Model.ToLatitude!.Value.ToString(System.Globalization.CultureInfo.InvariantCulture),@Model.ToLongitude!.Value.ToString(System.Globalization.CultureInfo.InvariantCulture)"
+                                       target="_blank" rel="noopener" class="btn btn-danger rounded-pill">
+                                        <i class="fas fa-directions me-2"></i>Навигация до спирката (пристигане)
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                    else if (hasFromCoords)
+                    {
+                        <div id="modalFromMap" class="rounded-3" style="height: 380px;"></div>
+                        <div class="mt-2 d-flex justify-content-end">
+                            <a href="https://www.google.com/maps/dir/?api=1&destination=@Model.FromLatitude!.Value.ToString(System.Globalization.CultureInfo.InvariantCulture),@Model.FromLongitude!.Value.ToString(System.Globalization.CultureInfo.InvariantCulture)"
+                               target="_blank" rel="noopener" class="btn btn-success rounded-pill">
+                                <i class="fas fa-directions me-2"></i>Навигация до спирката
+                            </a>
+                        </div>
+                    }
+                    else
+                    {
+                        <div id="modalToMap" class="rounded-3" style="height: 380px;"></div>
+                        <div class="mt-2 d-flex justify-content-end">
+                            <a href="https://www.google.com/maps/dir/?api=1&destination=@Model.ToLatitude!.Value.ToString(System.Globalization.CultureInfo.InvariantCulture),@Model.ToLongitude!.Value.ToString(System.Globalization.CultureInfo.InvariantCulture)"
+                               target="_blank" rel="noopener" class="btn btn-danger rounded-pill">
+                                <i class="fas fa-directions me-2"></i>Навигация до спирката
+                            </a>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        (function () {
+            var fromLat = @fromLatJs;
+            var fromLng = @fromLngJs;
+            var toLat = @toLatJs;
+            var toLng = @toLngJs;
+            var mapsInitialized = false;
+
+            function initRouteDetailMaps() {
+                if (mapsInitialized) return;
+                mapsInitialized = true;
+
+                if (fromLat && fromLng && document.getElementById('modalFromMap')) {
+                    var fromPos = { lat: fromLat, lng: fromLng };
+                    var fromMap = new google.maps.Map(document.getElementById('modalFromMap'), {
+                        center: fromPos, zoom: 16,
+                        mapTypeControl: false, streetViewControl: false
+                    });
+                    new google.maps.Marker({
+                        position: fromPos, map: fromMap,
+                        icon: 'http://maps.google.com/mapfiles/ms/icons/green-dot.png',
+                        title: '@Html.Raw(Model.FromStopName ?? "Спирка — тръгване")'
+                    });
+                }
+
+                if (toLat && toLng && document.getElementById('modalToMap')) {
+                    var toPos = { lat: toLat, lng: toLng };
+                    var toMap = new google.maps.Map(document.getElementById('modalToMap'), {
+                        center: toPos, zoom: 16,
+                        mapTypeControl: false, streetViewControl: false
+                    });
+                    new google.maps.Marker({
+                        position: toPos, map: toMap,
+                        icon: 'http://maps.google.com/mapfiles/ms/icons/red-dot.png',
+                        title: '@Html.Raw(Model.ToStopName ?? "Спирка — пристигане")'
+                    });
+                }
+            }
+
+            // Init maps when modal opens (lazy)
+            var modalEl = document.getElementById('routeMapModal');
+            if (modalEl) {
+                modalEl.addEventListener('shown.bs.modal', function () {
+                    if (typeof google !== 'undefined' && google.maps) {
+                        initRouteDetailMaps();
+                    }
+                });
+            }
+
+            // Resize maps on tab switch inside modal
+            document.querySelectorAll('#mapModalTabs [data-bs-toggle="pill"]').forEach(function (tab) {
+                tab.addEventListener('shown.bs.tab', function () {
+                    if (typeof google !== 'undefined' && google.maps) {
+                        setTimeout(function () {
+                            ['modalFromMap', 'modalToMap'].forEach(function (id) {
+                                var el = document.getElementById(id);
+                                if (el && el.__gmap) google.maps.event.trigger(el.__gmap, 'resize');
+                            });
+                        }, 50);
+                    }
+                });
+            });
+        })();
+    </script>
+    <script async defer
+        src="https://maps.googleapis.com/maps/api/js?key=@mapsApiKey">
+    </script>
+}

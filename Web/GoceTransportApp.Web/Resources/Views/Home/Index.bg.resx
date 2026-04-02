@@ -74,7 +74,15 @@
   <data name="Contact" xml:space="preserve"><value>Контакт</value></data>
   <data name="Search" xml:space="preserve"><value>Търсене</value></data>
   <data name="Travel Made Simple" xml:space="preserve"><value>Пътуването е Лесно</value></data>
-  <data name="Find Your Next" xml:space="preserve"><value>Намерете Вашето Следващо</value></data>
+  <data name="Find Your Next" xml:space="preserve"><value>Намерете Следващото Си</value></data>
+  <data name="Three Steps to Your" xml:space="preserve"><value>Три Стъпки към Вашето</value></data>
+  <data name="Find a Route" xml:space="preserve"><value>Намерете Маршрут</value></data>
+  <data name="Check the Schedule" xml:space="preserve"><value>Проверете Разписанието</value></data>
+  <data name="Get Your Ticket" xml:space="preserve"><value>Вземете Билета Си</value></data>
+  <data name="Everything You Need in" xml:space="preserve"><value>Всичко Необходимо в</value></data>
+  <data name="One App" xml:space="preserve"><value>Едно Приложение</value></data>
+  <data name="Jump Straight to" xml:space="preserve"><value>Отидете Директно към</value></data>
+  <data name="What You Need" xml:space="preserve"><value>Нужното Ви</value></data>
   <data name="Journey" xml:space="preserve"><value>Пътуване</value></data>
   <data name="Search routes, compare schedules, and book tickets — all in one place. Your adventure starts here." xml:space="preserve"><value>Търсете маршрути, сравнявайте разписания и купувайте билети — всичко на едно място. Вашето приключение започва тук.</value></data>
   <data name="Find Trips" xml:space="preserve"><value>Намери Пътувания</value></data>

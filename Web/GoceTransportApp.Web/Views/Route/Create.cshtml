@@ -1,16 +1,18 @@
 @using GoceTransportApp.Services.Data.Cities
 @model GoceTransportApp.Web.ViewModels.Routes.RouteInputModel
 @inject ICityService cityService
+@inject Microsoft.Extensions.Configuration.IConfiguration Configuration
 @using Microsoft.AspNetCore.Mvc.Localization
 @inject IViewLocalizer Localizer
 
 @{
     ViewData["Title"] = "Create Route";
     var cities = await cityService.GetAllCitiesForDropDownsAsync();
+    var mapsApiKey = Configuration["GoogleMaps:ApiKey"];
 }
 
 <div class="row justify-content-center">
-    <div class="col-lg-7">
+    <div class="col-lg-8">
         <div class="text-center mb-4">
             <i class="fas fa-route fa-3x text-primary mb-3"></i>
             <h1 class="h3 fw-bold">@Localizer["Create New Route"]</h1>
@@ -64,6 +66,82 @@
                         <span asp-validation-for="Duration" class="text-danger small"></span>
                     </div>
 
+                    <!-- Stop Location Section -->
+                    <hr class="my-4" />
+                    <h5 class="fw-semibold mb-3">
+                        <i class="fas fa-map-marker-alt text-danger me-2"></i>Местоположения на спирките
+                        <span class="badge bg-secondary fw-normal fs-6 ms-2">по избор</span>
+                    </h5>
+                    <p class="text-muted small mb-3">Кликнете върху картата, за да поставите маркерите на спирките. Тази информация позволява на пътниците да навигират до спирката.</p>
+
+                    <!-- Nav tabs -->
+                    <ul class="nav nav-pills mb-3" id="stopTabs" role="tablist">
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link active" id="from-tab" data-bs-toggle="pill" data-bs-target="#from-stop" type="button" role="tab">
+                                <i class="fas fa-map-pin me-1 text-success"></i>Тръгване
+                            </button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link" id="to-tab" data-bs-toggle="pill" data-bs-target="#to-stop" type="button" role="tab">
+                                <i class="fas fa-map-pin me-1 text-danger"></i>Пристигане
+                            </button>
+                        </li>
+                    </ul>
+
+                    <div class="tab-content">
+                        <!-- FROM STOP -->
+                        <div class="tab-pane fade show active" id="from-stop" role="tabpanel">
+                            <div class="mb-3">
+                                <label asp-for="FromStopName" class="form-label text-muted">Наименование на спирката (тръгване)</label>
+                                <input asp-for="FromStopName" class="form-control rounded-3" placeholder="напр. Автогара Юг — сектор 5" />
+                            </div>
+                            <div id="fromMap" class="rounded-3 border mb-2" style="height: 280px;"></div>
+                            <div class="d-flex gap-2 mb-2">
+                                <div class="flex-fill">
+                                    <label class="form-label text-muted small">Latitude</label>
+                                    <input asp-for="FromLatitude" id="fromLat" class="form-control form-control-sm rounded-3" placeholder="—" readonly />
+                                </div>
+                                <div class="flex-fill">
+                                    <label class="form-label text-muted small">Longitude</label>
+                                    <input asp-for="FromLongitude" id="fromLng" class="form-control form-control-sm rounded-3" placeholder="—" readonly />
+                                </div>
+                                <div class="d-flex align-items-end">
+                                    <button type="button" class="btn btn-outline-secondary btn-sm rounded-3" onclick="clearFromMarker()">
+                                        <i class="fas fa-times"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <p class="text-muted small"><i class="fas fa-info-circle me-1"></i>Кликнете на картата, за да поставите маркера.</p>
+                        </div>
+
+                        <!-- TO STOP -->
+                        <div class="tab-pane fade" id="to-stop" role="tabpanel">
+                            <div class="mb-3">
+                                <label asp-for="ToStopName" class="form-label text-muted">Наименование на спирката (пристигане)</label>
+                                <input asp-for="ToStopName" class="form-control rounded-3" placeholder="напр. Централна Автогара — перон 3" />
+                            </div>
+                            <div id="toMap" class="rounded-3 border mb-2" style="height: 280px;"></div>
+                            <div class="d-flex gap-2 mb-2">
+                                <div class="flex-fill">
+                                    <label class="form-label text-muted small">Latitude</label>
+                                    <input asp-for="ToLatitude" id="toLat" class="form-control form-control-sm rounded-3" placeholder="—" readonly />
+                                </div>
+                                <div class="flex-fill">
+                                    <label class="form-label text-muted small">Longitude</label>
+                                    <input asp-for="ToLongitude" id="toLng" class="form-control form-control-sm rounded-3" placeholder="—" readonly />
+                                </div>
+                                <div class="d-flex align-items-end">
+                                    <button type="button" class="btn btn-outline-secondary btn-sm rounded-3" onclick="clearToMarker()">
+                                        <i class="fas fa-times"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <p class="text-muted small"><i class="fas fa-info-circle me-1"></i>Кликнете на картата, за да поставите маркера.</p>
+                        </div>
+                    </div>
+
+                    <hr class="my-4" />
+
                     <button type="submit" class="btn btn-primary btn-lg w-100 rounded-pill">
                         <i class="fas fa-check me-2"></i>@Localizer["Create Route"]
                     </button>
@@ -76,4 +154,80 @@
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
     <script src="~/js/loadStreetsInCity.js"></script>
+    <script>
+        var fromMap, fromMarker, toMap, toMarker;
+
+        function initMaps() {
+            var bulgariaCenter = { lat: 42.7339, lng: 25.4858 };
+
+            fromMap = new google.maps.Map(document.getElementById('fromMap'), {
+                center: bulgariaCenter,
+                zoom: 7,
+                mapTypeControl: false,
+                streetViewControl: false
+            });
+
+            toMap = new google.maps.Map(document.getElementById('toMap'), {
+                center: bulgariaCenter,
+                zoom: 7,
+                mapTypeControl: false,
+                streetViewControl: false
+            });
+
+            fromMap.addListener('click', function (e) {
+                placeFromMarker(e.latLng);
+            });
+
+            toMap.addListener('click', function (e) {
+                placeToMarker(e.latLng);
+            });
+        }
+
+        function placeFromMarker(latLng) {
+            if (fromMarker) fromMarker.setMap(null);
+            fromMarker = new google.maps.Marker({
+                position: latLng,
+                map: fromMap,
+                icon: 'http://maps.google.com/mapfiles/ms/icons/green-dot.png',
+                title: 'Спирка — тръгване'
+            });
+            document.getElementById('fromLat').value = latLng.lat().toFixed(7);
+            document.getElementById('fromLng').value = latLng.lng().toFixed(7);
+        }
+
+        function placeToMarker(latLng) {
+            if (toMarker) toMarker.setMap(null);
+            toMarker = new google.maps.Marker({
+                position: latLng,
+                map: toMap,
+                icon: 'http://maps.google.com/mapfiles/ms/icons/red-dot.png',
+                title: 'Спирка — пристигане'
+            });
+            document.getElementById('toLat').value = latLng.lat().toFixed(7);
+            document.getElementById('toLng').value = latLng.lng().toFixed(7);
+        }
+
+        function clearFromMarker() {
+            if (fromMarker) { fromMarker.setMap(null); fromMarker = null; }
+            document.getElementById('fromLat').value = '';
+            document.getElementById('fromLng').value = '';
+        }
+
+        function clearToMarker() {
+            if (toMarker) { toMarker.setMap(null); toMarker = null; }
+            document.getElementById('toLat').value = '';
+            document.getElementById('toLng').value = '';
+        }
+
+        // Re-trigger Maps resize when tab becomes visible
+        document.querySelectorAll('[data-bs-toggle="pill"]').forEach(function (tab) {
+            tab.addEventListener('shown.bs.tab', function () {
+                if (fromMap) google.maps.event.trigger(fromMap, 'resize');
+                if (toMap) google.maps.event.trigger(toMap, 'resize');
+            });
+        });
+    </script>
+    <script async defer
+        src="https://maps.googleapis.com/maps/api/js?key=@mapsApiKey&callback=initMaps">
+    </script>
 }

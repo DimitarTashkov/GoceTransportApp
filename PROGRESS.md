@@ -1,5 +1,37 @@
 # Текущ прогрес на проекта
 
+## Локализация — Shared Partial Views (2026-04-02) — ЗАВЪРШЕНА
+
+### Обхват
+Добавена локализация (`IViewLocalizer`) на 13 partial view файла в `Views/Shared/`. За всеки файл са:
+1. Добавени `@using Microsoft.AspNetCore.Mvc.Localization` и `@inject IViewLocalizer Localizer`
+2. Заменени всички hardcoded английски текстове с `@Localizer["ключ"]`
+3. Създаден съответен `.bg.resx` файл в `Resources/Views/Shared/`
+
+### Засегнати файлове (Views)
+* `_CityListPartial.cshtml` — State, Zip Code, Details, Edit, Delete
+* `_DriverCardPartial.cshtml` — Details, Edit, Delete
+* `_RouteCardPartial.cshtml` — Details, Edit, Delete
+* `_ScheduleCard.cshtml` — Details, Edit, Delete
+* `_TicketCardPartial.cshtml` — Details, Edit, Delete
+* `_VehicleCard.cshtml` — Details, Edit, Delete
+* `_OrganizationCardPartial.cshtml` — No address provided, Details, Edit, Delete
+* `_CityDetailsPartial.cshtml` — State, Zip Code, Streets, No streets available, Add Streets, Edit, Delete, Back
+* `_ScheduleDetails.cshtml` — Departing, Arriving, From, To, Vehicle, Organization, Passenger List, Edit, Delete, Back to List
+* `_StreetListPartial.cshtml` — Edit, Delete
+* `_DriverDetailsPartial.cshtml` — Age, Driving Experience, Organization
+* `_VehicleDetails.cshtml` — Type, Manufacturer, Model, Capacity, Fuel Consumption, Status, Organization
+* `_ContactFormDetailsPartial.cshtml` — Submitted By, Email, Date Submitted, Message
+
+### Създадени .bg.resx файлове
+13 файла в `Resources/Views/Shared/` — всички с пълен xsd:schema header и Bulgarian преводи.
+
+### Build
+0 грешки след промените.
+
+---
+
+
 ## Google Maps — Спирки с Гео-координати (2026-04-02) — ЗАВЪРШЕНА
 
 ### Функционалност

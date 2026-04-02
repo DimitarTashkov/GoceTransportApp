@@ -1,3 +1,5 @@
+@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer Localizer
 @model GoceTransportApp.Web.ViewModels.Drivers.DriverDetailsViewModel
 
 <div class="card border-0 shadow-sm rounded-4">
@@ -7,9 +9,9 @@
             <h5 class="card-title fw-semibold">@Model.FirstName @Model.LastName</h5>
         </div>
         <p class="card-text">
-            <strong>Age:</strong> @Model.Age<br />
-            <strong>Driving Experience:</strong> @Model.DrivingExperience<br />
-            <strong>Organization:</strong> @Model.OrganizationName
+            <strong>@Localizer["Age"]:</strong> @Model.Age<br />
+            <strong>@Localizer["Driving Experience"]:</strong> @Model.DrivingExperience<br />
+            <strong>@Localizer["Organization"]:</strong> @Model.OrganizationName
         </p>
     </div>
 </div>

@@ -1,5 +1,7 @@
+@using Microsoft.AspNetCore.Mvc.Localization
 @model GoceTransportApp.Web.ViewModels.Routes.RouteDetailsViewModel
 @inject Microsoft.Extensions.Configuration.IConfiguration Configuration
+@inject IViewLocalizer Localizer
 
 @{
     int durationTotalMins = (int)Model.Duration;
@@ -27,11 +29,11 @@
             <h5 class="card-title fw-semibold">@Model.DepartingCity → @Model.ArrivingCity</h5>
         </div>
         <p class="card-text">
-            <strong>Departing Street:</strong> @Model.DepartingStreet<br />
-            <strong>Arriving Street:</strong> @Model.ArrivingStreet<br />
-            <strong>Organization:</strong> @Model.Organization<br />
-            <strong>Distance:</strong> @Model.Distance km<br />
-            <strong>Duration:</strong> @durationFormatted
+            <strong>@Localizer["Departing Street"]:</strong> @Model.DepartingStreet<br />
+            <strong>@Localizer["Arriving Street"]:</strong> @Model.ArrivingStreet<br />
+            <strong>@Localizer["Organization"]:</strong> @Model.Organization<br />
+            <strong>@Localizer["Distance"]:</strong> @Model.Distance km<br />
+            <strong>@Localizer["Duration"]:</strong> @durationFormatted
         </p>
 
         @if (hasFromCoords || hasToCoords)
@@ -43,12 +45,12 @@
                     <div class="d-flex align-items-center gap-2">
                         <span class="badge bg-success-subtle text-success border border-success rounded-pill px-3 py-2">
                             <i class="fas fa-map-pin me-1"></i>
-                            @(string.IsNullOrWhiteSpace(Model.FromStopName) ? "Спирка — тръгване" : Model.FromStopName)
+                            @(string.IsNullOrWhiteSpace(Model.FromStopName) ? Localizer["Departure stop"].Value : Model.FromStopName)
                         </span>
                         <a href="https://www.google.com/maps/dir/?api=1&destination=@Model.FromLatitude.Value.ToString(System.Globalization.CultureInfo.InvariantCulture),@Model.FromLongitude.Value.ToString(System.Globalization.CultureInfo.InvariantCulture)"
                            target="_blank" rel="noopener"
                            class="btn btn-success btn-sm rounded-pill">
-                            <i class="fas fa-directions me-1"></i>Навигация тук
+                            <i class="fas fa-directions me-1"></i>@Localizer["Navigate here"]
                         </a>
                     </div>
                 }
@@ -57,19 +59,19 @@
                     <div class="d-flex align-items-center gap-2">
                         <span class="badge bg-danger-subtle text-danger border border-danger rounded-pill px-3 py-2">
                             <i class="fas fa-map-pin me-1"></i>
-                            @(string.IsNullOrWhiteSpace(Model.ToStopName) ? "Спирка — пристигане" : Model.ToStopName)
+                            @(string.IsNullOrWhiteSpace(Model.ToStopName) ? Localizer["Arrival stop"].Value : Model.ToStopName)
                         </span>
                         <a href="https://www.google.com/maps/dir/?api=1&destination=@Model.ToLatitude.Value.ToString(System.Globalization.CultureInfo.InvariantCulture),@Model.ToLongitude.Value.ToString(System.Globalization.CultureInfo.InvariantCulture)"
                            target="_blank" rel="noopener"
                            class="btn btn-danger btn-sm rounded-pill">
-                            <i class="fas fa-directions me-1"></i>Навигация тук
+                            <i class="fas fa-directions me-1"></i>@Localizer["Navigate here"]
                         </a>
                     </div>
                 }
                 @if (hasAnyCoords)
                 {
                     <button type="button" class="btn btn-outline-primary btn-sm rounded-pill" data-bs-toggle="modal" data-bs-target="#routeMapModal">
-                        <i class="fas fa-map me-1"></i>Виж на картата
+                        <i class="fas fa-map me-1"></i>@Localizer["View on map"]
                     </button>
                 }
             </div>
@@ -97,13 +99,13 @@
                             <li class="nav-item" role="presentation">
                                 <button class="nav-link active" id="modal-from-tab" data-bs-toggle="pill" data-bs-target="#modal-from-pane" type="button" role="tab">
                                     <i class="fas fa-map-pin text-success me-1"></i>
-                                    @(string.IsNullOrWhiteSpace(Model.FromStopName) ? "Тръгване" : Model.FromStopName)
+                                    @(string.IsNullOrWhiteSpace(Model.FromStopName) ? Localizer["Departure"].Value : Model.FromStopName)
                                 </button>
                             </li>
                             <li class="nav-item" role="presentation">
                                 <button class="nav-link" id="modal-to-tab" data-bs-toggle="pill" data-bs-target="#modal-to-pane" type="button" role="tab">
                                     <i class="fas fa-map-pin text-danger me-1"></i>
-                                    @(string.IsNullOrWhiteSpace(Model.ToStopName) ? "Пристигане" : Model.ToStopName)
+                                    @(string.IsNullOrWhiteSpace(Model.ToStopName) ? Localizer["Arrival"].Value : Model.ToStopName)
                                 </button>
                             </li>
                         </ul>
@@ -113,7 +115,7 @@
                                 <div class="mt-2 d-flex justify-content-end">
                                     <a href="https://www.google.com/maps/dir/?api=1&destination=@Model.FromLatitude!.Value.ToString(System.Globalization.CultureInfo.InvariantCulture),@Model.FromLongitude!.Value.ToString(System.Globalization.CultureInfo.InvariantCulture)"
                                        target="_blank" rel="noopener" class="btn btn-success rounded-pill">
-                                        <i class="fas fa-directions me-2"></i>Навигация до спирката (тръгване)
+                                        <i class="fas fa-directions me-2"></i>@Localizer["Navigate to stop (departure)"]
                                     </a>
                                 </div>
                             </div>
@@ -122,7 +124,7 @@
                                 <div class="mt-2 d-flex justify-content-end">
                                     <a href="https://www.google.com/maps/dir/?api=1&destination=@Model.ToLatitude!.Value.ToString(System.Globalization.CultureInfo.InvariantCulture),@Model.ToLongitude!.Value.ToString(System.Globalization.CultureInfo.InvariantCulture)"
                                        target="_blank" rel="noopener" class="btn btn-danger rounded-pill">
-                                        <i class="fas fa-directions me-2"></i>Навигация до спирката (пристигане)
+                                        <i class="fas fa-directions me-2"></i>@Localizer["Navigate to stop (arrival)"]
                                     </a>
                                 </div>
                             </div>
@@ -134,7 +136,7 @@
                         <div class="mt-2 d-flex justify-content-end">
                             <a href="https://www.google.com/maps/dir/?api=1&destination=@Model.FromLatitude!.Value.ToString(System.Globalization.CultureInfo.InvariantCulture),@Model.FromLongitude!.Value.ToString(System.Globalization.CultureInfo.InvariantCulture)"
                                target="_blank" rel="noopener" class="btn btn-success rounded-pill">
-                                <i class="fas fa-directions me-2"></i>Навигация до спирката
+                                <i class="fas fa-directions me-2"></i>@Localizer["Navigate to stop"]
                             </a>
                         </div>
                     }
@@ -144,7 +146,7 @@
                         <div class="mt-2 d-flex justify-content-end">
                             <a href="https://www.google.com/maps/dir/?api=1&destination=@Model.ToLatitude!.Value.ToString(System.Globalization.CultureInfo.InvariantCulture),@Model.ToLongitude!.Value.ToString(System.Globalization.CultureInfo.InvariantCulture)"
                                target="_blank" rel="noopener" class="btn btn-danger rounded-pill">
-                                <i class="fas fa-directions me-2"></i>Навигация до спирката
+                                <i class="fas fa-directions me-2"></i>@Localizer["Navigate to stop"]
                             </a>
                         </div>
                     }
@@ -174,7 +176,7 @@
                     new google.maps.Marker({
                         position: fromPos, map: fromMap,
                         icon: 'http://maps.google.com/mapfiles/ms/icons/green-dot.png',
-                        title: '@Html.Raw(Model.FromStopName ?? "Спирка — тръгване")'
+                        title: '@Html.Raw(Model.FromStopName ?? Localizer["Departure stop"].Value)'
                     });
                 }
 
@@ -187,7 +189,7 @@
                     new google.maps.Marker({
                         position: toPos, map: toMap,
                         icon: 'http://maps.google.com/mapfiles/ms/icons/red-dot.png',
-                        title: '@Html.Raw(Model.ToStopName ?? "Спирка — пристигане")'
+                        title: '@Html.Raw(Model.ToStopName ?? Localizer["Arrival stop"].Value)'
                     });
                 }
             }

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype"><value>text/microsoft-resx</value></resheader>
+  <resheader name="version"><value>2.0</value></resheader>
+  <resheader name="reader"><value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+  <resheader name="writer"><value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+  <data name="Departing Street" xml:space="preserve"><value>Начална Улица</value></data>
+  <data name="Arriving Street" xml:space="preserve"><value>Крайна Улица</value></data>
+  <data name="Organization" xml:space="preserve"><value>Организация</value></data>
+  <data name="Distance" xml:space="preserve"><value>Разстояние</value></data>
+  <data name="Duration" xml:space="preserve"><value>Продължителност</value></data>
+  <data name="Departure stop" xml:space="preserve"><value>Спирка — тръгване</value></data>
+  <data name="Arrival stop" xml:space="preserve"><value>Спирка — пристигане</value></data>
+  <data name="Navigate here" xml:space="preserve"><value>Навигация тук</value></data>
+  <data name="View on map" xml:space="preserve"><value>Виж на картата</value></data>
+  <data name="Departure" xml:space="preserve"><value>Тръгване</value></data>
+  <data name="Arrival" xml:space="preserve"><value>Пристигане</value></data>
+  <data name="Navigate to stop (departure)" xml:space="preserve"><value>Навигация до спирката (тръгване)</value></data>
+  <data name="Navigate to stop (arrival)" xml:space="preserve"><value>Навигация до спирката (пристигане)</value></data>
+  <data name="Navigate to stop" xml:space="preserve"><value>Навигация до спирката</value></data>
+</root>

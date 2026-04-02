@@ -69,21 +69,21 @@
                     <!-- Stop Location Section -->
                     <hr class="my-4" />
                     <h5 class="fw-semibold mb-3">
-                        <i class="fas fa-map-marker-alt text-danger me-2"></i>Местоположения на спирките
-                        <span class="badge bg-secondary fw-normal fs-6 ms-2">по избор</span>
+                        <i class="fas fa-map-marker-alt text-danger me-2"></i>@Localizer["Stop Locations"]
+                        <span class="badge bg-secondary fw-normal fs-6 ms-2">@Localizer["optional"]</span>
                     </h5>
-                    <p class="text-muted small mb-3">Кликнете върху картата, за да поставите маркерите на спирките. Тази информация позволява на пътниците да навигират до спирката.</p>
+                    <p class="text-muted small mb-3">@Localizer["Click on the map to place stop markers. This lets passengers navigate to the stop."]</p>
 
                     <!-- Nav tabs -->
                     <ul class="nav nav-pills mb-3" id="stopTabs" role="tablist">
                         <li class="nav-item" role="presentation">
                             <button class="nav-link active" id="from-tab" data-bs-toggle="pill" data-bs-target="#from-stop" type="button" role="tab">
-                                <i class="fas fa-map-pin me-1 text-success"></i>Тръгване
+                                <i class="fas fa-map-pin me-1 text-success"></i>@Localizer["Departure"]
                             </button>
                         </li>
                         <li class="nav-item" role="presentation">
                             <button class="nav-link" id="to-tab" data-bs-toggle="pill" data-bs-target="#to-stop" type="button" role="tab">
-                                <i class="fas fa-map-pin me-1 text-danger"></i>Пристигане
+                                <i class="fas fa-map-pin me-1 text-danger"></i>@Localizer["Arrival"]
                             </button>
                         </li>
                     </ul>
@@ -92,8 +92,8 @@
                         <!-- FROM STOP -->
                         <div class="tab-pane fade show active" id="from-stop" role="tabpanel">
                             <div class="mb-3">
-                                <label asp-for="FromStopName" class="form-label text-muted">Наименование на спирката (тръгване)</label>
-                                <input asp-for="FromStopName" class="form-control rounded-3" placeholder="напр. Автогара Юг — сектор 5" />
+                                <label asp-for="FromStopName" class="form-label text-muted">@Localizer["Stop name (departure)"]</label>
+                                <input asp-for="FromStopName" class="form-control rounded-3" placeholder="@Localizer["e.g. South Bus Station — sector 5"]" />
                             </div>
                             <div id="fromMap" class="rounded-3 border mb-2" style="height: 280px;"></div>
                             <div class="d-flex gap-2 mb-2">
@@ -111,14 +111,14 @@
                                     </button>
                                 </div>
                             </div>
-                            <p class="text-muted small"><i class="fas fa-info-circle me-1"></i>Кликнете на картата, за да поставите маркера.</p>
+                            <p class="text-muted small"><i class="fas fa-info-circle me-1"></i>@Localizer["Click on the map to place the marker."]</p>
                         </div>
 
                         <!-- TO STOP -->
                         <div class="tab-pane fade" id="to-stop" role="tabpanel">
                             <div class="mb-3">
-                                <label asp-for="ToStopName" class="form-label text-muted">Наименование на спирката (пристигане)</label>
-                                <input asp-for="ToStopName" class="form-control rounded-3" placeholder="напр. Централна Автогара — перон 3" />
+                                <label asp-for="ToStopName" class="form-label text-muted">@Localizer["Stop name (arrival)"]</label>
+                                <input asp-for="ToStopName" class="form-control rounded-3" placeholder="@Localizer["e.g. Central Bus Terminal — platform 3"]" />
                             </div>
                             <div id="toMap" class="rounded-3 border mb-2" style="height: 280px;"></div>
                             <div class="d-flex gap-2 mb-2">
@@ -136,7 +136,7 @@
                                     </button>
                                 </div>
                             </div>
-                            <p class="text-muted small"><i class="fas fa-info-circle me-1"></i>Кликнете на картата, за да поставите маркера.</p>
+                            <p class="text-muted small"><i class="fas fa-info-circle me-1"></i>@Localizer["Click on the map to place the marker."]</p>
                         </div>
                     </div>
 
@@ -189,7 +189,7 @@
                 position: latLng,
                 map: fromMap,
                 icon: 'http://maps.google.com/mapfiles/ms/icons/green-dot.png',
-                title: 'Спирка — тръгване'
+                title: '@Localizer["Departure stop"]'
             });
             document.getElementById('fromLat').value = latLng.lat().toFixed(7);
             document.getElementById('fromLng').value = latLng.lng().toFixed(7);
@@ -201,7 +201,7 @@
                 position: latLng,
                 map: toMap,
                 icon: 'http://maps.google.com/mapfiles/ms/icons/red-dot.png',
-                title: 'Спирка — пристигане'
+                title: '@Localizer["Arrival stop"]'
             });
             document.getElementById('toLat').value = latLng.lat().toFixed(7);
             document.getElementById('toLng').value = latLng.lng().toFixed(7);

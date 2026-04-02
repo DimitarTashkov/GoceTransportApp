@@ -94,6 +94,9 @@
   <data name="My Trips" xml:space="preserve">
     <value>Моите Пътувания</value>
   </data>
+  <data name="My Tickets" xml:space="preserve">
+    <value>Моите Билети</value>
+  </data>
   <data name="Favorites" xml:space="preserve">
     <value>Любими</value>
   </data>

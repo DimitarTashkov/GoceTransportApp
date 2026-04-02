@@ -51,46 +51,19 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="My Organizations" xml:space="preserve">
-    <value>Моите Организации</value>
+  <data name="State" xml:space="preserve">
+    <value>Щат/Регион</value>
   </data>
-  <data name="My Trips" xml:space="preserve">
-    <value>Моите Пътувания</value>
+  <data name="Zip Code" xml:space="preserve">
+    <value>Пощенски код</value>
   </data>
-  <data name="My Tickets" xml:space="preserve">
-    <value>Моите Билети</value>
+  <data name="Details" xml:space="preserve">
+    <value>Подробности</value>
   </data>
-  <data name="Favorites" xml:space="preserve">
-    <value>Любими</value>
+  <data name="Edit" xml:space="preserve">
+    <value>Редактирай</value>
   </data>
-  <data name="Admin" xml:space="preserve">
-    <value>Администратор</value>
-  </data>
-  <data name="Manage Users" xml:space="preserve">
-    <value>Управление на Потребители</value>
-  </data>
-  <data name="Manage forms" xml:space="preserve">
-    <value>Форми</value>
-  </data>
-  <data name="Dashboard" xml:space="preserve">
-    <value>Табло</value>
-  </data>
-  <data name="Logout" xml:space="preserve">
-    <value>Изход</value>
-  </data>
-  <data name="Register" xml:space="preserve">
-    <value>Регистрация</value>
-  </data>
-  <data name="Login" xml:space="preserve">
-    <value>Вход</value>
-  </data>
-  <data name="My Account" xml:space="preserve">
-    <value>Моят Акаунт</value>
-  </data>
-  <data name="Account Settings" xml:space="preserve">
-    <value>Настройки на Акаунта</value>
-  </data>
-  <data name="Admin Dashboard" xml:space="preserve">
-    <value>Администраторско Табло</value>
+  <data name="Delete" xml:space="preserve">
+    <value>Изтрий</value>
   </data>
 </root>

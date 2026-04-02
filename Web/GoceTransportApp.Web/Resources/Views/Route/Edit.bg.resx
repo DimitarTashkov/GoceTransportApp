@@ -41,4 +41,16 @@
   <data name="Duration (minutes) — e.g. 135" xml:space="preserve"><value>Продължителност (минути) — напр. 135</value></data>
   <data name="Save Changes" xml:space="preserve"><value>Запази Промените</value></data>
   <data name="Cancel" xml:space="preserve"><value>Отказ</value></data>
+  <data name="Stop Locations" xml:space="preserve"><value>Местоположения на спирките</value></data>
+  <data name="optional" xml:space="preserve"><value>по избор</value></data>
+  <data name="Click on the map to place or move stop markers. This lets passengers navigate to the stop." xml:space="preserve"><value>Кликнете върху картата, за да поставите или преместите маркерите. Тази информация позволява на пътниците да навигират до спирката.</value></data>
+  <data name="Departure" xml:space="preserve"><value>Тръгване</value></data>
+  <data name="Arrival" xml:space="preserve"><value>Пристигане</value></data>
+  <data name="Stop name (departure)" xml:space="preserve"><value>Наименование на спирката (тръгване)</value></data>
+  <data name="Stop name (arrival)" xml:space="preserve"><value>Наименование на спирката (пристигане)</value></data>
+  <data name="e.g. South Bus Station — sector 5" xml:space="preserve"><value>напр. Автогара Юг — сектор 5</value></data>
+  <data name="e.g. Central Bus Terminal — platform 3" xml:space="preserve"><value>напр. Централна Автогара — перон 3</value></data>
+  <data name="Click on the map to place or move the marker." xml:space="preserve"><value>Кликнете на картата, за да поставите/преместите маркера.</value></data>
+  <data name="Departure stop" xml:space="preserve"><value>Спирка — тръгване</value></data>
+  <data name="Arrival stop" xml:space="preserve"><value>Спирка — пристигане</value></data>
 </root>

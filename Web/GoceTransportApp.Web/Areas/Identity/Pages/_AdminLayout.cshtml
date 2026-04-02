@@ -1,4 +1,6 @@
 @using GoceTransportApp.Common
+@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer Localizer
 <!DOCTYPE html>
 <html lang="en" data-bs-theme="light">
 <head>
@@ -34,27 +36,27 @@
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav ms-auto">
                         <li class="nav-item">
-                            <a class="nav-link fw-semibold" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                            <a class="nav-link fw-semibold" asp-area="" asp-controller="Home" asp-action="Index">@Localizer["Home"]</a>
                         </li>
 
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle fw-semibold" href="#" id="exploreDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                Explore
+                                @Localizer["Explore"]
                             </a>
                             <ul class="dropdown-menu">
-                                <li><a class="dropdown-item" asp-controller="Route" asp-area="" asp-action="Index">Routes</a></li>
-                                <li><a class="dropdown-item" asp-controller="Schedule" asp-area="" asp-action="Index">Schedules</a></li>
-                                <li><a class="dropdown-item" asp-controller="Ticket" asp-area="" asp-action="Index">Tickets</a></li>
-                                <li><a class="dropdown-item" asp-controller="Organization" asp-area="" asp-action="Index">Organizations</a></li>
-                                <li><a class="dropdown-item" asp-controller="City" asp-area="" asp-action="Index">Cities</a></li>
-                                <li><a class="dropdown-item" asp-controller="Street" asp-area="" asp-action="Index">Streets</a></li>
+                                <li><a class="dropdown-item" asp-controller="Route" asp-area="" asp-action="Index">@Localizer["Routes"]</a></li>
+                                <li><a class="dropdown-item" asp-controller="Schedule" asp-area="" asp-action="Index">@Localizer["Schedules"]</a></li>
+                                <li><a class="dropdown-item" asp-controller="Ticket" asp-area="" asp-action="Index">@Localizer["Tickets"]</a></li>
+                                <li><a class="dropdown-item" asp-controller="Organization" asp-area="" asp-action="Index">@Localizer["Organizations"]</a></li>
+                                <li><a class="dropdown-item" asp-controller="City" asp-area="" asp-action="Index">@Localizer["Cities"]</a></li>
+                                <li><a class="dropdown-item" asp-controller="Street" asp-area="" asp-action="Index">@Localizer["Streets"]</a></li>
                             </ul>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link fw-semibold" asp-area="" asp-controller="Home" asp-action="AboutUs">About Us</a>
+                            <a class="nav-link fw-semibold" asp-area="" asp-controller="Home" asp-action="AboutUs">@Localizer["About Us"]</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link fw-semibold" asp-area="" asp-controller="ContactForm" asp-action="Create">Contact Us</a>
+                            <a class="nav-link fw-semibold" asp-area="" asp-controller="ContactForm" asp-action="Create">@Localizer["Contact Us"]</a>
                         </li>
                     </ul>
                     <partial name="_LoginPartial" />
@@ -88,27 +90,27 @@
                 <div class="col-md-4 mb-3">
                     <h6 class="fw-bold text-body mb-3"><i class="fas fa-bus-alt me-2"></i>@GlobalConstants.SystemName</h6>
                     <ul class="list-unstyled small">
-                        <li><a class="text-muted text-decoration-none" asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
-                        <li><a class="text-muted text-decoration-none" asp-area="" asp-controller="Home" asp-action="AboutUs">About Us</a></li>
-                        <li><a class="text-muted text-decoration-none" asp-area="" asp-controller="ContactForm" asp-action="Create">Contact Us</a></li>
+                        <li><a class="text-muted text-decoration-none" asp-area="" asp-controller="Home" asp-action="Index">@Localizer["Home"]</a></li>
+                        <li><a class="text-muted text-decoration-none" asp-area="" asp-controller="Home" asp-action="AboutUs">@Localizer["About Us"]</a></li>
+                        <li><a class="text-muted text-decoration-none" asp-area="" asp-controller="ContactForm" asp-action="Create">@Localizer["Contact Us"]</a></li>
                     </ul>
                 </div>
 
                 <div class="col-md-4 mb-3">
-                    <h6 class="fw-bold text-body mb-3">Explore</h6>
+                    <h6 class="fw-bold text-body mb-3">@Localizer["Explore"]</h6>
                     <ul class="list-unstyled small">
-                        <li><a class="text-muted text-decoration-none" asp-controller="Route" asp-area="" asp-action="Index">Routes</a></li>
-                        <li><a class="text-muted text-decoration-none" asp-controller="Schedule" asp-area="" asp-action="Index">Schedules</a></li>
-                        <li><a class="text-muted text-decoration-none" asp-controller="Ticket" asp-area="" asp-action="Index">Tickets</a></li>
-                        <li><a class="text-muted text-decoration-none" asp-controller="Organization" asp-area="" asp-action="Index">Organizations</a></li>
-                        <li><a class="text-muted text-decoration-none" asp-controller="City" asp-area="" asp-action="Index">Cities</a></li>
-                        <li><a class="text-muted text-decoration-none" asp-controller="Street" asp-area="" asp-action="Index">Streets</a></li>
+                        <li><a class="text-muted text-decoration-none" asp-controller="Route" asp-area="" asp-action="Index">@Localizer["Routes"]</a></li>
+                        <li><a class="text-muted text-decoration-none" asp-controller="Schedule" asp-area="" asp-action="Index">@Localizer["Schedules"]</a></li>
+                        <li><a class="text-muted text-decoration-none" asp-controller="Ticket" asp-area="" asp-action="Index">@Localizer["Tickets"]</a></li>
+                        <li><a class="text-muted text-decoration-none" asp-controller="Organization" asp-area="" asp-action="Index">@Localizer["Organizations"]</a></li>
+                        <li><a class="text-muted text-decoration-none" asp-controller="City" asp-area="" asp-action="Index">@Localizer["Cities"]</a></li>
+                        <li><a class="text-muted text-decoration-none" asp-controller="Street" asp-area="" asp-action="Index">@Localizer["Streets"]</a></li>
                     </ul>
                 </div>
 
                 <div class="col-md-4 mb-3">
-                    <h6 class="fw-bold text-body mb-3">Transport Info</h6>
-                    <p class="small">Plan your journey with real-time routes, schedules, and tickets across the network.</p>
+                    <h6 class="fw-bold text-body mb-3">@Localizer["Transport Info"]</h6>
+                    <p class="small">@Localizer["Plan your journey with real-time routes, schedules, and tickets across the network."]</p>
                     <div class="d-flex gap-3 mt-2">
                         <a asp-controller="Route" asp-area="" asp-action="Index" class="text-muted" title="Routes"><i class="fas fa-route fa-lg"></i></a>
                         <a asp-controller="Schedule" asp-area="" asp-action="Index" class="text-muted" title="Schedules"><i class="fas fa-clock fa-lg"></i></a>
@@ -119,7 +121,7 @@
             </div>
 
             <hr />
-            <p class="text-center mb-0 small">&copy; @DateTime.Now.Year @GlobalConstants.SystemName. All rights reserved.</p>
+            <p class="text-center mb-0 small">&copy; @DateTime.Now.Year @GlobalConstants.SystemName. @Localizer["All rights reserved."]</p>
         </div>
     </footer>
 

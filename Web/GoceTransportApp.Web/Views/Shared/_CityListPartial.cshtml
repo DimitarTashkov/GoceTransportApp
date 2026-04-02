@@ -1,8 +1,10 @@
 @using GoceTransportApp.Services.Data.Users
 @using System.Security.Claims
 @using static GoceTransportApp.Common.GlobalConstants
+@using Microsoft.AspNetCore.Mvc.Localization
 @model GoceTransportApp.Web.ViewModels.Cities.CityDataViewModel
 @inject IUserService userService
+@inject IViewLocalizer Localizer
 @{
     var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
     var isAdmin = User.IsInRole(AdministratorRoleName);
@@ -15,18 +17,18 @@
                 <i class="fas fa-city fa-2x text-primary mb-2"></i>
                 <h5 class="card-title fw-semibold mb-1">@Model.Name</h5>
                 <p class="card-text text-muted small mb-0">
-                    <strong>State:</strong> @Model.State<br>
-                    <strong>Zip Code:</strong> @Model.ZipCode
+                    <strong>@Localizer["State"]:</strong> @Model.State<br>
+                    <strong>@Localizer["Zip Code"]:</strong> @Model.ZipCode
                 </p>
             </div>
             <div class="mt-auto pt-3 d-flex gap-2">
                 <a asp-action="Details" asp-route-id="@Model.Id" class="btn btn-outline-primary rounded-pill flex-grow-1">
-                    <i class="fas fa-info-circle"></i> Details
+                    <i class="fas fa-info-circle"></i> @Localizer["Details"]
                 </a>
                 @if (isAdmin)
                 {
-                    <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-outline-warning rounded-pill" title="Edit"><i class="fas fa-edit"></i></a>
-                    <a asp-action="Delete" asp-route-id="@Model.Id" class="btn btn-outline-danger rounded-pill" title="Delete"><i class="fas fa-trash"></i></a>
+                    <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-outline-warning rounded-pill" title="@Localizer["Edit"]"><i class="fas fa-edit"></i></a>
+                    <a asp-action="Delete" asp-route-id="@Model.Id" class="btn btn-outline-danger rounded-pill" title="@Localizer["Delete"]"><i class="fas fa-trash"></i></a>
                 }
             </div>
         </div>

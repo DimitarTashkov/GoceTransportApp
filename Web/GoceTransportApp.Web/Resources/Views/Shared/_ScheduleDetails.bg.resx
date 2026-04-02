@@ -51,46 +51,34 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="My Organizations" xml:space="preserve">
-    <value>Моите Организации</value>
+  <data name="Departing" xml:space="preserve">
+    <value>Тръгване</value>
   </data>
-  <data name="My Trips" xml:space="preserve">
-    <value>Моите Пътувания</value>
+  <data name="Arriving" xml:space="preserve">
+    <value>Пристигане</value>
   </data>
-  <data name="My Tickets" xml:space="preserve">
-    <value>Моите Билети</value>
+  <data name="From" xml:space="preserve">
+    <value>От</value>
   </data>
-  <data name="Favorites" xml:space="preserve">
-    <value>Любими</value>
+  <data name="To" xml:space="preserve">
+    <value>До</value>
   </data>
-  <data name="Admin" xml:space="preserve">
-    <value>Администратор</value>
+  <data name="Vehicle" xml:space="preserve">
+    <value>Превозно средство</value>
   </data>
-  <data name="Manage Users" xml:space="preserve">
-    <value>Управление на Потребители</value>
+  <data name="Organization" xml:space="preserve">
+    <value>Организация</value>
   </data>
-  <data name="Manage forms" xml:space="preserve">
-    <value>Форми</value>
+  <data name="Passenger List" xml:space="preserve">
+    <value>Списък пътници</value>
   </data>
-  <data name="Dashboard" xml:space="preserve">
-    <value>Табло</value>
+  <data name="Edit" xml:space="preserve">
+    <value>Редактирай</value>
   </data>
-  <data name="Logout" xml:space="preserve">
-    <value>Изход</value>
+  <data name="Delete" xml:space="preserve">
+    <value>Изтрий</value>
   </data>
-  <data name="Register" xml:space="preserve">
-    <value>Регистрация</value>
-  </data>
-  <data name="Login" xml:space="preserve">
-    <value>Вход</value>
-  </data>
-  <data name="My Account" xml:space="preserve">
-    <value>Моят Акаунт</value>
-  </data>
-  <data name="Account Settings" xml:space="preserve">
-    <value>Настройки на Акаунта</value>
-  </data>
-  <data name="Admin Dashboard" xml:space="preserve">
-    <value>Администраторско Табло</value>
+  <data name="Back to List" xml:space="preserve">
+    <value>Назад към списъка</value>
   </data>
 </root>

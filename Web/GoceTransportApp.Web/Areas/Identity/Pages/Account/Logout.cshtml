@@ -1,7 +1,8 @@
 ﻿@page
 @model LogoutModel
+@inject IViewLocalizer Localizer
 @{
-    ViewData["Title"] = "Log out";
+    ViewData["Title"] = Localizer["Log out"].Value;
 }
 
 <header>
@@ -10,12 +11,12 @@
     {
         <form class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Page("/", new { area = "" })" method="post">
             <button type="submit" class="nav-link btn btn-link text-dark">
-                <i class="fas fa-sign-out-alt"></i> Click here to Logout
+                <i class="fas fa-sign-out-alt"></i> @Localizer["Click here to Logout"]
             </button>
         </form>
     }
     else
     {
-        <p><i class="fas fa-check-circle text-success me-2"></i>You have successfully logged out of the application.</p>
+        <p><i class="fas fa-check-circle text-success me-2"></i>@Localizer["You have successfully logged out of the application."]</p>
     }
 </header>

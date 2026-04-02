@@ -1,8 +1,10 @@
 @using System.Security.Claims
 @using GoceTransportApp.Services.Data.Users
 @using static GoceTransportApp.Common.GlobalConstants
+@using Microsoft.AspNetCore.Mvc.Localization
 @model GoceTransportApp.Web.ViewModels.Organizations.OrganizationDataViewModel
 @inject IUserService userService
+@inject IViewLocalizer Localizer
 @{
     var organizationId = Model.Id;
     var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
@@ -42,23 +44,23 @@
             }
             else
             {
-                <p class="text-muted small mb-0 fst-italic">No address provided</p>
+                <p class="text-muted small mb-0 fst-italic">@Localizer["No address provided"]</p>
             }
         </div>
 
         <div class="card-footer bg-white border-0 pb-4 px-4 d-flex gap-2">
             <a asp-action="Details" asp-route-id="@Model.Id"
                class="btn btn-sm btn-outline-secondary rounded-pill flex-grow-1">
-                <i class="fas fa-info-circle me-1"></i>Details
+                <i class="fas fa-info-circle me-1"></i>@Localizer["Details"]
             </a>
             @if (isFounder || isAdmin)
             {
                 <a asp-action="Edit" asp-controller="Organization" asp-route-id="@Model.Id"
-                   class="btn btn-sm btn-outline-secondary rounded-pill" title="Edit">
+                   class="btn btn-sm btn-outline-secondary rounded-pill" title="@Localizer["Edit"]">
                     <i class="fas fa-edit"></i>
                 </a>
                 <a asp-action="Delete" asp-controller="Organization" asp-route-id="@Model.Id"
-                   class="btn btn-sm btn-outline-secondary rounded-pill" title="Delete">
+                   class="btn btn-sm btn-outline-secondary rounded-pill" title="@Localizer["Delete"]">
                     <i class="fas fa-trash-alt"></i>
                 </a>
             }

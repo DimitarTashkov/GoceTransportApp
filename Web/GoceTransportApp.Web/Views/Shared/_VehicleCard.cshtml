@@ -1,8 +1,10 @@
 @using GoceTransportApp.Services.Data.Users
 @using System.Security.Claims
 @using static GoceTransportApp.Common.GlobalConstants
+@using Microsoft.AspNetCore.Mvc.Localization
 @model GoceTransportApp.Web.ViewModels.Vehicles.VehicleDataViewModel
 @inject IUserService userService
+@inject IViewLocalizer Localizer
 @{
     var organizationId = Model.OrganizationId;
     var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
@@ -21,14 +23,14 @@
             </div>
             <div class="mt-auto pt-3 d-flex gap-2">
                 <a asp-action="Details" asp-controller="Vehicle" asp-route-id="@Model.Id" asp-route-organizationId="@Model.OrganizationId" class="btn btn-outline-primary rounded-pill flex-grow-1">
-                    <i class="fas fa-info-circle"></i> Details
+                    <i class="fas fa-info-circle"></i> @Localizer["Details"]
                 </a>
                 @if (isFounder || isAdmin)
                 {
-                    <a asp-action="Edit" asp-controller="Vehicle" asp-route-id="@Model.Id" asp-route-organizationId="@Model.OrganizationId" class="btn btn-outline-warning rounded-pill" title="Edit">
+                    <a asp-action="Edit" asp-controller="Vehicle" asp-route-id="@Model.Id" asp-route-organizationId="@Model.OrganizationId" class="btn btn-outline-warning rounded-pill" title="@Localizer["Edit"]">
                         <i class="fas fa-edit"></i>
                     </a>
-                    <a asp-action="Delete" asp-controller="Vehicle" asp-route-id="@Model.Id" asp-route-organizationId="@Model.OrganizationId" class="btn btn-outline-danger rounded-pill" title="Delete">
+                    <a asp-action="Delete" asp-controller="Vehicle" asp-route-id="@Model.Id" asp-route-organizationId="@Model.OrganizationId" class="btn btn-outline-danger rounded-pill" title="@Localizer["Delete"]">
                         <i class="fas fa-trash"></i>
                     </a>
                 }

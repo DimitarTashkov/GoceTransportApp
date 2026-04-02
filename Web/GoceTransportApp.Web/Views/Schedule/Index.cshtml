@@ -183,7 +183,7 @@
             <small class="text-muted">
                 @if (Model.TotalPages.HasValue && Model.TotalPages > 0)
                 {
-                    <span>Page @Model.CurrentPage of @Model.TotalPages</span>
+                    <span>@Localizer["Page"] @Model.CurrentPage @Localizer["of"] @Model.TotalPages</span>
                 }
             </small>
             <div class="d-flex gap-2 align-items-center">

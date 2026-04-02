@@ -52,4 +52,9 @@
   <data name="Arrival ↓" xml:space="preserve"><value>Пристигане ↓</value></data>
   <data name="No records found" xml:space="preserve"><value>Няма намерени записи</value></data>
   <data name="Try adjusting your filters." xml:space="preserve"><value>Опитайте да промените филтрите.</value></data>
+  <data name="Card view" xml:space="preserve"><value>Мрежа</value></data>
+  <data name="Timeline view" xml:space="preserve"><value>Времева линия</value></data>
+  <data name="Details" xml:space="preserve"><value>Подробности</value></data>
+  <data name="Page" xml:space="preserve"><value>Страница</value></data>
+  <data name="of" xml:space="preserve"><value>от</value></data>
 </root>

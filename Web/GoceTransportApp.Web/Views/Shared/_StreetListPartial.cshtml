@@ -1,8 +1,10 @@
 @using GoceTransportApp.Services.Data.Users
 @using System.Security.Claims
 @using static GoceTransportApp.Common.GlobalConstants
+@using Microsoft.AspNetCore.Mvc.Localization
 @model GoceTransportApp.Web.ViewModels.Streets.StreetDataViewModel
 @inject IUserService userService
+@inject IViewLocalizer Localizer
 
 @{
     var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
@@ -20,10 +22,10 @@
             {
                 <div class="mt-auto pt-3 d-flex gap-2">
                     <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-outline-warning rounded-pill flex-grow-1">
-                        <i class="fas fa-edit"></i> Edit
+                        <i class="fas fa-edit"></i> @Localizer["Edit"]
                     </a>
                     <form asp-action="Delete" asp-route-id="@Model.Id" method="post" class="d-inline">
-                        <button type="submit" class="btn btn-outline-danger rounded-pill" title="Delete">
+                        <button type="submit" class="btn btn-outline-danger rounded-pill" title="@Localizer["Delete"]">
                             <i class="fas fa-trash"></i>
                         </button>
                     </form>

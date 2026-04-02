@@ -1,3 +1,5 @@
+@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer Localizer
 @model GoceTransportApp.Web.ViewModels.Vehicles.VehicleDetailsViewModel
 
 <div class="card border-0 shadow-sm rounded-4">
@@ -7,13 +9,13 @@
             <h5 class="card-title fw-semibold">@Model.Number</h5>
         </div>
         <p class="card-text">
-            <strong>Type:</strong> @Model.Type<br />
-            <strong>Manufacturer:</strong> @Model.Manufacturer<br />
-            <strong>Model:</strong> @Model.Model<br />
-            <strong>Capacity:</strong> @Model.Capacity<br />
-            <strong>Fuel Consumption:</strong> @(Model.FuelConsumption ?? 0) L/100km<br />
-            <strong>Status:</strong> @Model.Status<br />
-            <strong>Organization:</strong> @Model.OrganizationName
+            <strong>@Localizer["Type"]:</strong> @Model.Type<br />
+            <strong>@Localizer["Manufacturer"]:</strong> @Model.Manufacturer<br />
+            <strong>@Localizer["Model"]:</strong> @Model.Model<br />
+            <strong>@Localizer["Capacity"]:</strong> @Model.Capacity<br />
+            <strong>@Localizer["Fuel Consumption"]:</strong> @(Model.FuelConsumption ?? 0) L/100km<br />
+            <strong>@Localizer["Status"]:</strong> @Model.Status<br />
+            <strong>@Localizer["Organization"]:</strong> @Model.OrganizationName
         </p>
     </div>
 </div>

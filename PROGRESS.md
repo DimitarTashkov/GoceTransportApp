@@ -32,6 +32,17 @@
 ---
 
 
+## Профил Dropdown — Подменю с Организации + UserOrganizations Редизайн (2026-04-02) — ЗАВЪРШЕНА
+
+### Промени
+* **`Views/Shared/_LoginPartial.cshtml`** — при `isOwner`, след "My Organizations" линка се зареждат организациите на потребителя чрез `await OrganizationService.GetUserOrganizationsAsync(userId)` и се рендират като вдлъбнати dropdown items (`ps-4 small text-muted`) с `fas fa-angle-right` иконка, всяка сочи към `Organization/Details/{id}`
+* **`Views/Organization/UserOrganizations.cshtml`** — заменен custom card layout с `<partial name="_OrganizationCardPartial" model="organization" />` в grid `row-cols-1 row-cols-md-2 row-cols-lg-3 g-4` — идентичен дизайн с `Organization/Index.cshtml`
+
+### Build
+0 грешки.
+
+---
+
 ## Google Maps — Спирки с Гео-координати (2026-04-02) — ЗАВЪРШЕНА
 
 ### Функционалност

@@ -14,6 +14,11 @@
         <h1 class="display-5 fw-bold">@Localizer["Choose Your Plan"]</h1>
         <p class="lead text-muted col-lg-7 mx-auto">@Localizer["Unlock more organizations and features for your transport business."]</p>
 
+        <div class="alert alert-info d-flex align-items-start gap-2 rounded-3 px-4 mt-3 text-start col-lg-8 mx-auto" role="alert">
+            <i class="fas fa-info-circle mt-1 flex-shrink-0"></i>
+            <span>@Localizer["GoceTransportApp is a volunteer, non-profit project. All revenue from paid plans is used solely to cover monthly server hosting costs (Azure) of €15. Support us to keep the platform alive!"]</span>
+        </div>
+
         @if (!string.IsNullOrEmpty(upgradeReason))
         {
             <div class="alert alert-warning d-inline-flex align-items-center gap-2 rounded-3 px-4 mt-3" role="alert">
@@ -33,14 +38,14 @@
                     </div>
                     <h3 class="fw-bold">Free</h3>
                     <p class="text-muted small mb-3">@Localizer["For individual operators"]</p>
-                    <div class="display-4 fw-bolder mb-1">$0<small class="fs-5 text-muted fw-normal">/mo</small></div>
+                    <div class="display-4 fw-bolder mb-1">€0<small class="fs-5 text-muted fw-normal">/mo</small></div>
                     <p class="text-muted small mb-4">@Localizer["Forever free"]</p>
 
                     <ul class="list-unstyled text-start mb-4">
                         <li class="mb-2 py-1"><i class="fas fa-check-circle text-success me-2"></i>1 @Localizer["Organization"]</li>
                         <li class="mb-2 py-1"><i class="fas fa-check-circle text-success me-2"></i>@Localizer["Unlimited Schedules"]</li>
+                        <li class="mb-2 py-1"><i class="fas fa-check-circle text-success me-2"></i>@Localizer["Analytics Dashboard"]</li>
                         <li class="mb-2 py-1"><i class="fas fa-check-circle text-success me-2"></i>@Localizer["Basic Support"]</li>
-                        <li class="mb-2 py-1 text-muted"><i class="fas fa-times-circle text-muted me-2"></i>@Localizer["Analytics Dashboard"]</li>
                         <li class="mb-2 py-1 text-muted"><i class="fas fa-times-circle text-muted me-2"></i>@Localizer["Email Notifications"]</li>
                         <li class="mb-2 py-1 text-muted"><i class="fas fa-times-circle text-muted me-2"></i>@Localizer["Priority Support"]</li>
                     </ul>
@@ -66,20 +71,20 @@
                     </div>
                     <h3 class="fw-bold text-primary">Pro</h3>
                     <p class="text-muted small mb-3">@Localizer["For growing businesses"]</p>
-                    <div class="display-4 fw-bolder mb-1">$19<small class="fs-5 text-muted fw-normal">/mo</small></div>
+                    <div class="display-4 fw-bolder mb-1">€4.99<small class="fs-5 text-muted fw-normal">/mo</small></div>
                     <p class="text-muted small mb-4">@Localizer["Billed monthly"]</p>
 
                     <ul class="list-unstyled text-start mb-4">
                         <li class="mb-2 py-1"><i class="fas fa-check-circle text-success me-2"></i><strong>3</strong> @Localizer["Organizations"]</li>
                         <li class="mb-2 py-1"><i class="fas fa-check-circle text-success me-2"></i>@Localizer["Unlimited Schedules"]</li>
-                        <li class="mb-2 py-1"><i class="fas fa-check-circle text-success me-2"></i>@Localizer["Email Notifications"]</li>
                         <li class="mb-2 py-1"><i class="fas fa-check-circle text-success me-2"></i>@Localizer["Analytics Dashboard"]</li>
                         <li class="mb-2 py-1"><i class="fas fa-check-circle text-success me-2"></i>@Localizer["Basic Support"]</li>
+                        <li class="mb-2 py-1"><i class="fas fa-check-circle text-success me-2"></i>@Localizer["Email Notifications"]</li>
                         <li class="mb-2 py-1 text-muted"><i class="fas fa-times-circle text-muted me-2"></i>@Localizer["Priority Support"]</li>
                     </ul>
 
-                    <a href="#" class="btn btn-primary rounded-pill w-100 py-2 fw-semibold">
-                        <i class="fas fa-arrow-up me-1"></i>@Localizer["Upgrade to Pro"]
+                    <a asp-controller="ContactForm" asp-action="Create" class="btn btn-primary rounded-pill w-100 py-2 fw-semibold">
+                        <i class="fas fa-envelope me-1"></i>@Localizer["Contact Us"]
                     </a>
                 </div>
             </div>
@@ -92,22 +97,21 @@
                     <div class="rounded-circle bg-warning bg-opacity-10 d-inline-flex align-items-center justify-content-center mb-3" style="width:64px;height:64px;">
                         <i class="fas fa-crown fa-2x text-warning"></i>
                     </div>
-                    <h3 class="fw-bold">Enterprise</h3>
-                    <p class="text-muted small mb-3">@Localizer["For large fleets"]</p>
-                    <div class="display-4 fw-bolder mb-1">$99<small class="fs-5 text-muted fw-normal">/mo</small></div>
+                    <h3 class="fw-bold">@Localizer["Sponsor"]</h3>
+                    <p class="text-muted small mb-3">@Localizer["For sponsors"]</p>
+                    <div class="display-4 fw-bolder mb-1">€9.99<small class="fs-5 text-muted fw-normal">/mo</small></div>
                     <p class="text-muted small mb-4">@Localizer["Billed monthly"]</p>
 
                     <ul class="list-unstyled text-start mb-4">
                         <li class="mb-2 py-1"><i class="fas fa-check-circle text-success me-2"></i><strong>@Localizer["Unlimited"]</strong> @Localizer["Organizations"]</li>
                         <li class="mb-2 py-1"><i class="fas fa-check-circle text-success me-2"></i>@Localizer["Unlimited Schedules"]</li>
-                        <li class="mb-2 py-1"><i class="fas fa-check-circle text-success me-2"></i>@Localizer["Email Notifications"]</li>
                         <li class="mb-2 py-1"><i class="fas fa-check-circle text-success me-2"></i>@Localizer["Analytics Dashboard"]</li>
-                        <li class="mb-2 py-1"><i class="fas fa-check-circle text-success me-2"></i>@Localizer["Priority 24/7 Support"]</li>
-                        <li class="mb-2 py-1"><i class="fas fa-check-circle text-success me-2"></i>@Localizer["Custom Branding"]</li>
+                        <li class="mb-2 py-1"><i class="fas fa-check-circle text-success me-2"></i>@Localizer["Email Notifications"]</li>
+                        <li class="mb-2 py-1"><i class="fas fa-check-circle text-success me-2"></i>@Localizer["Priority Support"]</li>
                     </ul>
 
-                    <a href="#" class="btn btn-warning rounded-pill w-100 py-2 fw-semibold text-dark">
-                        <i class="fas fa-envelope me-1"></i>@Localizer["Contact Sales"]
+                    <a asp-controller="ContactForm" asp-action="Create" class="btn btn-warning rounded-pill w-100 py-2 fw-semibold text-dark">
+                        <i class="fas fa-envelope me-1"></i>@Localizer["Contact Us"]
                     </a>
                 </div>
             </div>
@@ -124,7 +128,7 @@
                         <th class="text-muted small fw-semibold" style="width: 40%;">@Localizer["Feature"]</th>
                         <th class="text-center small fw-semibold">Free</th>
                         <th class="text-center small fw-semibold text-primary">Pro</th>
-                        <th class="text-center small fw-semibold">Enterprise</th>
+                        <th class="text-center small fw-semibold">@Localizer["Sponsor"]</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -141,25 +145,25 @@
                         <td class="text-center"><i class="fas fa-check text-success"></i></td>
                     </tr>
                     <tr>
+                        <td class="small">@Localizer["Analytics Dashboard"]</td>
+                        <td class="text-center"><i class="fas fa-check text-success"></i></td>
+                        <td class="text-center"><i class="fas fa-check text-success"></i></td>
+                        <td class="text-center"><i class="fas fa-check text-success"></i></td>
+                    </tr>
+                    <tr>
+                        <td class="small">@Localizer["Basic Support"]</td>
+                        <td class="text-center"><i class="fas fa-check text-success"></i></td>
+                        <td class="text-center"><i class="fas fa-check text-success"></i></td>
+                        <td class="text-center"><i class="fas fa-check text-success"></i></td>
+                    </tr>
+                    <tr>
                         <td class="small">@Localizer["Email Notifications"]</td>
                         <td class="text-center"><i class="fas fa-times text-muted"></i></td>
                         <td class="text-center"><i class="fas fa-check text-success"></i></td>
                         <td class="text-center"><i class="fas fa-check text-success"></i></td>
                     </tr>
                     <tr>
-                        <td class="small">@Localizer["Analytics Dashboard"]</td>
-                        <td class="text-center"><i class="fas fa-times text-muted"></i></td>
-                        <td class="text-center"><i class="fas fa-check text-success"></i></td>
-                        <td class="text-center"><i class="fas fa-check text-success"></i></td>
-                    </tr>
-                    <tr>
                         <td class="small">@Localizer["Priority Support"]</td>
-                        <td class="text-center"><i class="fas fa-times text-muted"></i></td>
-                        <td class="text-center"><i class="fas fa-times text-muted"></i></td>
-                        <td class="text-center"><i class="fas fa-check text-success"></i></td>
-                    </tr>
-                    <tr>
-                        <td class="small">@Localizer["Custom Branding"]</td>
                         <td class="text-center"><i class="fas fa-times text-muted"></i></td>
                         <td class="text-center"><i class="fas fa-times text-muted"></i></td>
                         <td class="text-center"><i class="fas fa-check text-success"></i></td>

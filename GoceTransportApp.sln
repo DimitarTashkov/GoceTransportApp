@@ -44,9 +44,9 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{7AEA1550-FA0A-43EF-9DAC-4FEE1088246A}"
 	ProjectSection(SolutionItems) = preProject
 		CLAUDE.md = CLAUDE.md
+		adapt_volunteer_pricing_plan.md = adapt_volunteer_pricing_plan.md
 		GOCE_TRANSPORT_PRODUCTION_LAUNCH_PLAN.md = GOCE_TRANSPORT_PRODUCTION_LAUNCH_PLAN.md
 		..\..\..\..\OneDrive\Работен плот\implementation_plan.md = ..\..\..\..\OneDrive\Работен плот\implementation_plan.md
-		Maps_stops_plan.md = Maps_stops_plan.md
 		PROGRESS.md = PROGRESS.md
 	EndProjectSection
 EndProject

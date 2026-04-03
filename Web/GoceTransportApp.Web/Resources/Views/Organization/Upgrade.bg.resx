@@ -55,7 +55,12 @@
   <data name="Custom Branding" xml:space="preserve"><value>Персонализиран Бранд</value></data>
   <data name="Unlimited" xml:space="preserve"><value>Неограничен</value></data>
   <data name="Contact Sales" xml:space="preserve"><value>Свържете се с нас</value></data>
+  <data name="Contact Us" xml:space="preserve"><value>Свържете се с нас</value></data>
   <data name="Compare Plans" xml:space="preserve"><value>Сравнение на Плановете</value></data>
   <data name="Feature" xml:space="preserve"><value>Функционалност</value></data>
   <data name="Schedules" xml:space="preserve"><value>Разписания</value></data>
+  <data name="Sponsor" xml:space="preserve"><value>Спонсор</value></data>
+  <data name="For sponsors" xml:space="preserve"><value>За спонсори на проекта</value></data>
+  <data name="Logo on Homepage" xml:space="preserve"><value>Лого на Началната Страница</value></data>
+  <data name="GoceTransportApp is a volunteer, non-profit project. All revenue from paid plans is used solely to cover monthly server hosting costs (Azure) of €15. Support us to keep the platform alive!" xml:space="preserve"><value>GoceTransportApp е доброволчески проект с нестопанска цел. Всички приходи от платените планове се използват единствено за покриване на месечните сървърни разходи (Azure) в размер на €15. Подкрепете ни, за да запазим платформата жива!</value></data>
 </root>

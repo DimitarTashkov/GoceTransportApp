@@ -1,4 +1,4 @@
-﻿namespace GoceTransportApp.Services.Mapping
+namespace GoceTransportApp.Services.Mapping
 {
     using System;
     using System.Linq;

@@ -1,4 +1,4 @@
-﻿// ReSharper disable VirtualMemberCallInConstructor
+// ReSharper disable VirtualMemberCallInConstructor
 namespace GoceTransportApp.Data.Models
 {
     using GoceTransportApp.Data.Common.Models;

@@ -1,4 +1,4 @@
-﻿namespace GoceTransportApp.Services.Messaging
+namespace GoceTransportApp.Services.Messaging
 {
     using System.Collections.Generic;
     using System.Threading.Tasks;

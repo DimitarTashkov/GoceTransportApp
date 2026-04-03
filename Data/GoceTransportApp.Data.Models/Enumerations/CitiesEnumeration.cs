@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -9,23 +9,23 @@ namespace GoceTransportApp.Data.Models.Enumerations
 {
     public enum CitiesEnumeration
     {
-         [Display(Name = "Гоце Делчев")]
+         [Display(Name = "???? ??????")]
          GotseDelchev = 1,
-         [Display(Name = "Гоце Делчев")]
+         [Display(Name = "???? ??????")]
          Breznica = 2,
-         [Display(Name = "Гоце Делчев")]
+         [Display(Name = "???? ??????")]
          Mosomishte = 3,
-         [Display(Name = "Гоце Делчев")]
+         [Display(Name = "???? ??????")]
          Lujnica = 1,
-         [Display(Name = "Гоце Делчев")]
+         [Display(Name = "???? ??????")]
          Kornica = 1,
-         [Display(Name = "Гоце Делчев")]
+         [Display(Name = "???? ??????")]
          Borovo = 1,
-         [Display(Name = "Гоце Делчев")]
+         [Display(Name = "???? ??????")]
          Bukovo = 1,
-         [Display(Name = "Гоце Делчев")]
+         [Display(Name = "???? ??????")]
          Banichan = 1,
-         [Display(Name = "Гоце Делчев")]
+         [Display(Name = "???? ??????")]
          Gospodinci = 1,
     }
 }

@@ -1,4 +1,4 @@
-﻿namespace GoceTransportApp.Services.Data
+namespace GoceTransportApp.Services.Data
 {
     using System.Collections.Generic;
 

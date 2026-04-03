@@ -1,4 +1,4 @@
-﻿using GoceTransportApp.Data.Models;
+using GoceTransportApp.Data.Models;
 using GoceTransportApp.Web.Infrastructure.ValidationAttributes;
 using System;
 using System.Collections.Generic;
@@ -6,7 +6,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Web.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using static GoceTransportApp.Common.ResultMessages.TicketMessages;
 
 

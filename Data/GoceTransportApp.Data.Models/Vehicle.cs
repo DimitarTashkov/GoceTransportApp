@@ -1,4 +1,4 @@
-﻿using GoceTransportApp.Data.Common.Models;
+using GoceTransportApp.Data.Common.Models;
 using GoceTransportApp.Data.Models.Enumerations;
 using System;
 using System.Collections.Generic;

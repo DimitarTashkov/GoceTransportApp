@@ -1,4 +1,4 @@
-﻿namespace GoceTransportApp.Data.Common.Repositories
+namespace GoceTransportApp.Data.Common.Repositories
 {
     using System.Linq;
     using System.Threading.Tasks;

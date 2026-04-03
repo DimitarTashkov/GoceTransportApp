@@ -1,4 +1,4 @@
-﻿namespace GoceTransportApp.Data.Configurations
+namespace GoceTransportApp.Data.Configurations
 {
     using GoceTransportApp.Data.Models;
     using Microsoft.EntityFrameworkCore;

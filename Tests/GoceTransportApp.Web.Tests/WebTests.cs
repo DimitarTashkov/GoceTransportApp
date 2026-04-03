@@ -1,4 +1,4 @@
-﻿namespace GoceTransportApp.Web.Tests
+namespace GoceTransportApp.Web.Tests
 {
     using System.Net;
     using System.Threading.Tasks;

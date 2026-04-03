@@ -1,4 +1,4 @@
-﻿namespace GoceTransportApp.Data.Common.Models
+namespace GoceTransportApp.Data.Common.Models
 {
     using System;
     using System.ComponentModel.DataAnnotations;

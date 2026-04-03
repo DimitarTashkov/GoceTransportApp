@@ -1,4 +1,4 @@
-﻿namespace GoceTransportApp.Data.Repositories
+namespace GoceTransportApp.Data.Repositories
 {
     using System;
     using System.Collections.Generic;

@@ -1,4 +1,4 @@
-﻿namespace GoceTransportApp.Web.Controllers
+namespace GoceTransportApp.Web.Controllers
 {
     using System;
     using System.Threading.Tasks;

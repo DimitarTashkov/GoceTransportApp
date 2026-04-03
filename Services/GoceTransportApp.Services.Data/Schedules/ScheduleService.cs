@@ -1,4 +1,4 @@
-﻿using GoceTransportApp.Data.Common.Repositories;
+using GoceTransportApp.Data.Common.Repositories;
 using GoceTransportApp.Data.Models;
 using GoceTransportApp.Data.Models.Enumerations;
 using GoceTransportApp.Services.Data.Base;
@@ -10,7 +10,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Web.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace GoceTransportApp.Services.Data.Schedules
 {
@@ -66,6 +66,7 @@ namespace GoceTransportApp.Services.Data.Schedules
             schedule.VehicleId = Guid.Parse(inputModel.VehicleId);
             schedule.ScheduleTickets = inputModel.ScheduleTickets;
             schedule.OrganizationId = Guid.Parse(inputModel.OrganizationId);
+            schedule.LiveStatus = inputModel.LiveStatus;
             schedule.ModifiedOn = DateTime.UtcNow;
 
             bool result = await scheduleRepository.UpdateAsync(schedule);
@@ -186,6 +187,7 @@ namespace GoceTransportApp.Services.Data.Schedules
                   OrganizationId = schedule.OrganizationId.ToString(),
                   RouteId = schedule.RouteId.ToString(),
                   VehicleId = schedule.VehicleId.ToString(),
+                  LiveStatus = schedule.LiveStatus,
                   ScheduleTickets = schedule.ScheduleTickets,
               })
               .FirstOrDefaultAsync(s => s.Id.ToLower() == id.ToString().ToLower());
@@ -247,6 +249,7 @@ namespace GoceTransportApp.Services.Data.Schedules
                     ToStreet = schedule.Route.ToStreet.Name,
                     OrganizationId = schedule.OrganizationId.ToString(),
                     OrganizationName = schedule.Organization.Name,
+                    LiveStatus = schedule.LiveStatus,
                 };
             }
 
@@ -268,7 +271,7 @@ namespace GoceTransportApp.Services.Data.Schedules
                 .Select(s => new SelectListItem
                 {
                     Value = s.Id.ToString(),
-                    Text = $"{s.Day} | {s.Departure:HH:mm} - {s.Arrival:HH:mm} | Route: {s.Route.FromCity.Name}, {s.Route.FromStreet.Name} → {s.Route.ToCity.Name}, {s.Route.ToStreet.Name}"
+                    Text = $"{s.Day} | {s.Departure:HH:mm} - {s.Arrival:HH:mm} | Route: {s.Route.FromCity.Name}, {s.Route.FromStreet.Name} ? {s.Route.ToCity.Name}, {s.Route.ToStreet.Name}"
                 })
                 .ToListAsync();
         }

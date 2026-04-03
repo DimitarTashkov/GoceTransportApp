@@ -1,4 +1,4 @@
-﻿using GoceTransportApp.Data.Common.Repositories;
+using GoceTransportApp.Data.Common.Repositories;
 using GoceTransportApp.Data.Models;
 using GoceTransportApp.Services.Data.Base;
 using GoceTransportApp.Web.ViewModels.Cities;
@@ -10,7 +10,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Web.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace GoceTransportApp.Services.Data.Routes
 {
@@ -324,7 +324,7 @@ namespace GoceTransportApp.Services.Data.Routes
                 .Select(r => new SelectListItem
                 {
                     Value = r.Id.ToString(),
-                    Text = $"{r.FromCity.Name}, {r.FromStreet.Name} → {r.ToCity.Name}, {r.ToStreet.Name}"
+                    Text = $"{r.FromCity.Name}, {r.FromStreet.Name} ? {r.ToCity.Name}, {r.ToStreet.Name}"
                 })
                 .ToListAsync();
         }

@@ -1,4 +1,4 @@
-﻿using GoceTransportApp.Data.Models.Enumerations;
+using GoceTransportApp.Data.Models.Enumerations;
 using GoceTransportApp.Data.Models;
 using Microsoft.EntityFrameworkCore;
 using System;

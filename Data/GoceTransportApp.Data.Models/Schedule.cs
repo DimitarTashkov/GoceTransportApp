@@ -1,4 +1,4 @@
-﻿namespace GoceTransportApp.Data.Models
+namespace GoceTransportApp.Data.Models
 {
     using GoceTransportApp.Data.Common.Models;
     using System;
@@ -39,6 +39,9 @@
 
         [ForeignKey(nameof(RouteId))]
         public Route Route { get; set; } = null!;
+
+        [MaxLength(200)]
+        public string? LiveStatus { get; set; }
 
         public HashSet<Ticket> ScheduleTickets { get; set; }
         = new HashSet<Ticket>();

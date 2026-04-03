@@ -1,4 +1,4 @@
-﻿using GoceTransportApp.Web.ViewModels.Routes;
+using GoceTransportApp.Web.ViewModels.Routes;
 using System;
 using System.Collections.Generic;
 using System.Linq;

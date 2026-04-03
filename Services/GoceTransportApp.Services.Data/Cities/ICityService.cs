@@ -1,4 +1,4 @@
-﻿using GoceTransportApp.Data.Models;
+using GoceTransportApp.Data.Models;
 using GoceTransportApp.Web.ViewModels.Cities;
 using GoceTransportApp.Web.ViewModels.Streets;
 using System;

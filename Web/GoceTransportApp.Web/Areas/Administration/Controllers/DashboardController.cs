@@ -1,4 +1,4 @@
-﻿namespace GoceTransportApp.Web.Areas.Administration.Controllers
+namespace GoceTransportApp.Web.Areas.Administration.Controllers
 {
     using GoceTransportApp.Common;
     using GoceTransportApp.Services.Data;

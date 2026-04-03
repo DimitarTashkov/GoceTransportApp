@@ -1,4 +1,4 @@
-﻿using GoceTransportApp.Services.Data.Schedules;
+using GoceTransportApp.Services.Data.Schedules;
 using GoceTransportApp.Services.Data.Tickets;
 using GoceTransportApp.Services.Messaging;
 using GoceTransportApp.Web.ViewModels.Schedules;
@@ -19,6 +19,8 @@ using System.Net.Mail;
 using GoceTransportApp.Services.Data.Routes;
 using System.Linq;
 using Microsoft.Extensions.Configuration;
+using GoceTransportApp.Web.Hubs;
+using Microsoft.AspNetCore.SignalR;
 
 namespace GoceTransportApp.Web.Controllers
 {
@@ -30,6 +32,7 @@ namespace GoceTransportApp.Web.Controllers
         private readonly IRouteService routeService;
         private readonly IEmailSender emailSender;
         private readonly IConfiguration configuration;
+        private readonly IHubContext<NotificationHub> hubContext;
 
         public TicketController(
             ITicketService ticketService,
@@ -37,7 +40,8 @@ namespace GoceTransportApp.Web.Controllers
             IScheduleService scheduleService,
             IRouteService routeService,
             IEmailSender emailSender,
-            IConfiguration configuration)
+            IConfiguration configuration,
+            IHubContext<NotificationHub> hubContext)
             : base(organizationRepository)
         {
             this.ticketService = ticketService;
@@ -45,6 +49,7 @@ namespace GoceTransportApp.Web.Controllers
             this.routeService = routeService;
             this.emailSender = emailSender;
             this.configuration = configuration;
+            this.hubContext = hubContext;
         }
 
         [HttpGet]
@@ -310,7 +315,7 @@ namespace GoceTransportApp.Web.Controllers
 
             if (!isCancelled)
             {
-                TempData[nameof(FailMessage)] = "Ticket cannot be cancelled — departure is less than 24 hours away.";
+                TempData[nameof(FailMessage)] = "Ticket cannot be cancelled � departure is less than 24 hours away.";
             }
             else
             {
@@ -343,6 +348,29 @@ namespace GoceTransportApp.Web.Controllers
             else
             {
                 TempData[nameof(SuccessMessage)] = "Ticket purchased successfully!";
+
+                var details = await this.ticketService.GetTicketDetailsAsync(ticketGuid);
+                if (details != null)
+                {
+                    await this.hubContext.Clients.User(userId)
+                        .SendAsync("ReceivePurchaseConfirmation", details.FromCity, details.ToCity, details.OrganizationName);
+
+                    DateTime? departureDateTime = await this.ticketService.GetTicketDepartureDateTimeAsync(ticketGuid);
+                    if (departureDateTime.HasValue)
+                    {
+                        TimeSpan delay = departureDateTime.Value.AddMinutes(-30) - DateTime.Now;
+                        string capturedUserId = userId;
+                        string capturedFrom = details.FromCity;
+                        string capturedTo = details.ToCity;
+                        _ = Task.Run(async () =>
+                        {
+                            if (delay > TimeSpan.Zero)
+                                await Task.Delay(delay);
+                            await this.hubContext.Clients.User(capturedUserId)
+                                .SendAsync("ReceiveDepartureReminder", capturedFrom, capturedTo);
+                        });
+                    }
+                }
             }
 
             return RedirectToAction(nameof(MyTickets));
@@ -422,11 +450,11 @@ namespace GoceTransportApp.Web.Controllers
 
                 string html = EmailTemplates.GetTicketConfirmationEmail(
                     recipientName: userName,
-                    fromCity: "—",
-                    toCity: "—",
+                    fromCity: "�",
+                    toCity: "�",
                     departureDate: model.IssuedDate.ToString("dd MMM yyyy"),
-                    departureTime: "—",
-                    arrivalTime: "—",
+                    departureTime: "�",
+                    arrivalTime: "�",
                     organizationName: model.OrganizationId,
                     ticketId: "Newly created",
                     price: model.Price.ToString("F2"));
@@ -435,7 +463,7 @@ namespace GoceTransportApp.Web.Controllers
                     senderEmail,
                     senderName,
                     userEmail,
-                    "Ticket Successfully Issued — GoceTransport",
+                    "Ticket Successfully Issued � GoceTransport",
                     html);
             }
             catch
@@ -475,7 +503,7 @@ namespace GoceTransportApp.Web.Controllers
                     senderEmail,
                     senderName,
                     userEmail,
-                    "Ticket Cancellation Confirmed — GoceTransport",
+                    "Ticket Cancellation Confirmed � GoceTransport",
                     html);
             }
             catch

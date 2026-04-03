@@ -1,4 +1,4 @@
-﻿using GoceTransportApp.Data.Common.Repositories;
+using GoceTransportApp.Data.Common.Repositories;
 using GoceTransportApp.Data.Models;
 using GoceTransportApp.Services.Data.Base;
 using GoceTransportApp.Web.ViewModels.Cities;

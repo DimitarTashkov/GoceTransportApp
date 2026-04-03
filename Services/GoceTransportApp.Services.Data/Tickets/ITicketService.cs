@@ -1,4 +1,4 @@
-﻿using GoceTransportApp.Web.ViewModels.Schedules;
+using GoceTransportApp.Web.ViewModels.Schedules;
 using GoceTransportApp.Web.ViewModels.Tickets;
 using System;
 using System.Collections.Generic;
@@ -30,5 +30,6 @@ namespace GoceTransportApp.Services.Data.Tickets
         Task<bool> CancelTicketAsync(string userId, Guid ticketId);
         Task<IEnumerable<PassengerViewModel>> GetPassengersForScheduleAsync(Guid scheduleId);
         Task<bool> BoardPassengerAsync(string customerId, Guid ticketId);
+        Task<DateTime?> GetTicketDepartureDateTimeAsync(Guid ticketId);
     }
 }

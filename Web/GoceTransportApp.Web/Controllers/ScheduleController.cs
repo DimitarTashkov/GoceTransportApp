@@ -1,7 +1,9 @@
-﻿using GoceTransportApp.Services.Data.Cities;
+using GoceTransportApp.Services.Data.Cities;
 using GoceTransportApp.Services.Data.Schedules;
+using GoceTransportApp.Web.Hubs;
 using GoceTransportApp.Web.ViewModels.Vehicles;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.SignalR;
 using System.Threading.Tasks;
 using System;
 
@@ -33,6 +35,7 @@ namespace GoceTransportApp.Web.Controllers
         private readonly ICityService cityService;
         private readonly ITicketService ticketService;
         private readonly IDeletableEntityRepository<Organization> organizationRepository;
+        private readonly IHubContext<NotificationHub> hubContext;
 
         public ScheduleController(
             IScheduleService scheduleService,
@@ -40,7 +43,8 @@ namespace GoceTransportApp.Web.Controllers
             IVehicleService vehicleService,
             IRouteService routeService,
             ICityService cityService,
-            ITicketService ticketService)
+            ITicketService ticketService,
+            IHubContext<NotificationHub> hubContext)
             : base(organizationRepository)
         {
             this.scheduleService = scheduleService;
@@ -49,6 +53,7 @@ namespace GoceTransportApp.Web.Controllers
             this.routeService = routeService;
             this.cityService = cityService;
             this.ticketService = ticketService;
+            this.hubContext = hubContext;
         }
 
         [HttpGet]
@@ -197,6 +202,12 @@ namespace GoceTransportApp.Web.Controllers
                 ModelState.AddModelError(nameof(FailMessage), FailMessage);
 
                 return this.View(formModel);
+            }
+
+            if (!string.IsNullOrWhiteSpace(formModel.LiveStatus))
+            {
+                await this.hubContext.Clients.All
+                    .SendAsync("ReceiveStatusUpdate", formModel.Id, formModel.LiveStatus);
             }
 
             TempData[nameof(SuccessMessage)] = SuccessMessage;

@@ -1,4 +1,4 @@
-﻿using GoceTransportApp.Web.ViewModels.ContactForms;
+using GoceTransportApp.Web.ViewModels.ContactForms;
 using System;
 using System.Collections.Generic;
 using System.Linq;

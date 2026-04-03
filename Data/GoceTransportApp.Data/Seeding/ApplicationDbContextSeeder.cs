@@ -1,4 +1,4 @@
-﻿namespace GoceTransportApp.Data.Seeding
+namespace GoceTransportApp.Data.Seeding
 {
     using System;
     using System.Collections.Generic;

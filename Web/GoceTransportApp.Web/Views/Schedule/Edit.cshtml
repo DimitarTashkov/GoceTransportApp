@@ -71,6 +71,15 @@
                         <span asp-validation-for="RouteId" class="text-danger small"></span>
                     </div>
 
+                    <div class="mb-4 p-3 border border-warning rounded-3 bg-warning bg-opacity-10">
+                        <label asp-for="LiveStatus" class="form-label fw-semibold text-warning-emphasis">
+                            <i class="fas fa-triangle-exclamation me-1"></i>@Localizer["Live Status (Real-Time Alert)"]
+                        </label>
+                        <input asp-for="LiveStatus" type="text" class="form-control rounded-3"
+                               placeholder="@Localizer["e.g. Delayed 20 min / Cancelled"]" maxlength="200" />
+                        <div class="form-text">@Localizer["Leave empty to clear the alert. Passengers will be notified instantly."]</div>
+                    </div>
+
                     <button type="submit" class="btn btn-primary btn-lg w-100 rounded-pill">
                         <i class="fas fa-save me-2"></i>@Localizer["Update"]
                     </button>

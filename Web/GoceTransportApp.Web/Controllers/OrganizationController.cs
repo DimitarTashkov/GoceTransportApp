@@ -1,6 +1,8 @@
-﻿using GoceTransportApp.Data.Models.Enumerations;
+using GoceTransportApp.Data.Models.Enumerations;
 using GoceTransportApp.Services.Data.Organizations;
 using GoceTransportApp.Services.Data.Reviews;
+using GoceTransportApp.Web.Hubs;
+using Microsoft.AspNetCore.SignalR;
 using GoceTransportApp.Services.Data.Vehicles;
 using GoceTransportApp.Web.ViewModels.Vehicles;
 using Microsoft.AspNetCore.Mvc;
@@ -36,13 +38,15 @@ namespace GoceTransportApp.Web.Controllers
         private readonly IWebHostEnvironment webHostEnvironment;
         private readonly UserManager<ApplicationUser> userManager;
         private readonly IDeletableEntityRepository<Organization> organizationRepository;
+        private readonly IHubContext<NotificationHub> hubContext;
 
         public OrganizationController(
             IOrganizationService organizationService,
             IReviewService reviewService,
             IDeletableEntityRepository<Organization> organizationRepository,
             IWebHostEnvironment webHostEnvironment,
-            UserManager<ApplicationUser> userManager)
+            UserManager<ApplicationUser> userManager,
+            IHubContext<NotificationHub> hubContext)
             : base(organizationRepository)
         {
             this.organizationService = organizationService;
@@ -50,6 +54,7 @@ namespace GoceTransportApp.Web.Controllers
             this.webHostEnvironment = webHostEnvironment;
             this.userManager = userManager;
             this.organizationRepository = organizationRepository;
+            this.hubContext = hubContext;
         }
 
         [HttpGet]
@@ -373,6 +378,14 @@ namespace GoceTransportApp.Web.Controllers
             else
             {
                 TempData[nameof(SuccessMessage)] = "Thank you for your review!";
+
+                var org = await this.organizationRepository.AllAsNoTracking()
+                    .FirstOrDefaultAsync(o => o.Id.ToString() == organizationId);
+                if (org != null)
+                {
+                    await this.hubContext.Clients.User(org.FounderId)
+                        .SendAsync("ReceiveNewReview", org.Name, rating);
+                }
             }
 
             return this.RedirectToAction(nameof(Details), new { id = organizationId });
@@ -498,7 +511,18 @@ namespace GoceTransportApp.Web.Controllers
                 return RedirectToAction(nameof(Details), new { id });
             }
 
-            await organizationService.ToggleFavoriteAsync(userId, id);
+            bool isFavorited = await this.organizationService.ToggleFavoriteAsync(userId, id);
+
+            if (isFavorited && Guid.TryParse(id, out Guid orgGuid))
+            {
+                var org = await this.organizationRepository.AllAsNoTracking()
+                    .FirstOrDefaultAsync(o => o.Id == orgGuid);
+                if (org != null)
+                {
+                    await this.hubContext.Clients.User(userId)
+                        .SendAsync("ReceiveFavoriteAdded", org.Name);
+                }
+            }
 
             return RedirectToAction(nameof(Details), new { id });
         }

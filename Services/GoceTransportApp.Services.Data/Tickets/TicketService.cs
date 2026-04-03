@@ -1,4 +1,4 @@
-﻿using GoceTransportApp.Data.Common.Repositories;
+using GoceTransportApp.Data.Common.Repositories;
 using GoceTransportApp.Data.Models;
 using GoceTransportApp.Services.Data.Base;
 using GoceTransportApp.Web.ViewModels.Schedules;
@@ -416,6 +416,17 @@ namespace GoceTransportApp.Services.Data.Tickets
             }
 
             return await query.CountAsync();
+        }
+
+        public async Task<DateTime?> GetTicketDepartureDateTimeAsync(Guid ticketId)
+        {
+            var ticket = await ticketRepository
+                .AllAsNoTracking()
+                .Include(t => t.TimeTable)
+                .FirstOrDefaultAsync(t => t.Id == ticketId);
+
+            if (ticket == null) return null;
+            return ticket.ExpiryDate.Date.Add(ticket.TimeTable.Departure.TimeOfDay);
         }
     }
 }

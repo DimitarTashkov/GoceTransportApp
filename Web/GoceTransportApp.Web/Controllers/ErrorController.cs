@@ -1,4 +1,4 @@
-﻿using GoceTransportApp.Common;
+using GoceTransportApp.Common;
 using GoceTransportApp.Web.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;

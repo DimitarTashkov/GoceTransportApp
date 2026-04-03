@@ -28,6 +28,7 @@ namespace GoceTransportApp.Web
     using GoceTransportApp.Services.Data.Vehicles;
     using GoceTransportApp.Services.Mapping;
     using GoceTransportApp.Services.Messaging;
+    using GoceTransportApp.Web.Hubs;
     using GoceTransportApp.Web.Middleware;
     using Microsoft.Extensions.Logging;
     using GoceTransportApp.Web.ViewModels;
@@ -127,6 +128,8 @@ namespace GoceTransportApp.Web
             services.AddDatabaseDeveloperPageExceptionFilter();
 
             services.AddMemoryCache();
+
+            services.AddSignalR();
 
             services.AddResponseCompression(options =>
             {
@@ -304,6 +307,7 @@ namespace GoceTransportApp.Web
             app.UseAuthentication();
             app.UseAuthorization();
 
+            app.MapHub<NotificationHub>("/notificationHub");
             app.MapControllerRoute("areaRoute", "{area:exists}/{controller=Home}/{action=Index}/{id?}");
             app.MapControllerRoute("Errors", "{controller=Home}/{action=Index}/{statusCode?}");
             app.MapControllerRoute("default", "{controller=Home}/{action=Index}/{id?}");

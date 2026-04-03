@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -29,5 +29,7 @@ namespace GoceTransportApp.Web.ViewModels.Schedules
         public string OrganizationName { get; set; }
 
         public string OrganizationId { get; set; } = null!;
+
+        public string? LiveStatus { get; set; }
     }
 }

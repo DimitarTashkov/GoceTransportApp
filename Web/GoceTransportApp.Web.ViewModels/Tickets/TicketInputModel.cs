@@ -1,4 +1,4 @@
-﻿using GoceTransportApp.Data.Models;
+using GoceTransportApp.Data.Models;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 using GoceTransportApp.Web.Infrastructure.ValidationAttributes;
 
 using static GoceTransportApp.Common.ResultMessages.TicketMessages;
-using System.Web.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace GoceTransportApp.Web.ViewModels.Tickets
 {

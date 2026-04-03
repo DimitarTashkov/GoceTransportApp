@@ -1,4 +1,4 @@
-﻿using GoceTransportApp.Data.Common.Models;
+using GoceTransportApp.Data.Common.Models;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;

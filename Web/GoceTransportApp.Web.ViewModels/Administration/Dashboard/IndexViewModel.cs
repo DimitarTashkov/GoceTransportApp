@@ -1,4 +1,4 @@
-﻿namespace GoceTransportApp.Web.ViewModels.Administration.Dashboard
+namespace GoceTransportApp.Web.ViewModels.Administration.Dashboard
 {
     public class IndexViewModel
     {

@@ -1,4 +1,4 @@
-﻿using GoceTransportApp.Data.Common.Models;
+using GoceTransportApp.Data.Common.Models;
 using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;

@@ -1,4 +1,4 @@
-﻿namespace GoceTransportApp.Web.ViewModels.Settings
+namespace GoceTransportApp.Web.ViewModels.Settings
 {
     using System.Collections.Generic;
 

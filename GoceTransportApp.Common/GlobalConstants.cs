@@ -1,4 +1,4 @@
-﻿namespace GoceTransportApp.Common
+namespace GoceTransportApp.Common
 {
     public static class GlobalConstants
     {

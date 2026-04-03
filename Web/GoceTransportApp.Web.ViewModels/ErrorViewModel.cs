@@ -1,4 +1,4 @@
-﻿namespace GoceTransportApp.Web.ViewModels
+namespace GoceTransportApp.Web.ViewModels
 {
     public class ErrorViewModel
     {

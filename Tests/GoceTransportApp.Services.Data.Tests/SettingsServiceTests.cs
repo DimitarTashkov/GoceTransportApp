@@ -1,4 +1,4 @@
-﻿namespace GoceTransportApp.Services.Data.Tests
+namespace GoceTransportApp.Services.Data.Tests
 {
     using System.Collections.Generic;
     using System.Linq;

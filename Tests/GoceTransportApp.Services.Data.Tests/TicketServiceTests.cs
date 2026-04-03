@@ -1,4 +1,4 @@
-﻿using GoceTransportApp.Data;
+using GoceTransportApp.Data;
 using GoceTransportApp.Data.Models;
 using GoceTransportApp.Data.Repositories;
 using GoceTransportApp.Services.Data.Tickets;

@@ -6,6 +6,23 @@
     ViewData["Title"] = "Schedule Details";
 }
 
-<h1 class="h2 fw-bold text-dark text-center mt-4 mb-4">@Localizer["Schedule Details"]</h1>
+<div data-schedule-id="@Model.Id" id="scheduleDetailsWrapper">
+    <h1 class="h2 fw-bold text-dark text-center mt-4 mb-4">@Localizer["Schedule Details"]</h1>
 
-<partial name="_ScheduleDetails" model="Model" />
+    @if (!string.IsNullOrEmpty(Model.LiveStatus))
+    {
+        <div id="liveStatusBanner" class="alert alert-danger d-flex align-items-center gap-2 rounded-3 fw-semibold mb-3" role="alert">
+            <i class="fas fa-circle-exclamation fa-lg"></i>
+            <span>@Model.LiveStatus</span>
+        </div>
+    }
+
+    <partial name="_ScheduleDetails" model="Model" />
+</div>
+
+@section Scripts {
+    <script>
+        // Expose scheduleId on body so notifications.js can match it
+        document.body.dataset.scheduleId = "@Model.Id";
+    </script>
+}

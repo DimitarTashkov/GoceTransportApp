@@ -1,4 +1,4 @@
-﻿namespace GoceTransportApp.Web.Controllers
+namespace GoceTransportApp.Web.Controllers
 {
     using GoceTransportApp.Data.Common.Repositories;
     using GoceTransportApp.Data.Models;

@@ -1,4 +1,4 @@
-﻿namespace GoceTransportApp.Data
+namespace GoceTransportApp.Data
 {
     using System;
     using System.Threading.Tasks;

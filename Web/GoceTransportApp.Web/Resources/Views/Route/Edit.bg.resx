@@ -40,7 +40,8 @@
   <data name="Distance (km)" xml:space="preserve"><value>Разстояние (км)</value></data>
   <data name="Duration (minutes) — e.g. 135" xml:space="preserve"><value>Продължителност (минути) — напр. 135</value></data>
   <data name="Save Changes" xml:space="preserve"><value>Запази Промените</value></data>
-  <data name="Cancel" xml:space="preserve"><value>Отказ</value></data>
+  <data name="Cancel" xml:space="preserve"><value>Откажи</value></data>
+  <data name="Save" xml:space="preserve"><value>Запази</value></data>
   <data name="Stop Locations" xml:space="preserve"><value>Местоположения на спирките</value></data>
   <data name="optional" xml:space="preserve"><value>по избор</value></data>
   <data name="Click on the map to place or move stop markers. This lets passengers navigate to the stop." xml:space="preserve"><value>Кликнете върху картата, за да поставите или преместите маркерите. Тази информация позволява на пътниците да навигират до спирката.</value></data>

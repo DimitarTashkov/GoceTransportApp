@@ -312,28 +312,6 @@ namespace GoceTransportApp.Web.Controllers
             return this.View(model);
         }
 
-        [HttpPost]
-        public async Task<IActionResult> Board(string customerId, string ticketId, string scheduleId, string organizationId)
-        {
-            string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            if (!await this.HasUserCreatedOrganizationAsync(userId, organizationId) && !User.IsInRole(AdministratorRoleName))
-            {
-                return RedirectToAction("Schedules", "Organization", new { organizationId });
-            }
-
-            Guid ticketGuid = Guid.Empty;
-            bool isValid = IsGuidValid(ticketId, ref ticketGuid);
-            if (!isValid)
-            {
-                TempData[nameof(FailMessage)] = FailMessage;
-                return RedirectToAction(nameof(Passengers), new { id = scheduleId, organizationId });
-            }
-
-            await this.ticketService.BoardPassengerAsync(customerId, ticketGuid);
-
-            return RedirectToAction(nameof(Passengers), new { id = scheduleId, organizationId });
-        }
-
         [HttpGet]
         [AllowAnonymous]
         public async Task<IActionResult> Search(TravelSearchViewModel model)

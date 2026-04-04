@@ -52,4 +52,6 @@
   <data name="Click on the map to place the marker." xml:space="preserve"><value>Кликнете на картата, за да поставите маркера.</value></data>
   <data name="Departure stop" xml:space="preserve"><value>Спирка — тръгване</value></data>
   <data name="Arrival stop" xml:space="preserve"><value>Спирка — пристигане</value></data>
+  <data name="Save" xml:space="preserve"><value>Запази</value></data>
+  <data name="Cancel" xml:space="preserve"><value>Откажи</value></data>
 </root>

@@ -40,5 +40,6 @@
   <data name="Status" xml:space="preserve"><value>Статус</value></data>
   <data name="Select Status" xml:space="preserve"><value>Изберете Статус</value></data>
   <data name="Update" xml:space="preserve"><value>Обнови</value></data>
-  <data name="Cancel" xml:space="preserve"><value>Отказ</value></data>
+  <data name="Cancel" xml:space="preserve"><value>Откажи</value></data>
+  <data name="Save" xml:space="preserve"><value>Запази</value></data>
 </root>

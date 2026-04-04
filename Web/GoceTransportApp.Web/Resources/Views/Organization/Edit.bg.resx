@@ -37,5 +37,6 @@
   <data name="Organization Logo" xml:space="preserve"><value>Лого на Организацията</value></data>
   <data name="Current logo. Upload a new file to replace it." xml:space="preserve"><value>Текущо лого. Качете нов файл за замяна.</value></data>
   <data name="Save Changes" xml:space="preserve"><value>Запази Промените</value></data>
-  <data name="Cancel" xml:space="preserve"><value>Отказ</value></data>
+  <data name="Cancel" xml:space="preserve"><value>Откажи</value></data>
+  <data name="Save" xml:space="preserve"><value>Запази</value></data>
 </root>

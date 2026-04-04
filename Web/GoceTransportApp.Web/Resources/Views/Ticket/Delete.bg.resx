@@ -36,5 +36,5 @@
   <data name="Issued Date" xml:space="preserve"><value>Дата на издаване</value></data>
   <data name="Expiry Date" xml:space="preserve"><value>Дата на изтичане</value></data>
   <data name="Confirm Delete" xml:space="preserve"><value>Потвърди Изтриването</value></data>
-  <data name="Cancel" xml:space="preserve"><value>Отказ</value></data>
+  <data name="Cancel" xml:space="preserve"><value>Откажи</value></data>
 </root>

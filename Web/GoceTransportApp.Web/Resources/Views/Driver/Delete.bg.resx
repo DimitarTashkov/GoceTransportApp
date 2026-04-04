@@ -35,5 +35,5 @@
   <data name="First Name" xml:space="preserve"><value>Собствено Име</value></data>
   <data name="Last Name" xml:space="preserve"><value>Фамилия</value></data>
   <data name="Confirm Delete" xml:space="preserve"><value>Потвърди Изтриването</value></data>
-  <data name="Cancel" xml:space="preserve"><value>Отказ</value></data>
+  <data name="Cancel" xml:space="preserve"><value>Откажи</value></data>
 </root>

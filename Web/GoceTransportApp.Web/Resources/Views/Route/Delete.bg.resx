@@ -35,5 +35,5 @@
   <data name="Departing Street" xml:space="preserve"><value>Начална Улица</value></data>
   <data name="Arriving Street" xml:space="preserve"><value>Крайна Улица</value></data>
   <data name="Confirm Delete" xml:space="preserve"><value>Потвърди Изтриването</value></data>
-  <data name="Cancel" xml:space="preserve"><value>Отказ</value></data>
+  <data name="Cancel" xml:space="preserve"><value>Откажи</value></data>
 </root>

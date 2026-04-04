@@ -6,8 +6,8 @@ namespace GoceTransportApp.Web.ViewModels.Schedules
 
         public string CustomerName { get; set; } = null!;
 
-        public string TicketId { get; set; } = null!;
+        public string CustomerEmail { get; set; } = null!;
 
-        public bool IsBoarded { get; set; }
+        public string TicketId { get; set; } = null!;
     }
 }

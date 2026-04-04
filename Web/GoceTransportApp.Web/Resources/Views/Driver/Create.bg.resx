@@ -36,4 +36,5 @@
   <data name="Age" xml:space="preserve"><value>Възраст</value></data>
   <data name="Driving Experience" xml:space="preserve"><value>Шофьорски Опит</value></data>
   <data name="Save" xml:space="preserve"><value>Запази</value></data>
+  <data name="Cancel" xml:space="preserve"><value>Откажи</value></data>
 </root>

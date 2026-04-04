@@ -35,5 +35,5 @@
   <data name="State" xml:space="preserve"><value>Щат/Регион</value></data>
   <data name="Zip Code" xml:space="preserve"><value>Пощенски Код</value></data>
   <data name="Save" xml:space="preserve"><value>Запази</value></data>
-  <data name="Cancel" xml:space="preserve"><value>Отказ</value></data>
+  <data name="Cancel" xml:space="preserve"><value>Откажи</value></data>
 </root>

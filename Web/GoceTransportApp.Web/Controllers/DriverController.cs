@@ -151,7 +151,7 @@ namespace GoceTransportApp.Web.Controllers
             bool isIdValid = IsGuidValid(id, ref driverGuid);
             if (!isIdValid)
             {
-                return this.RedirectToAction(nameof(Index));
+                return RedirectToAction("Details", "Organization", new { id = organizationId });
             }
 
             RemoveDriverViewModel? model = await driverService

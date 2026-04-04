@@ -36,5 +36,6 @@
   <data name="Phone" xml:space="preserve"><value>Телефон</value></data>
   <data name="Organization Logo" xml:space="preserve"><value>Лого на Организацията</value></data>
   <data name="Create" xml:space="preserve"><value>Създай</value></data>
-  <data name="Cancel" xml:space="preserve"><value>Отказ</value></data>
+  <data name="Cancel" xml:space="preserve"><value>Откажи</value></data>
+  <data name="Save" xml:space="preserve"><value>Запази</value></data>
 </root>

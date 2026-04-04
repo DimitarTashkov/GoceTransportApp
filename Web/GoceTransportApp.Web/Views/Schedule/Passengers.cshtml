@@ -41,8 +41,8 @@
                     <thead class="table-light">
                         <tr>
                             <th class="ps-4">@Localizer["Passenger"]</th>
-                            <th class="text-center">@Localizer["Status"]</th>
-                            <th class="text-center pe-4">@Localizer["Action"]</th>
+                            <th>@Localizer["Email"]</th>
+                            <th class="text-center pe-4">@Localizer["Ticket"]</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -57,39 +57,11 @@
                                         <span class="fw-semibold">@passenger.CustomerName</span>
                                     </div>
                                 </td>
-                                <td class="text-center">
-                                    @if (passenger.IsBoarded)
-                                    {
-                                        <span class="badge bg-success rounded-pill px-3 py-2">
-                                            <i class="fas fa-check me-1"></i>@Localizer["Boarded"]
-                                        </span>
-                                    }
-                                    else
-                                    {
-                                        <span class="badge bg-secondary rounded-pill px-3 py-2">
-                                            <i class="fas fa-clock me-1"></i>@Localizer["Waiting"]
-                                        </span>
-                                    }
-                                </td>
+                                <td class="text-muted small">@passenger.CustomerEmail</td>
                                 <td class="text-center pe-4">
-                                    <form asp-controller="Schedule" asp-action="Board" method="post">
-                                        <input type="hidden" name="customerId" value="@passenger.CustomerId" />
-                                        <input type="hidden" name="ticketId" value="@passenger.TicketId" />
-                                        <input type="hidden" name="scheduleId" value="@Model.ScheduleId" />
-                                        <input type="hidden" name="organizationId" value="@Model.OrganizationId" />
-                                        @if (passenger.IsBoarded)
-                                        {
-                                            <button type="submit" class="btn btn-outline-warning btn-sm rounded-pill">
-                                                <i class="fas fa-undo me-1"></i>@Localizer["Unboard"]
-                                            </button>
-                                        }
-                                        else
-                                        {
-                                            <button type="submit" class="btn btn-success btn-sm rounded-pill">
-                                                <i class="fas fa-check me-1"></i>@Localizer["Board"]
-                                            </button>
-                                        }
-                                    </form>
+                                    <span class="badge bg-primary bg-opacity-10 text-primary rounded-pill px-3 py-2">
+                                        <i class="fas fa-ticket-alt me-1"></i>@passenger.TicketId.ToString()[..8]…
+                                    </span>
                                 </td>
                             </tr>
                         }
@@ -98,12 +70,8 @@
             </div>
 
             <div class="px-4 py-3 border-top text-muted small">
-                @{
-                    var boardedCount = Model.Passengers.Count(p => p.IsBoarded);
-                    var totalCount = Model.Passengers.Count();
-                }
                 <i class="fas fa-users me-1"></i>
-                <strong>@boardedCount / @totalCount</strong> @Localizer["passengers boarded"]
+                <strong>@Model.Passengers.Count()</strong> @Localizer["passengers"]
             </div>
         }
         else

@@ -39,5 +39,6 @@
   <data name="Schedule" xml:space="preserve"><value>Разписание</value></data>
   <data name="Select a schedule" xml:space="preserve"><value>Изберете разписание</value></data>
   <data name="Update" xml:space="preserve"><value>Обнови</value></data>
-  <data name="Cancel" xml:space="preserve"><value>Отказ</value></data>
+  <data name="Cancel" xml:space="preserve"><value>Откажи</value></data>
+  <data name="Save" xml:space="preserve"><value>Запази</value></data>
 </root>

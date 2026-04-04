@@ -37,5 +37,5 @@
   <data name="From" xml:space="preserve"><value>От</value></data>
   <data name="To" xml:space="preserve"><value>До</value></data>
   <data name="Confirm Delete" xml:space="preserve"><value>Потвърди Изтриването</value></data>
-  <data name="Cancel" xml:space="preserve"><value>Отказ</value></data>
+  <data name="Cancel" xml:space="preserve"><value>Откажи</value></data>
 </root>

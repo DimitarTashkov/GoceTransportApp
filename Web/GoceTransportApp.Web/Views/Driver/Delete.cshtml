@@ -4,13 +4,6 @@
 
 @{
     ViewData["Title"] = "Remove Driver";
-
-    var returnUrl = Context.Request.Headers["Referer"].ToString();
-
-    if (string.IsNullOrEmpty(returnUrl))
-    {
-        returnUrl = Url.Action("Index", "Driver");
-    }
 }
 
 <h1 class="mb-4">@Localizer["Remove Driver"]</h1>
@@ -28,7 +21,7 @@
             <input asp-for="OrganizationId" type="hidden" />
 
             <button type="submit" class="btn btn-danger">@Localizer["Confirm Delete"]</button>
-            <a href="@returnUrl" class="btn btn-secondary"><i class="fas fa-times"></i> @Localizer["Cancel"]</a>
+            <a asp-controller="Organization" asp-action="Details" asp-route-id="@Model.OrganizationId" class="btn btn-secondary"><i class="fas fa-times"></i> @Localizer["Cancel"]</a>
         </form>
     </div>
 </div>

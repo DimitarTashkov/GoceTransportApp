@@ -36,5 +36,5 @@
   <data name="Address" xml:space="preserve"><value>Адрес</value></data>
   <data name="Founder" xml:space="preserve"><value>Основател</value></data>
   <data name="Delete" xml:space="preserve"><value>Изтрий</value></data>
-  <data name="Cancel" xml:space="preserve"><value>Отказ</value></data>
+  <data name="Cancel" xml:space="preserve"><value>Откажи</value></data>
 </root>

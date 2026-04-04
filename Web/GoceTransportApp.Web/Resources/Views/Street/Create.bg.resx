@@ -33,5 +33,6 @@
   <data name="Create Street" xml:space="preserve"><value>Създай Улица</value></data>
   <data name="Street Name" xml:space="preserve"><value>Наименование на Улицата</value></data>
   <data name="Create" xml:space="preserve"><value>Създай</value></data>
-  <data name="Cancel" xml:space="preserve"><value>Отказ</value></data>
+  <data name="Cancel" xml:space="preserve"><value>Откажи</value></data>
+  <data name="Save" xml:space="preserve"><value>Запази</value></data>
 </root>

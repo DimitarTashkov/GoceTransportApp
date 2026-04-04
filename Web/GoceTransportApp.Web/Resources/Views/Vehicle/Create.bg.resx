@@ -38,5 +38,6 @@
   <data name="Capacity" xml:space="preserve"><value>Капацитет</value></data>
   <data name="Fuel Consumption (L/100km)" xml:space="preserve"><value>Разход на гориво (л/100км)</value></data>
   <data name="Create" xml:space="preserve"><value>Създай</value></data>
-  <data name="Cancel" xml:space="preserve"><value>Отказ</value></data>
+  <data name="Cancel" xml:space="preserve"><value>Откажи</value></data>
+  <data name="Save" xml:space="preserve"><value>Запази</value></data>
 </root>

@@ -371,8 +371,8 @@ namespace GoceTransportApp.Services.Data.Tickets
                 {
                     CustomerId = ut.CustomerId,
                     CustomerName = ut.Customer.UserName,
+                    CustomerEmail = ut.Customer.Email,
                     TicketId = ut.TicketId.ToString(),
-                    IsBoarded = ut.IsBoarded,
                 })
                 .ToListAsync();
         }

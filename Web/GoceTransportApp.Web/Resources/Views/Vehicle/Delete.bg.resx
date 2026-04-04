@@ -34,5 +34,5 @@
   <data name="Are you sure you want to delete this vehicle?" xml:space="preserve"><value>Сигурни ли сте, че искате да изтриете това превозно средство?</value></data>
   <data name="Number" xml:space="preserve"><value>Номер</value></data>
   <data name="Delete" xml:space="preserve"><value>Изтрий</value></data>
-  <data name="Cancel" xml:space="preserve"><value>Отказ</value></data>
+  <data name="Cancel" xml:space="preserve"><value>Откажи</value></data>
 </root>

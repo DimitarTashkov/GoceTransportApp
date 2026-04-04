@@ -3,7 +3,7 @@
 
 @{
     this.ViewData["Title"] = "Terms of Service";
-    ViewData["MetaDescription"] = "GoceTrans Terms of Service — rules for using the platform, booking tickets, and managing transport organizations.";
+    ViewData["MetaDescription"] = "GoceTrans Terms of Service — how the platform works and what we expect from everyone using it.";
 }
 
 <div class="row justify-content-center">
@@ -15,38 +15,36 @@
 
         <div class="alert alert-info mb-4">
             <i class="fas fa-info-circle me-2"></i>
-            @Localizer["By using GoceTrans you agree to these terms. Please read them carefully before registering or purchasing tickets."]
+            @Localizer["By using GoceTrans you agree to these terms. They're written to be straightforward — please take a moment to read them."]
         </div>
 
         <div class="card border-0 shadow-sm mb-4">
             <div class="card-body p-4">
-                <h2 class="h5 fw-bold mb-3">@Localizer["1. Platform Description"]</h2>
-                <p>@Localizer["GoceTrans is an online platform that connects passengers with transport operators for intercity bus travel in Bulgaria. We facilitate route discovery, schedule browsing, and ticket management. GoceTrans is not a transport operator — we act as an intermediary platform."]</p>
+                <h2 class="h5 fw-bold mb-3">@Localizer["1. What GoceTrans Is"]</h2>
+                <p>@Localizer["GoceTrans is an online platform where passengers can find bus routes, check schedules, and manage tickets. We connect passengers with transport operators — we are not a transport operator ourselves and we don't run any buses."]</p>
             </div>
         </div>
 
         <div class="card border-0 shadow-sm mb-4">
             <div class="card-body p-4">
-                <h2 class="h5 fw-bold mb-3">@Localizer["2. User Accounts"]</h2>
+                <h2 class="h5 fw-bold mb-3">@Localizer["2. Your Account"]</h2>
                 <ul>
-                    <li>@Localizer["You must be at least 18 years old to register."]</li>
-                    <li>@Localizer["You are responsible for maintaining the confidentiality of your account credentials."]</li>
-                    <li>@Localizer["You may not share or transfer your account to another person."]</li>
-                    <li>@Localizer["Accounts with false information may be suspended without notice."]</li>
-                    <li>@Localizer["After 5 failed login attempts, your account will be locked for 15 minutes as a security measure."]</li>
+                    <li>@Localizer["Keep your login details safe — you're responsible for anything done through your account."]</li>
+                    <li>@Localizer["Accounts are personal and cannot be shared or transferred."]</li>
+                    <li>@Localizer["Providing false information when registering may result in your account being suspended."]</li>
+                    <li>@Localizer["After 5 failed login attempts your account will be temporarily locked for 15 minutes."]</li>
                 </ul>
             </div>
         </div>
 
         <div class="card border-0 shadow-sm mb-4">
             <div class="card-body p-4">
-                <h2 class="h5 fw-bold mb-3">@Localizer["3. Ticket Booking"]</h2>
+                <h2 class="h5 fw-bold mb-3">@Localizer["3. Buying Tickets"]</h2>
                 <ul>
-                    <li>@Localizer["Tickets are issued for specific routes, schedules, and dates."]</li>
-                    <li>@Localizer["Ticket prices are set by the transport organization and may vary."]</li>
-                    <li>@Localizer["You may not purchase tickets for past or expired schedules."]</li>
-                    <li>@Localizer["Each user-ticket is linked to your account and is non-transferable."]</li>
-                    <li>@Localizer["Email confirmations are sent as a courtesy and do not constitute a legal document."]</li>
+                    <li>@Localizer["Each ticket is for a specific route and schedule."]</li>
+                    <li>@Localizer["Prices are set by the transport organization — GoceTrans doesn't set them."]</li>
+                    <li>@Localizer["You can't buy tickets for schedules that have already passed."]</li>
+                    <li>@Localizer["Tickets are tied to your account and cannot be transferred to another person."]</li>
                 </ul>
             </div>
         </div>
@@ -55,10 +53,8 @@
             <div class="card-body p-4">
                 <h2 class="h5 fw-bold mb-3">@Localizer["4. Cancellations and Refunds"]</h2>
                 <ul>
-                    <li>@Localizer["You may cancel a ticket up to 24 hours before the scheduled departure time."]</li>
-                    <li>@Localizer["Cancellations within 24 hours of departure are not permitted through the platform."]</li>
-                    <li>@Localizer["Refund policy is determined by the transport operator. Contact the organization directly for refund requests."]</li>
-                    <li>@Localizer["GoceTrans does not process payments or issue refunds directly."]</li>
+                    <li>@Localizer["Refunds are handled by the transport operator — contact them directly for refund requests."]</li>
+                    <li>@Localizer["GoceTrans does not process payments and does not issue refunds."]</li>
                 </ul>
             </div>
         </div>
@@ -68,53 +64,45 @@
                 <h2 class="h5 fw-bold mb-3">@Localizer["5. Transport Organizations"]</h2>
                 <p>@Localizer["If you register a transport organization on GoceTrans:"]</p>
                 <ul>
-                    <li>@Localizer["You confirm that you are legally authorized to operate the transport services listed."]</li>
-                    <li>@Localizer["Your organization is subject to membership plan limits (Free: 1 org, Pro: 3 orgs, Enterprise: unlimited)."]</li>
-                    <li>@Localizer["You are responsible for the accuracy of routes, schedules, prices, and vehicle capacity information."]</li>
-                    <li>@Localizer["GoceTrans reserves the right to remove organizations that violate these terms."]</li>
+                    <li>@Localizer["You confirm you are authorized to operate the listed services."]</li>
+                    <li>@Localizer["You're responsible for keeping your routes, schedules, prices, and vehicle capacity accurate."]</li>
+                    <li>@Localizer["Organizations that repeatedly violate these terms may be removed from the platform."]</li>
                 </ul>
             </div>
         </div>
 
         <div class="card border-0 shadow-sm mb-4">
             <div class="card-body p-4">
-                <h2 class="h5 fw-bold mb-3">@Localizer["6. Prohibited Conduct"]</h2>
-                <p>@Localizer["You may not:"]</p>
+                <h2 class="h5 fw-bold mb-3">@Localizer["6. What You Must Not Do"]</h2>
+                <p>@Localizer["To keep the platform fair and safe for everyone, please don't:"]</p>
                 <ul>
-                    <li>@Localizer["Use the platform for any unlawful purpose."]</li>
-                    <li>@Localizer["Attempt to circumvent rate limits or security measures."]</li>
-                    <li>@Localizer["Create fake organizations, routes, or schedules."]</li>
-                    <li>@Localizer["Submit false or misleading reviews."]</li>
-                    <li>@Localizer["Attempt to access accounts or data that are not yours."]</li>
-                    <li>@Localizer["Use automated tools to scrape or bulk-purchase tickets."]</li>
+                    <li>@Localizer["Use the platform for anything illegal."]</li>
+                    <li>@Localizer["Create fake organizations, routes, schedules, or reviews."]</li>
+                    <li>@Localizer["Try to access someone else's account or data."]</li>
+                    <li>@Localizer["Use bots or automated tools to scrape data or buy tickets in bulk."]</li>
+                    <li>@Localizer["Try to bypass security measures or rate limits."]</li>
                 </ul>
             </div>
         </div>
 
         <div class="card border-0 shadow-sm mb-4">
             <div class="card-body p-4">
-                <h2 class="h5 fw-bold mb-3">@Localizer["7. Limitation of Liability"]</h2>
-                <p>@Localizer["GoceTrans is a booking platform. We are not liable for:"]</p>
+                <h2 class="h5 fw-bold mb-3">@Localizer["7. Our Responsibility"]</h2>
+                <p>@Localizer["GoceTrans is a booking platform, not a transport provider. We are not responsible for:"]</p>
                 <ul>
                     <li>@Localizer["Delays, cancellations, or changes made by transport operators."]</li>
-                    <li>@Localizer["Loss or damage during travel."]</li>
-                    <li>@Localizer["Inaccuracies in schedule or route information provided by operators."]</li>
-                    <li>@Localizer["Service interruptions due to maintenance or technical issues."]</li>
+                    <li>@Localizer["Any loss or damage that occurs during travel."]</li>
+                    <li>@Localizer["Errors in schedule or route information entered by operators."]</li>
+                    <li>@Localizer["Temporary service interruptions due to maintenance or technical issues."]</li>
                 </ul>
             </div>
         </div>
 
-        <div class="card border-0 shadow-sm mb-4">
-            <div class="card-body p-4">
-                <h2 class="h5 fw-bold mb-3">@Localizer["8. Governing Law"]</h2>
-                <p>@Localizer["These terms are governed by the laws of the Republic of Bulgaria. Any disputes shall be resolved by the competent courts in Sofia, Bulgaria."]</p>
-            </div>
-        </div>
 
         <div class="card border-0 shadow-sm mb-4">
             <div class="card-body p-4">
-                <h2 class="h5 fw-bold mb-3">@Localizer["9. Changes to Terms"]</h2>
-                <p>@Localizer["We may update these terms from time to time. Continued use of the platform after changes constitutes acceptance of the revised terms. We recommend checking this page periodically."]</p>
+                <h2 class="h5 fw-bold mb-3">@Localizer["8. Changes to These Terms"]</h2>
+                <p>@Localizer["We may update these terms occasionally. If you continue using GoceTrans after a change, that counts as acceptance. We'll always update the date at the top so you know when something changed."]</p>
             </div>
         </div>
 

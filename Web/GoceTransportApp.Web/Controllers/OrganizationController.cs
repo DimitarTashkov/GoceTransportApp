@@ -115,6 +115,7 @@ namespace GoceTransportApp.Web.Controllers
         }
 
         [HttpGet]
+        [AllowAnonymous]
         public IActionResult Upgrade()
         {
             return View();

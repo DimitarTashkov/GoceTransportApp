@@ -5,12 +5,32 @@
     <xsd:element name="root" msdata:IsDataSet="true">
       <xsd:complexType>
         <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
           <xsd:element name="data">
             <xsd:complexType>
               <xsd:sequence>
                 <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
               </xsd:sequence>
               <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
               <xsd:attribute ref="xml:space" />
             </xsd:complexType>
           </xsd:element>
@@ -26,67 +46,151 @@
       </xsd:complexType>
     </xsd:element>
   </xsd:schema>
-  <resheader name="resmimetype"><value>text/microsoft-resx</value></resheader>
-  <resheader name="version"><value>2.0</value></resheader>
-  <resheader name="reader"><value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
-  <resheader name="writer"><value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
-
-  <data name="Terms of Service" xml:space="preserve"><value>Общи условия</value></data>
-  <data name="Last updated: January 1, 2025" xml:space="preserve"><value>Последна актуализация: 1 януари 2025 г.</value></data>
-  <data name="By using GoceTrans you agree to these terms. Please read them carefully before registering or purchasing tickets." xml:space="preserve"><value>С използването на ГоцеТранс се съгласявате с тези условия. Моля, прочетете ги внимателно преди регистрация или покупка на билети.</value></data>
-
-  <data name="1. Platform Description" xml:space="preserve"><value>1. Описание на платформата</value></data>
-  <data name="GoceTrans is an online platform that connects passengers with transport operators for intercity bus travel in Bulgaria. We facilitate route discovery, schedule browsing, and ticket management. GoceTrans is not a transport operator — we act as an intermediary platform." xml:space="preserve"><value>ГоцеТранс е онлайн платформа, която свързва пътници с транспортни оператори за междуградски автобусен транспорт в България. Улесняваме намирането на маршрути, преглеждането на разписания и управлението на билети. ГоцеТранс не е транспортен оператор — ние действаме като посредническа платформа.</value></data>
-
-  <data name="2. User Accounts" xml:space="preserve"><value>2. Потребителски акаунти</value></data>
-  <data name="You must be at least 18 years old to register." xml:space="preserve"><value>Трябва да сте навършили поне 18 години, за да се регистрирате.</value></data>
-  <data name="You are responsible for maintaining the confidentiality of your account credentials." xml:space="preserve"><value>Вие сте отговорни за поддържането на поверителността на данните за вашия акаунт.</value></data>
-  <data name="You may not share or transfer your account to another person." xml:space="preserve"><value>Не можете да споделяте или прехвърляте акаунта си на друго лице.</value></data>
-  <data name="Accounts with false information may be suspended without notice." xml:space="preserve"><value>Акаунти с невярна информация могат да бъдат спрени без предизвестие.</value></data>
-  <data name="After 5 failed login attempts, your account will be locked for 15 minutes as a security measure." xml:space="preserve"><value>След 5 неуспешни опита за влизане, акаунтът ви ще бъде заключен за 15 минути като мярка за сигурност.</value></data>
-
-  <data name="3. Ticket Booking" xml:space="preserve"><value>3. Резервация на билети</value></data>
-  <data name="Tickets are issued for specific routes, schedules, and dates." xml:space="preserve"><value>Билетите се издават за конкретни маршрути, разписания и дати.</value></data>
-  <data name="Ticket prices are set by the transport organization and may vary." xml:space="preserve"><value>Цените на билетите се определят от транспортната организация и могат да варират.</value></data>
-  <data name="You may not purchase tickets for past or expired schedules." xml:space="preserve"><value>Не можете да закупувате билети за минали или изтекли разписания.</value></data>
-  <data name="Each user-ticket is linked to your account and is non-transferable." xml:space="preserve"><value>Всеки потребителски билет е свързан с вашия акаунт и не може да се прехвърля.</value></data>
-  <data name="Email confirmations are sent as a courtesy and do not constitute a legal document." xml:space="preserve"><value>Имейл потвържденията се изпращат като любезност и не представляват правен документ.</value></data>
-
-  <data name="4. Cancellations and Refunds" xml:space="preserve"><value>4. Анулиране и възстановяване на суми</value></data>
-  <data name="You may cancel a ticket up to 24 hours before the scheduled departure time." xml:space="preserve"><value>Можете да анулирате билет до 24 часа преди планираното тръгване.</value></data>
-  <data name="Cancellations within 24 hours of departure are not permitted through the platform." xml:space="preserve"><value>Анулирания в рамките на 24 часа преди тръгване не са разрешени чрез платформата.</value></data>
-  <data name="Refund policy is determined by the transport operator. Contact the organization directly for refund requests." xml:space="preserve"><value>Политиката за възстановяване се определя от транспортния оператор. Свържете се директно с организацията за искания за връщане на суми.</value></data>
-  <data name="GoceTrans does not process payments or issue refunds directly." xml:space="preserve"><value>ГоцеТранс не обработва плащания или директно издава възстановявания.</value></data>
-
-  <data name="5. Transport Organizations" xml:space="preserve"><value>5. Транспортни организации</value></data>
-  <data name="If you register a transport organization on GoceTrans:" xml:space="preserve"><value>Ако регистрирате транспортна организация в ГоцеТранс:</value></data>
-  <data name="You confirm that you are legally authorized to operate the transport services listed." xml:space="preserve"><value>Потвърждавате, че сте законово упълномощени да управлявате посочените транспортни услуги.</value></data>
-  <data name="Your organization is subject to membership plan limits (Free: 1 org, Pro: 3 orgs, Enterprise: unlimited)." xml:space="preserve"><value>Вашата организация е предмет на ограниченията на плана за членство (Безплатен: 1 орг., Про: 3 орг., Ентърпрайз: неограничено).</value></data>
-  <data name="You are responsible for the accuracy of routes, schedules, prices, and vehicle capacity information." xml:space="preserve"><value>Вие носите отговорност за точността на информацията за маршрути, разписания, цени и капацитет на превозните средства.</value></data>
-  <data name="GoceTrans reserves the right to remove organizations that violate these terms." xml:space="preserve"><value>ГоцеТранс си запазва правото да премахва организации, нарушаващи тези условия.</value></data>
-
-  <data name="6. Prohibited Conduct" xml:space="preserve"><value>6. Забранено поведение</value></data>
-  <data name="You may not:" xml:space="preserve"><value>Не можете да:</value></data>
-  <data name="Use the platform for any unlawful purpose." xml:space="preserve"><value>Използвате платформата за незаконна цел.</value></data>
-  <data name="Attempt to circumvent rate limits or security measures." xml:space="preserve"><value>Опитвате да заобиколите ограниченията на заявките или мерките за сигурност.</value></data>
-  <data name="Create fake organizations, routes, or schedules." xml:space="preserve"><value>Създавате фиктивни организации, маршрути или разписания.</value></data>
-  <data name="Submit false or misleading reviews." xml:space="preserve"><value>Изпращате неверни или подвеждащи отзиви.</value></data>
-  <data name="Attempt to access accounts or data that are not yours." xml:space="preserve"><value>Опитвате да достъпите акаунти или данни, които не са ваши.</value></data>
-  <data name="Use automated tools to scrape or bulk-purchase tickets." xml:space="preserve"><value>Използвате автоматизирани инструменти за извличане на данни или масово закупуване на билети.</value></data>
-
-  <data name="7. Limitation of Liability" xml:space="preserve"><value>7. Ограничаване на отговорността</value></data>
-  <data name="GoceTrans is a booking platform. We are not liable for:" xml:space="preserve"><value>ГоцеТранс е платформа за резервации. Ние не носим отговорност за:</value></data>
-  <data name="Delays, cancellations, or changes made by transport operators." xml:space="preserve"><value>Закъснения, анулирания или промени от транспортни оператори.</value></data>
-  <data name="Loss or damage during travel." xml:space="preserve"><value>Загуби или щети по време на пътуване.</value></data>
-  <data name="Inaccuracies in schedule or route information provided by operators." xml:space="preserve"><value>Неточности в информацията за разписания или маршрути, предоставена от операторите.</value></data>
-  <data name="Service interruptions due to maintenance or technical issues." xml:space="preserve"><value>Прекъсвания на услугата поради поддръжка или технически проблеми.</value></data>
-
-  <data name="8. Governing Law" xml:space="preserve"><value>8. Приложимо право</value></data>
-  <data name="These terms are governed by the laws of the Republic of Bulgaria. Any disputes shall be resolved by the competent courts in Sofia, Bulgaria." xml:space="preserve"><value>Тези условия се уреждат от законодателството на Република България. Всички спорове ще се разрешават от компетентните съдилища в София, България.</value></data>
-
-  <data name="9. Changes to Terms" xml:space="preserve"><value>9. Промени в условията</value></data>
-  <data name="We may update these terms from time to time. Continued use of the platform after changes constitutes acceptance of the revised terms. We recommend checking this page periodically." xml:space="preserve"><value>Можем да актуализираме тези условия от време на време. Продължаването на използването на платформата след промените означава приемане на преработените условия. Препоръчваме периодична проверка на тази страница.</value></data>
-
-  <data name="Privacy Policy" xml:space="preserve"><value>Политика за поверителност</value></data>
-  <data name="Contact Us" xml:space="preserve"><value>Свържете се с нас</value></data>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Terms of Service" xml:space="preserve">
+    <value>Условия за ползване</value>
+  </data>
+  <data name="Last updated: January 1, 2025" xml:space="preserve">
+    <value>Последна актуализация: 1 януари 2025 г.</value>
+  </data>
+  <data name="By using GoceTrans you agree to these terms. They're written to be straightforward — please take a moment to read them." xml:space="preserve">
+    <value>С използването на GoceTrans се съгласявате с тези условия. Написани са достъпно — моля, отделете момент да ги прочетете.</value>
+  </data>
+  <data name="1. What GoceTrans Is" xml:space="preserve">
+    <value>1. Какво е GoceTrans</value>
+  </data>
+  <data name="GoceTrans is an online platform where passengers can find bus routes, check schedules, and manage tickets. We connect passengers with transport operators — we are not a transport operator ourselves and we don't run any buses." xml:space="preserve">
+    <value>GoceTrans е онлайн платформа, чрез която пътниците могат да намират автобусни маршрути, да проверяват разписания и да управляват билетите си. Ние свързваме пътници с транспортни оператори — самите ние не сме превозвач и не управляваме автобуси.</value>
+  </data>
+  <data name="2. Your Account" xml:space="preserve">
+    <value>2. Вашият акаунт</value>
+  </data>
+  <data name="You must be at least 18 years old to register." xml:space="preserve">
+    <value>Трябва да сте навършили 18 години, за да се регистрирате.</value>
+  </data>
+  <data name="Keep your login details safe — you're responsible for anything done through your account." xml:space="preserve">
+    <value>Пазете данните си за вход — вие носите отговорност за всичко, извършено чрез вашия акаунт.</value>
+  </data>
+  <data name="Accounts are personal and cannot be shared or transferred." xml:space="preserve">
+    <value>Акаунтите са лични и не могат да бъдат споделяни или прехвърляни.</value>
+  </data>
+  <data name="Providing false information when registering may result in your account being suspended." xml:space="preserve">
+    <value>Предоставянето на неверни данни при регистрация може да доведе до спиране на акаунта ви.</value>
+  </data>
+  <data name="After 5 failed login attempts your account will be temporarily locked for 15 minutes." xml:space="preserve">
+    <value>След 5 неуспешни опита за вход акаунтът ви се заключва временно за 15 минути.</value>
+  </data>
+  <data name="3. Buying Tickets" xml:space="preserve">
+    <value>3. Закупуване на билети</value>
+  </data>
+  <data name="Each ticket is for a specific route and schedule." xml:space="preserve">
+    <value>Всеки билет е за конкретен маршрут и разписание.</value>
+  </data>
+  <data name="Prices are set by the transport organization — GoceTrans doesn't set them." xml:space="preserve">
+    <value>Цените се определят от транспортната организация — GoceTrans не ги задава.</value>
+  </data>
+  <data name="You can't buy tickets for schedules that have already passed." xml:space="preserve">
+    <value>Не можете да купувате билети за вече минали разписания.</value>
+  </data>
+  <data name="Tickets are tied to your account and cannot be transferred to another person." xml:space="preserve">
+    <value>Билетите са обвързани с вашия акаунт и не могат да бъдат прехвърляни на друго лице.</value>
+  </data>
+  <data name="4. Cancellations and Refunds" xml:space="preserve">
+    <value>4. Анулиране и възстановяване</value>
+  </data>
+  <data name="You can cancel a ticket up to 24 hours before departure through your account." xml:space="preserve">
+    <value>Можете да анулирате билет до 24 часа преди заминаване чрез вашия акаунт.</value>
+  </data>
+  <data name="Cancellations within 24 hours of departure are not available through the platform." xml:space="preserve">
+    <value>Анулирания в рамките на 24 часа преди заминаване не са достъпни чрез платформата.</value>
+  </data>
+  <data name="Refunds are handled by the transport operator — contact them directly for refund requests." xml:space="preserve">
+    <value>Възстановяването на средства се извършва от транспортния оператор — свържете се с него директно.</value>
+  </data>
+  <data name="GoceTrans does not process payments and does not issue refunds." xml:space="preserve">
+    <value>GoceTrans не обработва плащания и не извършва възстановявания.</value>
+  </data>
+  <data name="5. Transport Organizations" xml:space="preserve">
+    <value>5. Транспортни организации</value>
+  </data>
+  <data name="If you register a transport organization on GoceTrans:" xml:space="preserve">
+    <value>Ако регистрирате транспортна организация в GoceTrans:</value>
+  </data>
+  <data name="You confirm you are authorized to operate the listed services." xml:space="preserve">
+    <value>Потвърждавате, че сте упълномощени да управлявате посочените услуги.</value>
+  </data>
+  <data name="You're responsible for keeping your routes, schedules, prices, and vehicle capacity accurate." xml:space="preserve">
+    <value>Отговорни сте за точността на маршрутите, разписанията, цените и капацитета на превозните средства.</value>
+  </data>
+  <data name="Organizations that repeatedly violate these terms may be removed from the platform." xml:space="preserve">
+    <value>Организации, които системно нарушават тези условия, могат да бъдат премахнати от платформата.</value>
+  </data>
+  <data name="6. What You Must Not Do" xml:space="preserve">
+    <value>6. Какво не трябва да правите</value>
+  </data>
+  <data name="To keep the platform fair and safe for everyone, please don't:" xml:space="preserve">
+    <value>За да поддържаме платформата честна и безопасна за всички, моля не:</value>
+  </data>
+  <data name="Use the platform for anything illegal." xml:space="preserve">
+    <value>Използвайте платформата за незаконни цели.</value>
+  </data>
+  <data name="Create fake organizations, routes, schedules, or reviews." xml:space="preserve">
+    <value>Създавайте фиктивни организации, маршрути, разписания или отзиви.</value>
+  </data>
+  <data name="Try to access someone else's account or data." xml:space="preserve">
+    <value>Опитвайте се да достъпите чужд акаунт или данни.</value>
+  </data>
+  <data name="Use bots or automated tools to scrape data or buy tickets in bulk." xml:space="preserve">
+    <value>Използвате ботове или автоматизирани инструменти за събиране на данни или масово закупуване на билети.</value>
+  </data>
+  <data name="Try to bypass security measures or rate limits." xml:space="preserve">
+    <value>Опитвайте се да заобиколите мерките за сигурност или ограниченията на заявките.</value>
+  </data>
+  <data name="7. Our Responsibility" xml:space="preserve">
+    <value>7. Нашата отговорност</value>
+  </data>
+  <data name="GoceTrans is a booking platform, not a transport provider. We are not responsible for:" xml:space="preserve">
+    <value>GoceTrans е платформа за резервации, а не транспортен оператор. Ние не носим отговорност за:</value>
+  </data>
+  <data name="Delays, cancellations, or changes made by transport operators." xml:space="preserve">
+    <value>Закъснения, отмени или промени, извършени от транспортните оператори.</value>
+  </data>
+  <data name="Any loss or damage that occurs during travel." xml:space="preserve">
+    <value>Загуби или щети, настъпили по време на пътуването.</value>
+  </data>
+  <data name="Errors in schedule or route information entered by operators." xml:space="preserve">
+    <value>Грешки в информацията за разписания или маршрути, въведена от операторите.</value>
+  </data>
+  <data name="Temporary service interruptions due to maintenance or technical issues." xml:space="preserve">
+    <value>Временни прекъсвания на услугата поради поддръжка или технически проблеми.</value>
+  </data>
+  <data name="8. Governing Law" xml:space="preserve">
+    <value>8. Приложимо право</value>
+  </data>
+  <data name="These terms are governed by the laws of the Republic of Bulgaria." xml:space="preserve">
+    <value>Тези условия се уреждат от законите на Република България.</value>
+  </data>
+  <data name="8. Changes to These Terms" xml:space="preserve">
+    <value>8. Промени в условията</value>
+  </data>
+  <data name="We may update these terms occasionally. If you continue using GoceTrans after a change, that counts as acceptance. We'll always update the date at the top so you know when something changed." xml:space="preserve">
+    <value>Може да актуализираме тези условия от време на време. Ако продължите да използвате GoceTrans след промяна, това се счита за приемане. Винаги ще обновяваме датата в горната част, за да знаете кога е имало промяна.</value>
+  </data>
+  <data name="Privacy Policy" xml:space="preserve">
+    <value>Политика за поверителност</value>
+  </data>
+  <data name="Contact Us" xml:space="preserve">
+    <value>Свържете се с нас</value>
+  </data>
 </root>

@@ -5,12 +5,32 @@
     <xsd:element name="root" msdata:IsDataSet="true">
       <xsd:complexType>
         <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
           <xsd:element name="data">
             <xsd:complexType>
               <xsd:sequence>
                 <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
               </xsd:sequence>
               <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
               <xsd:attribute ref="xml:space" />
             </xsd:complexType>
           </xsd:element>
@@ -26,87 +46,214 @@
       </xsd:complexType>
     </xsd:element>
   </xsd:schema>
-  <resheader name="resmimetype"><value>text/microsoft-resx</value></resheader>
-  <resheader name="version"><value>2.0</value></resheader>
-  <resheader name="reader"><value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
-  <resheader name="writer"><value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
-
-  <data name="Privacy Policy" xml:space="preserve"><value>Политика за поверителност</value></data>
-  <data name="Last updated: January 1, 2025" xml:space="preserve"><value>Последна актуализация: 1 януари 2025 г.</value></data>
-
-  <data name="1. Who We Are" xml:space="preserve"><value>1. Кои сме ние</value></data>
-  <data name="GoceTrans (&quot;we&quot;, &quot;us&quot;, &quot;our&quot;) is a digital transport platform operated from Sofia, Bulgaria. We provide route discovery, schedule browsing, and ticket booking services for intercity bus travel across Bulgaria." xml:space="preserve"><value>ГоцеТранс („ние", „нас", „наш") е цифрова транспортна платформа, управлявана от София, България. Предоставяме услуги за намиране на маршрути, преглед на разписания и резервация на билети за междуградски автобусен транспорт в България.</value></data>
-  <data name="Contact: support@gocetransport.com | +359 2 000 0000 | Sofia, Bulgaria" xml:space="preserve"><value>Контакт: support@gocetransport.com | +359 2 000 0000 | София, България</value></data>
-
-  <data name="2. Data We Collect" xml:space="preserve"><value>2. Данни, които събираме</value></data>
-  <data name="Account data:" xml:space="preserve"><value>Данни за акаунт:</value></data>
-  <data name="email address, username, password (hashed)" xml:space="preserve"><value>имейл адрес, потребителско име, парола (хеширана)</value></data>
-  <data name="Booking data:" xml:space="preserve"><value>Данни за резервации:</value></data>
-  <data name="tickets purchased, travel history, cancellations" xml:space="preserve"><value>закупени билети, история на пътуванията, анулирания</value></data>
-  <data name="Organization data:" xml:space="preserve"><value>Организационни данни:</value></data>
-  <data name="company name, routes, schedules (for transport operators)" xml:space="preserve"><value>наименование на фирма, маршрути, разписания (за транспортни оператори)</value></data>
-  <data name="Contact data:" xml:space="preserve"><value>Данни за контакт:</value></data>
-  <data name="messages sent via the contact form" xml:space="preserve"><value>съобщения, изпратени чрез формата за контакт</value></data>
-  <data name="Technical data:" xml:space="preserve"><value>Технически данни:</value></data>
-  <data name="IP address, browser type, pages visited (server logs, retained 30 days)" xml:space="preserve"><value>IP адрес, тип браузър, посетени страници (сървърни логове, съхранявани 30 дни)</value></data>
-
-  <data name="3. Legal Basis for Processing" xml:space="preserve"><value>3. Правно основание за обработка</value></data>
-  <data name="Purpose" xml:space="preserve"><value>Цел</value></data>
-  <data name="Legal Basis (GDPR Art.)" xml:space="preserve"><value>Правно основание (GDPR чл.)</value></data>
-  <data name="Account creation and authentication" xml:space="preserve"><value>Създаване на акаунт и удостоверяване</value></data>
-  <data name="Art. 6(1)(b) — contract performance" xml:space="preserve"><value>Чл. 6(1)(б) — изпълнение на договор</value></data>
-  <data name="Ticket booking and travel management" xml:space="preserve"><value>Резервация на билети и управление на пътувания</value></data>
-  <data name="Email confirmations and notifications" xml:space="preserve"><value>Имейл потвърждения и известия</value></data>
-  <data name="Security and fraud prevention" xml:space="preserve"><value>Сигурност и предотвратяване на измами</value></data>
-  <data name="Art. 6(1)(f) — legitimate interests" xml:space="preserve"><value>Чл. 6(1)(е) — законни интереси</value></data>
-  <data name="Contact form responses" xml:space="preserve"><value>Отговори на форми за контакт</value></data>
-
-  <data name="4. Data Retention" xml:space="preserve"><value>4. Срок на съхранение на данните</value></data>
-  <data name="Account data: retained until account deletion, then 30 days before permanent removal." xml:space="preserve"><value>Данни за акаунт: съхраняват се до изтриване на акаунта, след което 30 дни преди окончателно заличаване.</value></data>
-  <data name="Booking history: retained for 5 years for legal and tax compliance." xml:space="preserve"><value>История на резервациите: съхранява се 5 години за правно и данъчно съответствие.</value></data>
-  <data name="Contact form messages: retained for 12 months." xml:space="preserve"><value>Съобщения от формата за контакт: съхраняват се 12 месеца.</value></data>
-  <data name="Server logs: retained for 30 days." xml:space="preserve"><value>Сървърни логове: съхраняват се 30 дни.</value></data>
-  <data name="Authentication cookies: 30 days (sliding expiration)." xml:space="preserve"><value>Бисквитки за удостоверяване: 30 дни (плъзгащо изтичане).</value></data>
-
-  <data name="5. Data Sharing" xml:space="preserve"><value>5. Споделяне на данни</value></data>
-  <data name="We do not sell your personal data. We may share data with:" xml:space="preserve"><value>Не продаваме вашите лични данни. Може да споделяме данни с:</value></data>
-  <data name="Transport operators: route and ticket data visible to the organization that issued the ticket." xml:space="preserve"><value>Транспортни оператори: данни за маршрут и билет, видими за организацията, издала билета.</value></data>
-  <data name="Email provider (SendGrid): used only to deliver transactional emails." xml:space="preserve"><value>Доставчик на имейл (SendGrid): използва се само за доставяне на транзакционни имейли.</value></data>
-  <data name="Hosting infrastructure (Microsoft Azure): data stored within the EU." xml:space="preserve"><value>Хостинг инфраструктура (Microsoft Azure): данните се съхраняват в рамките на ЕС.</value></data>
-  <data name="Law enforcement: only when legally required." xml:space="preserve"><value>Правоохранителни органи: само когато е изискано по закон.</value></data>
-
-  <data name="6. Your Rights Under GDPR" xml:space="preserve"><value>6. Вашите права съгласно GDPR</value></data>
-  <data name="As a data subject, you have the following rights:" xml:space="preserve"><value>Като субект на данни имате следните права:</value></data>
-  <data name="Right of access" xml:space="preserve"><value>Право на достъп</value></data>
-  <data name="request a copy of your data" xml:space="preserve"><value>поискайте копие на вашите данни</value></data>
-  <data name="Right to rectification" xml:space="preserve"><value>Право на корекция</value></data>
-  <data name="correct inaccurate data" xml:space="preserve"><value>коригирайте неточни данни</value></data>
-  <data name="Right to erasure" xml:space="preserve"><value>Право на изтриване</value></data>
-  <data name="&quot;right to be forgotten&quot;" xml:space="preserve"><value>„право да бъдеш забравен"</value></data>
-  <data name="Right to portability" xml:space="preserve"><value>Право на преносимост</value></data>
-  <data name="receive your data in a machine-readable format" xml:space="preserve"><value>получете данните си в машинно четим формат</value></data>
-  <data name="Right to object" xml:space="preserve"><value>Право на възражение</value></data>
-  <data name="object to processing based on legitimate interests" xml:space="preserve"><value>възразете срещу обработка въз основа на законни интереси</value></data>
-  <data name="Right to restriction" xml:space="preserve"><value>Право на ограничаване</value></data>
-  <data name="limit how we use your data" xml:space="preserve"><value>ограничете начина, по който използваме вашите данни</value></data>
-  <data name="To exercise any of these rights, email us at:" xml:space="preserve"><value>За да упражните някое от тези права, пишете ни на:</value></data>
-  <data name="We respond within 30 days." xml:space="preserve"><value>Отговаряме в рамките на 30 дни.</value></data>
-
-  <data name="7. Supervisory Authority — КЗЛД" xml:space="preserve"><value>7. Надзорен орган — КЗЛД</value></data>
-  <data name="If you believe your data rights have been violated, you have the right to lodge a complaint with the Bulgarian Commission for Personal Data Protection (КЗЛД):" xml:space="preserve"><value>Ако смятате, че правата ви върху данните са нарушени, имате право да подадете жалба до Комисията за защита на личните данни (КЗЛД):</value></data>
-  <data name="Address: 2 Prof. Tsvetan Lazarov Blvd, Sofia 1592, Bulgaria" xml:space="preserve"><value>Адрес: бул. „Проф. Цветан Лазаров" № 2, София 1592, България</value></data>
-  <data name="Website: www.cpdp.bg" xml:space="preserve"><value>Уебсайт: www.cpdp.bg</value></data>
-  <data name="Phone: +359 2 915 3518" xml:space="preserve"><value>Телефон: +359 2 915 3518</value></data>
-
-  <data name="8. Cookies" xml:space="preserve"><value>8. Бисквитки</value></data>
-  <data name="We use essential cookies only:" xml:space="preserve"><value>Използваме само необходими бисквитки:</value></data>
-  <data name="Authentication session cookie (HttpOnly, Secure) — expires after 30 days of inactivity." xml:space="preserve"><value>Бисквитка за удостоверяване (HttpOnly, Secure) — изтича след 30 дни неактивност.</value></data>
-  <data name="Language preference cookie — expires after 1 year." xml:space="preserve"><value>Бисквитка за езикова настройка — изтича след 1 година.</value></data>
-  <data name="Anti-forgery token cookie — session-scoped." xml:space="preserve"><value>Бисквитка за защита от фалшификация — за сесията.</value></data>
-  <data name="Cookie consent cookie — records your consent, expires after 1 year." xml:space="preserve"><value>Бисквитка за съгласие — записва вашето съгласие, изтича след 1 година.</value></data>
-  <data name="We do not use analytics, advertising, or third-party tracking cookies." xml:space="preserve"><value>Не използваме аналитични, рекламни или проследяващи бисквитки на трети страни.</value></data>
-
-  <data name="This policy may be updated periodically. Changes will be posted on this page with an updated date." xml:space="preserve"><value>Тази политика може да бъде актуализирана периодично. Промените ще бъдат публикувани на тази страница с обновена дата.</value></data>
-  <data name="Terms of Service" xml:space="preserve"><value>Общи условия</value></data>
-  <data name="Contact Us" xml:space="preserve"><value>Свържете се с нас</value></data>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Privacy Policy" xml:space="preserve">
+    <value>Политика за поверителност</value>
+  </data>
+  <data name="Last updated: January 1, 2025" xml:space="preserve">
+    <value>Последна актуализация: 1 януари 2025 г.</value>
+  </data>
+  <data name="1. Who We Are" xml:space="preserve">
+    <value>1. Кои сме ние</value>
+  </data>
+  <data name="GoceTrans is an online platform that helps passengers find routes, browse schedules, and book tickets for intercity bus travel. We are a digital service — not a transport operator — and we take your privacy seriously." xml:space="preserve">
+    <value>GoceTrans е онлайн платформа, която помага на пътниците да намират маршрути, да разглеждат разписания и да купуват билети за междуградски автобусен транспорт. Ние сме дигитална услуга, а не превозвач, и се отнасяме сериозно към вашата поверителност.</value>
+  </data>
+  <data name="If you have any questions about how we handle your data," xml:space="preserve">
+    <value>Ако имате въпроси относно начина, по който обработваме данните ви,</value>
+  </data>
+  <data name="get in touch with us here" xml:space="preserve">
+    <value>свържете се с нас тук</value>
+  </data>
+  <data name="2. What Data We Collect" xml:space="preserve">
+    <value>2. Какви данни събираме</value>
+  </data>
+  <data name="We only collect what we actually need to run the service:" xml:space="preserve">
+    <value>Събираме само това, което действително е необходимо за предоставяне на услугата:</value>
+  </data>
+  <data name="Account data:" xml:space="preserve">
+    <value>Данни за акаунта:</value>
+  </data>
+  <data name="your email and username. Your password is stored as a secure hash — we never see it in plain text." xml:space="preserve">
+    <value>имейл адрес и потребителско име. Паролата ви се съхранява като защитен хеш — ние никога не я виждаме в оригинален вид.</value>
+  </data>
+  <data name="Booking data:" xml:space="preserve">
+    <value>Данни за резервации:</value>
+  </data>
+  <data name="tickets you've purchased, your travel history, and any cancellations." xml:space="preserve">
+    <value>закупени билети, история на пътуванията и анулирания.</value>
+  </data>
+  <data name="Organization data:" xml:space="preserve">
+    <value>Данни за организацията:</value>
+  </data>
+  <data name="name, routes, and schedules — only if you register a transport organization." xml:space="preserve">
+    <value>наименование, маршрути и разписания — само ако регистрирате транспортна организация.</value>
+  </data>
+  <data name="Contact messages:" xml:space="preserve">
+    <value>Съобщения за контакт:</value>
+  </data>
+  <data name="messages you send through our contact form." xml:space="preserve">
+    <value>съобщения, изпратени чрез формата за контакт.</value>
+  </data>
+  <data name="Technical data:" xml:space="preserve">
+    <value>Технически данни:</value>
+  </data>
+  <data name="basic server logs (IP address, browser type) kept for 30 days for security purposes." xml:space="preserve">
+    <value>основни сървърни логове (IP адрес, тип браузър), съхранявани 30 дни за целите на сигурността.</value>
+  </data>
+  <data name="3. Why We Process Your Data" xml:space="preserve">
+    <value>3. Защо обработваме данните ви</value>
+  </data>
+  <data name="We process your data for clear reasons:" xml:space="preserve">
+    <value>Обработваме данните ви само по ясни причини:</value>
+  </data>
+  <data name="To create and manage your account so you can use the platform." xml:space="preserve">
+    <value>За да създадем и управляваме профила ви, за да можете да използвате платформата.</value>
+  </data>
+  <data name="To handle ticket purchases and keep your booking history." xml:space="preserve">
+    <value>За да обработваме покупки на билети и да съхраняваме историята на резервациите ви.</value>
+  </data>
+  <data name="To send you notifications about your trips." xml:space="preserve">
+    <value>За да ви изпращаме известия за пътуванията ви.</value>
+  </data>
+  <data name="To keep the platform secure and prevent abuse." xml:space="preserve">
+    <value>За да поддържаме платформата сигурна и да предотвратяваме злоупотреби.</value>
+  </data>
+  <data name="To respond to messages you send us." xml:space="preserve">
+    <value>За да отговаряме на съобщенията, които ни изпращате.</value>
+  </data>
+  <data name="The legal basis for most of this is fulfilling the service contract with you (GDPR Art. 6(1)(b)), and in some cases our legitimate interests in keeping the platform safe (Art. 6(1)(f))." xml:space="preserve">
+    <value>Правното основание за по-голямата част от обработването е изпълнение на договора с вас (GDPR чл. 6(1)(б)), а в някои случаи — нашият легитимен интерес за поддържане на сигурността на платформата (чл. 6(1)(е)).</value>
+  </data>
+  <data name="4. How Long We Keep It" xml:space="preserve">
+    <value>4. Колко дълго съхраняваме данните</value>
+  </data>
+  <data name="Account data — until you delete your account, then permanently removed after 30 days." xml:space="preserve">
+    <value>Данни за акаунта — до изтриването му, след което се премахват окончателно след 30 дни.</value>
+  </data>
+  <data name="Booking history — kept for 5 years as required by law." xml:space="preserve">
+    <value>История на резервациите — съхранява се 5 години съгласно законовите изисквания.</value>
+  </data>
+  <data name="Contact messages — kept for 12 months." xml:space="preserve">
+    <value>Съобщения за контакт — съхраняват се 12 месеца.</value>
+  </data>
+  <data name="Server logs — kept for 30 days." xml:space="preserve">
+    <value>Сървърни логове — съхраняват се 30 дни.</value>
+  </data>
+  <data name="Login cookie — active for 30 days, renewed on each visit." xml:space="preserve">
+    <value>Бисквитка за вход — активна 30 дни, обновява се при всяко посещение.</value>
+  </data>
+  <data name="5. Who We Share Data With" xml:space="preserve">
+    <value>5. С кого споделяме данните</value>
+  </data>
+  <data name="We do not sell your data. Period. We only share it where necessary:" xml:space="preserve">
+    <value>Ние не продаваме данните ви. Точка. Споделяме ги само когато е необходимо:</value>
+  </data>
+  <data name="Transport operators — they can see booking data for their own routes." xml:space="preserve">
+    <value>Транспортни оператори — виждат данните за резервации по техните маршрути.</value>
+  </data>
+  <data name="Email provider — used only to deliver messages related to your account or trips." xml:space="preserve">
+    <value>Доставчик на имейл — използва се само за изпращане на съобщения, свързани с акаунта или пътуванията ви.</value>
+  </data>
+  <data name="Hosting infrastructure — your data is stored on servers within the EU." xml:space="preserve">
+    <value>Хостинг инфраструктура — данните ви се съхраняват на сървъри в рамките на ЕС.</value>
+  </data>
+  <data name="Authorities — only when we are legally required to do so." xml:space="preserve">
+    <value>Органи на властта — само когато сме законово задължени.</value>
+  </data>
+  <data name="6. Your Rights" xml:space="preserve">
+    <value>6. Вашите права</value>
+  </data>
+  <data name="You have full control over your personal data. You can:" xml:space="preserve">
+    <value>Имате пълен контрол върху личните си данни. Можете да:</value>
+  </data>
+  <data name="Access your data" xml:space="preserve">
+    <value>Достъп до данните</value>
+  </data>
+  <data name="ask us for a copy of everything we hold about you" xml:space="preserve">
+    <value>поискате копие на всичко, което съхраняваме за вас</value>
+  </data>
+  <data name="Correct your data" xml:space="preserve">
+    <value>Коригиране на данните</value>
+  </data>
+  <data name="fix anything that's wrong or outdated" xml:space="preserve">
+    <value>поправите всичко, което е грешно или остаряло</value>
+  </data>
+  <data name="Delete your data" xml:space="preserve">
+    <value>Изтриване на данните</value>
+  </data>
+  <data name="request full removal of your account and data" xml:space="preserve">
+    <value>поискате пълно изтриване на акаунта и данните ви</value>
+  </data>
+  <data name="Export your data" xml:space="preserve">
+    <value>Експортиране на данните</value>
+  </data>
+  <data name="receive it in a readable format" xml:space="preserve">
+    <value>получите данните си в четим формат</value>
+  </data>
+  <data name="Object to processing" xml:space="preserve">
+    <value>Възражение срещу обработването</value>
+  </data>
+  <data name="where we rely on legitimate interests" xml:space="preserve">
+    <value>когато се позоваваме на легитимен интерес</value>
+  </data>
+  <data name="Restrict processing" xml:space="preserve">
+    <value>Ограничаване на обработването</value>
+  </data>
+  <data name="limit what we do with your data" xml:space="preserve">
+    <value>ограничите начина, по който използваме данните ви</value>
+  </data>
+  <data name="To use any of these rights, just email us at" xml:space="preserve">
+    <value>За да упражните което и да е от тези права, просто ни пишете на</value>
+  </data>
+  <data name="We'll get back to you within 30 days." xml:space="preserve">
+    <value>Ще отговорим в рамките на 30 дни.</value>
+  </data>
+  <data name="7. Supervisory Authority" xml:space="preserve">
+    <value>7. Надзорен орган</value>
+  </data>
+  <data name="If you feel your data rights have been violated and we haven't resolved it, you can contact the Bulgarian Commission for Personal Data Protection (КЗЛД):" xml:space="preserve">
+    <value>Ако смятате, че правата ви са нарушени и не сме решили проблема, можете да се обърнете към Комисията за защита на личните данни (КЗЛД):</value>
+  </data>
+  <data name="8. Cookies" xml:space="preserve">
+    <value>8. Бисквитки</value>
+  </data>
+  <data name="We use only the cookies that are strictly necessary to run the service:" xml:space="preserve">
+    <value>Използваме само бисквитките, строго необходими за работата на услугата:</value>
+  </data>
+  <data name="Login cookie — keeps you signed in for up to 30 days." xml:space="preserve">
+    <value>Бисквитка за вход — поддържа ви влезли до 30 дни.</value>
+  </data>
+  <data name="Language preference — remembers your chosen language for 1 year." xml:space="preserve">
+    <value>Езикова настройка — запомня избрания от вас език за 1 година.</value>
+  </data>
+  <data name="Security token — protects forms from cross-site attacks (session only)." xml:space="preserve">
+    <value>Токен за сигурност — защитава формите от атаки между сайтове (само за сесията).</value>
+  </data>
+  <data name="Cookie consent — remembers that you've accepted this notice." xml:space="preserve">
+    <value>Съгласие за бисквитки — запомня, че сте приели това известие.</value>
+  </data>
+  <data name="We don't use advertising, analytics, or any third-party tracking cookies." xml:space="preserve">
+    <value>Не използваме рекламни, аналитични или каквито и да е проследяващи бисквитки на трети страни.</value>
+  </data>
+  <data name="This policy may be updated from time to time. When it changes, we'll update the date at the top." xml:space="preserve">
+    <value>Тази политика може да бъде актуализирана периодично. При промяна ще обновим датата в горната част на страницата.</value>
+  </data>
+  <data name="Terms of Service" xml:space="preserve">
+    <value>Условия за ползване</value>
+  </data>
+  <data name="Contact Us" xml:space="preserve">
+    <value>Свържете се с нас</value>
+  </data>
 </root>

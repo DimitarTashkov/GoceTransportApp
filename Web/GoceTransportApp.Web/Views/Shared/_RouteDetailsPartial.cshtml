@@ -155,70 +155,17 @@
         </div>
     </div>
 
-    <script>
-        (function () {
-            var fromLat = @fromLatJs;
-            var fromLng = @fromLngJs;
-            var toLat = @toLatJs;
-            var toLng = @toLngJs;
-            var mapsInitialized = false;
-
-            function initRouteDetailMaps() {
-                if (mapsInitialized) return;
-                mapsInitialized = true;
-
-                if (fromLat && fromLng && document.getElementById('modalFromMap')) {
-                    var fromPos = { lat: fromLat, lng: fromLng };
-                    var fromMap = new google.maps.Map(document.getElementById('modalFromMap'), {
-                        center: fromPos, zoom: 16,
-                        mapTypeControl: false, streetViewControl: false
-                    });
-                    new google.maps.Marker({
-                        position: fromPos, map: fromMap,
-                        icon: 'http://maps.google.com/mapfiles/ms/icons/green-dot.png',
-                        title: '@Html.Raw(Model.FromStopName ?? Localizer["Departure stop"].Value)'
-                    });
-                }
-
-                if (toLat && toLng && document.getElementById('modalToMap')) {
-                    var toPos = { lat: toLat, lng: toLng };
-                    var toMap = new google.maps.Map(document.getElementById('modalToMap'), {
-                        center: toPos, zoom: 16,
-                        mapTypeControl: false, streetViewControl: false
-                    });
-                    new google.maps.Marker({
-                        position: toPos, map: toMap,
-                        icon: 'http://maps.google.com/mapfiles/ms/icons/red-dot.png',
-                        title: '@Html.Raw(Model.ToStopName ?? Localizer["Arrival stop"].Value)'
-                    });
-                }
-            }
-
-            // Init maps when modal opens (lazy)
-            var modalEl = document.getElementById('routeMapModal');
-            if (modalEl) {
-                modalEl.addEventListener('shown.bs.modal', function () {
-                    if (typeof google !== 'undefined' && google.maps) {
-                        initRouteDetailMaps();
-                    }
-                });
-            }
-
-            // Resize maps on tab switch inside modal
-            document.querySelectorAll('#mapModalTabs [data-bs-toggle="pill"]').forEach(function (tab) {
-                tab.addEventListener('shown.bs.tab', function () {
-                    if (typeof google !== 'undefined' && google.maps) {
-                        setTimeout(function () {
-                            ['modalFromMap', 'modalToMap'].forEach(function (id) {
-                                var el = document.getElementById(id);
-                                if (el && el.__gmap) google.maps.event.trigger(el.__gmap, 'resize');
-                            });
-                        }, 50);
-                    }
-                });
-            });
-        })();
-    </script>
+    <div id="routeDetailMapData"
+         data-from-lat="@fromLatJs"
+         data-from-lng="@fromLngJs"
+         data-to-lat="@toLatJs"
+         data-to-lng="@toLngJs"
+         data-from-stop="@(Model.FromStopName ?? "")"
+         data-to-stop="@(Model.ToStopName ?? "")"
+         data-departure-label="@Localizer["Departure stop"]"
+         data-arrival-label="@Localizer["Arrival stop"]"
+         style="display:none;"></div>
+    <script src="~/js/routeDetailMap.js" asp-append-version="true"></script>
     <script async defer
         src="https://maps.googleapis.com/maps/api/js?key=@mapsApiKey">
     </script>

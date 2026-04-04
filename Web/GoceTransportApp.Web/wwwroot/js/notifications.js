@@ -33,7 +33,8 @@ function showToast(title, message, type) {
 // Сценарий 1: Промяна на LiveStatus в разписание
 connection.on("ReceiveStatusUpdate", function (scheduleId, newStatus) {
     // Ако пътникът е на страницата на точно това разписание → показва банер
-    const pageScheduleId = document.body.dataset.scheduleId;
+    const scheduleWrapper = document.getElementById('scheduleDetailsWrapper');
+    const pageScheduleId = scheduleWrapper ? scheduleWrapper.dataset.scheduleId : null;
     if (pageScheduleId && pageScheduleId === scheduleId) {
         const existing = document.getElementById("liveStatusBanner");
         if (existing) existing.remove();

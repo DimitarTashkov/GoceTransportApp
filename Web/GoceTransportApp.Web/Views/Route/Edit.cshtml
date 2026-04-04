@@ -157,111 +157,18 @@
 
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
+    <div id="routeMapData"
+         data-from-lat="@fromLatJs"
+         data-from-lng="@fromLngJs"
+         data-to-lat="@toLatJs"
+         data-to-lng="@toLngJs"
+         data-from-street="@Model.FromStreetId"
+         data-to-street="@Model.ToStreetId"
+         data-departure-label="@Localizer["Departure stop"]"
+         data-arrival-label="@Localizer["Arrival stop"]"
+         style="display:none;"></div>
     <script src="~/js/loadStreetsInCity.js"></script>
-    <script>
-        // Pre-existing coords from model
-        var existingFromLat = @fromLatJs;
-        var existingFromLng = @fromLngJs;
-        var existingToLat = @toLatJs;
-        var existingToLng = @toLngJs;
-
-        var fromMap, fromMarker, toMap, toMarker;
-
-        function initMaps() {
-            var bulgariaCenter = { lat: 42.7339, lng: 25.4858 };
-
-            fromMap = new google.maps.Map(document.getElementById('fromMap'), {
-                center: (existingFromLat && existingFromLng) ? { lat: existingFromLat, lng: existingFromLng } : bulgariaCenter,
-                zoom: (existingFromLat && existingFromLng) ? 14 : 7,
-                mapTypeControl: false,
-                streetViewControl: false
-            });
-
-            toMap = new google.maps.Map(document.getElementById('toMap'), {
-                center: (existingToLat && existingToLng) ? { lat: existingToLat, lng: existingToLng } : bulgariaCenter,
-                zoom: (existingToLat && existingToLng) ? 14 : 7,
-                mapTypeControl: false,
-                streetViewControl: false
-            });
-
-            // Restore existing markers
-            if (existingFromLat && existingFromLng) {
-                var pos = { lat: existingFromLat, lng: existingFromLng };
-                fromMarker = new google.maps.Marker({
-                    position: pos, map: fromMap,
-                    icon: 'http://maps.google.com/mapfiles/ms/icons/green-dot.png',
-                    title: '@Localizer["Departure stop"]'
-                });
-            }
-
-            if (existingToLat && existingToLng) {
-                var pos2 = { lat: existingToLat, lng: existingToLng };
-                toMarker = new google.maps.Marker({
-                    position: pos2, map: toMap,
-                    icon: 'http://maps.google.com/mapfiles/ms/icons/red-dot.png',
-                    title: '@Localizer["Arrival stop"]'
-                });
-            }
-
-            fromMap.addListener('click', function (e) { placeFromMarker(e.latLng); });
-            toMap.addListener('click', function (e) { placeToMarker(e.latLng); });
-        }
-
-        function placeFromMarker(latLng) {
-            if (fromMarker) fromMarker.setMap(null);
-            fromMarker = new google.maps.Marker({
-                position: latLng, map: fromMap,
-                icon: 'http://maps.google.com/mapfiles/ms/icons/green-dot.png',
-                title: '@Localizer["Departure stop"]'
-            });
-            document.getElementById('fromLat').value = latLng.lat().toFixed(7);
-            document.getElementById('fromLng').value = latLng.lng().toFixed(7);
-        }
-
-        function placeToMarker(latLng) {
-            if (toMarker) toMarker.setMap(null);
-            toMarker = new google.maps.Marker({
-                position: latLng, map: toMap,
-                icon: 'http://maps.google.com/mapfiles/ms/icons/red-dot.png',
-                title: '@Localizer["Arrival stop"]'
-            });
-            document.getElementById('toLat').value = latLng.lat().toFixed(7);
-            document.getElementById('toLng').value = latLng.lng().toFixed(7);
-        }
-
-        function clearFromMarker() {
-            if (fromMarker) { fromMarker.setMap(null); fromMarker = null; }
-            document.getElementById('fromLat').value = '';
-            document.getElementById('fromLng').value = '';
-        }
-
-        function clearToMarker() {
-            if (toMarker) { toMarker.setMap(null); toMarker = null; }
-            document.getElementById('toLat').value = '';
-            document.getElementById('toLng').value = '';
-        }
-
-        document.querySelectorAll('[data-bs-toggle="pill"]').forEach(function (tab) {
-            tab.addEventListener('shown.bs.tab', function () {
-                if (fromMap) google.maps.event.trigger(fromMap, 'resize');
-                if (toMap) google.maps.event.trigger(toMap, 'resize');
-            });
-        });
-
-        // Pre-load streets on edit
-        $(document).ready(function () {
-            var loadAndSetStreets = function (citySelectId, streetSelectId, streetId) {
-                if ($('#' + citySelectId).val()) {
-                    loadStreets(citySelectId, streetSelectId);
-                    setTimeout(function () {
-                        $('#' + streetSelectId).val(streetId);
-                    }, 500);
-                }
-            };
-            loadAndSetStreets('fromCity', 'fromStreet', '@Model.FromStreetId');
-            loadAndSetStreets('toCity', 'toStreet', '@Model.ToStreetId');
-        });
-    </script>
+    <script src="~/js/routeMap.js" asp-append-version="true"></script>
     <script async defer
         src="https://maps.googleapis.com/maps/api/js?key=@mapsApiKey&callback=initMaps">
     </script>

@@ -352,8 +352,13 @@ namespace GoceTransportApp.Web.Controllers
                 var details = await this.ticketService.GetTicketDetailsAsync(ticketGuid);
                 if (details != null)
                 {
-                    await this.hubContext.Clients.User(userId)
-                        .SendAsync("ReceivePurchaseConfirmation", details.FromCity, details.ToCity, details.OrganizationName);
+                    // Store purchase details in TempData so the redirected page can show
+                    // the toast after the new SignalR connection is established.
+                    // (Sending directly here causes a race condition — the message arrives
+                    //  on the old connection that is being torn down during navigation.)
+                    TempData["PurchaseFrom"] = details.FromCity;
+                    TempData["PurchaseTo"] = details.ToCity;
+                    TempData["PurchaseOrg"] = details.OrganizationName;
 
                     DateTime? departureDateTime = await this.ticketService.GetTicketDepartureDateTimeAsync(ticketGuid);
                     if (departureDateTime.HasValue)

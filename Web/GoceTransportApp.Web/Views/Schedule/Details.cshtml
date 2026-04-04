@@ -20,9 +20,3 @@
     <partial name="_ScheduleDetails" model="Model" />
 </div>
 
-@section Scripts {
-    <script>
-        // Expose scheduleId on body so notifications.js can match it
-        document.body.dataset.scheduleId = "@Model.Id";
-    </script>
-}

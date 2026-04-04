@@ -315,7 +315,8 @@ namespace GoceTransportApp.Services.Data.Organizations
                   Name = c.Name,
                   Address = c.Address,
                   FounderId = c.FounderId,
-                  Founder = c.Founder.UserName
+                  Founder = c.Founder.UserName,
+                  ImageUrl = c.ImageUrl
               })
               .ToArrayAsync();
 

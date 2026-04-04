@@ -166,4 +166,7 @@
   <data name="Tickets" xml:space="preserve">
     <value>Билети</value>
   </data>
+  <data name="Find a Bus" xml:space="preserve">
+    <value>Намери автобус</value>
+  </data>
 </root>

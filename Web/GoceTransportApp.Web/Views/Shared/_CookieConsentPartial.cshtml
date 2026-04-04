@@ -14,14 +14,5 @@
             <span aria-hidden="true">Accept</span>
         </button>
     </div>
-    <script>
-        (function () {
-            var button = document.querySelector("#cookieConsent button[data-cookie-string]");
-            var container = document.querySelector("#cookieConsent");
-            button.addEventListener("click", function () {
-                document.cookie = button.dataset.cookieString;
-                container.classList.add("d-none");
-            }, false);
-        })();
-    </script>
+    <script src="~/js/cookieConsent.js" asp-append-version="true"></script>
 }

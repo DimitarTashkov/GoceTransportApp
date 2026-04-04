@@ -143,15 +143,21 @@ namespace GoceTransportApp.Web
 
             services.AddRateLimiter(options =>
             {
-                // Global: 100 requests/minute per IP
+                // Global: 100 requests/minute per IP (SignalR hubs are exempt)
                 options.GlobalLimiter = PartitionedRateLimiter.Create<HttpContext, string>(
-                    context => RateLimitPartition.GetFixedWindowLimiter(
-                        context.Connection.RemoteIpAddress?.ToString() ?? "unknown",
-                        _ => new FixedWindowRateLimiterOptions
-                        {
-                            PermitLimit = 100,
-                            Window = TimeSpan.FromMinutes(1),
-                        }));
+                    context =>
+                    {
+                        if (context.Request.Path.StartsWithSegments("/notificationHub"))
+                            return RateLimitPartition.GetNoLimiter("signalr");
+
+                        return RateLimitPartition.GetFixedWindowLimiter(
+                            context.Connection.RemoteIpAddress?.ToString() ?? "unknown",
+                            _ => new FixedWindowRateLimiterOptions
+                            {
+                                PermitLimit = 100,
+                                Window = TimeSpan.FromMinutes(1),
+                            });
+                    });
 
                 // Strict limit for login: 10 attempts/5 min per IP
                 options.AddPolicy("login", context =>

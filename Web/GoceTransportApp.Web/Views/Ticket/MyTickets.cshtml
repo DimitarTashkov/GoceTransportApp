@@ -127,3 +127,13 @@ else
         <p class="text-muted">@Localizer["No past trips yet."]</p>
     </div>
 }
+
+@if (TempData["PurchaseFrom"] != null)
+{
+    <div id="purchaseToastData"
+         data-from="@TempData["PurchaseFrom"]"
+         data-to="@TempData["PurchaseTo"]"
+         data-org="@TempData["PurchaseOrg"]"
+         style="display:none;"></div>
+    <script src="~/js/purchaseToast.js" asp-append-version="true"></script>
+}

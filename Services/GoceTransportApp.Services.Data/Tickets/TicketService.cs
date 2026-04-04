@@ -267,7 +267,7 @@ namespace GoceTransportApp.Services.Data.Tickets
             }
 
             // Prevent purchasing tickets for past departures
-            if (ticket.ExpiryDate <= DateTime.UtcNow)
+            if (ticket.ExpiryDate.Date < DateTime.UtcNow.Date)
             {
                 return false;
             }

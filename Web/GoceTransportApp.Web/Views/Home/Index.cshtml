@@ -211,7 +211,10 @@
                         </select>
                     </div>
                 </div>
-                <div class="card-body p-0" id="nextDeparturesContainer">
+                <div class="card-body p-0" id="nextDeparturesContainer"
+                     data-msg-empty="@Localizer["Select a city to see upcoming departures"]"
+                     data-msg-loading="@Localizer["Loading..."]"
+                     data-msg-error="@Localizer["Unable to load departures."]">
                     <div class="text-center py-5 text-muted">
                         <i class="fas fa-bus fa-2x mb-2 d-block opacity-50"></i>
                         <span class="small">@Localizer["Select a city to see upcoming departures"]</span>
@@ -504,41 +507,5 @@
 </div>
 
 @section Scripts {
-<script>
-    (function () {
-        document.querySelectorAll('.popular-route-btn').forEach(function (btn) {
-            btn.addEventListener('click', function () {
-                var fromId = this.dataset.from;
-                var toId   = this.dataset.to;
-                var fromSel = document.getElementById('fromCitySelect');
-                var toSel   = document.getElementById('toCitySelect');
-                if (fromSel) fromSel.value = fromId;
-                if (toSel)   toSel.value   = toId;
-                document.getElementById('searchForm').submit();
-            });
-        });
-
-        var select    = document.getElementById('nextDeparturesCitySelect');
-        var container = document.getElementById('nextDeparturesContainer');
-        if (!select || !container) return;
-
-        function loadDepartures(cityId) {
-            if (!cityId) {
-                container.innerHTML = '<div class="text-center py-5 text-muted"><i class="fas fa-bus fa-2x mb-2 d-block opacity-50"></i><span class="small">@Localizer["Select a city to see upcoming departures"]</span></div>';
-                return;
-            }
-            container.innerHTML = '<div class="text-center py-4 text-muted"><i class="fas fa-spinner fa-spin fa-2x mb-2 d-block"></i><span class="small">@Localizer["Loading..."]</span></div>';
-            fetch('/Home/NextDepartures?fromCityId=' + encodeURIComponent(cityId))
-                .then(function (r) { return r.text(); })
-                .then(function (html) { container.innerHTML = html; })
-                .catch(function () { container.innerHTML = '<div class="text-center py-4 text-muted small">@Localizer["Unable to load departures."]</div>'; });
-        }
-
-        select.addEventListener('change', function () { loadDepartures(this.value); });
-
-        setInterval(function () {
-            if (select.value) loadDepartures(select.value);
-        }, 60000);
-    })();
-</script>
+    <script src="~/js/homeDepartures.js" asp-append-version="true"></script>
 }

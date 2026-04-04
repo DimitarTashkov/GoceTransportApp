@@ -64,7 +64,7 @@
                             <a class="nav-link fw-semibold" asp-area="" asp-controller="Home" asp-action="Index">@Localizer["Home"]</a>
                         </li>
 
-                        <li class="nav-item dropdown">
+                        <li class="nav-item dropdown" id="exploreDropdownWrapper">
                             <a class="nav-link dropdown-toggle fw-semibold" href="#" id="exploreDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                 @Localizer["Explore"]
                             </a>
@@ -83,17 +83,18 @@
                         <li class="nav-item">
                             <a class="nav-link fw-semibold" asp-area="" asp-controller="ContactForm" asp-action="Create">@Localizer["Contact Us"]</a>
                         </li>
+                        <!-- Language selector — visible only in hamburger menu on mobile -->
+                        <ul class="navbar-nav d-lg-none border-top pt-2 mt-2">
+                            <partial name="_SelectLanguagePartial" />
+                        </ul>
                     </ul>
 
                     <div class="d-flex align-items-center gap-2">
-                        @if (!this.User.Identity.IsAuthenticated)
-                        {
-                            <a asp-area="" asp-controller="Schedule" asp-action="Index" class="btn btn-primary btn-sm rounded-pill px-3 fw-semibold d-none d-lg-inline-block">
-                                <i class="fas fa-search me-1"></i>@Localizer["Find a Bus"]
-                            </a>
-                        }
+                        <a asp-area="" asp-controller="Schedule" asp-action="Index" class="btn btn-primary btn-sm rounded-pill px-3 fw-semibold d-none d-lg-inline-block">
+                            <i class="fas fa-search me-1"></i>@Localizer["Find a Bus"]
+                        </a>
 
-                        <ul class="navbar-nav">
+                        <ul class="navbar-nav d-none d-lg-flex">
                             <partial name="_SelectLanguagePartial" />
                         </ul>
 
@@ -217,11 +218,11 @@
                 <i class="fas fa-ticket-alt fs-5 mb-1"></i>
                 <span>@Localizer["My Tickets"]</span>
             </a>
-            <a asp-area="Identity" asp-page="/Account/Manage/Index"
+            <a asp-controller="Dashboard" asp-action="Index"
                class="flex-fill d-flex flex-column align-items-center justify-content-center py-2 text-decoration-none text-muted small fw-semibold"
                style="min-height:56px;">
-                <i class="fas fa-user-circle fs-5 mb-1"></i>
-                <span>@Localizer["Profile"]</span>
+                <i class="fas fa-tachometer-alt fs-5 mb-1"></i>
+                <span>@Localizer["Dashboard"]</span>
             </a>
         }
         else
@@ -253,25 +254,8 @@
     <script src="~/js/site.min.js" asp-append-version="true"></script>
     <script src="~/lib/signalr/dist/browser/signalr.min.js" asp-append-version="true"></script>
     <script src="~/js/notifications.js" asp-append-version="true"></script>
-    <script>
-        (function () {
-            var icon = document.getElementById('darkModeIcon');
-            var btn = document.getElementById('darkModeToggle');
-            var html = document.documentElement;
-
-            function applyTheme(theme) {
-                html.setAttribute('data-bs-theme', theme);
-                icon.className = theme === 'dark' ? 'fas fa-sun' : 'fas fa-moon';
-                localStorage.setItem('theme', theme);
-            }
-
-            applyTheme(localStorage.getItem('theme') || 'light');
-
-            btn.addEventListener('click', function () {
-                applyTheme(html.getAttribute('data-bs-theme') === 'dark' ? 'light' : 'dark');
-            });
-        })();
-    </script>
+    <script src="~/js/darkMode.js" asp-append-version="true"></script>
+    <script src="~/js/hoverDropdown.js" asp-append-version="true"></script>
     @await this.RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

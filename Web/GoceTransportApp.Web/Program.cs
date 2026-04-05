@@ -160,7 +160,7 @@ namespace GoceTransportApp.Web
                     });
 
                 // Strict limit for login: 10 attempts/5 min per IP
-                options.AddPolicy("login", context =>
+                options.AddPolicy(GoceTransportApp.Common.GlobalConstants.RateLimitPolicies.Login, context =>
                     RateLimitPartition.GetFixedWindowLimiter(
                         context.Connection.RemoteIpAddress?.ToString() ?? "unknown",
                         _ => new FixedWindowRateLimiterOptions
@@ -170,7 +170,7 @@ namespace GoceTransportApp.Web
                         }));
 
                 // Strict limit for ticket purchase: 20 attempts/min per IP
-                options.AddPolicy("purchase", context =>
+                options.AddPolicy(GoceTransportApp.Common.GlobalConstants.RateLimitPolicies.Purchase, context =>
                     RateLimitPartition.GetFixedWindowLimiter(
                         context.Connection.RemoteIpAddress?.ToString() ?? "unknown",
                         _ => new FixedWindowRateLimiterOptions
@@ -252,6 +252,7 @@ namespace GoceTransportApp.Web
             services.AddScoped<IOrganizationService, OrganizationService>();
             services.AddScoped<IContactFormService, ContactFormService>();
             services.AddScoped<IReviewService, ReviewService>();
+            services.AddScoped<GoceTransportApp.Services.Data.Notifications.INotificationService, GoceTransportApp.Services.Data.Notifications.NotificationService>();
         }
 
         private static void Configure(WebApplication app)

@@ -76,6 +76,28 @@
         </li>
     </ul>
 
+    <!-- Desktop: Notification bell -->
+    <div class="d-none d-lg-flex" id="notificationDropdown">
+        <div class="dropdown">
+            <button class="btn btn-outline-secondary btn-sm rounded-circle position-relative d-flex align-items-center justify-content-center"
+                    type="button" id="notifBellBtn" data-bs-toggle="dropdown" data-bs-auto-close="outside"
+                    aria-expanded="false" style="width:34px;height:34px;" title="Известия">
+                <i class="fas fa-bell"></i>
+                <span id="notifBadge" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger d-none"
+                      style="font-size:0.6rem;min-width:18px;"></span>
+            </button>
+            <ul class="dropdown-menu dropdown-menu-end shadow border-0 rounded-3 py-2"
+                id="notifDropdownMenu" style="min-width:300px;max-height:400px;overflow-y:auto;">
+                <li class="px-3 py-2 border-bottom">
+                    <span class="fw-semibold small text-uppercase text-muted">Известия</span>
+                </li>
+                <li id="notifEmptyState" class="px-3 py-3 text-center text-muted small">
+                    <i class="fas fa-check-circle me-1 text-success"></i>Няма нови известия
+                </li>
+            </ul>
+        </div>
+    </div>
+
     <!-- Desktop: avatar with hover dropdown -->
     <ul class="navbar-nav d-none d-lg-flex">
         <li class="nav-item dropdown" id="profileDropdownWrapper">

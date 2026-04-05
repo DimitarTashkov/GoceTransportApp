@@ -207,7 +207,7 @@ namespace GoceTransportApp.Web.Controllers
             if (!string.IsNullOrWhiteSpace(formModel.LiveStatus))
             {
                 await this.hubContext.Clients.All
-                    .SendAsync("ReceiveStatusUpdate", formModel.Id, formModel.LiveStatus);
+                    .SendAsync(SignalRMethods.ReceiveStatusUpdate, formModel.Id, formModel.LiveStatus);
             }
 
             TempData[nameof(SuccessMessage)] = SuccessMessage;

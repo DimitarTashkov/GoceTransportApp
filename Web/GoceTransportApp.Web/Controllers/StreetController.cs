@@ -34,12 +34,12 @@ namespace GoceTransportApp.Web.Controllers
         {
             if (string.IsNullOrEmpty(id))
             {
-                return BadRequest("City ID cannot be null or empty.");
+                return BadRequest(CityIdRequired);
             }
 
             if (!Guid.TryParse(id, out Guid cityGuid))
             {
-                return BadRequest("Invalid City ID.");
+                return BadRequest(InvalidCityId);
             }
 
             var streets = await this.cityService.GetAllStreetsInCityAsync(cityGuid);
@@ -152,7 +152,7 @@ namespace GoceTransportApp.Web.Controllers
                 return this.RedirectToAction(nameof(Index));
             }
 
-            TempData["SuccessMessage"] = SuccessMessage;
+            TempData[nameof(SuccessMessage)] = SuccessMessage;
 
             return this.RedirectToAction(nameof(Index));
         }

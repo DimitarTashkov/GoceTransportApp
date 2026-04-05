@@ -56,6 +56,8 @@ namespace GoceTransportApp.Data
 
         public DbSet<Review> Reviews { get; set; }
 
+        public DbSet<Notification> Notifications { get; set; }
+
         public DbSet<UserFavoriteOrganization> UserFavoriteOrganizations { get; set; }
 
         public override int SaveChanges() => this.SaveChanges(true);

@@ -1,4 +1,5 @@
 using GoceTransportApp.Data.Models.Enumerations;
+using GoceTransportApp.Services.Data.Notifications;
 using GoceTransportApp.Services.Data.Organizations;
 using GoceTransportApp.Services.Data.Reviews;
 using GoceTransportApp.Web.Hubs;
@@ -10,8 +11,10 @@ using System.Threading.Tasks;
 using System;
 using GoceTransportApp.Web.ViewModels.Organizations;
 
-using static GoceTransportApp.Common.ResultMessages.GeneralMessages;
 using static GoceTransportApp.Common.GlobalConstants;
+using static GoceTransportApp.Common.GlobalConstants.SignalRMethods;
+using static GoceTransportApp.Common.ResultMessages.GeneralMessages;
+using static GoceTransportApp.Common.ResultMessages.OrganizationMessages;
 using GoceTransportApp.Data.Common.Repositories;
 using GoceTransportApp.Data.Models;
 using Microsoft.AspNetCore.Authorization;
@@ -35,6 +38,7 @@ namespace GoceTransportApp.Web.Controllers
     {
         private readonly IOrganizationService organizationService;
         private readonly IReviewService reviewService;
+        private readonly INotificationService notificationService;
         private readonly IWebHostEnvironment webHostEnvironment;
         private readonly UserManager<ApplicationUser> userManager;
         private readonly IDeletableEntityRepository<Organization> organizationRepository;
@@ -43,6 +47,7 @@ namespace GoceTransportApp.Web.Controllers
         public OrganizationController(
             IOrganizationService organizationService,
             IReviewService reviewService,
+            INotificationService notificationService,
             IDeletableEntityRepository<Organization> organizationRepository,
             IWebHostEnvironment webHostEnvironment,
             UserManager<ApplicationUser> userManager,
@@ -51,6 +56,7 @@ namespace GoceTransportApp.Web.Controllers
         {
             this.organizationService = organizationService;
             this.reviewService = reviewService;
+            this.notificationService = notificationService;
             this.webHostEnvironment = webHostEnvironment;
             this.userManager = userManager;
             this.organizationRepository = organizationRepository;
@@ -104,7 +110,7 @@ namespace GoceTransportApp.Web.Controllers
 
             if (user != null && existingCount >= (int)user.MembershipTier)
             {
-                TempData["UpgradeReason"] = $"You have reached the limit of {(int)user.MembershipTier} organization(s) on the {user.MembershipTier} plan.";
+                TempData[TempDataKeys.UpgradeReason] = $"You have reached the limit of {(int)user.MembershipTier} organization(s) on the {user.MembershipTier} plan.";
                 return RedirectToAction(nameof(Upgrade));
             }
 
@@ -132,7 +138,7 @@ namespace GoceTransportApp.Web.Controllers
 
             if (user != null && existingCount >= (int)user.MembershipTier)
             {
-                TempData["UpgradeReason"] = $"You have reached the limit of {(int)user.MembershipTier} organization(s) on the {user.MembershipTier} plan.";
+                TempData[TempDataKeys.UpgradeReason] = $"You have reached the limit of {(int)user.MembershipTier} organization(s) on the {user.MembershipTier} plan.";
                 return RedirectToAction(nameof(Upgrade));
             }
 
@@ -146,14 +152,14 @@ namespace GoceTransportApp.Web.Controllers
             {
                 if (model.Image.Length > 5 * 1024 * 1024)
                 {
-                    ModelState.AddModelError(nameof(model.Image), "Image must be under 5 MB.");
+                    ModelState.AddModelError(nameof(model.Image), ImageTooLarge);
                     return View(model);
                 }
 
                 string ext = Path.GetExtension(model.Image.FileName).ToLowerInvariant();
                 if (ext != ".jpg" && ext != ".jpeg" && ext != ".png" && ext != ".gif" && ext != ".webp")
                 {
-                    ModelState.AddModelError(nameof(model.Image), "Only image files are allowed (.jpg, .png, .gif, .webp).");
+                    ModelState.AddModelError(nameof(model.Image), InvalidImageFormat);
                     return View(model);
                 }
 
@@ -231,14 +237,14 @@ namespace GoceTransportApp.Web.Controllers
             {
                 if (formModel.Image.Length > 5 * 1024 * 1024)
                 {
-                    ModelState.AddModelError(nameof(formModel.Image), "Image must be under 5 MB.");
+                    ModelState.AddModelError(nameof(formModel.Image), ImageTooLarge);
                     return this.View(formModel);
                 }
 
                 string ext = Path.GetExtension(formModel.Image.FileName).ToLowerInvariant();
                 if (ext != ".jpg" && ext != ".jpeg" && ext != ".png" && ext != ".gif" && ext != ".webp")
                 {
-                    ModelState.AddModelError(nameof(formModel.Image), "Only image files are allowed (.jpg, .png, .gif, .webp).");
+                    ModelState.AddModelError(nameof(formModel.Image), InvalidImageFormat);
                     return this.View(formModel);
                 }
 
@@ -374,18 +380,26 @@ namespace GoceTransportApp.Web.Controllers
 
             if (!success)
             {
-                TempData["ErrorMessage"] = "You can only leave a review if you have traveled with this carrier, and you haven't already reviewed them.";
+                TempData[TempDataKeys.ErrorMessage] = ReviewFail;
             }
             else
             {
-                TempData[nameof(SuccessMessage)] = "Thank you for your review!";
+                TempData[nameof(SuccessMessage)] = ReviewSuccess;
 
                 var org = await this.organizationRepository.AllAsNoTracking()
                     .FirstOrDefaultAsync(o => o.Id.ToString() == organizationId);
                 if (org != null)
                 {
                     await this.hubContext.Clients.User(org.FounderId)
-                        .SendAsync("ReceiveNewReview", org.Name, rating);
+                        .SendAsync(ReceiveNewReview, org.Name, rating);
+
+                    await this.notificationService.CreateAsync(
+                        org.FounderId,
+                        string.Format(NewReviewNotification, org.Name),
+                        $"/Organization/Details/{organizationId}");
+
+                    await this.hubContext.Clients.User(org.FounderId)
+                        .SendAsync(ReceiveNotification);
                 }
             }
 
@@ -521,7 +535,7 @@ namespace GoceTransportApp.Web.Controllers
                 if (org != null)
                 {
                     await this.hubContext.Clients.User(userId)
-                        .SendAsync("ReceiveFavoriteAdded", org.Name);
+                        .SendAsync(ReceiveFavoriteAdded, org.Name);
                 }
             }
 

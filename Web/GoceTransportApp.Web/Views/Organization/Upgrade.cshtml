@@ -1,9 +1,10 @@
 @using Microsoft.AspNetCore.Mvc.Localization
+@using static GoceTransportApp.Common.GlobalConstants.TempDataKeys
 @inject IViewLocalizer Localizer
 
 @{
     ViewData["Title"] = "Pricing & Plans";
-    var upgradeReason = TempData["UpgradeReason"]?.ToString();
+    var upgradeReason = TempData[UpgradeReason]?.ToString();
 }
 
 <section class="py-5">

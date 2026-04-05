@@ -5,7 +5,8 @@ namespace GoceTransportApp.Common
         public static class StreetMessages
         {
             public const string StreetNameRequiredMessage = "Street name is required";
-
+            public const string CityIdRequired = "City ID cannot be null or empty.";
+            public const string InvalidCityId = "Invalid City ID.";
         }
 
         public static class CityMessages
@@ -49,6 +50,9 @@ namespace GoceTransportApp.Common
         public static class TicketMessages
         {
             public const string TicketPurchaseSuccess = "Your ticket(s) have been purchased successfully!";
+            public const string TicketPurchaseFail = "Ticket could not be purchased.";
+            public const string TicketCancelSuccess = "Your ticket has been successfully cancelled.";
+            public const string TicketCancelFail = "Ticket cannot be cancelled \u2013 departure is less than 24 hours away.";
             public const string InvalidTicketIssueTime = "Ticket issued date be earlier than expiry date!";
             public const string ScheduleCapacityExceeded = "Cannot create ticket: the vehicle for this schedule is fully booked!";
         }
@@ -56,11 +60,17 @@ namespace GoceTransportApp.Common
         public static class OrganizationMessages
         {
             public const string OrganizationNameRequired = "Organization name is required!";
+            public const string ImageTooLarge = "Image must be under 5 MB.";
+            public const string InvalidImageFormat = "Only image files are allowed (.jpg, .png, .gif, .webp).";
+            public const string ReviewSuccess = "Thank you for your review!";
+            public const string ReviewFail = "You can only leave a review if you have traveled with this carrier, and you haven't already reviewed them.";
+            public const string NewReviewNotification = "Имате нов отзив за \"{0}\"!";
         }
 
         public static class ContactFormMessages
         {
             public const string ContactFormWasSumbitted = "Your form has been successfully sent to the staff.";
+            public const string NewContactFormAlert = "Нова контактна форма е изпратена!";
         }
 
         public static class GeneralMessages

@@ -16,8 +16,9 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SignalR;
 
-using static GoceTransportApp.Common.ResultMessages.GeneralMessages;
+using static GoceTransportApp.Common.GlobalConstants;
 using static GoceTransportApp.Common.ResultMessages.ContactFormMessages;
+using static GoceTransportApp.Common.ResultMessages.GeneralMessages;
 
 namespace GoceTransportApp.Controllers
 {
@@ -82,7 +83,7 @@ namespace GoceTransportApp.Controllers
                 if (adminIds.Count > 0)
                 {
                     await hubContext.Clients.Users(adminIds)
-                        .SendAsync("ReceiveSystemAlert", "???? ????????? ?? ??????????? ?????!");
+                        .SendAsync(SignalRMethods.ReceiveSystemAlert, NewContactFormAlert);
                 }
 
                 TempData[nameof(SuccessMessage)] = ContactFormWasSumbitted;

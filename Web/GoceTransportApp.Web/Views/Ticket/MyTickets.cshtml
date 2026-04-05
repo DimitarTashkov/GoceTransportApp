@@ -1,4 +1,5 @@
 @model GoceTransportApp.Web.ViewModels.Tickets.MyTicketsViewModel
+@using static GoceTransportApp.Common.GlobalConstants.TempDataKeys
 @using static GoceTransportApp.Common.ResultMessages.GeneralMessages
 @using Microsoft.AspNetCore.Mvc.Localization
 @inject IViewLocalizer Localizer
@@ -128,12 +129,12 @@ else
     </div>
 }
 
-@if (TempData["PurchaseFrom"] != null)
+@if (TempData[PurchaseFrom] != null)
 {
     <div id="purchaseToastData"
-         data-from="@TempData["PurchaseFrom"]"
-         data-to="@TempData["PurchaseTo"]"
-         data-org="@TempData["PurchaseOrg"]"
+         data-from="@TempData[PurchaseFrom]"
+         data-to="@TempData[PurchaseTo]"
+         data-org="@TempData[PurchaseOrg]"
          style="display:none;"></div>
     <script src="~/js/purchaseToast.js" asp-append-version="true"></script>
 }

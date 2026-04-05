@@ -9,6 +9,34 @@ namespace GoceTransportApp.Common
 
         public const string DefaultOrganizationImageUrl = "../../images/no-organization-image";
         public const string DefaultProfileImageUrl = "../../images/no-profile-image";
-        public const string TestPropertyCommit = "asd";
+
+        public static class TempDataKeys
+        {
+            // "SuccessMessage" and "FailMessage" are intentionally omitted —
+            // controllers use nameof(SuccessMessage) / nameof(FailMessage) from
+            // ResultMessages.GeneralMessages, which already resolves to the same key string.
+            public const string ErrorMessage = "ErrorMessage";
+            public const string UpgradeReason = "UpgradeReason";
+            public const string PurchaseFrom = "PurchaseFrom";
+            public const string PurchaseTo = "PurchaseTo";
+            public const string PurchaseOrg = "PurchaseOrg";
+        }
+
+        public static class SignalRMethods
+        {
+            public const string ReceiveStatusUpdate = "ReceiveStatusUpdate";
+            public const string ReceiveNewReview = "ReceiveNewReview";
+            public const string ReceiveNotification = "ReceiveNotification";
+            public const string ReceiveSystemAlert = "ReceiveSystemAlert";
+            public const string ReceiveFavoriteAdded = "ReceiveFavoriteAdded";
+            public const string ReceiveDepartureReminder = "ReceiveDepartureReminder";
+            public const string ReceivePurchaseConfirmation = "ReceivePurchaseConfirmation";
+        }
+
+        public static class RateLimitPolicies
+        {
+            public const string Login = "login";
+            public const string Purchase = "purchase";
+        }
     }
 }

@@ -79,4 +79,82 @@ connection.on("ReceiveDepartureReminder", function (fromCity, toCity) {
     showToast("🚌 Потеглянето е след 30 мин!", fromCity + " → " + toCity, "warning");
 });
 
+// Сценарий 7: Persistent notification — обнови камбанката
+connection.on("ReceiveNotification", function () {
+    loadNotifications();
+});
+
+// ─── Persistent Inbox (камбанка) ────────────────────────────────────────────
+
+function loadNotifications() {
+    // Камбанката рендира се само за логнати потребители
+    if (!document.getElementById('notificationDropdown')) return;
+
+    $.getJSON('/Notification/GetMyNotifications', function (data) {
+        var badge = document.getElementById('notifBadge');
+        var menu  = document.getElementById('notifDropdownMenu');
+        var empty = document.getElementById('notifEmptyState');
+
+        // Изтриваме старите редове (без хедъра и empty state)
+        $(menu).find('.notif-item').remove();
+
+        if (!data || data.length === 0) {
+            if (badge)  { badge.classList.add('d-none'); badge.textContent = ''; }
+            if (empty)  { empty.classList.remove('d-none'); }
+            return;
+        }
+
+        if (empty)  { empty.classList.add('d-none'); }
+        if (badge)  { badge.classList.remove('d-none'); badge.textContent = data.length > 9 ? '9+' : data.length; }
+
+        data.forEach(function (n) {
+            var timeAgo = formatTimeAgo(new Date(n.createdOn));
+            var href    = n.link ? n.link : '#';
+            var li = document.createElement('li');
+            li.className = 'notif-item border-bottom';
+            li.innerHTML =
+                '<a class="dropdown-item py-2 d-flex flex-column gap-1 notif-link" href="' + href + '" data-notif-id="' + n.id + '">' +
+                    '<span class="small fw-semibold text-wrap" style="white-space:normal">' + escapeHtml(n.content) + '</span>' +
+                    '<span class="text-muted" style="font-size:0.7rem">' + timeAgo + '</span>' +
+                '</a>';
+            menu.appendChild(li);
+        });
+    }).fail(function () {
+        console.error('[Notifications] Failed to load notifications.');
+    });
+}
+
+// Кликване върху известие → маркирай като прочетено
+$(document).on('click', '.notif-link', function (e) {
+    var id   = $(this).data('notif-id');
+    var href = $(this).attr('href');
+
+    $.post('/Notification/MarkAsRead', { id: id }, function () {
+        loadNotifications();
+    });
+
+    if (href && href !== '#') {
+        e.preventDefault();
+        window.location.href = href;
+    }
+});
+
+function escapeHtml(text) {
+    return $('<div>').text(text).html();
+}
+
+function formatTimeAgo(date) {
+    var now  = new Date();
+    var diff = Math.floor((now - date) / 1000);
+    if (diff < 60)   return 'преди малко';
+    if (diff < 3600) return 'преди ' + Math.floor(diff / 60) + ' мин';
+    if (diff < 86400) return 'преди ' + Math.floor(diff / 3600) + ' ч';
+    return 'преди ' + Math.floor(diff / 86400) + ' д';
+}
+
+// Зареди при отваряне на страницата
+$(document).ready(function () {
+    loadNotifications();
+});
+
 connection.start().catch(err => console.error("[SignalR] Connection error:", err));

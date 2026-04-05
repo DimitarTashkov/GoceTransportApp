@@ -1,4 +1,5 @@
-﻿using GoceTransportApp.Services.Data.Schedules;
+﻿using GoceTransportApp.Services.Data.Notifications;
+using GoceTransportApp.Services.Data.Schedules;
 using GoceTransportApp.Services.Data.Tickets;
 using GoceTransportApp.Services.Messaging;
 using GoceTransportApp.Web.ViewModels.Schedules;
@@ -35,6 +36,7 @@ namespace GoceTransportApp.Web.Controllers
         private readonly IEmailSender emailSender;
         private readonly IConfiguration configuration;
         private readonly IHubContext<NotificationHub> hubContext;
+        private readonly INotificationService notificationService;
 
         public TicketController(
             ITicketService ticketService,
@@ -43,7 +45,8 @@ namespace GoceTransportApp.Web.Controllers
             IRouteService routeService,
             IEmailSender emailSender,
             IConfiguration configuration,
-            IHubContext<NotificationHub> hubContext)
+            IHubContext<NotificationHub> hubContext,
+            INotificationService notificationService)
             : base(organizationRepository)
         {
             this.ticketService = ticketService;
@@ -52,6 +55,7 @@ namespace GoceTransportApp.Web.Controllers
             this.emailSender = emailSender;
             this.configuration = configuration;
             this.hubContext = hubContext;
+            this.notificationService = notificationService;
         }
 
         [HttpGet]
@@ -361,6 +365,12 @@ namespace GoceTransportApp.Web.Controllers
                     TempData[TempDataKeys.PurchaseFrom] = details.FromCity;
                     TempData[TempDataKeys.PurchaseTo] = details.ToCity;
                     TempData[TempDataKeys.PurchaseOrg] = details.OrganizationName;
+
+                    await this.notificationService.CreateAsync(
+                        userId,
+                        string.Format(TicketPurchaseNotification, details.FromCity, details.ToCity));
+                    await this.hubContext.Clients.User(userId)
+                        .SendAsync(ReceiveNotification);
 
                     DateTime? departureDateTime = await this.ticketService.GetTicketDepartureDateTimeAsync(ticketGuid);
                     if (departureDateTime.HasValue)

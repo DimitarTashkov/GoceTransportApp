@@ -40,7 +40,7 @@ namespace GoceTransportApp.Web.Infrastructure.ValidationAttributes
 
             var comparisonDate = (DateTime)comparisonValue;
 
-            if (currentDate >= comparisonDate)
+            if (currentDate.Date > comparisonDate.Date)
             {
                 return new ValidationResult(ErrorMessage ?? $"{validationContext.DisplayName} must be before {comparisonProperty}.");
             }

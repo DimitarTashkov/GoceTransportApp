@@ -5,10 +5,12 @@
     var from = data.dataset.from || '';
     var to   = data.dataset.to   || '';
     var org  = data.dataset.org  || '';
+    var isBg = document.documentElement.lang === 'bg';
 
     function fireToast() {
         if (typeof showToast === 'function') {
-            showToast('\uD83C\uDFAB \u0411\u0438\u043B\u0435\u0442\u044A\u0442 \u0435 \u0437\u0430\u043A\u0443\u043F\u0435\u043D', from + ' \u2192 ' + to + ' | ' + org, 'success');
+            var title = isBg ? '🎫 Билетът е закупен' : '🎫 Ticket Purchased';
+            showToast(title, from + ' \u2192 ' + to + ' | ' + org, 'success');
         }
     }
 

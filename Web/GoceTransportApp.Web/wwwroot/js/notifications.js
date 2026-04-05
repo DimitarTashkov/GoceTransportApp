@@ -36,21 +36,21 @@ function showToast(title, message, type) {
     toastEl.addEventListener("hidden.bs.toast", () => toastEl.remove());
 }
 
-// Scenario 1: Schedule live status change
+// Scenario 1: Schedule live status change — only show to users on that schedule's details page
 connection.on("ReceiveStatusUpdate", function (scheduleId, newStatus) {
     const scheduleWrapper = document.getElementById('scheduleDetailsWrapper');
     const pageScheduleId = scheduleWrapper ? scheduleWrapper.dataset.scheduleId : null;
-    if (pageScheduleId && pageScheduleId === scheduleId) {
-        const existing = document.getElementById("liveStatusBanner");
-        if (existing) existing.remove();
-        const banner = `
-            <div id="liveStatusBanner" class="alert alert-danger d-flex align-items-center gap-2 rounded-3 fw-semibold mt-3" role="alert">
-                <i class="fas fa-circle-exclamation fa-lg"></i>
-                <span>${newStatus}</span>
-            </div>`;
-        const target = document.querySelector("main") || document.querySelector("section") || document.body;
-        target.insertAdjacentHTML("afterbegin", banner);
-    }
+    if (!pageScheduleId || pageScheduleId !== scheduleId) return;
+
+    const existing = document.getElementById("liveStatusBanner");
+    if (existing) existing.remove();
+    const banner = `
+        <div id="liveStatusBanner" class="alert alert-danger d-flex align-items-center gap-2 rounded-3 fw-semibold mt-3" role="alert">
+            <i class="fas fa-circle-exclamation fa-lg"></i>
+            <span>${newStatus}</span>
+        </div>`;
+    const target = document.querySelector("main") || document.querySelector("section") || document.body;
+    target.insertAdjacentHTML("afterbegin", banner);
 
     const toastType = (newStatus.toLowerCase().includes("анулир") ||
                        newStatus.toLowerCase().includes("cancel"))

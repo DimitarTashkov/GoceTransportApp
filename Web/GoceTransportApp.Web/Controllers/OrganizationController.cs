@@ -536,6 +536,12 @@ namespace GoceTransportApp.Web.Controllers
                 {
                     await this.hubContext.Clients.User(userId)
                         .SendAsync(ReceiveFavoriteAdded, org.Name);
+
+                    await this.notificationService.CreateAsync(
+                        userId,
+                        string.Format(FavoriteAddedNotification, org.Name));
+                    await this.hubContext.Clients.User(userId)
+                        .SendAsync(ReceiveNotification);
                 }
             }
 

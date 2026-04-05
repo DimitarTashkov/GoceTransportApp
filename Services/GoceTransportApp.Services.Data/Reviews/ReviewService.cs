@@ -37,7 +37,7 @@ namespace GoceTransportApp.Services.Data.Reviews
                 .Include(ut => ut.Ticket)
                 .AnyAsync(ut => ut.CustomerId == userId
                              && ut.Ticket.OrganizationId == orgGuid
-                             && ut.Ticket.ExpiryDate < DateTime.UtcNow);
+                             && ut.Ticket.ExpiryDate.Date <= DateTime.Today);
 
             if (!hasTraveled)
             {

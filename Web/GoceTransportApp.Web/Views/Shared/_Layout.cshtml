@@ -118,8 +118,8 @@
         </nav>
     </header>
 
-    <!-- Toast container -->
-    <div class="toast-container position-fixed top-0 end-0 p-3" style="z-index: 1090">
+    <!-- Toast container (Success/Fail toasts + SignalR toasts) -->
+    <div id="toastContainer" class="toast-container position-fixed top-0 end-0 p-3" style="z-index:9999;">
         <partial name="_NotificationsPartial" />
     </div>
 
@@ -253,9 +253,6 @@
     </nav>
     <!-- Bottom nav spacer on mobile -->
     <div class="d-block d-lg-none" style="height:64px;"></div>
-
-    <!-- SignalR Toast Container -->
-    <div id="toastContainer" class="toast-container position-fixed top-0 end-0 p-3" style="z-index:9999;"></div>
 
     <script src="~/lib/jquery/dist/jquery.min.js" asp-append-version="true"></script>
     <script src="~/lib/jquery-validation/dist/jquery.validate.min.js" asp-append-version="true"></script>

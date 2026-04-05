@@ -51,6 +51,7 @@ namespace GoceTransportApp.Common
         {
             public const string TicketPurchaseSuccess = "Your ticket(s) have been purchased successfully!";
             public const string TicketPurchaseFail = "Ticket could not be purchased.";
+            public const string TicketPurchaseNotification = "Закупихте билет: {0} → {1}";
             public const string TicketCancelSuccess = "Your ticket has been successfully cancelled.";
             public const string TicketCancelFail = "Ticket cannot be cancelled \u2013 departure is less than 24 hours away.";
             public const string InvalidTicketIssueTime = "Ticket issued date be earlier than expiry date!";
@@ -65,6 +66,7 @@ namespace GoceTransportApp.Common
             public const string ReviewSuccess = "Thank you for your review!";
             public const string ReviewFail = "You can only leave a review if you have traveled with this carrier, and you haven't already reviewed them.";
             public const string NewReviewNotification = "Имате нов отзив за \"{0}\"!";
+            public const string FavoriteAddedNotification = "Добавихте \"{0}\" в любимите си.";
         }
 
         public static class ContactFormMessages

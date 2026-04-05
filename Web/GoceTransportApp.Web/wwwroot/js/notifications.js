@@ -5,6 +5,12 @@ const connection = new signalR.HubConnectionBuilder()
     .withAutomaticReconnect()
     .build();
 
+var isBg = document.documentElement.lang === 'bg';
+
+function t(en, bg) {
+    return isBg ? bg : en;
+}
+
 function showToast(title, message, type) {
     const toastId = "toast_" + Date.now();
     const bgClass = type === "danger"  ? "text-bg-danger"
@@ -30,9 +36,8 @@ function showToast(title, message, type) {
     toastEl.addEventListener("hidden.bs.toast", () => toastEl.remove());
 }
 
-// Сценарий 1: Промяна на LiveStatus в разписание
+// Scenario 1: Schedule live status change
 connection.on("ReceiveStatusUpdate", function (scheduleId, newStatus) {
-    // Ако пътникът е на страницата на точно това разписание → показва банер
     const scheduleWrapper = document.getElementById('scheduleDetailsWrapper');
     const pageScheduleId = scheduleWrapper ? scheduleWrapper.dataset.scheduleId : null;
     if (pageScheduleId && pageScheduleId === scheduleId) {
@@ -50,44 +55,43 @@ connection.on("ReceiveStatusUpdate", function (scheduleId, newStatus) {
     const toastType = (newStatus.toLowerCase().includes("анулир") ||
                        newStatus.toLowerCase().includes("cancel"))
                       ? "danger" : "warning";
-    showToast("🚌 Промяна в разписание", newStatus, toastType);
+    showToast(t("🚌 Schedule Update", "🚌 Промяна в разписание"), newStatus, toastType);
 });
 
-// Сценарий 2: Нов отзив — само до собственика на организацията
+// Scenario 2: New review — only to organization owner
 connection.on("ReceiveNewReview", function (organizationName, rating) {
     const stars = "★".repeat(rating) + "☆".repeat(5 - rating);
-    showToast("⭐ Нов отзив", stars + " за <strong>" + organizationName + "</strong>", "success");
+    showToast(t("⭐ New Review", "⭐ Нов отзив"), stars + " " + t("for", "за") + " <strong>" + organizationName + "</strong>", "success");
 });
 
-// Сценарий 3: Системна нотификация — само до администраторите
+// Scenario 3: System notification — only to admins
 connection.on("ReceiveSystemAlert", function (message) {
-    showToast("🔔 Системно известие", message, "primary");
+    showToast(t("🔔 System Notification", "🔔 Системно известие"), message, "primary");
 });
 
-// Сценарий 4: Организация добавена в любими
+// Scenario 4: Organization added to favorites
 connection.on("ReceiveFavoriteAdded", function (orgName) {
-    showToast("❤️ Добавено в любими", "<strong>" + orgName + "</strong> е добавена в любимите ти.", "success");
+    showToast(t("❤️ Added to Favorites", "❤️ Добавено в любими"), "<strong>" + orgName + "</strong> " + t("has been added to your favorites.", "е добавена в любимите ти."), "success");
 });
 
-// Сценарий 5: Потвърждение за закупен билет
+// Scenario 5: Ticket purchase confirmation
 connection.on("ReceivePurchaseConfirmation", function (fromCity, toCity, orgName) {
-    showToast("🎫 Билетът е закупен", fromCity + " → " + toCity + " | " + orgName, "success");
+    showToast(t("🎫 Ticket Purchased", "🎫 Билетът е закупен"), fromCity + " → " + toCity + " | " + orgName, "success");
 });
 
-// Сценарий 6: Напомняне 30 минути преди потегляне
+// Scenario 6: Departure reminder 30 minutes before
 connection.on("ReceiveDepartureReminder", function (fromCity, toCity) {
-    showToast("🚌 Потеглянето е след 30 мин!", fromCity + " → " + toCity, "warning");
+    showToast(t("🚌 Departure in 30 min!", "🚌 Потеглянето е след 30 мин!"), fromCity + " → " + toCity, "warning");
 });
 
-// Сценарий 7: Persistent notification — обнови камбанката
+// Scenario 7: Persistent notification — update bell
 connection.on("ReceiveNotification", function () {
     loadNotifications();
 });
 
-// ─── Persistent Inbox (камбанка) ────────────────────────────────────────────
+// ─── Persistent Inbox (bell) ────────────────────────────────────────────────
 
 function loadNotifications() {
-    // Камбанката рендира се само за логнати потребители
     if (!document.getElementById('notificationDropdown')) return;
 
     $.getJSON('/Notification/GetMyNotifications', function (data) {
@@ -95,7 +99,6 @@ function loadNotifications() {
         var menu  = document.getElementById('notifDropdownMenu');
         var empty = document.getElementById('notifEmptyState');
 
-        // Изтриваме старите редове (без хедъра и empty state)
         $(menu).find('.notif-item').remove();
 
         if (!data || data.length === 0) {
@@ -124,7 +127,7 @@ function loadNotifications() {
     });
 }
 
-// Кликване върху известие → маркирай като прочетено
+// Click on notification → mark as read
 $(document).on('click', '.notif-link', function (e) {
     var id   = $(this).data('notif-id');
     var href = $(this).attr('href');
@@ -146,13 +149,13 @@ function escapeHtml(text) {
 function formatTimeAgo(date) {
     var now  = new Date();
     var diff = Math.floor((now - date) / 1000);
-    if (diff < 60)   return 'преди малко';
-    if (diff < 3600) return 'преди ' + Math.floor(diff / 60) + ' мин';
-    if (diff < 86400) return 'преди ' + Math.floor(diff / 3600) + ' ч';
-    return 'преди ' + Math.floor(diff / 86400) + ' д';
+    if (diff < 60)    return t('just now', 'преди малко');
+    if (diff < 3600)  return t(Math.floor(diff / 60) + ' min ago', 'преди ' + Math.floor(diff / 60) + ' мин');
+    if (diff < 86400) return t(Math.floor(diff / 3600) + ' h ago',  'преди ' + Math.floor(diff / 3600) + ' ч');
+    return t(Math.floor(diff / 86400) + ' d ago', 'преди ' + Math.floor(diff / 86400) + ' д');
 }
 
-// Зареди при отваряне на страницата
+// Load on page open
 $(document).ready(function () {
     loadNotifications();
 });

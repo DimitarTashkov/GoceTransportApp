@@ -93,4 +93,10 @@
   <data name="Admin Dashboard" xml:space="preserve">
     <value>Администраторско Табло</value>
   </data>
+  <data name="Notifications" xml:space="preserve">
+    <value>Известия</value>
+  </data>
+  <data name="No new notifications" xml:space="preserve">
+    <value>Няма нови известия</value>
+  </data>
 </root>

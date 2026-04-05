@@ -27,21 +27,21 @@
                     <i class="fas fa-tachometer-alt me-2 text-primary"></i>@Localizer["Dashboard"]
                 </a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link fw-semibold" asp-area="" asp-controller="Organization" asp-action="UserOrganizations">
-                    <i class="fas fa-building me-2 text-primary"></i>@Localizer["My Organizations"]
-                </a>
-            </li>
-            @if (userOrgs != null && userOrgs.Any())
+        }
+        <li class="nav-item">
+            <a class="nav-link fw-semibold" asp-area="" asp-controller="Organization" asp-action="UserOrganizations">
+                <i class="fas fa-building me-2 text-primary"></i>@Localizer["My Organizations"]
+            </a>
+        </li>
+        @if (userOrgs != null && userOrgs.Any())
+        {
+            @foreach (var org in userOrgs)
             {
-                @foreach (var org in userOrgs)
-                {
-                    <li class="nav-item">
-                        <a class="nav-link ps-4 small text-muted" asp-area="" asp-controller="Organization" asp-action="Details" asp-route-id="@org.Id">
-                            <i class="fas fa-angle-right me-2"></i>@org.Name
-                        </a>
-                    </li>
-                }
+                <li class="nav-item">
+                    <a class="nav-link ps-4 small text-muted" asp-area="" asp-controller="Organization" asp-action="Details" asp-route-id="@org.Id">
+                        <i class="fas fa-angle-right me-2"></i>@org.Name
+                    </a>
+                </li>
             }
         }
         <li class="nav-item">
@@ -89,10 +89,10 @@
             <ul class="dropdown-menu dropdown-menu-end shadow border-0 rounded-3 py-2"
                 id="notifDropdownMenu" style="min-width:300px;max-height:400px;overflow-y:auto;">
                 <li class="px-3 py-2 border-bottom">
-                    <span class="fw-semibold small text-uppercase text-muted">Известия</span>
+                    <span class="fw-semibold small text-uppercase text-muted">@Localizer["Notifications"]</span>
                 </li>
                 <li id="notifEmptyState" class="px-3 py-3 text-center text-muted small">
-                    <i class="fas fa-check-circle me-1 text-success"></i>Няма нови известия
+                    <i class="fas fa-check-circle me-1 text-success"></i>@Localizer["No new notifications"]
                 </li>
             </ul>
         </div>
@@ -122,24 +122,24 @@
                             <i class="fas fa-tachometer-alt me-2 text-primary"></i>@Localizer["Dashboard"]
                         </a>
                     </li>
-                    <li>
-                        <a class="dropdown-item py-2" asp-area="" asp-controller="Organization" asp-action="UserOrganizations">
-                            <i class="fas fa-building me-2 text-primary"></i>@Localizer["My Organizations"]
-                        </a>
-                    </li>
-                    @if (userOrgs != null && userOrgs.Any())
-                    {
-                        @foreach (var org in userOrgs)
-                        {
-                            <li>
-                                <a class="dropdown-item py-1 ps-4 small text-muted" asp-area="" asp-controller="Organization" asp-action="Details" asp-route-id="@org.Id">
-                                    <i class="fas fa-angle-right me-2"></i>@org.Name
-                                </a>
-                            </li>
-                        }
-                    }
-                    <li><hr class="dropdown-divider my-1" /></li>
                 }
+                <li>
+                    <a class="dropdown-item py-2" asp-area="" asp-controller="Organization" asp-action="UserOrganizations">
+                        <i class="fas fa-building me-2 text-primary"></i>@Localizer["My Organizations"]
+                    </a>
+                </li>
+                @if (userOrgs != null && userOrgs.Any())
+                {
+                    @foreach (var org in userOrgs)
+                    {
+                        <li>
+                            <a class="dropdown-item py-1 ps-4 small text-muted" asp-area="" asp-controller="Organization" asp-action="Details" asp-route-id="@org.Id">
+                                <i class="fas fa-angle-right me-2"></i>@org.Name
+                            </a>
+                        </li>
+                    }
+                }
+                <li><hr class="dropdown-divider my-1" /></li>
                 <li>
                     <a class="dropdown-item py-2" asp-area="" asp-controller="Ticket" asp-action="MyTickets">
                         <i class="fas fa-ticket-alt me-2 text-primary"></i>@Localizer["My Tickets"]

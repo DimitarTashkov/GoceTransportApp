@@ -1,9 +1,5 @@
 @using Microsoft.AspNetCore.Mvc.Localization
 @model GoceTransportApp.Web.ViewModels.Schedules.TravelSearchViewModel
-@using GoceTransportApp.Data.Models
-@using Microsoft.AspNetCore.Identity
-
-@inject SignInManager<ApplicationUser> SignInManager
 @inject IViewLocalizer Localizer
 
 @{
@@ -364,69 +360,66 @@
 </section>
 
 <!-- ══════════════════════════════════════════════
-     PARTNER CTA — only for unauthenticated visitors
+     PARTNER CTA
      ══════════════════════════════════════════════ -->
-@if (!this.SignInManager.IsSignedIn(this.User))
-{
-    <section class="rounded-4 overflow-hidden py-5 px-4 px-lg-5 mb-4 position-relative"
-             style="background:linear-gradient(135deg,#0d47a1 0%,#4527a0 100%);">
-        <div class="position-absolute rounded-circle" style="width:380px;height:380px;background:rgba(255,255,255,.05);top:-120px;right:-80px;pointer-events:none;"></div>
-        <div class="row align-items-center g-4 position-relative" style="z-index:1;">
-            <div class="col-lg-7">
-                <span class="badge rounded-pill px-3 py-2 mb-3 fw-semibold"
-                      style="background:rgba(255,255,255,.18);color:white;border:1px solid rgba(255,255,255,.3);">
-                    <i class="fas fa-handshake me-1"></i>@Localizer["For Business"]
-                </span>
-                <h2 class="fw-bold mb-3 text-white">@Localizer["Own a Transport Company?"]</h2>
-                <p class="mb-4" style="color:rgba(255,255,255,.8);">
-                    @Localizer["Expand your business by joining our platform. Manage routes, schedules, vehicles, and sell tickets online — all from one dashboard."]
-                </p>
-                <div class="d-flex gap-3 flex-wrap">
-                    <a asp-controller="Organization" asp-action="Create"
-                       class="btn btn-light btn-lg rounded-pill px-4 fw-semibold text-primary">
-                        <i class="fas fa-plus-circle me-2"></i>@Localizer["Register Organization"]
-                    </a>
-                    <a asp-controller="Organization" asp-action="Upgrade"
-                       class="btn btn-outline-light btn-lg rounded-pill px-4 fw-semibold">
-                        <i class="fas fa-gem me-2"></i>@Localizer["View Plans"]
-                    </a>
-                </div>
+<section class="rounded-4 overflow-hidden py-5 px-4 px-lg-5 mb-4 position-relative"
+         style="background:linear-gradient(135deg,#0d47a1 0%,#4527a0 100%);">
+    <div class="position-absolute rounded-circle" style="width:380px;height:380px;background:rgba(255,255,255,.05);top:-120px;right:-80px;pointer-events:none;"></div>
+    <div class="row align-items-center g-4 position-relative" style="z-index:1;">
+        <div class="col-lg-7">
+            <span class="badge rounded-pill px-3 py-2 mb-3 fw-semibold"
+                  style="background:rgba(255,255,255,.18);color:white;border:1px solid rgba(255,255,255,.3);">
+                <i class="fas fa-handshake me-1"></i>@Localizer["For Business"]
+            </span>
+            <h2 class="fw-bold mb-3 text-white">@Localizer["Own a Transport Company?"]</h2>
+            <p class="mb-4" style="color:rgba(255,255,255,.8);">
+                @Localizer["Expand your business by joining our platform. Manage routes, schedules, vehicles, and sell tickets online — all from one dashboard."]
+            </p>
+            <div class="d-flex gap-3 flex-wrap">
+                <a asp-controller="Organization" asp-action="Create"
+                   class="btn btn-light btn-lg rounded-pill px-4 fw-semibold text-primary">
+                    <i class="fas fa-plus-circle me-2"></i>@Localizer["Register Organization"]
+                </a>
+                <a asp-controller="Organization" asp-action="Upgrade"
+                   class="btn btn-outline-light btn-lg rounded-pill px-4 fw-semibold">
+                    <i class="fas fa-gem me-2"></i>@Localizer["View Plans"]
+                </a>
             </div>
-            <div class="col-lg-5 text-center d-none d-lg-block">
-                <div class="row g-3">
-                    <div class="col-6">
-                        <div class="rounded-4 p-3 text-center text-white"
-                             style="background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.15);">
-                            <i class="fas fa-chart-line fa-2x mb-2" style="color:#93c5fd;"></i>
-                            <div class="fw-bold small">@Localizer["Analytics"]</div>
-                        </div>
+        </div>
+        <div class="col-lg-5 text-center d-none d-lg-block">
+            <div class="row g-3">
+                <div class="col-6">
+                    <div class="rounded-4 p-3 text-center text-white"
+                         style="background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.15);">
+                        <i class="fas fa-chart-line fa-2x mb-2" style="color:#93c5fd;"></i>
+                        <div class="fw-bold small">@Localizer["Analytics"]</div>
                     </div>
-                    <div class="col-6">
-                        <div class="rounded-4 p-3 text-center text-white"
-                             style="background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.15);">
-                            <i class="fas fa-users fa-2x mb-2" style="color:#86efac;"></i>
-                            <div class="fw-bold small">@Localizer["Reach Customers"]</div>
-                        </div>
+                </div>
+                <div class="col-6">
+                    <div class="rounded-4 p-3 text-center text-white"
+                         style="background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.15);">
+                        <i class="fas fa-users fa-2x mb-2" style="color:#86efac;"></i>
+                        <div class="fw-bold small">@Localizer["Reach Customers"]</div>
                     </div>
-                    <div class="col-6">
-                        <div class="rounded-4 p-3 text-center text-white"
-                             style="background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.15);">
-                            <i class="fas fa-headset fa-2x mb-2" style="color:#fcd34d;"></i>
-                            <div class="fw-bold small">@Localizer["Support"]</div>
-                        </div>
+                </div>
+                <div class="col-6">
+                    <div class="rounded-4 p-3 text-center text-white"
+                         style="background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.15);">
+                        <i class="fas fa-headset fa-2x mb-2" style="color:#fcd34d;"></i>
+                        <div class="fw-bold small">@Localizer["Support"]</div>
                     </div>
-                    <div class="col-6">
-                        <div class="rounded-4 p-3 text-center text-white"
-                             style="background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.15);">
-                            <i class="fas fa-shield-alt fa-2x mb-2" style="color:#67e8f9;"></i>
-                            <div class="fw-bold small">@Localizer["Secure"]</div>
-                        </div>
+                </div>
+                <div class="col-6">
+                    <div class="rounded-4 p-3 text-center text-white"
+                         style="background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.15);">
+                        <i class="fas fa-shield-alt fa-2x mb-2" style="color:#67e8f9;"></i>
+                        <div class="fw-bold small">@Localizer["Secure"]</div>
                     </div>
                 </div>
             </div>
         </div>
-    </section>
-}
+    </div>
+</section>
 
 <!-- ══════════════════════════════════════════════
      INFO CARDS — About + Contact

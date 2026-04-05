@@ -2,7 +2,7 @@
 @using Microsoft.AspNetCore.Mvc.Localization
 @inject IViewLocalizer Localizer
 <!DOCTYPE html>
-<html lang="en" data-bs-theme="light">
+<html lang="@System.Globalization.CultureInfo.CurrentUICulture.TwoLetterISOLanguageName" data-bs-theme="light">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -87,6 +87,15 @@
                         <ul class="navbar-nav d-lg-none border-top pt-2 mt-2">
                             <partial name="_SelectLanguagePartial" />
                         </ul>
+                        <!-- Dark mode toggle — visible only in hamburger menu on mobile -->
+                        <ul class="navbar-nav d-lg-none border-top pt-2 mt-1">
+                            <li class="nav-item px-3 py-1">
+                                <button class="btn btn-outline-secondary btn-sm d-flex align-items-center gap-2 w-100 rounded-3 dark-mode-toggle-btn" aria-label="Toggle dark mode">
+                                    <i class="dark-mode-icon fas fa-moon"></i>
+                                    <span class="fw-semibold small">@Localizer["Dark Mode"]</span>
+                                </button>
+                            </li>
+                        </ul>
                     </ul>
 
                     <div class="d-flex align-items-center gap-2">
@@ -100,8 +109,8 @@
 
                         <partial name="_LoginPartial" />
 
-                        <button id="darkModeToggle" class="btn btn-outline-secondary btn-sm rounded-circle d-flex align-items-center justify-content-center" title="Toggle dark mode" aria-label="Toggle dark mode" style="width:34px;height:34px;">
-                            <i id="darkModeIcon" class="fas fa-moon"></i>
+                        <button class="btn btn-outline-secondary btn-sm rounded-circle d-none d-lg-flex align-items-center justify-content-center dark-mode-toggle-btn" title="Toggle dark mode" aria-label="Toggle dark mode" style="width:34px;height:34px;">
+                            <i class="dark-mode-icon fas fa-moon"></i>
                         </button>
                     </div>
                 </div>

@@ -169,4 +169,7 @@
   <data name="Find a Bus" xml:space="preserve">
     <value>Намери автобус</value>
   </data>
+  <data name="Dark Mode" xml:space="preserve">
+    <value>Тъмен режим</value>
+  </data>
 </root>

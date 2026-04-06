@@ -20,4 +20,4 @@ Disallow: /Driver/
 Disallow: /ContactForm/Index
 Disallow: /ContactForm/Delete/
 
-Sitemap: https://www.gocetransport.com/sitemap.xml
+Sitemap: https://www.gocetransport.app/sitemap.xml

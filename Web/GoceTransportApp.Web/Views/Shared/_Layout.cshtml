@@ -12,6 +12,7 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="default" />
     <meta name="apple-mobile-web-app-title" content="GoceTrans" />
     <link rel="apple-touch-icon" href="/images/no-organization-image.png" />
+    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
     <title>@this.ViewData["Title"] - @GlobalConstants.SystemName</title>
     <meta name="description" content="@(this.ViewData["MetaDescription"] ?? "Find bus routes, book tickets and manage transport across Bulgaria. GoceTrans — your trusted platform for intercity travel.")" />
     <meta name="robots" content="index, follow" />
@@ -51,7 +52,7 @@
         <nav class="navbar navbar-expand-lg bg-body sticky-top shadow-sm">
             <div class="container">
                 <a class="navbar-brand fs-5 fw-bolder text-primary" asp-area="" asp-controller="Home" asp-action="Index">
-                    <i class="fas fa-bus-alt"></i> @GlobalConstants.SystemName
+                    <img src="/favicon.ico" alt="logo" width="30" height="30" class="me-1" /> @GlobalConstants.SystemName
                 </a>
 
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -139,7 +140,7 @@
                 <!-- Column 1: Brand & Mission -->
                 <div class="col-lg-4 col-md-6 mb-3">
                     <div class="d-flex align-items-center gap-2 mb-3">
-                        <i class="fas fa-bus-alt fs-4 text-primary"></i>
+                        <img src="/favicon.ico" alt="logo" width="30" height="30" />
                         <span class="fs-5 fw-bold">@GlobalConstants.SystemName</span>
                     </div>
                     <p class="text-white-50 small mb-3">

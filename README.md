@@ -6,7 +6,6 @@
   <img src="https://img.shields.io/badge/SignalR-Real--Time-red?style=for-the-badge&logo=dotnet&logoColor=white" alt="SignalR" />
   <img src="https://img.shields.io/badge/Google_Maps-API-4285F4?style=for-the-badge&logo=googlemaps&logoColor=white" alt="Google Maps" />
   <img src="https://img.shields.io/badge/Status-Work_In_Progress-yellow?style=for-the-badge" alt="WIP" />
-  <img src="https://img.shields.io/badge/License-MIT-green?style=for-the-badge" alt="MIT License" />
 </p>
 
 <h1 align="center">🚍 GoceTransportApp</h1>
@@ -15,11 +14,6 @@
   <strong>A multi-tenant SaaS platform connecting bus passengers with transport companies.</strong><br/>
   Search routes. Buy tickets. Manage your fleet. All in one place.
 </p>
-
----
-
-> [!IMPORTANT]
-> 🚧 **This project is under active development (Work in Progress).** There is no live demo or public deployment at this time. The instructions below are intended **for local setup and testing only**. Features, UI, and data models may change without notice.
 
 ---
 
@@ -258,17 +252,6 @@ The entire UI is available in **English (en-US)** and **Bulgarian (bg-BG)**, cov
 - Default language: **English**
 
 **Localized areas:** Navigation, Home/Landing page, Organizations, Schedules, Tickets, Routes, Vehicles, Drivers, Cities, Contact Form, Login/Register, Dashboards, Notifications, and more.
-
----
-
-## 🗺️ Roadmap
-
-- [ ] 🐳 **Docker containerization** — Dockerfile + docker-compose for one-command local setup
-- [ ] ☁️ **Cloud deployment** — Deploy to Azure App Service or AWS (first public demo!)
-- [ ] 💳 **Stripe integration** — Real payment processing for ticket purchases
-- [ ] 📧 **SendGrid production setup** — Live email notifications for tickets and cancellations
-- [ ] 📱 **Responsive mobile optimizations** — Enhanced experience on smaller screens
-- [ ] 📊 **Advanced analytics** — Revenue dashboards and passenger statistics for organizations
 
 ---
 

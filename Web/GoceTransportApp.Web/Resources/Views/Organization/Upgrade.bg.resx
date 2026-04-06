@@ -62,5 +62,8 @@
   <data name="Sponsor" xml:space="preserve"><value>Спонсор</value></data>
   <data name="For sponsors" xml:space="preserve"><value>За спонсори на проекта</value></data>
   <data name="Logo on Homepage" xml:space="preserve"><value>Лого на Началната Страница</value></data>
-  <data name="GoceTransportApp is a volunteer, non-profit project. All revenue from paid plans is used solely to cover monthly server hosting costs of approximately €15. Support us to keep the platform alive!" xml:space="preserve"><value>GoceTransportApp е доброволчески проект с нестопанска цел. Всички приходи от платените планове се използват единствено за покриване на месечните сървърни разходи в размер на приблизително €15. Подкрепете ни, за да запазим платформата жива!</value></data>
+  <data name="GoceTransportApp is a volunteer, non-profit project. All revenue from paid plans is used solely to cover monthly server hosting costs of approximately €20. Support us to keep the platform alive!" xml:space="preserve"><value>GoceTransportApp е доброволчески проект с нестопанска цел. Всички приходи от платените планове се използват единствено за покриване на месечните сървърни разходи в размер на приблизително €20. Подкрепете ни, за да запазим платформата жива!</value></data>
+  <data name="Real-Time Notifications" xml:space="preserve"><value>Известия в Реално Време</value></data>
+  <data name="Live Status Alerts" xml:space="preserve"><value>Сигнали за Статус на Живо</value></data>
+  <data name="Google Maps Coordinates" xml:space="preserve"><value>Координати в Google Карти</value></data>
 </root>

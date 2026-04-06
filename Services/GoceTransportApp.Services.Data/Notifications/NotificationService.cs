@@ -7,21 +7,42 @@ namespace GoceTransportApp.Services.Data.Notifications
 
     using GoceTransportApp.Data.Common.Repositories;
     using GoceTransportApp.Data.Models;
+    using GoceTransportApp.Data.Models.Enumerations;
     using GoceTransportApp.Web.ViewModels.Notifications;
 
+    using Microsoft.AspNetCore.Identity;
     using Microsoft.EntityFrameworkCore;
+
+    using static GoceTransportApp.Common.GlobalConstants;
 
     public class NotificationService : INotificationService
     {
         private readonly IDeletableEntityRepository<Notification> notificationRepository;
+        private readonly UserManager<ApplicationUser> userManager;
 
-        public NotificationService(IDeletableEntityRepository<Notification> notificationRepository)
+        public NotificationService(
+            IDeletableEntityRepository<Notification> notificationRepository,
+            UserManager<ApplicationUser> userManager)
         {
             this.notificationRepository = notificationRepository;
+            this.userManager = userManager;
         }
 
-        public async Task CreateAsync(string receiverId, string content, string? link = null)
+        public async Task CreateAsync(string receiverId, string content, string? link = null, string? organizationFounderId = null)
         {
+            if (organizationFounderId != null)
+            {
+                var founder = await this.userManager.FindByIdAsync(organizationFounderId);
+                if (founder != null && founder.MembershipTier == MembershipTier.Free)
+                {
+                    bool founderIsAdmin = await this.userManager.IsInRoleAsync(founder, AdministratorRoleName);
+                    if (!founderIsAdmin)
+                    {
+                        return;
+                    }
+                }
+            }
+
             var notification = new Notification
             {
                 ReceiverId = receiverId,

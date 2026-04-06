@@ -396,7 +396,8 @@ namespace GoceTransportApp.Web.Controllers
                     await this.notificationService.CreateAsync(
                         org.FounderId,
                         string.Format(NewReviewNotification, org.Name),
-                        $"/Organization/Details/{organizationId}");
+                        $"/Organization/Details/{organizationId}",
+                        org.FounderId);
 
                     await this.hubContext.Clients.User(org.FounderId)
                         .SendAsync(ReceiveNotification);
@@ -539,7 +540,8 @@ namespace GoceTransportApp.Web.Controllers
 
                     await this.notificationService.CreateAsync(
                         userId,
-                        string.Format(FavoriteAddedNotification, org.Name));
+                        string.Format(FavoriteAddedNotification, org.Name),
+                        organizationFounderId: org.FounderId);
                     await this.hubContext.Clients.User(userId)
                         .SendAsync(ReceiveNotification);
                 }

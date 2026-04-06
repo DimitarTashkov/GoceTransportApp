@@ -1,11 +1,13 @@
 using GoceTransportApp.Data.Common.Repositories;
 using GoceTransportApp.Data.Models;
+using GoceTransportApp.Data.Models.Enumerations;
 using GoceTransportApp.Services.Data.Cities;
 using GoceTransportApp.Services.Data.Organizations;
 using GoceTransportApp.Services.Data.Routes;
 using GoceTransportApp.Web.ViewModels.Cities;
 using GoceTransportApp.Web.ViewModels.Routes;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -22,11 +24,16 @@ namespace GoceTransportApp.Web.Controllers
     public class RouteController : BaseController
     {
         private readonly IRouteService routeService;
+        private readonly UserManager<ApplicationUser> userManager;
 
-        public RouteController(IRouteService routeService, IDeletableEntityRepository<Organization> organizationRepository)
+        public RouteController(
+            IRouteService routeService,
+            IDeletableEntityRepository<Organization> organizationRepository,
+            UserManager<ApplicationUser> userManager)
             : base(organizationRepository)
         {
             this.routeService = routeService;
+            this.userManager = userManager;
         }
 
         [HttpGet]
@@ -61,6 +68,10 @@ namespace GoceTransportApp.Web.Controllers
                 return RedirectToAction("UserOrganizations", "Organization");
             }
 
+            var currentUser = await this.userManager.FindByIdAsync(userId);
+            ViewBag.IsPremiumUser = User.IsInRole(AdministratorRoleName) ||
+                (currentUser != null && currentUser.MembershipTier != MembershipTier.Free);
+
             RouteInputModel model = new RouteInputModel();
             model.OrganizationId = organizationId;
 
@@ -75,6 +86,19 @@ namespace GoceTransportApp.Web.Controllers
             if (!await this.HasUserCreatedOrganizationAsync(userId, model.OrganizationId) && !User.IsInRole(AdministratorRoleName))
             {
                 return RedirectToAction("Details", "Organization", new { id = model.OrganizationId });
+            }
+
+            // Gate map coordinates for Free-tier users
+            if (!User.IsInRole(AdministratorRoleName))
+            {
+                var currentUser = await this.userManager.FindByIdAsync(userId);
+                if (currentUser != null && currentUser.MembershipTier == MembershipTier.Free)
+                {
+                    model.FromLatitude = null;
+                    model.FromLongitude = null;
+                    model.ToLatitude = null;
+                    model.ToLongitude = null;
+                }
             }
 
             if (!ModelState.IsValid)
@@ -117,6 +141,10 @@ namespace GoceTransportApp.Web.Controllers
                 return RedirectToAction("Details", "Organization", new { id = formModel.OrganizationId });
             }
 
+            var currentUser = await this.userManager.FindByIdAsync(userId);
+            ViewBag.IsPremiumUser = User.IsInRole(AdministratorRoleName) ||
+                (currentUser != null && currentUser.MembershipTier != MembershipTier.Free);
+
             return this.View(formModel);
         }
 
@@ -127,6 +155,19 @@ namespace GoceTransportApp.Web.Controllers
             if (!await this.HasUserCreatedOrganizationAsync(userId, formModel.OrganizationId) && !User.IsInRole(AdministratorRoleName))
             {
                 return RedirectToAction("Details", "Organization", new { id = formModel.OrganizationId });
+            }
+
+            // Gate map coordinates for Free-tier users
+            if (!User.IsInRole(AdministratorRoleName))
+            {
+                var currentUser = await this.userManager.FindByIdAsync(userId);
+                if (currentUser != null && currentUser.MembershipTier == MembershipTier.Free)
+                {
+                    formModel.FromLatitude = null;
+                    formModel.FromLongitude = null;
+                    formModel.ToLatitude = null;
+                    formModel.ToLongitude = null;
+                }
             }
 
             if (!ModelState.IsValid)

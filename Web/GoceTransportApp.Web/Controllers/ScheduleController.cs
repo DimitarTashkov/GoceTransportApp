@@ -12,6 +12,7 @@ using static GoceTransportApp.Common.GlobalConstants;
 using GoceTransportApp.Web.ViewModels.Schedules;
 using GoceTransportApp.Data.Common.Repositories;
 using GoceTransportApp.Data.Models;
+using GoceTransportApp.Data.Models.Enumerations;
 using Microsoft.AspNetCore.Authorization;
 using System.Security.Claims;
 using System.Net.Mail;
@@ -22,6 +23,7 @@ using GoceTransportApp.Web.ViewModels.Tickets;
 using System.Collections.Generic;
 using System.Linq;
 using GoceTransportApp.Web.ViewModels.Organizations;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 namespace GoceTransportApp.Web.Controllers
@@ -36,6 +38,7 @@ namespace GoceTransportApp.Web.Controllers
         private readonly ITicketService ticketService;
         private readonly IDeletableEntityRepository<Organization> organizationRepository;
         private readonly IHubContext<NotificationHub> hubContext;
+        private readonly UserManager<ApplicationUser> userManager;
 
         public ScheduleController(
             IScheduleService scheduleService,
@@ -44,7 +47,8 @@ namespace GoceTransportApp.Web.Controllers
             IRouteService routeService,
             ICityService cityService,
             ITicketService ticketService,
-            IHubContext<NotificationHub> hubContext)
+            IHubContext<NotificationHub> hubContext,
+            UserManager<ApplicationUser> userManager)
             : base(organizationRepository)
         {
             this.scheduleService = scheduleService;
@@ -54,6 +58,7 @@ namespace GoceTransportApp.Web.Controllers
             this.cityService = cityService;
             this.ticketService = ticketService;
             this.hubContext = hubContext;
+            this.userManager = userManager;
         }
 
         [HttpGet]
@@ -175,6 +180,10 @@ namespace GoceTransportApp.Web.Controllers
             formModel.Vehicles = await vehicleService.GetVehiclesForOrganizationAsync(organizationId);
             formModel.Routes = await routeService.GetRoutesForOrganizationAsync(organizationId);
 
+            var currentUser = await this.userManager.FindByIdAsync(userId);
+            ViewBag.IsPremiumUser = User.IsInRole(AdministratorRoleName) ||
+                (currentUser != null && currentUser.MembershipTier != MembershipTier.Free);
+
             return this.View(formModel);
         }
 
@@ -192,6 +201,16 @@ namespace GoceTransportApp.Web.Controllers
                 formModel.Vehicles = await vehicleService.GetVehiclesForOrganizationAsync(formModel.OrganizationId);
                 formModel.Routes = await routeService.GetRoutesForOrganizationAsync(formModel.OrganizationId);
                 return this.View(formModel);
+            }
+
+            // Gate LiveStatus for Free-tier users
+            if (!User.IsInRole(AdministratorRoleName))
+            {
+                var currentUser = await this.userManager.FindByIdAsync(userId);
+                if (currentUser != null && currentUser.MembershipTier == MembershipTier.Free)
+                {
+                    formModel.LiveStatus = null;
+                }
             }
 
             bool isUpdated = await this.scheduleService

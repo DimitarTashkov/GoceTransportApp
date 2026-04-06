@@ -54,4 +54,6 @@
   <data name="Click on the map to place or move the marker." xml:space="preserve"><value>Кликнете на картата, за да поставите/преместите маркера.</value></data>
   <data name="Departure stop" xml:space="preserve"><value>Спирка — тръгване</value></data>
   <data name="Arrival stop" xml:space="preserve"><value>Спирка — пристигане</value></data>
+  <data name="Google Maps stop coordinates are available for Pro and Enterprise plans." xml:space="preserve"><value>Координатите на спирките в Google Карти са достъпни само за Pro и Enterprise планове.</value></data>
+  <data name="View plans" xml:space="preserve"><value>Вижте плановете</value></data>
 </root>

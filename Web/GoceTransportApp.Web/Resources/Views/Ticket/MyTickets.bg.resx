@@ -39,4 +39,11 @@
   <data name="Cancel Ticket" xml:space="preserve"><value>Откажи Билет</value></data>
   <data name="Are you sure you want to cancel this ticket?" xml:space="preserve"><value>Сигурни ли сте, че искате да откажете този билет?</value></data>
   <data name="Cancellation not available (less than 24h)" xml:space="preserve"><value>Отказването не е възможно (по-малко от 24ч)</value></data>
+  <data name="Monday" xml:space="preserve"><value>Понеделник</value></data>
+  <data name="Tuesday" xml:space="preserve"><value>Вторник</value></data>
+  <data name="Wednesday" xml:space="preserve"><value>Сряда</value></data>
+  <data name="Thursday" xml:space="preserve"><value>Четвъртък</value></data>
+  <data name="Friday" xml:space="preserve"><value>Петък</value></data>
+  <data name="Saturday" xml:space="preserve"><value>Събота</value></data>
+  <data name="Sunday" xml:space="preserve"><value>Неделя</value></data>
 </root>

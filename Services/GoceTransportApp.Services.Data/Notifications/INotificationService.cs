@@ -7,7 +7,7 @@ namespace GoceTransportApp.Services.Data.Notifications
 
     public interface INotificationService
     {
-        Task CreateAsync(string receiverId, string content, string? link = null);
+        Task CreateAsync(string receiverId, string content, string? link = null, string? organizationFounderId = null);
 
         Task<IEnumerable<NotificationViewModel>> GetUnreadAsync(string userId);
 

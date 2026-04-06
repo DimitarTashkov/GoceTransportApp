@@ -1,5 +1,6 @@
 ﻿using GoceTransportApp.Services.Data.Notifications;
 using GoceTransportApp.Services.Data.Schedules;
+using Microsoft.EntityFrameworkCore;
 using GoceTransportApp.Services.Data.Tickets;
 using GoceTransportApp.Services.Messaging;
 using GoceTransportApp.Web.ViewModels.Schedules;
@@ -37,6 +38,7 @@ namespace GoceTransportApp.Web.Controllers
         private readonly IConfiguration configuration;
         private readonly IHubContext<NotificationHub> hubContext;
         private readonly INotificationService notificationService;
+        private readonly IDeletableEntityRepository<Organization> organizationRepository;
 
         public TicketController(
             ITicketService ticketService,
@@ -50,6 +52,7 @@ namespace GoceTransportApp.Web.Controllers
             : base(organizationRepository)
         {
             this.ticketService = ticketService;
+            this.organizationRepository = organizationRepository;
             this.scheduleService = scheduleService;
             this.routeService = routeService;
             this.emailSender = emailSender;
@@ -366,9 +369,13 @@ namespace GoceTransportApp.Web.Controllers
                     TempData[TempDataKeys.PurchaseTo] = details.ToCity;
                     TempData[TempDataKeys.PurchaseOrg] = details.OrganizationName;
 
+                    var org = await this.organizationRepository.AllAsNoTracking()
+                        .FirstOrDefaultAsync(o => o.Id.ToString() == details.OrganizationId);
+
                     await this.notificationService.CreateAsync(
                         userId,
-                        string.Format(TicketPurchaseNotification, details.FromCity, details.ToCity));
+                        string.Format(TicketPurchaseNotification, details.FromCity, details.ToCity),
+                        organizationFounderId: org?.FounderId);
                     await this.hubContext.Clients.User(userId)
                         .SendAsync(ReceiveNotification);
 

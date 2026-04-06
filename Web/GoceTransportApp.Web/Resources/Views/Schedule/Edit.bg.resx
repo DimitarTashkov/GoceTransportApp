@@ -49,4 +49,9 @@
   <data name="Update" xml:space="preserve"><value>Обнови</value></data>
   <data name="Cancel" xml:space="preserve"><value>Откажи</value></data>
   <data name="Save" xml:space="preserve"><value>Запази</value></data>
+  <data name="Live Status (Real-Time Alert)" xml:space="preserve"><value>Статус на живо (Известие в реално време)</value></data>
+  <data name="e.g. Delayed 20 min / Cancelled" xml:space="preserve"><value>напр. Закъснение 20 мин / Анулиран</value></data>
+  <data name="Leave empty to clear the alert. Passengers will be notified instantly." xml:space="preserve"><value>Оставете празно, за да изчистите известието. Пътниците ще бъдат уведомени незабавно.</value></data>
+  <data name="Upgrade to send real-time delay alerts to passengers." xml:space="preserve"><value>Надградете, за да изпращате известия за закъснения в реално време до пътниците.</value></data>
+  <data name="Upgrade Plan" xml:space="preserve"><value>Надградете Плана</value></data>
 </root>

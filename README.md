@@ -5,7 +5,6 @@
   <img src="https://img.shields.io/badge/Bootstrap-5-purple?style=for-the-badge&logo=bootstrap&logoColor=white" alt="Bootstrap 5" />
   <img src="https://img.shields.io/badge/SignalR-Real--Time-red?style=for-the-badge&logo=dotnet&logoColor=white" alt="SignalR" />
   <img src="https://img.shields.io/badge/Google_Maps-API-4285F4?style=for-the-badge&logo=googlemaps&logoColor=white" alt="Google Maps" />
-  <img src="https://img.shields.io/badge/Status-Work_In_Progress-yellow?style=for-the-badge" alt="WIP" />
 </p>
 
 <h1 align="center">🚍 GoceTransportApp</h1>

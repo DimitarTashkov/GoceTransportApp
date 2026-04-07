@@ -8,7 +8,8 @@
 
 @{
     var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-    ViewData["Title"] = "Schedules";
+    ViewData["Title"] = "Разписания";
+    ViewData["MetaDescription"] = "Виж всички актуални автобусни разписания в България. Разгледай часовете на тръгване, маршрутите и наличните места.";
 
     // Build a base dictionary of all active filter values — used by pagination links
     var filterParams = new Dictionary<string, string>();

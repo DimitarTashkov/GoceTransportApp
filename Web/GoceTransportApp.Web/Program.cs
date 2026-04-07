@@ -123,6 +123,12 @@ namespace GoceTransportApp.Web
                 options.MultipartBodyLengthLimit = 10 * 1024 * 1024; // 10 MB
             });
 
+            services.AddRouting(options =>
+            {
+                options.LowercaseUrls = true;
+                options.LowercaseQueryStrings = true;
+            });
+
             services.AddLocalization(options => options.ResourcesPath = "Resources");
 
             services.AddControllersWithViews(

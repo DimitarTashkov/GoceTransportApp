@@ -13,8 +13,8 @@
     <meta name="apple-mobile-web-app-title" content="GoceTrans" />
     <link rel="apple-touch-icon" href="/images/no-organization-image.png" />
     <link rel="icon" type="image/x-icon" href="/favicon.ico" />
-    <title>@this.ViewData["Title"] - @GlobalConstants.SystemName</title>
-    <meta name="description" content="@(this.ViewData["MetaDescription"] ?? "Find bus routes, book tickets and manage transport across Bulgaria. GoceTrans — your trusted platform for intercity travel.")" />
+    <title>@(this.ViewData["Title"] ?? "Начало") - @GlobalConstants.SystemName | Автобусни Разписания</title>
+    <meta name="description" content="@(this.ViewData["MetaDescription"] ?? "Актуални автобусни разписания, билети и транспортни услуги за София, Гоце Делчев и региона. Провери кога е следващият автобус!")" />
     <meta name="robots" content="index, follow" />
     <link rel="canonical" href="https://www.gocetransport.com@(Context.Request.Path)" />
 
@@ -22,15 +22,30 @@
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="@GlobalConstants.SystemName" />
     <meta property="og:title" content="@(this.ViewData["Title"] != null ? this.ViewData["Title"] + " - " + GlobalConstants.SystemName : GlobalConstants.SystemName)" />
-    <meta property="og:description" content="@(this.ViewData["MetaDescription"] ?? "Find bus routes, book tickets and manage transport across Bulgaria.")" />
+    <meta property="og:description" content="@(this.ViewData["MetaDescription"] ?? "Всички разписания за Гоце Делчев на едно място. Намери своя автобус бързо и лесно.")" />
     <meta property="og:image" content="https://www.gocetransport.com/images/no-organization-image.png" />
     <meta property="og:url" content="https://www.gocetransport.com@(Context.Request.Path)" />
 
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary" />
     <meta name="twitter:title" content="@(this.ViewData["Title"] != null ? this.ViewData["Title"] + " - " + GlobalConstants.SystemName : GlobalConstants.SystemName)" />
-    <meta name="twitter:description" content="@(this.ViewData["MetaDescription"] ?? "Find bus routes, book tickets and manage transport across Bulgaria.")" />
+    <meta name="twitter:description" content="@(this.ViewData["MetaDescription"] ?? "Всички разписания за Гоце Делчев на едно място. Намери своя автобус бързо и лесно.")" />
     <meta name="twitter:image" content="https://www.gocetransport.com/images/no-organization-image.png" />
+
+    <!-- Schema.org JSON-LD -->
+    <script type="application/ld+json">
+    {
+      "@@context": "https://schema.org",
+      "@@type": "WebSite",
+      "name": "Goce Transport",
+      "url": "https://gocetransport.app/",
+      "potentialAction": {
+        "@@type": "SearchAction",
+        "target": "https://gocetransport.app/schedule/search?q={search_term_string}",
+        "query-input": "required name=search_term_string"
+      }
+    }
+    </script>
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>

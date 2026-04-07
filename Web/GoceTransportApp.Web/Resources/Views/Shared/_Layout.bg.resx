@@ -172,4 +172,7 @@
   <data name="Dark Mode" xml:space="preserve">
     <value>Тъмен режим</value>
   </data>
+  <data name="Search" xml:space="preserve">
+    <value>Търси</value>
+  </data>
 </root>

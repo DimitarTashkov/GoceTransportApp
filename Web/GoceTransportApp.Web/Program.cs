@@ -50,10 +50,13 @@ namespace GoceTransportApp.Web
         public static void Main(string[] args)
         {
             Log.Logger = new LoggerConfiguration()
-                .MinimumLevel.Information()
-                .MinimumLevel.Override("Microsoft", Serilog.Events.LogEventLevel.Warning)
-                .MinimumLevel.Override("Microsoft.EntityFrameworkCore", Serilog.Events.LogEventLevel.Warning)
-                .Enrich.FromLogContext()
+    .MinimumLevel.Information()
+    // ВРЕМЕННО отпушваме логовете за аутентикация:
+    .MinimumLevel.Override("Microsoft.AspNetCore.Authentication", Serilog.Events.LogEventLevel.Debug)
+    .MinimumLevel.Override("Microsoft", Serilog.Events.LogEventLevel.Warning)
+    .MinimumLevel.Override("Microsoft.EntityFrameworkCore", Serilog.Events.LogEventLevel.Warning)
+    .Enrich.FromLogContext()
+                // ... надолу остава същото
                 .WriteTo.Console()
                 .WriteTo.File(
                     path: "logs/goce-transport-.log",
@@ -91,6 +94,13 @@ namespace GoceTransportApp.Web
                 .AddDefaultIdentity<ApplicationUser>(IdentityOptionsProvider.GetIdentityOptions)
                 .AddRoles<ApplicationRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>();
+
+            services.AddAuthentication()
+                .AddGoogle(options =>
+                {
+                    options.ClientId = configuration["Authentication:Google:ClientId"] ?? "dummy-client-id";
+                    options.ClientSecret = configuration["Authentication:Google:ClientSecret"] ?? "dummy-client-secret";
+                });
 
             services.Configure<CookiePolicyOptions>(
                 options =>

@@ -49,6 +49,7 @@ namespace CinemaApp.Web.Areas.Identity.Pages.Account
         [TempData]
         public string ErrorMessage { get; set; }
 
+        public IList<Microsoft.AspNetCore.Authentication.AuthenticationScheme> ExternalLogins { get; set; }
 
         /// <summary>
         ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
@@ -92,8 +93,20 @@ namespace CinemaApp.Web.Areas.Identity.Pages.Account
             // Clear the existing external cookie to ensure a clean login process
             await HttpContext.SignOutAsync(IdentityConstants.ExternalScheme);
 
+            ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
 
             ReturnUrl = returnUrl;
+        }
+        public IActionResult OnPostGoogleLogin(string returnUrl = null)
+        {
+            returnUrl ??= Url.Content("~/");
+
+            // Казваме на Google къде да ни върне СЛЕД успешния логин
+            var redirectUrl = Url.Page("./ExternalLogin", pageHandler: "Callback", values: new { returnUrl });
+            var properties = _signInManager.ConfigureExternalAuthenticationProperties("Google", redirectUrl);
+
+            // Твърдо задаваме "Google", за да не се бърка ASP.NET
+            return new ChallengeResult("Google", properties);
         }
 
         public async Task<IActionResult> OnPostAsync(string returnUrl = null)

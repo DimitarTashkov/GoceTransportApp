@@ -56,6 +56,27 @@
                         <a asp-page="./Login" class="text-primary fw-semibold">@Localizer["Log in"]</a>
                     </p>
                 </form>
+
+                @if (Model.ExternalLogins?.Count > 0)
+                {
+                    <div class="d-flex align-items-center my-4">
+                        <hr class="flex-grow-1" />
+                        <span class="px-3 text-muted small">или</span>
+                        <hr class="flex-grow-1" />
+                    </div>
+                    <form id="external-account" asp-page="./ExternalLogin" asp-route-returnUrl="@Model.ReturnUrl" method="post">
+                        @foreach (var provider in Model.ExternalLogins)
+                        {
+                            <button type="submit"
+                                    class="btn btn-outline-dark w-100 mb-2 rounded-pill"
+                                    name="provider"
+                                    value="@provider.Name"
+                                    title="Регистрация с @provider.DisplayName">
+                                <i class="bi bi-@provider.Name.ToLower() me-2"></i>Регистрация с @provider.DisplayName
+                            </button>
+                        }
+                    </form>
+                }
             </div>
         </div>
     </div>

@@ -28,7 +28,6 @@
 - [Localization](#-localization)
 - [Roadmap](#-roadmap)
 - [Contributing](#-contributing)
-- [License](#-license)
 
 ---
 

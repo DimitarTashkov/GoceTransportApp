@@ -64,17 +64,10 @@
                         <span class="px-3 text-muted small">или</span>
                         <hr class="flex-grow-1" />
                     </div>
-                    <form id="external-account" asp-page="./ExternalLogin" asp-route-returnUrl="@Model.ReturnUrl" method="post">
-                        @foreach (var provider in Model.ExternalLogins)
-                        {
-                            <button type="submit"
-                                    class="btn btn-outline-dark w-100 mb-2 rounded-pill"
-                                    name="provider"
-                                    value="@provider.Name"
-                                    title="Регистрация с @provider.DisplayName">
-                                <i class="bi bi-@provider.Name.ToLower() me-2"></i>Регистрация с @provider.DisplayName
-                            </button>
-                        }
+                    <form asp-page-handler="GoogleLogin" asp-route-returnUrl="@Model.ReturnUrl" method="post">
+                        <button type="submit" class="btn btn-outline-dark w-100 mb-2 rounded-pill" title="Регистрация с Google">
+                            <i class="bi bi-google me-2"></i> Регистрация с Google
+                        </button>
                     </form>
                 }
             </div>

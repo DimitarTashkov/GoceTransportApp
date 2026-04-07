@@ -94,17 +94,24 @@ namespace CinemaApp.Web.Areas.Identity.Pages.Account
         }
 
 
-#pragma warning disable CS1998
         public async Task OnGetAsync(string returnUrl = null)
-#pragma warning restore CS1998
         {
             ReturnUrl = returnUrl;
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
         }
 
+        public IActionResult OnPostGoogleLogin(string returnUrl = null)
+        {
+            returnUrl ??= Url.Content("~/");
+            var redirectUrl = Url.Page("./ExternalLogin", pageHandler: "Callback", values: new { returnUrl });
+            var properties = _signInManager.ConfigureExternalAuthenticationProperties("Google", redirectUrl);
+            return new ChallengeResult("Google", properties);
+        }
+
         public async Task<IActionResult> OnPostAsync(string returnUrl = null)
         {
             returnUrl ??= Url.Content("~/");
+            ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
             if (ModelState.IsValid)
             {
                 var user = CreateUser();

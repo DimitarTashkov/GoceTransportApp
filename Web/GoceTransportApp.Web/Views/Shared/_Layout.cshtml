@@ -11,26 +11,27 @@
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="default" />
     <meta name="apple-mobile-web-app-title" content="GoceTrans" />
-    <link rel="apple-touch-icon" href="/images/no-organization-image.png" />
     <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+    <link rel="icon" type="image/png" sizes="192x192" href="/images/icon-192.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png" />
     <title>@(this.ViewData["Title"] ?? "Начало") - @GlobalConstants.SystemName | Автобусни Разписания</title>
     <meta name="description" content="@(this.ViewData["MetaDescription"] ?? "Актуални автобусни разписания, билети и транспортни услуги за София, Гоце Делчев и региона. Провери кога е следващият автобус!")" />
     <meta name="robots" content="index, follow" />
-    <link rel="canonical" href="https://www.gocetransport.com@(Context.Request.Path)" />
+    <link rel="canonical" href="https://gocetransport.app@(Context.Request.Path)" />
 
     <!-- Open Graph -->
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="@GlobalConstants.SystemName" />
     <meta property="og:title" content="@(this.ViewData["Title"] != null ? this.ViewData["Title"] + " - " + GlobalConstants.SystemName : GlobalConstants.SystemName)" />
     <meta property="og:description" content="@(this.ViewData["MetaDescription"] ?? "Всички разписания за Гоце Делчев на едно място. Намери своя автобус бързо и лесно.")" />
-    <meta property="og:image" content="https://www.gocetransport.com/images/no-organization-image.png" />
-    <meta property="og:url" content="https://www.gocetransport.com@(Context.Request.Path)" />
+    <meta property="og:image" content="https://gocetransport.app/images/no-organization-image.png" />
+    <meta property="og:url" content="https://gocetransport.app@(Context.Request.Path)" />
 
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary" />
     <meta name="twitter:title" content="@(this.ViewData["Title"] != null ? this.ViewData["Title"] + " - " + GlobalConstants.SystemName : GlobalConstants.SystemName)" />
     <meta name="twitter:description" content="@(this.ViewData["MetaDescription"] ?? "Всички разписания за Гоце Делчев на едно място. Намери своя автобус бързо и лесно.")" />
-    <meta name="twitter:image" content="https://www.gocetransport.com/images/no-organization-image.png" />
+    <meta name="twitter:image" content="https://gocetransport.app/images/no-organization-image.png" />
 
     <!-- Schema.org JSON-LD -->
     <script type="application/ld+json">

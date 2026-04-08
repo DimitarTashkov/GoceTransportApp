@@ -20,6 +20,13 @@ namespace GoceTransportApp.Data.Models
 
         public DateTime? TrialExpiresOn { get; set; }
 
+        // Trial email campaign flags — prevent duplicate sends on service restart
+        public bool TrialDay7EmailSent { get; set; } = false;
+
+        public bool TrialDay2EmailSent { get; set; } = false;
+
+        public bool TrialExpiredEmailSent { get; set; } = false;
+
         [Required]
         [MaxLength(MaxNameLength)]
         public string Name { get; set; } = null!;

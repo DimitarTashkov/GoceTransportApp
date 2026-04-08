@@ -22,6 +22,7 @@ namespace GoceTransportApp.Web
     using GoceTransportApp.Services.Data.Reviews;
     using GoceTransportApp.Services.Data.Routes;
     using GoceTransportApp.Services.Data.Analytics;
+    using GoceTransportApp.Services.Data.TrialEmails;
     using GoceTransportApp.Services.Data.RouteStops;
     using GoceTransportApp.Services.Data.Schedules;
     using GoceTransportApp.Services.Data.Streets;
@@ -273,6 +274,8 @@ namespace GoceTransportApp.Web
             services.AddScoped<IContactFormService, ContactFormService>();
             services.AddScoped<IReviewService, ReviewService>();
             services.AddScoped<GoceTransportApp.Services.Data.Notifications.INotificationService, GoceTransportApp.Services.Data.Notifications.NotificationService>();
+
+            services.AddHostedService<TrialEmailBackgroundService>();
         }
 
         private static void Configure(WebApplication app)

@@ -1,4 +1,5 @@
 using GoceTransportApp.Data.Models.Enumerations;
+using GoceTransportApp.Services.Data.Analytics;
 using GoceTransportApp.Services.Data.Notifications;
 using GoceTransportApp.Services.Data.Organizations;
 using GoceTransportApp.Services.Data.Reviews;
@@ -39,6 +40,7 @@ namespace GoceTransportApp.Web.Controllers
         private readonly IOrganizationService organizationService;
         private readonly IReviewService reviewService;
         private readonly INotificationService notificationService;
+        private readonly IAnalyticsService analyticsService;
         private readonly IWebHostEnvironment webHostEnvironment;
         private readonly UserManager<ApplicationUser> userManager;
         private readonly IDeletableEntityRepository<Organization> organizationRepository;
@@ -48,6 +50,7 @@ namespace GoceTransportApp.Web.Controllers
             IOrganizationService organizationService,
             IReviewService reviewService,
             INotificationService notificationService,
+            IAnalyticsService analyticsService,
             IDeletableEntityRepository<Organization> organizationRepository,
             IWebHostEnvironment webHostEnvironment,
             UserManager<ApplicationUser> userManager,
@@ -57,6 +60,7 @@ namespace GoceTransportApp.Web.Controllers
             this.organizationService = organizationService;
             this.reviewService = reviewService;
             this.notificationService = notificationService;
+            this.analyticsService = analyticsService;
             this.webHostEnvironment = webHostEnvironment;
             this.userManager = userManager;
             this.organizationRepository = organizationRepository;
@@ -125,6 +129,96 @@ namespace GoceTransportApp.Web.Controllers
         public IActionResult Upgrade()
         {
             return View();
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Analytics(string? id)
+        {
+            Guid orgGuid = Guid.Empty;
+            if (!IsGuidValid(id, ref orgGuid))
+            {
+                return RedirectToAction(nameof(Index));
+            }
+
+            string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            bool isOwner = await HasUserCreatedOrganizationAsync(userId, id);
+            bool isAdmin = User.IsInRole(AdministratorRoleName);
+
+            if (!isOwner && !isAdmin)
+            {
+                return RedirectToAction(nameof(Details), new { id });
+            }
+
+            var currentUser = await userManager.FindByIdAsync(userId);
+            var tier = currentUser?.MembershipTier ?? MembershipTier.Free;
+
+            // Check if org is on trial → treat as Pro for analytics access
+            bool onTrial = await IsOrgOnTrialAsync(id!);
+            bool hasExtended = isAdmin || onTrial || tier >= MembershipTier.Starter;
+            bool hasFull     = isAdmin || onTrial || tier >= MembershipTier.Pro;
+
+            ViewBag.HasExtended = hasExtended;
+            ViewBag.HasFull     = hasFull;
+            ViewBag.Tier        = tier.ToString();
+
+            var model = await analyticsService.GetOrganizationAnalyticsAsync(orgGuid);
+            return View(model);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> ExportAnalytics(string? id)
+        {
+            Guid orgGuid = Guid.Empty;
+            if (!IsGuidValid(id, ref orgGuid))
+            {
+                return RedirectToAction(nameof(Index));
+            }
+
+            string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            bool isOwner  = await HasUserCreatedOrganizationAsync(userId, id);
+            bool isAdmin  = User.IsInRole(AdministratorRoleName);
+            if (!isOwner && !isAdmin)
+            {
+                return RedirectToAction(nameof(Details), new { id });
+            }
+
+            var currentUser = await userManager.FindByIdAsync(userId);
+            var tier = currentUser?.MembershipTier ?? MembershipTier.Free;
+            bool onTrial = await IsOrgOnTrialAsync(id!);
+            if (!isAdmin && !onTrial && tier < MembershipTier.Pro)
+            {
+                TempData[TempDataKeys.UpgradeReason] = "CSV export is available on the Pro plan or higher.";
+                return RedirectToAction(nameof(Upgrade));
+            }
+
+            var data = await analyticsService.GetOrganizationAnalyticsAsync(orgGuid);
+
+            var sb = new System.Text.StringBuilder();
+            sb.AppendLine("Metric,Value");
+            sb.AppendLine($"Organization,\"{data.OrganizationName}\"");
+            sb.AppendLine($"Total Routes,{data.TotalRoutes}");
+            sb.AppendLine($"Total Schedules,{data.TotalSchedules}");
+            sb.AppendLine($"Total Vehicles,{data.TotalVehicles}");
+            sb.AppendLine($"Total Drivers,{data.TotalDrivers}");
+            sb.AppendLine($"Total Tickets,{data.TotalTickets}");
+            sb.AppendLine($"Total Revenue (EUR),{data.TotalRevenue:F2}");
+            sb.AppendLine($"Boarded Passengers,{data.TotalBoardedPassengers}");
+            sb.AppendLine($"Average Rating,{data.AverageRating:F1}");
+            sb.AppendLine($"Total Reviews,{data.TotalReviews}");
+            sb.AppendLine($"Followers,{data.TotalFollowers}");
+            sb.AppendLine($"Total Route Distance (km),{data.TotalRouteDistanceKm}");
+            sb.AppendLine($"Average Route Distance (km),{data.AverageRouteDistanceKm}");
+            sb.AppendLine();
+            sb.AppendLine("Top Routes");
+            sb.AppendLine("Route,Tickets,Revenue (EUR)");
+            foreach (var r in data.TopRoutes)
+            {
+                sb.AppendLine($"\"{r.RouteLabel}\",{r.TicketCount},{r.Revenue:F2}");
+            }
+
+            byte[] bytes = System.Text.Encoding.UTF8.GetBytes(sb.ToString());
+            string filename = $"analytics-{data.OrganizationName.Replace(" ", "_")}-{DateTime.UtcNow:yyyyMMdd}.csv";
+            return File(bytes, "text/csv", filename);
         }
 
         [HttpPost]

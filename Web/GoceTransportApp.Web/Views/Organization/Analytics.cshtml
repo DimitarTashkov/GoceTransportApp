@@ -1,0 +1,331 @@
+@model GoceTransportApp.Web.ViewModels.Analytics.OrganizationAnalyticsViewModel
+@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer Localizer
+@using System.Text.Json
+
+@{
+    ViewData["Title"] = Localizer["Analytics"].Value + " — " + Model.OrganizationName;
+    bool hasExtended = ViewBag.HasExtended == true;
+    bool hasFull     = ViewBag.HasFull == true;
+    string tier      = ViewBag.Tier as string ?? "Free";
+
+    var dayMap = new Dictionary<string, string>
+    {
+        ["Monday"]    = Localizer["Monday"].Value,
+        ["Tuesday"]   = Localizer["Tuesday"].Value,
+        ["Wednesday"] = Localizer["Wednesday"].Value,
+        ["Thursday"]  = Localizer["Thursday"].Value,
+        ["Friday"]    = Localizer["Friday"].Value,
+        ["Saturday"]  = Localizer["Saturday"].Value,
+        ["Sunday"]    = Localizer["Sunday"].Value,
+    };
+    var recMap = new Dictionary<string, string>
+    {
+        ["SpecificDay"] = Localizer["Specific Day"].Value,
+        ["Daily"]       = Localizer["Daily"].Value,
+        ["Weekdays"]    = Localizer["Weekdays"].Value,
+        ["Weekends"]    = Localizer["Weekends"].Value,
+    };
+}
+
+<div class="d-flex align-items-center justify-content-between mb-4">
+    <div>
+        <h1 class="h3 fw-bold mb-1"><i class="fas fa-chart-bar text-primary me-2"></i>@Localizer["Analytics"]</h1>
+        <p class="text-muted mb-0">@Model.OrganizationName</p>
+    </div>
+    <a asp-controller="Organization" asp-action="Details" asp-route-id="@Model.OrganizationId"
+       class="btn btn-outline-secondary rounded-pill">
+        <i class="fas fa-arrow-left me-1"></i>@Localizer["Back"]
+    </a>
+</div>
+
+<!-- ── Tier badge ──────────────────────────────────────────────────────────── -->
+<div class="alert alert-light border rounded-3 d-flex align-items-center gap-2 mb-4 py-2 px-3">
+    <i class="fas fa-crown text-warning"></i>
+    <span class="small">@Localizer["Your plan"]: <strong>@tier</strong> &mdash;
+        @if (!hasExtended)
+        {
+            <a asp-action="Upgrade" class="alert-link">@Localizer["Upgrade to Starter for charts and more"]</a>
+        }
+        else if (!hasFull)
+        {
+            <a asp-action="Upgrade" class="alert-link">@Localizer["Upgrade to Pro for full analytics and revenue"]</a>
+        }
+        else
+        {
+            <span class="text-success fw-semibold">@Localizer["Full analytics enabled"]</span>
+        }
+    </span>
+</div>
+
+<!-- ── Basic Stats (Free+) ────────────────────────────────────────────────── -->
+<div class="row g-3 mb-4">
+    <div class="col-6 col-md-4 col-lg-2">
+        <div class="card border-0 shadow-sm rounded-4 text-center p-3 h-100">
+            <div class="fw-bold fs-2 text-primary">@Model.TotalRoutes</div>
+            <div class="text-muted small fw-semibold">@Localizer["Routes"]</div>
+        </div>
+    </div>
+    <div class="col-6 col-md-4 col-lg-2">
+        <div class="card border-0 shadow-sm rounded-4 text-center p-3 h-100">
+            <div class="fw-bold fs-2 text-info">@Model.TotalSchedules</div>
+            <div class="text-muted small fw-semibold">@Localizer["Schedules"]</div>
+        </div>
+    </div>
+    <div class="col-6 col-md-4 col-lg-2">
+        <div class="card border-0 shadow-sm rounded-4 text-center p-3 h-100">
+            <div class="fw-bold fs-2 text-success">@Model.TotalVehicles</div>
+            <div class="text-muted small fw-semibold">@Localizer["Vehicles"]</div>
+        </div>
+    </div>
+    <div class="col-6 col-md-4 col-lg-2">
+        <div class="card border-0 shadow-sm rounded-4 text-center p-3 h-100">
+            <div class="fw-bold fs-2 text-warning">@Model.TotalDrivers</div>
+            <div class="text-muted small fw-semibold">@Localizer["Drivers"]</div>
+        </div>
+    </div>
+    <div class="col-6 col-md-4 col-lg-2">
+        <div class="card border-0 shadow-sm rounded-4 text-center p-3 h-100">
+            <div class="fw-bold fs-2 text-danger">@Model.TotalTickets</div>
+            <div class="text-muted small fw-semibold">@Localizer["Tickets"]</div>
+        </div>
+    </div>
+    <div class="col-6 col-md-4 col-lg-2">
+        <div class="card border-0 shadow-sm rounded-4 text-center p-3 h-100">
+            <div class="fw-bold fs-2 text-secondary">@Model.TotalFollowers</div>
+            <div class="text-muted small fw-semibold">@Localizer["Followers"]</div>
+        </div>
+    </div>
+</div>
+
+@if (!hasExtended)
+{
+    <!-- ── Starter upsell ────────────────────────────────────────────────── -->
+    <div class="card border-0 shadow-sm rounded-4 text-center py-5 px-4 mb-4">
+        <i class="fas fa-lock fa-3x text-muted mb-3"></i>
+        <h5 class="fw-bold">@Localizer["Charts & Detailed Analytics"]</h5>
+        <p class="text-muted">@Localizer["Upgrade to Starter or higher to unlock schedule distribution charts, route distance stats, and follower trends."]</p>
+        <a asp-action="Upgrade" class="btn btn-success rounded-pill px-4">
+            <i class="fas fa-gem me-1"></i>@Localizer["Upgrade to Starter — €9.99/mo"]
+        </a>
+    </div>
+}
+else
+{
+    <!-- ── Extended Stats (Starter+) ────────────────────────────────────── -->
+    <div class="row g-4 mb-4">
+        <!-- Schedules by Recurrence -->
+        <div class="col-lg-6">
+            <div class="card border-0 shadow-sm rounded-4 h-100">
+                <div class="card-body p-4">
+                    <h6 class="fw-bold mb-3"><i class="fas fa-sync-alt text-primary me-2"></i>@Localizer["Schedules by Recurrence"]</h6>
+                    @if (Model.SchedulesByRecurrence.Any())
+                    {
+                        <canvas id="recurrenceChart" height="220"></canvas>
+                    }
+                    else
+                    {
+                        <p class="text-muted text-center py-4">@Localizer["No schedules yet"]</p>
+                    }
+                </div>
+            </div>
+        </div>
+
+        <!-- Schedules by Day (SpecificDay only) -->
+        <div class="col-lg-6">
+            <div class="card border-0 shadow-sm rounded-4 h-100">
+                <div class="card-body p-4">
+                    <h6 class="fw-bold mb-3"><i class="fas fa-calendar-week text-info me-2"></i>@Localizer["Specific-Day Schedules by Weekday"]</h6>
+                    @if (Model.SchedulesByDay.Any())
+                    {
+                        <canvas id="dayChart" height="220"></canvas>
+                    }
+                    else
+                    {
+                        <p class="text-muted text-center py-4">@Localizer["No specific-day schedules"]</p>
+                    }
+                </div>
+            </div>
+        </div>
+
+        <!-- Route distance stats -->
+        <div class="col-lg-4">
+            <div class="card border-0 shadow-sm rounded-4 h-100">
+                <div class="card-body p-4 d-flex flex-column justify-content-between">
+                    <h6 class="fw-bold mb-3"><i class="fas fa-road text-success me-2"></i>@Localizer["Route Distance"]</h6>
+                    <div>
+                        <div class="d-flex justify-content-between align-items-center mb-2">
+                            <span class="text-muted small">@Localizer["Total km"]</span>
+                            <span class="fw-bold fs-5">@Model.TotalRouteDistanceKm km</span>
+                        </div>
+                        <div class="d-flex justify-content-between align-items-center mb-2">
+                            <span class="text-muted small">@Localizer["Average km"]</span>
+                            <span class="fw-bold fs-5">@Model.AverageRouteDistanceKm km</span>
+                        </div>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <span class="text-muted small">@Localizer["Intermediate stops"]</span>
+                            <span class="fw-bold fs-5">@Model.TotalRouteStops</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Rating summary -->
+        <div class="col-lg-4">
+            <div class="card border-0 shadow-sm rounded-4 h-100">
+                <div class="card-body p-4 d-flex flex-column justify-content-between">
+                    <h6 class="fw-bold mb-3"><i class="fas fa-star text-warning me-2"></i>@Localizer["Rating"]</h6>
+                    <div class="text-center">
+                        <div class="fw-bold display-4 text-warning">@Model.AverageRating</div>
+                        <div class="text-muted small">@Localizer["out of 5"] &bull; @Model.TotalReviews @Localizer["reviews"]</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Followers -->
+        <div class="col-lg-4">
+            <div class="card border-0 shadow-sm rounded-4 h-100">
+                <div class="card-body p-4 d-flex flex-column justify-content-center text-center">
+                    <i class="fas fa-heart fa-3x text-danger mb-3"></i>
+                    <div class="fw-bold display-4">@Model.TotalFollowers</div>
+                    <div class="text-muted small">@Localizer["followers"]</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    @if (!hasFull)
+    {
+        <!-- ── Pro upsell ─────────────────────────────────────────────────── -->
+        <div class="card border-0 shadow-sm rounded-4 text-center py-5 px-4 mb-4">
+            <i class="fas fa-lock fa-3x text-muted mb-3"></i>
+            <h5 class="fw-bold">@Localizer["Revenue & Passenger Analytics"]</h5>
+            <p class="text-muted">@Localizer["Upgrade to Pro for revenue totals, boarded passenger counts, top route performance, and CSV export."]</p>
+            <a asp-action="Upgrade" class="btn btn-primary rounded-pill px-4">
+                <i class="fas fa-gem me-1"></i>@Localizer["Upgrade to Pro — €24.99/mo"]
+            </a>
+        </div>
+    }
+    else
+    {
+        <!-- ── Full Analytics (Pro+) ─────────────────────────────────────── -->
+        <div class="row g-4 mb-4">
+            <div class="col-md-6">
+                <div class="card border-0 shadow-sm rounded-4 text-center p-4 h-100">
+                    <i class="fas fa-users fa-2x text-primary mb-2"></i>
+                    <div class="fw-bold fs-2 text-primary">@Model.TotalBoardedPassengers</div>
+                    <div class="text-muted small">@Localizer["Boarded Passengers"]</div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="card border-0 shadow-sm rounded-4 text-center p-4 h-100">
+                    <i class="fas fa-ticket-alt fa-2x text-warning mb-2"></i>
+                    <div class="fw-bold fs-2 text-warning">@Model.TotalTickets</div>
+                    <div class="text-muted small">@Localizer["Tickets Issued"]</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Top Routes table -->
+        @if (Model.TopRoutes.Any())
+        {
+            <div class="card border-0 shadow-sm rounded-4 mb-4">
+                <div class="card-body p-4">
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <h6 class="fw-bold mb-0"><i class="fas fa-trophy text-warning me-2"></i>@Localizer["Top Routes by Ticket Sales"]</h6>
+                        <a asp-action="ExportAnalytics" asp-route-id="@Model.OrganizationId"
+                           class="btn btn-sm btn-outline-success rounded-pill">
+                            <i class="fas fa-file-csv me-1"></i>@Localizer["Export CSV"]
+                        </a>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="table table-hover align-middle mb-0">
+                            <thead class="table-light">
+                                <tr>
+                                    <th>#</th>
+                                    <th>@Localizer["Route"]</th>
+                                    <th class="text-center">@Localizer["Tickets"]</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @{ int rank = 1; }
+                                @foreach (var route in Model.TopRoutes)
+                                {
+                                    <tr>
+                                        <td>
+                                            @if (rank == 1) { <span class="badge bg-warning text-dark">🥇</span> }
+                                            else if (rank == 2) { <span class="badge bg-secondary">🥈</span> }
+                                            else if (rank == 3) { <span class="badge bg-danger bg-opacity-75">🥉</span> }
+                                            else { <span class="text-muted">@rank</span> }
+                                        </td>
+                                        <td class="fw-semibold">@route.RouteLabel</td>
+                                        <td class="text-center">@route.TicketCount</td>
+                                    </tr>
+                                    rank++;
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        }
+    }
+}
+
+@section Scripts {
+    @if (hasExtended && (Model.SchedulesByRecurrence.Any() || Model.SchedulesByDay.Any()))
+    {
+        <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+        <script>
+        (function () {
+            const palette = ['#0d6efd','#198754','#ffc107','#dc3545','#0dcaf0','#6f42c1','#fd7e14'];
+
+            @if (Model.SchedulesByRecurrence.Any())
+            {
+                var recLabels = Model.SchedulesByRecurrence.Keys
+                    .Select(k => recMap.TryGetValue(k, out var t) ? t : k).ToArray();
+                var recData   = Model.SchedulesByRecurrence.Values.ToArray();
+                <text>
+                new Chart(document.getElementById('recurrenceChart'), {
+                    type: 'doughnut',
+                    data: {
+                        labels: @Html.Raw(JsonSerializer.Serialize(recLabels)),
+                        datasets: [{ data: @Html.Raw(JsonSerializer.Serialize(recData)), backgroundColor: palette }]
+                    },
+                    options: { plugins: { legend: { position: 'bottom' } }, cutout: '60%' }
+                });
+                </text>
+            }
+
+            @if (Model.SchedulesByDay.Any())
+            {
+                var dayLabels = Model.SchedulesByDay.Keys
+                    .Select(k => dayMap.TryGetValue(k, out var t) ? t : k).ToArray();
+                var dayData   = Model.SchedulesByDay.Values.ToArray();
+                <text>
+                new Chart(document.getElementById('dayChart'), {
+                    type: 'bar',
+                    data: {
+                        labels: @Html.Raw(JsonSerializer.Serialize(dayLabels)),
+                        datasets: [{
+                            label: '@Localizer["Schedules"].Value',
+                            data: @Html.Raw(JsonSerializer.Serialize(dayData)),
+                            backgroundColor: '#0d6efd99',
+                            borderColor: '#0d6efd',
+                            borderWidth: 1,
+                            borderRadius: 6
+                        }]
+                    },
+                    options: {
+                        plugins: { legend: { display: false } },
+                        scales: { y: { beginAtZero: true, ticks: { stepSize: 1 } } }
+                    }
+                });
+                </text>
+            }
+        })();
+        </script>
+    }
+}

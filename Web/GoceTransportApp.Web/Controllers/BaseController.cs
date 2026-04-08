@@ -98,7 +98,7 @@ namespace GoceTransportApp.Web.Controllers
             return tier == MembershipTier.Starter ? PlanLimits.StarterSchedules : PlanLimits.FreeSchedules;
         }
 
-        private async Task<bool> IsOrgOnTrialAsync(string organizationId)
+        protected async Task<bool> IsOrgOnTrialAsync(string organizationId)
         {
             if (!Guid.TryParse(organizationId, out Guid orgGuid))
             {

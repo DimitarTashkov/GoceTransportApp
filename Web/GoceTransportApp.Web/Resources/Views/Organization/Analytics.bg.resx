@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype"><value>text/microsoft-resx</value></resheader>
+  <resheader name="version"><value>2.0</value></resheader>
+  <resheader name="reader"><value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+  <resheader name="writer"><value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+  <data name="Analytics" xml:space="preserve"><value>Анализи</value></data>
+  <data name="Back" xml:space="preserve"><value>Назад</value></data>
+  <data name="Your plan" xml:space="preserve"><value>Вашият план</value></data>
+  <data name="Upgrade to Starter for charts and more" xml:space="preserve"><value>Надградете до Starter за графики и още</value></data>
+  <data name="Upgrade to Pro for full analytics and revenue" xml:space="preserve"><value>Надградете до Pro за пълни анализи и приходи</value></data>
+  <data name="Full analytics enabled" xml:space="preserve"><value>Пълните анализи са активирани</value></data>
+  <data name="Routes" xml:space="preserve"><value>Маршрути</value></data>
+  <data name="Schedules" xml:space="preserve"><value>Разписания</value></data>
+  <data name="Vehicles" xml:space="preserve"><value>Превозни Средства</value></data>
+  <data name="Drivers" xml:space="preserve"><value>Шофьори</value></data>
+  <data name="Tickets" xml:space="preserve"><value>Билети</value></data>
+  <data name="Followers" xml:space="preserve"><value>Последователи</value></data>
+  <data name="Charts &amp; Detailed Analytics" xml:space="preserve"><value>Графики и Детайлни Анализи</value></data>
+  <data name="Upgrade to Starter or higher to unlock schedule distribution charts, route distance stats, and follower trends." xml:space="preserve"><value>Надградете до Starter или по-висок план за графики на разпределение на разписанията, статистики за разстояния и тенденции на последователите.</value></data>
+  <data name="Upgrade to Starter — €9.99/mo" xml:space="preserve"><value>Надградете до Starter — €9.99/мес</value></data>
+  <data name="Schedules by Recurrence" xml:space="preserve"><value>Разписания по Повторяемост</value></data>
+  <data name="No schedules yet" xml:space="preserve"><value>Все още няма разписания</value></data>
+  <data name="Specific-Day Schedules by Weekday" xml:space="preserve"><value>Разписания за Конкретен Ден по Ден от Седмицата</value></data>
+  <data name="No specific-day schedules" xml:space="preserve"><value>Няма разписания за конкретен ден</value></data>
+  <data name="Route Distance" xml:space="preserve"><value>Разстояние на Маршрутите</value></data>
+  <data name="Total km" xml:space="preserve"><value>Общо км</value></data>
+  <data name="Average km" xml:space="preserve"><value>Средно км</value></data>
+  <data name="Intermediate stops" xml:space="preserve"><value>Междинни спирки</value></data>
+  <data name="Rating" xml:space="preserve"><value>Рейтинг</value></data>
+  <data name="out of 5" xml:space="preserve"><value>от 5</value></data>
+  <data name="reviews" xml:space="preserve"><value>отзива</value></data>
+  <data name="followers" xml:space="preserve"><value>последователи</value></data>
+  <data name="Revenue &amp; Passenger Analytics" xml:space="preserve"><value>Анализи на Приходите и Пасажерите</value></data>
+  <data name="Upgrade to Pro for revenue totals, boarded passenger counts, top route performance, and CSV export." xml:space="preserve"><value>Надградете до Pro за общи приходи, брой качени пасажери, представяне на топ маршрути и CSV експорт.</value></data>
+  <data name="Upgrade to Pro — €24.99/mo" xml:space="preserve"><value>Надградете до Pro — €24.99/мес</value></data>
+  <data name="Total Revenue" xml:space="preserve"><value>Общ Приход</value></data>
+  <data name="Boarded Passengers" xml:space="preserve"><value>Качени Пасажери</value></data>
+  <data name="Tickets Issued" xml:space="preserve"><value>Издадени Билети</value></data>
+  <data name="Top Routes by Ticket Sales" xml:space="preserve"><value>Топ Маршрути по Продажби на Билети</value></data>
+  <data name="Export CSV" xml:space="preserve"><value>Експорт CSV</value></data>
+  <data name="Route" xml:space="preserve"><value>Маршрут</value></data>
+  <data name="Monday" xml:space="preserve"><value>Понеделник</value></data>
+  <data name="Tuesday" xml:space="preserve"><value>Вторник</value></data>
+  <data name="Wednesday" xml:space="preserve"><value>Сряда</value></data>
+  <data name="Thursday" xml:space="preserve"><value>Четвъртък</value></data>
+  <data name="Friday" xml:space="preserve"><value>Петък</value></data>
+  <data name="Saturday" xml:space="preserve"><value>Събота</value></data>
+  <data name="Sunday" xml:space="preserve"><value>Неделя</value></data>
+  <data name="Specific Day" xml:space="preserve"><value>Конкретен Ден</value></data>
+  <data name="Daily" xml:space="preserve"><value>Ежедневно</value></data>
+  <data name="Weekdays" xml:space="preserve"><value>Делнични Дни</value></data>
+  <data name="Weekends" xml:space="preserve"><value>Уикенд</value></data>
+</root>

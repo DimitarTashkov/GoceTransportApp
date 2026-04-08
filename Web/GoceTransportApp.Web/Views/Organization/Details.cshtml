@@ -9,6 +9,22 @@
     var isOwnerOrAdmin = currentUserId == Model.FounderId || User.IsInRole("Administrator");
 }
 
+<!-- Trial Banner (Owner/Admin only) -->
+@if (isOwnerOrAdmin && Model.IsOnTrial && Model.TrialExpiresOn.HasValue)
+{
+    var daysLeft = (int)Math.Ceiling((Model.TrialExpiresOn.Value - DateTime.UtcNow).TotalDays);
+    <div class="alert alert-warning d-flex align-items-center justify-content-between gap-3 rounded-4 mb-4" role="alert">
+        <div>
+            <i class="fas fa-clock me-2"></i>
+            <strong>@Localizer["Pro Trial Active"]</strong> —
+            @string.Format(Localizer["Your 14-day Pro trial expires in {0} day(s)."].Value, daysLeft)
+        </div>
+        <a asp-action="Upgrade" asp-controller="Organization" class="btn btn-warning btn-sm rounded-pill text-nowrap">
+            @Localizer["Upgrade Now"]
+        </a>
+    </div>
+}
+
 <!-- Organization Dashboard Metrics (Owner/Admin only) -->
 @if (isOwnerOrAdmin)
 {

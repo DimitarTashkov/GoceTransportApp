@@ -76,4 +76,7 @@
   <data name="No reviews yet" xml:space="preserve"><value>Все още няма отзиви</value></data>
   <data name="Be the first to share your experience with this carrier." xml:space="preserve"><value>Бъдете първият, споделили опит с този превозвач.</value></data>
   <data name="Active Routes" xml:space="preserve"><value>Активни Маршрути</value></data>
+  <data name="Pro Trial Active" xml:space="preserve"><value>Активен Pro Trial</value></data>
+  <data name="Your 14-day Pro trial expires in {0} day(s)." xml:space="preserve"><value>Вашият 14-дневен Pro trial изтича след {0} ден(а).</value></data>
+  <data name="Upgrade Now" xml:space="preserve"><value>Надградете Сега</value></data>
 </root>

@@ -16,6 +16,10 @@ namespace GoceTransportApp.Data.Models
             this.Id = Guid.NewGuid();
         }
 
+        public bool IsOnTrial { get; set; } = false;
+
+        public DateTime? TrialExpiresOn { get; set; }
+
         [Required]
         [MaxLength(MaxNameLength)]
         public string Name { get; set; } = null!;

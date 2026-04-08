@@ -66,4 +66,21 @@
   <data name="Real-Time Notifications" xml:space="preserve"><value>Известия в Реално Време</value></data>
   <data name="Live Status Alerts" xml:space="preserve"><value>Сигнали за Статус на Живо</value></data>
   <data name="Google Maps Coordinates" xml:space="preserve"><value>Координати в Google Карти</value></data>
+  <data name="For small operators" xml:space="preserve"><value>За малки оператори</value></data>
+  <data name="Routes" xml:space="preserve"><value>Маршрути</value></data>
+  <data name="Basic Analytics" xml:space="preserve"><value>Базово Аналитично Табло</value></data>
+  <data name="Extended Analytics" xml:space="preserve"><value>Разширено Аналитично Табло</value></data>
+  <data name="Full Analytics + Export" xml:space="preserve"><value>Пълно Табло + Експорт</value></data>
+  <data name="Full Analytics + API" xml:space="preserve"><value>Пълно Табло + API</value></data>
+  <data name="Email Support (48h)" xml:space="preserve"><value>Имейл Поддръжка (48ч)</value></data>
+  <data name="Email Support (24h)" xml:space="preserve"><value>Имейл Поддръжка (24ч)</value></data>
+  <data name="Phone + Chat Support (4h)" xml:space="preserve"><value>Телефон + Чат (4ч)</value></data>
+  <data name="Support" xml:space="preserve"><value>Поддръжка</value></data>
+  <data name="Basic" xml:space="preserve"><value>Базова</value></data>
+  <data name="Extended" xml:space="preserve"><value>Разширена</value></data>
+  <data name="Full + Export" xml:space="preserve"><value>Пълна + Експорт</value></data>
+  <data name="Full + API" xml:space="preserve"><value>Пълна + API</value></data>
+  <data name="Email (48h)" xml:space="preserve"><value>Имейл (48ч)</value></data>
+  <data name="Email (24h)" xml:space="preserve"><value>Имейл (24ч)</value></data>
+  <data name="Phone + Chat (4h)" xml:space="preserve"><value>Телефон + Чат (4ч)</value></data>
 </root>

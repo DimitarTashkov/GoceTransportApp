@@ -18,6 +18,10 @@ namespace GoceTransportApp.Web.ViewModels.Organizations
 
         public bool IsFavorite { get; set; }
 
+        public bool IsOnTrial { get; set; }
+
+        public DateTime? TrialExpiresOn { get; set; }
+
         public string Id { get; set; } = null!;
 
         public string Name { get; set; } = null!;

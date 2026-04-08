@@ -55,6 +55,8 @@ namespace GoceTransportApp.Services.Data.Organizations
                 Phone = inputModel.Phone,
                 FounderId = inputModel.FounderId,
                 ImageUrl = imageUrl,
+                IsOnTrial = true,
+                TrialExpiresOn = DateTime.UtcNow.AddDays(14),
                 CreatedOn = DateTime.UtcNow,
             };
 
@@ -168,6 +170,8 @@ namespace GoceTransportApp.Services.Data.Organizations
                     FounderId = organization.FounderId,
                     Founder = organization.Founder.UserName,
                     ImageUrl = organization.ImageUrl,
+                    IsOnTrial = organization.IsOnTrial && organization.TrialExpiresOn > DateTime.UtcNow,
+                    TrialExpiresOn = organization.TrialExpiresOn,
                     OrganizationMessages = organization.OrganizationMessages,
                     OrganizationDrivers = organization.OrganizationDrivers,
                     OrganizationRoutes = organization.OrganizationRoutes,

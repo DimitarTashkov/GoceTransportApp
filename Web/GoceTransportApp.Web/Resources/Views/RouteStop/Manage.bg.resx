@@ -30,19 +30,19 @@
   <resheader name="version"><value>2.0</value></resheader>
   <resheader name="reader"><value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
   <resheader name="writer"><value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
-  <data name="Departing Street" xml:space="preserve"><value>Начална Улица</value></data>
-  <data name="Arriving Street" xml:space="preserve"><value>Крайна Улица</value></data>
-  <data name="Organization" xml:space="preserve"><value>Организация</value></data>
-  <data name="Distance" xml:space="preserve"><value>Разстояние</value></data>
-  <data name="Duration" xml:space="preserve"><value>Продължителност</value></data>
-  <data name="Departure stop" xml:space="preserve"><value>Спирка — тръгване</value></data>
-  <data name="Arrival stop" xml:space="preserve"><value>Спирка — пристигане</value></data>
-  <data name="Navigate here" xml:space="preserve"><value>Навигация тук</value></data>
-  <data name="View on map" xml:space="preserve"><value>Виж на картата</value></data>
-  <data name="Departure" xml:space="preserve"><value>Тръгване</value></data>
+  <data name="Manage Stops" xml:space="preserve"><value>Управление на Спирки</value></data>
+  <data name="Manage Intermediate Stops" xml:space="preserve"><value>Управление на Междинни Спирки</value></data>
+  <data name="Current Stops" xml:space="preserve"><value>Текущи Спирки</value></data>
   <data name="Arrival" xml:space="preserve"><value>Пристигане</value></data>
-  <data name="Navigate to stop (departure)" xml:space="preserve"><value>Навигация до спирката (тръгване)</value></data>
-  <data name="Navigate to stop (arrival)" xml:space="preserve"><value>Навигация до спирката (пристигане)</value></data>
-  <data name="Navigate to stop" xml:space="preserve"><value>Навигация до спирката</value></data>
-  <data name="Intermediate Stops" xml:space="preserve"><value>Междинни Спирки</value></data>
+  <data name="Departure" xml:space="preserve"><value>Тръгване</value></data>
+  <data name="Delete this stop?" xml:space="preserve"><value>Изтрий тази спирка?</value></data>
+  <data name="No intermediate stops yet. Add the first one below." xml:space="preserve"><value>Все още няма междинни спирки. Добавете първата по-долу.</value></data>
+  <data name="Add New Stop" xml:space="preserve"><value>Добави Нова Спирка</value></data>
+  <data name="Stop Name" xml:space="preserve"><value>Име на Спирката</value></data>
+  <data name="e.g. Ihtiman, Central Square" xml:space="preserve"><value>напр. Ихтиман, Централен Площад</value></data>
+  <data name="Order" xml:space="preserve"><value>Поредност</value></data>
+  <data name="Arrival Time" xml:space="preserve"><value>Час на Пристигане</value></data>
+  <data name="Departure Time" xml:space="preserve"><value>Час на Тръгване</value></data>
+  <data name="Add Stop" xml:space="preserve"><value>Добави Спирка</value></data>
+  <data name="Back to Route" xml:space="preserve"><value>Назад към Маршрута</value></data>
 </root>

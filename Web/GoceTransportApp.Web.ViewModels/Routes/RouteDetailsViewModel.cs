@@ -1,8 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace GoceTransportApp.Web.ViewModels.Routes
 {
@@ -38,5 +35,8 @@ namespace GoceTransportApp.Web.ViewModels.Routes
         public double? ToLatitude { get; set; }
 
         public double? ToLongitude { get; set; }
+
+        public IEnumerable<RouteStopViewModel> Stops { get; set; }
+            = new List<RouteStopViewModel>();
     }
 }

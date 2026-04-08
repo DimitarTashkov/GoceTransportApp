@@ -21,6 +21,7 @@ namespace GoceTransportApp.Web
     using GoceTransportApp.Services.Data.Organizations;
     using GoceTransportApp.Services.Data.Reviews;
     using GoceTransportApp.Services.Data.Routes;
+    using GoceTransportApp.Services.Data.RouteStops;
     using GoceTransportApp.Services.Data.Schedules;
     using GoceTransportApp.Services.Data.Streets;
     using GoceTransportApp.Services.Data.Tickets;
@@ -260,6 +261,7 @@ namespace GoceTransportApp.Web
             services.AddScoped<IStreetService, StreetService>();
             services.AddScoped<ICityService, CityService>();
             services.AddScoped<IRouteService, RouteService>();
+            services.AddScoped<IRouteStopService, RouteStopService>();
             services.AddScoped<IVehicleService, VehicleService>();
             services.AddScoped<IDriverService, DriverService>();
             services.AddScoped<IUserService, UserService>();

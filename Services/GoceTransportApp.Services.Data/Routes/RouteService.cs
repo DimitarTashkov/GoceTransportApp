@@ -1,14 +1,11 @@
 using GoceTransportApp.Data.Common.Repositories;
 using GoceTransportApp.Data.Models;
 using GoceTransportApp.Services.Data.Base;
-using GoceTransportApp.Web.ViewModels.Cities;
 using GoceTransportApp.Web.ViewModels.Routes;
-using GoceTransportApp.Web.ViewModels.Streets;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
@@ -232,6 +229,7 @@ namespace GoceTransportApp.Services.Data.Routes
                 .Include(c => c.FromStreet)
                 .Include(c => c.ToStreet)
                 .Include(c => c.Organization)
+                .Include(c => c.RouteStops.Where(s => !s.IsDeleted).OrderBy(s => s.Order))
                .FirstOrDefaultAsync(c => c.Id == id);
 
             if (route != null)
@@ -261,6 +259,18 @@ namespace GoceTransportApp.Services.Data.Routes
                 ToStopName = route.ToStopName,
                 ToLatitude = route.ToLatitude,
                 ToLongitude = route.ToLongitude,
+                Stops = route.RouteStops
+                    .Select(s => new RouteStopViewModel
+                    {
+                        Id = s.Id.ToString(),
+                        Name = s.Name,
+                        Order = s.Order,
+                        ArrivalTime = s.ArrivalTime,
+                        DepartureTime = s.DepartureTime,
+                        Latitude = s.Latitude,
+                        Longitude = s.Longitude,
+                    })
+                    .ToList(),
             };
 
             return viewModel;

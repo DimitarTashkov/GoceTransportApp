@@ -34,4 +34,5 @@
   <data name="Edit" xml:space="preserve"><value>Редактирай</value></data>
   <data name="Delete" xml:space="preserve"><value>Изтрий</value></data>
   <data name="Back to List" xml:space="preserve"><value>Назад към Списъка</value></data>
+  <data name="Manage Stops" xml:space="preserve"><value>Управление на Спирки</value></data>
 </root>

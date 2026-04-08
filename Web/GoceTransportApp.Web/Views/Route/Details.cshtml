@@ -34,6 +34,9 @@
         <a asp-action="Edit" asp-controller="Route" asp-route-id="@Model.Id" asp-route-organizationId="@Model.OrganizationId" class="btn btn-warning">
             <i class="fas fa-edit"></i> @Localizer["Edit"]
         </a>
+        <a asp-action="Manage" asp-controller="RouteStop" asp-route-routeId="@Model.Id" asp-route-organizationId="@Model.OrganizationId" class="btn btn-outline-primary">
+            <i class="fas fa-map-signs"></i> @Localizer["Manage Stops"]
+        </a>
         <a asp-action="Delete" asp-controller="Route" asp-route-id="@Model.Id" asp-route-organizationId="@Model.OrganizationId" class="btn btn-danger">
             <i class="fas fa-trash-alt"></i> @Localizer["Delete"]
         </a>

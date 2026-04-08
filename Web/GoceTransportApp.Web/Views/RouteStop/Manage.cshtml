@@ -1,0 +1,136 @@
+@model GoceTransportApp.Web.ViewModels.Routes.RouteStopInputModel
+@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer Localizer
+
+@{
+    ViewData["Title"] = Localizer["Manage Stops"].Value;
+}
+
+<div class="row justify-content-center">
+    <div class="col-lg-8">
+
+        <div class="d-flex align-items-center mb-4 gap-3">
+            <i class="fas fa-map-signs fa-2x text-primary"></i>
+            <h1 class="h3 fw-bold mb-0">@Localizer["Manage Intermediate Stops"]</h1>
+        </div>
+
+        @if (TempData[nameof(GoceTransportApp.Common.ResultMessages.GeneralMessages.SuccessMessage)] != null)
+        {
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                @TempData[nameof(GoceTransportApp.Common.ResultMessages.GeneralMessages.SuccessMessage)]
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            </div>
+        }
+        @if (TempData[nameof(GoceTransportApp.Common.ResultMessages.GeneralMessages.FailMessage)] != null)
+        {
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                @TempData[nameof(GoceTransportApp.Common.ResultMessages.GeneralMessages.FailMessage)]
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            </div>
+        }
+
+        <!-- Existing stops timeline -->
+        @if (Model.ExistingStops.Any())
+        {
+            <div class="card border-0 shadow-sm rounded-4 mb-4">
+                <div class="card-body p-4">
+                    <h5 class="fw-semibold mb-3">
+                        <i class="fas fa-list-ol text-secondary me-2"></i>@Localizer["Current Stops"]
+                    </h5>
+                    <div class="position-relative ps-4">
+                        <div class="position-absolute top-0 start-0 h-100 border-start border-2 border-primary ms-2"></div>
+                        @foreach (var stop in Model.ExistingStops)
+                        {
+                            <div class="d-flex align-items-start mb-3 gap-3">
+                                <span class="badge bg-primary rounded-circle d-flex align-items-center justify-content-center"
+                                      style="width:2rem;height:2rem;min-width:2rem;margin-left:-1rem;">
+                                    @stop.Order
+                                </span>
+                                <div class="flex-grow-1 card border-0 bg-light rounded-3 px-3 py-2">
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <strong>@stop.Name</strong>
+                                        <form asp-action="Delete" asp-controller="RouteStop" method="post" class="d-inline">
+                                            <input type="hidden" name="stopId" value="@stop.Id" />
+                                            <input type="hidden" name="routeId" value="@Model.RouteId" />
+                                            <input type="hidden" name="organizationId" value="@Model.OrganizationId" />
+                                            <button type="submit" class="btn btn-outline-danger btn-sm rounded-pill"
+                                                    onclick="return confirm('@Localizer["Delete this stop?"]')">
+                                                <i class="fas fa-trash-alt"></i>
+                                            </button>
+                                        </form>
+                                    </div>
+                                    <small class="text-muted">
+                                        <i class="fas fa-arrow-down text-success me-1"></i>@Localizer["Arrival"]: @stop.ArrivalTime.ToString(@"hh\:mm")
+                                        &nbsp;|&nbsp;
+                                        <i class="fas fa-arrow-up text-danger me-1"></i>@Localizer["Departure"]: @stop.DepartureTime.ToString(@"hh\:mm")
+                                    </small>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        }
+        else
+        {
+            <div class="alert alert-info rounded-4 mb-4">
+                <i class="fas fa-info-circle me-2"></i>@Localizer["No intermediate stops yet. Add the first one below."]
+            </div>
+        }
+
+        <!-- Add stop form -->
+        <div class="card border-0 shadow-sm rounded-4">
+            <div class="card-body p-4">
+                <h5 class="fw-semibold mb-3">
+                    <i class="fas fa-plus-circle text-primary me-2"></i>@Localizer["Add New Stop"]
+                </h5>
+                <form asp-action="Create" asp-controller="RouteStop" method="post" class="needs-validation" novalidate>
+                    <input asp-for="RouteId" type="hidden" />
+                    <input asp-for="OrganizationId" type="hidden" />
+
+                    <div class="mb-3">
+                        <label asp-for="Name" class="form-label text-muted">@Localizer["Stop Name"]</label>
+                        <input asp-for="Name" class="form-control rounded-3" placeholder="@Localizer["e.g. Ihtiman, Central Square"]" />
+                        <span asp-validation-for="Name" class="text-danger small"></span>
+                    </div>
+
+                    <div class="mb-3">
+                        <label asp-for="Order" class="form-label text-muted">@Localizer["Order"]</label>
+                        <input asp-for="Order" type="number" min="1" max="100" class="form-control rounded-3" />
+                        <span asp-validation-for="Order" class="text-danger small"></span>
+                    </div>
+
+                    <div class="row g-3 mb-3">
+                        <div class="col-md-6">
+                            <label asp-for="ArrivalTime" class="form-label text-muted">@Localizer["Arrival Time"]</label>
+                            <input asp-for="ArrivalTime" type="time" class="form-control rounded-3" />
+                            <span asp-validation-for="ArrivalTime" class="text-danger small"></span>
+                        </div>
+                        <div class="col-md-6">
+                            <label asp-for="DepartureTime" class="form-label text-muted">@Localizer["Departure Time"]</label>
+                            <input asp-for="DepartureTime" type="time" class="form-control rounded-3" />
+                            <span asp-validation-for="DepartureTime" class="text-danger small"></span>
+                        </div>
+                    </div>
+
+                    <div class="d-flex gap-3 mt-4">
+                        <button type="submit" class="btn btn-primary rounded-pill px-4">
+                            <i class="fas fa-plus me-2"></i>@Localizer["Add Stop"]
+                        </button>
+                        <a asp-action="Details" asp-controller="Route"
+                           asp-route-id="@Model.RouteId"
+                           asp-route-organizationId="@Model.OrganizationId"
+                           class="btn btn-outline-secondary rounded-pill px-4">
+                            <i class="fas fa-arrow-left me-2"></i>@Localizer["Back to Route"]
+                        </a>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

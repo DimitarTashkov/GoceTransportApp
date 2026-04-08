@@ -44,6 +44,8 @@ namespace GoceTransportApp.Data
 
         public DbSet<Route> Routes { get; set; }
 
+        public DbSet<RouteStop> RouteStops { get; set; }
+
         public DbSet<Report> Reports { get; set; }
 
         public DbSet<Message> Messages { get; set; }

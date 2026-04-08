@@ -61,6 +61,9 @@ namespace GoceTransportApp.Data.Models
         [ForeignKey(nameof(OrganizationId))]
         public Organization Organization { get; set; }
 
+        public HashSet<RouteStop> RouteStops { get; set; }
+        = new HashSet<RouteStop>();
+
         public HashSet<Schedule> RouteSchedules { get; set; }
         = new HashSet<Schedule>();
 

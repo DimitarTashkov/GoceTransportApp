@@ -76,5 +76,11 @@ namespace GoceTransportApp.Common
             public const int MinContentLength = 10;
             public const int MaxContentLength = 200;
         }
+
+        public static class RouteStopConstants
+        {
+            public const int MinNameLength = 2;
+            public const int MaxNameLength = 100;
+        }
     }
 }

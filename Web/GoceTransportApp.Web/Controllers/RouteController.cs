@@ -69,8 +69,18 @@ namespace GoceTransportApp.Web.Controllers
             }
 
             var currentUser = await this.userManager.FindByIdAsync(userId);
-            ViewBag.IsPremiumUser = User.IsInRole(AdministratorRoleName) ||
+            bool isAdmin = User.IsInRole(AdministratorRoleName);
+            ViewBag.IsPremiumUser = isAdmin ||
                 (currentUser != null && currentUser.MembershipTier != MembershipTier.Free);
+
+            if (!isAdmin && currentUser != null)
+            {
+                int limit = await GetEffectiveRouteLimitAsync(currentUser.MembershipTier, organizationId);
+                int count = await routeService.GetRoutesCountForOrganizationAsync(Guid.Parse(organizationId));
+                ViewBag.RouteLimitReached = count >= limit;
+                ViewBag.RouteLimit = limit == int.MaxValue ? "∞" : limit.ToString();
+                ViewBag.RouteCount = count;
+            }
 
             RouteInputModel model = new RouteInputModel();
             model.OrganizationId = organizationId;
@@ -88,16 +98,31 @@ namespace GoceTransportApp.Web.Controllers
                 return RedirectToAction("Details", "Organization", new { id = model.OrganizationId });
             }
 
-            // Gate map coordinates for Free-tier users
+            // Enforce per-organization route limit
             if (!User.IsInRole(AdministratorRoleName))
             {
                 var currentUser = await this.userManager.FindByIdAsync(userId);
-                if (currentUser != null && currentUser.MembershipTier == MembershipTier.Free)
+                if (currentUser != null)
                 {
-                    model.FromLatitude = null;
-                    model.FromLongitude = null;
-                    model.ToLatitude = null;
-                    model.ToLongitude = null;
+                    int limit = await GetEffectiveRouteLimitAsync(currentUser.MembershipTier, model.OrganizationId);
+                    if (limit < int.MaxValue)
+                    {
+                        int count = await routeService.GetRoutesCountForOrganizationAsync(Guid.Parse(model.OrganizationId));
+                        if (count >= limit)
+                        {
+                            TempData[TempDataKeys.UpgradeReason] = $"Route limit reached ({count}/{limit}) on the {currentUser.MembershipTier} plan. Upgrade to add more routes.";
+                            return RedirectToAction("Upgrade", "Organization");
+                        }
+                    }
+
+                    // Gate map coordinates for Free-tier users
+                    if (currentUser.MembershipTier == MembershipTier.Free)
+                    {
+                        model.FromLatitude = null;
+                        model.FromLongitude = null;
+                        model.ToLatitude = null;
+                        model.ToLongitude = null;
+                    }
                 }
             }
 

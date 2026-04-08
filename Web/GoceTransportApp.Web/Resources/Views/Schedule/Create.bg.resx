@@ -53,4 +53,7 @@
   <data name="Daily" xml:space="preserve"><value>Ежедневно</value></data>
   <data name="Weekdays (Mon–Fri)" xml:space="preserve"><value>Делнични дни (Пон–Пет)</value></data>
   <data name="Weekends (Sat–Sun)" xml:space="preserve"><value>Уикенд (Съб–Нед)</value></data>
+  <data name="Schedule limit reached" xml:space="preserve"><value>Достигнат лимит на разписанията</value></data>
+  <data name="Upgrade your plan" xml:space="preserve"><value>Надградете плана си</value></data>
+  <data name="to add more schedules." xml:space="preserve"><value>за да добавите още разписания.</value></data>
 </root>

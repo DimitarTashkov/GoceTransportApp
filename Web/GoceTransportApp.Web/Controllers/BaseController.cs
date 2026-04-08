@@ -2,6 +2,7 @@ namespace GoceTransportApp.Web.Controllers
 {
     using GoceTransportApp.Data.Common.Repositories;
     using GoceTransportApp.Data.Models;
+    using GoceTransportApp.Data.Models.Enumerations;
     using GoceTransportApp.Services.Data.Organizations;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.EntityFrameworkCore;
@@ -9,6 +10,8 @@ namespace GoceTransportApp.Web.Controllers
     using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
+
+    using static GoceTransportApp.Common.GlobalConstants;
 
     public class BaseController : Controller
     {
@@ -59,6 +62,51 @@ namespace GoceTransportApp.Web.Controllers
                 .Where(o => o.FounderId == userId)
                 .Select(o => o.Id)
                 .ToListAsync();
+        }
+
+        /// <summary>
+        /// Returns the route/schedule limit for the given tier, accounting for
+        /// an active Pro trial on the target organization (trial = unlimited).
+        /// </summary>
+        protected async Task<int> GetEffectiveRouteLimitAsync(MembershipTier tier, string organizationId)
+        {
+            if (tier == MembershipTier.Pro || tier == MembershipTier.Enterprise)
+            {
+                return int.MaxValue;
+            }
+
+            if (await IsOrgOnTrialAsync(organizationId))
+            {
+                return int.MaxValue;
+            }
+
+            return tier == MembershipTier.Starter ? PlanLimits.StarterRoutes : PlanLimits.FreeRoutes;
+        }
+
+        protected async Task<int> GetEffectiveScheduleLimitAsync(MembershipTier tier, string organizationId)
+        {
+            if (tier == MembershipTier.Pro || tier == MembershipTier.Enterprise)
+            {
+                return int.MaxValue;
+            }
+
+            if (await IsOrgOnTrialAsync(organizationId))
+            {
+                return int.MaxValue;
+            }
+
+            return tier == MembershipTier.Starter ? PlanLimits.StarterSchedules : PlanLimits.FreeSchedules;
+        }
+
+        private async Task<bool> IsOrgOnTrialAsync(string organizationId)
+        {
+            if (!Guid.TryParse(organizationId, out Guid orgGuid))
+            {
+                return false;
+            }
+
+            return await organizationRepository.AllAsNoTracking()
+                .AnyAsync(o => o.Id == orgGuid && o.IsOnTrial && o.TrialExpiresOn > DateTime.UtcNow);
         }
     }
 }

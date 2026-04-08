@@ -338,5 +338,11 @@ namespace GoceTransportApp.Services.Data.Routes
                 })
                 .ToListAsync();
         }
+
+        public async Task<int> GetRoutesCountForOrganizationAsync(Guid organizationId)
+        {
+            return await routeReposiory.AllAsNoTracking()
+                .CountAsync(r => r.OrganizationId == organizationId);
+        }
     }
 }

@@ -118,6 +118,20 @@ namespace GoceTransportApp.Web.Controllers
                 return RedirectToAction("UserOrganizations", "Organization");
             }
 
+            bool isAdmin = User.IsInRole(AdministratorRoleName);
+            if (!isAdmin)
+            {
+                var currentUser = await this.userManager.FindByIdAsync(userId);
+                if (currentUser != null)
+                {
+                    int limit = await GetEffectiveScheduleLimitAsync(currentUser.MembershipTier, organizationId);
+                    int count = await scheduleService.GetSchedulesCountForOrganizationAsync(Guid.Parse(organizationId));
+                    ViewBag.ScheduleLimitReached = count >= limit;
+                    ViewBag.ScheduleLimit = limit == int.MaxValue ? "∞" : limit.ToString();
+                    ViewBag.ScheduleCount = count;
+                }
+            }
+
             ScheduleInputModel model = new ScheduleInputModel();
             model.Vehicles = await vehicleService.GetVehiclesForOrganizationAsync(organizationId);
             model.Routes = await routeService.GetRoutesForOrganizationAsync(organizationId);
@@ -134,6 +148,25 @@ namespace GoceTransportApp.Web.Controllers
             if (!await this.HasUserCreatedOrganizationAsync(userId, model.OrganizationId) && !User.IsInRole(AdministratorRoleName))
             {
                 return RedirectToAction("Details", "Organization", new { id = model.OrganizationId });
+            }
+
+            // Enforce per-organization schedule limit
+            if (!User.IsInRole(AdministratorRoleName))
+            {
+                var currentUser = await this.userManager.FindByIdAsync(userId);
+                if (currentUser != null)
+                {
+                    int limit = await GetEffectiveScheduleLimitAsync(currentUser.MembershipTier, model.OrganizationId);
+                    if (limit < int.MaxValue)
+                    {
+                        int count = await scheduleService.GetSchedulesCountForOrganizationAsync(Guid.Parse(model.OrganizationId));
+                        if (count >= limit)
+                        {
+                            TempData[TempDataKeys.UpgradeReason] = $"Schedule limit reached ({count}/{limit}) on the {currentUser.MembershipTier} plan. Upgrade to add more schedules.";
+                            return RedirectToAction("Upgrade", "Organization");
+                        }
+                    }
+                }
             }
 
             if (!ModelState.IsValid)

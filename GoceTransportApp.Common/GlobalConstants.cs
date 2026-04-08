@@ -38,5 +38,18 @@ namespace GoceTransportApp.Common
             public const string Login = "login";
             public const string Purchase = "purchase";
         }
+
+        public static class PlanLimits
+        {
+            // Routes per organization
+            public const int FreeRoutes    = 2;
+            public const int StarterRoutes = 10;
+
+            // Schedules per organization
+            public const int FreeSchedules    = 5;
+            public const int StarterSchedules = 30;
+
+            // Pro / Enterprise → int.MaxValue (unlimited)
+        }
     }
 }

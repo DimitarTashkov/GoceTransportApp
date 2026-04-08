@@ -56,4 +56,7 @@
   <data name="Cancel" xml:space="preserve"><value>Откажи</value></data>
   <data name="Google Maps stop coordinates are available for Pro and Enterprise plans." xml:space="preserve"><value>Координатите на спирките в Google Карти са достъпни само за Pro и Enterprise планове.</value></data>
   <data name="View plans" xml:space="preserve"><value>Вижте плановете</value></data>
+  <data name="Route limit reached" xml:space="preserve"><value>Достигнат лимит на маршрутите</value></data>
+  <data name="Upgrade your plan" xml:space="preserve"><value>Надградете плана си</value></data>
+  <data name="to add more routes." xml:space="preserve"><value>за да добавите още маршрути.</value></data>
 </root>

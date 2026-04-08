@@ -32,5 +32,7 @@ namespace GoceTransportApp.Services.Data.Routes
 
         Task<IEnumerable<SelectListItem>> GetRoutesForOrganizationAsync(string organizationId);
 
+        Task<int> GetRoutesCountForOrganizationAsync(Guid organizationId);
+
     }
 }

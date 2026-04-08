@@ -12,6 +12,13 @@
             <i class="fas fa-calendar-plus fa-3x text-primary mb-3"></i>
             <h1 class="h3 fw-bold">@Localizer["Create Schedule"]</h1>
         </div>
+        @if (ViewBag.ScheduleLimitReached == true)
+        {
+            <div class="alert alert-warning d-flex align-items-center gap-2 rounded-3" role="alert">
+                <i class="fas fa-lock"></i>
+                <span>@Localizer["Schedule limit reached"] (@ViewBag.ScheduleCount / @ViewBag.ScheduleLimit). <a asp-controller="Organization" asp-action="Upgrade" class="alert-link">@Localizer["Upgrade your plan"]</a> @Localizer["to add more schedules."]</span>
+            </div>
+        }
         <div class="card border-0 shadow-sm rounded-4">
             <div class="card-body p-5">
                 <form asp-action="Create" method="post">

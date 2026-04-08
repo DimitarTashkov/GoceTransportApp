@@ -17,6 +17,13 @@
             <i class="fas fa-route fa-3x text-primary mb-3"></i>
             <h1 class="h3 fw-bold">@Localizer["Create New Route"]</h1>
         </div>
+        @if (ViewBag.RouteLimitReached == true)
+        {
+            <div class="alert alert-warning d-flex align-items-center gap-2 rounded-3" role="alert">
+                <i class="fas fa-lock"></i>
+                <span>@Localizer["Route limit reached"] (@ViewBag.RouteCount / @ViewBag.RouteLimit). <a asp-controller="Organization" asp-action="Upgrade" class="alert-link">@Localizer["Upgrade your plan"]</a> @Localizer["to add more routes."]</span>
+            </div>
+        }
         <div class="card border-0 shadow-sm rounded-4">
             <div class="card-body p-5">
                 <form asp-action="Create" method="post" class="needs-validation" novalidate>

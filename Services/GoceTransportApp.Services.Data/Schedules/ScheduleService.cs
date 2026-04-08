@@ -364,5 +364,11 @@ namespace GoceTransportApp.Services.Data.Schedules
                 };
             }).ToList();
         }
+
+        public async Task<int> GetSchedulesCountForOrganizationAsync(Guid organizationId)
+        {
+            return await scheduleRepository.AllAsNoTracking()
+                .CountAsync(s => s.OrganizationId == organizationId);
+        }
     }
 }

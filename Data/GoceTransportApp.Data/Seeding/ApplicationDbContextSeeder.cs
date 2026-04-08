@@ -31,6 +31,7 @@ namespace GoceTransportApp.Data.Seeding
                               new DataSeeder(),
                               new OrganizationSeeder(),
                               new TestScenarioSeeder(),
+                              new ShowcaseSeeder(),
                           };
 
             foreach (var seeder in seeders)

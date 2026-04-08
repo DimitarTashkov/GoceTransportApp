@@ -18,6 +18,8 @@ namespace GoceTransportApp.Web.ViewModels.Schedules
         public string Id { get; set; } = null!;
 
         [Required]
+        public string RecurrencePattern { get; set; } = "SpecificDay";
+
         public string Day { get; set; }
 
         [Required]

@@ -48,4 +48,9 @@
   <data name="Select a route" xml:space="preserve"><value>Изберете маршрут</value></data>
   <data name="Save" xml:space="preserve"><value>Запази</value></data>
   <data name="Cancel" xml:space="preserve"><value>Откажи</value></data>
+  <data name="Recurrence Pattern" xml:space="preserve"><value>Повторяемост</value></data>
+  <data name="Specific Day" xml:space="preserve"><value>Конкретен ден</value></data>
+  <data name="Daily" xml:space="preserve"><value>Ежедневно</value></data>
+  <data name="Weekdays (Mon–Fri)" xml:space="preserve"><value>Делнични дни (Пон–Пет)</value></data>
+  <data name="Weekends (Sat–Sun)" xml:space="preserve"><value>Уикенд (Съб–Нед)</value></data>
 </root>

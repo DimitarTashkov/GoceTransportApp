@@ -25,13 +25,16 @@ namespace GoceTransportApp.Services.Data.Schedules
 
         public async Task CreateAsync(ScheduleInputModel inputModel)
         {
-            if (!Enum.TryParse<DayOfWeek>(inputModel.Day, true, out var dayOfWeek))
+            if (!Enum.TryParse<RecurrencePattern>(inputModel.RecurrencePattern, true, out var recurrencePattern))
             {
-                throw new ArgumentException("Invalid day format. Please provide a valid day of the week.");
+                recurrencePattern = RecurrencePattern.SpecificDay;
             }
+
+            Enum.TryParse<DayOfWeek>(inputModel.Day, true, out var dayOfWeek);
 
             Schedule schedule = new Schedule()
             {
+                RecurrencePattern = recurrencePattern,
                 Day = dayOfWeek,
                 Departure = inputModel.Departure,
                 Arrival = inputModel.Arrival,
@@ -54,11 +57,14 @@ namespace GoceTransportApp.Services.Data.Schedules
                 return false;
             }
 
-            if (!Enum.TryParse<DayOfWeek>(inputModel.Day, true, out var dayOfWeek))
+            if (!Enum.TryParse<RecurrencePattern>(inputModel.RecurrencePattern, true, out var recurrencePattern))
             {
-                throw new ArgumentException("Invalid day format. Please provide a valid day of the week.");
+                recurrencePattern = RecurrencePattern.SpecificDay;
             }
 
+            Enum.TryParse<DayOfWeek>(inputModel.Day, true, out var dayOfWeek);
+
+            schedule.RecurrencePattern = recurrencePattern;
             schedule.Day = dayOfWeek;
             schedule.Departure = inputModel.Departure;
             schedule.Arrival = inputModel.Arrival;
@@ -181,6 +187,7 @@ namespace GoceTransportApp.Services.Data.Schedules
               .Select(schedule => new EditScheduleInputModel()
               {
                   Id = schedule.Id.ToString(),
+                  RecurrencePattern = schedule.RecurrencePattern.ToString(),
                   Day = schedule.Day.ToString(),
                   Departure = schedule.Departure,
                   Arrival = schedule.Arrival,
@@ -239,9 +246,10 @@ namespace GoceTransportApp.Services.Data.Schedules
                 viewModel = new ScheduleDetailsViewModel()
                 {
                     Id = schedule.Id.ToString(),
+                    RecurrencePattern = schedule.RecurrencePattern.ToString(),
                     Day = schedule.Day.ToString(),
-                    Departing = schedule.Departure.TimeOfDay.ToString(),
-                    Arriving = schedule.Arrival.TimeOfDay.ToString(),
+                    Departing = schedule.Departure.TimeOfDay.ToString(@"hh\:mm"),
+                    Arriving = schedule.Arrival.TimeOfDay.ToString(@"hh\:mm"),
                     VehicleNumber = schedule.Vehicle.Number,
                     FromCity = schedule.Route.FromCity.Name,
                     ToCity = schedule.Route.ToCity.Name,

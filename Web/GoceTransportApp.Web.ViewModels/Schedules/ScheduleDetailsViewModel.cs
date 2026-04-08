@@ -12,6 +12,8 @@ namespace GoceTransportApp.Web.ViewModels.Schedules
 
         public string Day { get; set; } = null!;
 
+        public string RecurrencePattern { get; set; } = null!;
+
         public string Departing { get; set; } = null!;
 
         public string Arriving { get; set; } = null!;

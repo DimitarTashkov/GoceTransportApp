@@ -17,6 +17,8 @@ namespace GoceTransportApp.Web.ViewModels.Schedules
     public class ScheduleInputModel
     {
         [Required]
+        public string RecurrencePattern { get; set; } = "SpecificDay";
+
         public string Day { get; set; }
 
         [Required]

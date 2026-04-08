@@ -54,4 +54,9 @@
   <data name="Leave empty to clear the alert. Passengers will be notified instantly." xml:space="preserve"><value>Оставете празно, за да изчистите известието. Пътниците ще бъдат уведомени незабавно.</value></data>
   <data name="Upgrade to send real-time delay alerts to passengers." xml:space="preserve"><value>Надградете, за да изпращате известия за закъснения в реално време до пътниците.</value></data>
   <data name="Upgrade Plan" xml:space="preserve"><value>Надградете Плана</value></data>
+  <data name="Recurrence Pattern" xml:space="preserve"><value>Повторяемост</value></data>
+  <data name="Specific Day" xml:space="preserve"><value>Конкретен ден</value></data>
+  <data name="Daily" xml:space="preserve"><value>Ежедневно</value></data>
+  <data name="Weekdays (Mon–Fri)" xml:space="preserve"><value>Делнични дни (Пон–Пет)</value></data>
+  <data name="Weekends (Sat–Sun)" xml:space="preserve"><value>Уикенд (Съб–Нед)</value></data>
 </root>

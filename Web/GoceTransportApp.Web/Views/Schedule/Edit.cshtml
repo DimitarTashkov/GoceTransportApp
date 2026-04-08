@@ -19,6 +19,16 @@
                     <input asp-for="OrganizationId" type="hidden" />
 
                     <div class="mb-3">
+                        <label asp-for="RecurrencePattern" class="form-label text-muted">@Localizer["Recurrence Pattern"]</label>
+                        <select asp-for="RecurrencePattern" id="recurrencePattern" class="form-select rounded-3" onchange="toggleDaySelect()">
+                            <option value="SpecificDay">@Localizer["Specific Day"]</option>
+                            <option value="Daily">@Localizer["Daily"]</option>
+                            <option value="Weekdays">@Localizer["Weekdays (Mon–Fri)"]</option>
+                            <option value="Weekends">@Localizer["Weekends (Sat–Sun)"]</option>
+                        </select>
+                    </div>
+
+                    <div class="mb-3" id="daySelectContainer">
                         <label asp-for="Day" class="form-label text-muted">@Localizer["Day"]</label>
                         <select asp-for="Day" class="form-select rounded-3">
                             <option value="">-- @Localizer["Select a Day"] --</option>
@@ -108,4 +118,12 @@
 
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
+    <script>
+        function toggleDaySelect() {
+            var pattern = document.getElementById('recurrencePattern').value;
+            document.getElementById('daySelectContainer').style.display =
+                pattern === 'SpecificDay' ? '' : 'none';
+        }
+        toggleDaySelect();
+    </script>
 }

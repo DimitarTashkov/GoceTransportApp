@@ -81,4 +81,9 @@
   <data name="Back to List" xml:space="preserve">
     <value>Назад към списъка</value>
   </data>
+  <data name="Recurrence" xml:space="preserve"><value>Повторяемост</value></data>
+  <data name="Daily" xml:space="preserve"><value>Ежедневно</value></data>
+  <data name="Weekdays (Mon–Fri)" xml:space="preserve"><value>Делнични дни (Пон–Пет)</value></data>
+  <data name="Weekends (Sat–Sun)" xml:space="preserve"><value>Уикенд (Съб–Нед)</value></data>
+  <data name="Every" xml:space="preserve"><value>Всеки</value></data>
 </root>

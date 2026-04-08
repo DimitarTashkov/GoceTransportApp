@@ -21,6 +21,17 @@
                     <h5 class="card-title fw-semibold">@Model.Day</h5>
                 </div>
                 <p class="card-text">
+                    <strong>@Localizer["Recurrence"]:</strong>
+                    @{
+                        var recurrenceLabel = Model.RecurrencePattern switch
+                        {
+                            "Daily"      => Localizer["Daily"].Value,
+                            "Weekdays"   => Localizer["Weekdays (Mon–Fri)"].Value,
+                            "Weekends"   => Localizer["Weekends (Sat–Sun)"].Value,
+                            _            => $"{Localizer["Every"].Value} {Localizer[Model.Day].Value}",
+                        };
+                    }
+                    @recurrenceLabel<br />
                     <strong>@Localizer["Departing"]:</strong> @Model.Departing<br />
                     <strong>@Localizer["Arriving"]:</strong> @Model.Arriving<br />
                     <strong>@Localizer["From"]:</strong> @Model.FromCity (@Model.FromStreet)<br />

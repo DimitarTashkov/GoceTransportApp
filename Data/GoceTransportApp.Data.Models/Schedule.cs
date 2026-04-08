@@ -1,6 +1,7 @@
 namespace GoceTransportApp.Data.Models
 {
     using GoceTransportApp.Data.Common.Models;
+    using GoceTransportApp.Data.Models.Enumerations;
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
@@ -15,6 +16,8 @@ namespace GoceTransportApp.Data.Models
 
         [Required]
         public DayOfWeek Day { get; set; }
+
+        public RecurrencePattern RecurrencePattern { get; set; } = RecurrencePattern.SpecificDay;
 
         [Required]
         public DateTime Departure { get; set; }

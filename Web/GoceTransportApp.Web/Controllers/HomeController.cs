@@ -44,6 +44,11 @@ namespace GoceTransportApp.Web.Controllers
             return this.View();
         }
 
+        public IActionResult OrganizationGuide()
+        {
+            return this.View();
+        }
+
         [HttpGet]
         public async Task<IActionResult> NextDepartures(string fromCityId)
         {

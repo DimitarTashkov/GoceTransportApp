@@ -175,4 +175,7 @@
   <data name="Search" xml:space="preserve">
     <value>Търси</value>
   </data>
+  <data name="Organization Guide" xml:space="preserve">
+    <value>Ръководство за Организации</value>
+  </data>
 </root>

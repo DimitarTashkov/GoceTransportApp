@@ -1,0 +1,267 @@
+@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer Localizer
+
+@{
+    ViewData["Title"] = Localizer["Organization Guide"].Value;
+    ViewData["MetaDescription"] = Localizer["Step-by-step guide for transport companies to set up and manage their presence on the platform."].Value;
+}
+
+<!-- Hero -->
+<div class="text-center mb-5">
+    <span class="badge bg-primary-subtle text-primary rounded-pill px-3 py-2 mb-3 fs-6">
+        <i class="fas fa-book-open me-1"></i>@Localizer["Organization Guide"]
+    </span>
+    <h1 class="fw-bold display-6 mb-2">@Localizer["How to Use Goce Transport as an Organization"]</h1>
+    <p class="text-muted lead mb-0">@Localizer["Step-by-step guide for transport companies to set up and manage their presence on the platform."]</p>
+</div>
+
+<!-- Quick-nav cards -->
+<div class="row g-3 mb-5">
+    <div class="col-6 col-md-3">
+        <a href="#step-register" class="card h-100 border-0 shadow-sm text-center text-decoration-none rounded-4 p-3">
+            <div class="fs-2 mb-2 text-primary"><i class="fas fa-building"></i></div>
+            <div class="fw-semibold small">1. @Localizer["Register"]</div>
+        </a>
+    </div>
+    <div class="col-6 col-md-3">
+        <a href="#step-routes" class="card h-100 border-0 shadow-sm text-center text-decoration-none rounded-4 p-3">
+            <div class="fs-2 mb-2 text-success"><i class="fas fa-route"></i></div>
+            <div class="fw-semibold small">2. @Localizer["Routes"]</div>
+        </a>
+    </div>
+    <div class="col-6 col-md-3">
+        <a href="#step-schedules" class="card h-100 border-0 shadow-sm text-center text-decoration-none rounded-4 p-3">
+            <div class="fs-2 mb-2 text-warning"><i class="fas fa-calendar-alt"></i></div>
+            <div class="fw-semibold small">3. @Localizer["Schedules"]</div>
+        </a>
+    </div>
+    <div class="col-6 col-md-3">
+        <a href="#step-plans" class="card h-100 border-0 shadow-sm text-center text-decoration-none rounded-4 p-3">
+            <div class="fs-2 mb-2 text-danger"><i class="fas fa-gem"></i></div>
+            <div class="fw-semibold small">4. @Localizer["Plans"]</div>
+        </a>
+    </div>
+</div>
+
+<!-- Step 1: Register -->
+<section id="step-register" class="mb-5">
+    <div class="d-flex align-items-center gap-3 mb-3">
+        <div class="rounded-circle bg-primary text-white d-flex align-items-center justify-content-center fw-bold flex-shrink-0" style="width:42px;height:42px;">1</div>
+        <h2 class="fw-bold mb-0">@Localizer["Register Your Organization"]</h2>
+    </div>
+    <div class="card border-0 shadow-sm rounded-4 p-4">
+        <p class="text-muted mb-3">@Localizer["Create an account, then register your transport company in a few clicks."]</p>
+        <ol class="mb-3">
+            <li class="mb-2">@Localizer["Create a personal account (Register button, top right)."]</li>
+            <li class="mb-2">@Localizer["Go to"] <strong>@Localizer["Organizations → Register Organization"]</strong> @Localizer["from the top menu or footer."]</li>
+            <li class="mb-2">@Localizer["Fill in your company name, phone, email, and optionally upload a logo."]</li>
+            <li class="mb-2">@Localizer["Submit — your organization is now live and visible to passengers."]</li>
+        </ol>
+        <div class="alert alert-info border-0 rounded-3 mb-0" role="alert">
+            <i class="fas fa-info-circle me-2"></i>
+            @Localizer["New organizations start with a free 14-day Pro trial — no credit card required. After the trial you can stay on the Free plan or upgrade."]
+        </div>
+    </div>
+</section>
+
+<!-- Step 2: Routes -->
+<section id="step-routes" class="mb-5">
+    <div class="d-flex align-items-center gap-3 mb-3">
+        <div class="rounded-circle bg-success text-white d-flex align-items-center justify-content-center fw-bold flex-shrink-0" style="width:42px;height:42px;">2</div>
+        <h2 class="fw-bold mb-0">@Localizer["Add Routes"]</h2>
+    </div>
+    <div class="card border-0 shadow-sm rounded-4 p-4">
+        <p class="text-muted mb-3">@Localizer["Routes define the origin and destination cities your buses travel between."]</p>
+        <ol class="mb-3">
+            <li class="mb-2">@Localizer["Open your organization from"] <strong>@Localizer["My Organizations"]</strong> @Localizer["(top-right menu → Organization Dashboard)."]</li>
+            <li class="mb-2">@Localizer["Click"] <strong>@Localizer["Add Route"]</strong>.</li>
+            <li class="mb-2">@Localizer["Select the departure city and the destination city from the dropdown lists."]</li>
+            <li class="mb-2">@Localizer["Save — the route appears on the public Routes page immediately."]</li>
+        </ol>
+        <div class="alert alert-warning border-0 rounded-3 mb-0" role="alert">
+            <i class="fas fa-exclamation-triangle me-2"></i>
+            <strong>@Localizer["Plan limit:"]</strong> @Localizer["Free plan — 2 routes. Starter — 10. Pro and Enterprise — unlimited."]
+        </div>
+    </div>
+</section>
+
+<!-- Step 3: Schedules -->
+<section id="step-schedules" class="mb-5">
+    <div class="d-flex align-items-center gap-3 mb-3">
+        <div class="rounded-circle bg-warning text-dark d-flex align-items-center justify-content-center fw-bold flex-shrink-0" style="width:42px;height:42px;">3</div>
+        <h2 class="fw-bold mb-0">@Localizer["Create Schedules"]</h2>
+    </div>
+    <div class="card border-0 shadow-sm rounded-4 p-4">
+        <p class="text-muted mb-3">@Localizer["Schedules attach departure times, prices, and available seats to a route."]</p>
+        <ol class="mb-3">
+            <li class="mb-2">@Localizer["Navigate to"] <strong>@Localizer["Schedules → Add Schedule"]</strong>.</li>
+            <li class="mb-2">@Localizer["Select the route this schedule belongs to."]</li>
+            <li class="mb-2">@Localizer["Set departure time, arrival time, ticket price, and total seat count."]</li>
+            <li class="mb-2">@Localizer["Choose which days of the week the schedule repeats."]</li>
+            <li class="mb-2">@Localizer["Save — passengers can now find and book this departure."]</li>
+        </ol>
+        <div class="alert alert-warning border-0 rounded-3 mb-0" role="alert">
+            <i class="fas fa-exclamation-triangle me-2"></i>
+            <strong>@Localizer["Plan limit:"]</strong> @Localizer["Free plan — 5 schedules. Starter — 30. Pro and Enterprise — unlimited."]
+        </div>
+    </div>
+</section>
+
+<!-- Step 4: Tickets -->
+<section id="step-tickets" class="mb-5">
+    <div class="d-flex align-items-center gap-3 mb-3">
+        <div class="rounded-circle bg-info text-white d-flex align-items-center justify-content-center fw-bold flex-shrink-0" style="width:42px;height:42px;">4</div>
+        <h2 class="fw-bold mb-0">@Localizer["Manage Tickets"]</h2>
+    </div>
+    <div class="card border-0 shadow-sm rounded-4 p-4">
+        <p class="text-muted mb-3">@Localizer["Passengers book tickets through the platform. Here is how to track them."]</p>
+        <ul class="mb-3">
+            <li class="mb-2">@Localizer["All booked tickets are visible under"] <strong>@Localizer["Tickets"]</strong> @Localizer["in the main menu."]</li>
+            <li class="mb-2">@Localizer["Each ticket shows the passenger name, route, departure time, and seat."]</li>
+            <li class="mb-2">@Localizer["You can cancel a ticket from the ticket detail page if needed."]</li>
+        </ul>
+        <div class="alert alert-info border-0 rounded-3 mb-0" role="alert">
+            <i class="fas fa-ticket-alt me-2"></i>
+            @Localizer["Passengers receive a confirmation notification when they book. Seat availability updates in real time."]
+        </div>
+    </div>
+</section>
+
+<!-- Step 5: Plans -->
+<section id="step-plans" class="mb-5">
+    <div class="d-flex align-items-center gap-3 mb-3">
+        <div class="rounded-circle bg-danger text-white d-flex align-items-center justify-content-center fw-bold flex-shrink-0" style="width:42px;height:42px;">5</div>
+        <h2 class="fw-bold mb-0">@Localizer["Subscription Plans"]</h2>
+    </div>
+    <div class="row g-3">
+        <!-- Free -->
+        <div class="col-md-3">
+            <div class="card border-0 shadow-sm rounded-4 h-100 p-4">
+                <h5 class="fw-bold mb-1">Free <span class="badge bg-secondary ms-1">€0</span></h5>
+                <p class="text-muted small mb-3">@Localizer["For individual operators"]</p>
+                <ul class="list-unstyled small mb-0">
+                    <li class="mb-1"><i class="fas fa-check text-success me-2"></i>1 @Localizer["Organization"]</li>
+                    <li class="mb-1"><i class="fas fa-check text-success me-2"></i>2 @Localizer["Routes"]</li>
+                    <li class="mb-1"><i class="fas fa-check text-success me-2"></i>5 @Localizer["Schedules"]</li>
+                    <li class="mb-1"><i class="fas fa-check text-success me-2"></i>@Localizer["Basic Analytics"]</li>
+                    <li class="mb-1 text-muted"><i class="fas fa-times text-danger me-2"></i>@Localizer["Real-Time Notifications"]</li>
+                    <li class="mb-1 text-muted"><i class="fas fa-times text-danger me-2"></i>@Localizer["Priority Support"]</li>
+                </ul>
+            </div>
+        </div>
+        <!-- Starter -->
+        <div class="col-md-3">
+            <div class="card border-success border-2 shadow-sm rounded-4 h-100 p-4">
+                <h5 class="fw-bold mb-1 text-success">Starter <span class="badge bg-success ms-1">€9.99/@Localizer["mo"]</span></h5>
+                <p class="text-muted small mb-3">@Localizer["For small operators"]</p>
+                <ul class="list-unstyled small mb-0">
+                    <li class="mb-1"><i class="fas fa-check text-success me-2"></i>2 @Localizer["Organizations"]</li>
+                    <li class="mb-1"><i class="fas fa-check text-success me-2"></i>10 @Localizer["Routes"]</li>
+                    <li class="mb-1"><i class="fas fa-check text-success me-2"></i>30 @Localizer["Schedules"]</li>
+                    <li class="mb-1"><i class="fas fa-check text-success me-2"></i>@Localizer["Extended Analytics"]</li>
+                    <li class="mb-1"><i class="fas fa-check text-success me-2"></i>@Localizer["Real-Time Notifications"]</li>
+                    <li class="mb-1"><i class="fas fa-check text-success me-2"></i>@Localizer["Email Support (48h)"]</li>
+                </ul>
+            </div>
+        </div>
+        <!-- Pro -->
+        <div class="col-md-3">
+            <div class="card border-primary border-2 shadow rounded-4 h-100 p-4 position-relative">
+                <span class="position-absolute top-0 start-50 translate-middle badge bg-primary rounded-pill px-3">@Localizer["Most Popular"]</span>
+                <h5 class="fw-bold mb-1 text-primary mt-2">Pro <span class="badge bg-primary ms-1">€24.99/@Localizer["mo"]</span></h5>
+                <p class="text-muted small mb-3">@Localizer["For growing businesses"]</p>
+                <ul class="list-unstyled small mb-0">
+                    <li class="mb-1"><i class="fas fa-check text-success me-2"></i>5 @Localizer["Organizations"]</li>
+                    <li class="mb-1"><i class="fas fa-check text-success me-2"></i>@Localizer["Unlimited"] @Localizer["Routes"]</li>
+                    <li class="mb-1"><i class="fas fa-check text-success me-2"></i>@Localizer["Unlimited"] @Localizer["Schedules"]</li>
+                    <li class="mb-1"><i class="fas fa-check text-success me-2"></i>@Localizer["Full Analytics + Export"]</li>
+                    <li class="mb-1"><i class="fas fa-check text-success me-2"></i>@Localizer["Real-Time Notifications"]</li>
+                    <li class="mb-1"><i class="fas fa-check text-success me-2"></i>@Localizer["Email Support (24h)"]</li>
+                </ul>
+            </div>
+        </div>
+        <!-- Enterprise -->
+        <div class="col-md-3">
+            <div class="card border-0 shadow-sm rounded-4 h-100 p-4 bg-dark text-white">
+                <h5 class="fw-bold mb-1">Enterprise <span class="badge bg-warning text-dark ms-1">€49.99/@Localizer["mo"]</span></h5>
+                <p class="text-white-50 small mb-3">@Localizer["For large fleets"]</p>
+                <ul class="list-unstyled small mb-0">
+                    <li class="mb-1"><i class="fas fa-check text-success me-2"></i>@Localizer["Unlimited"] @Localizer["Organizations"]</li>
+                    <li class="mb-1"><i class="fas fa-check text-success me-2"></i>@Localizer["Unlimited"] @Localizer["Routes"]</li>
+                    <li class="mb-1"><i class="fas fa-check text-success me-2"></i>@Localizer["Unlimited"] @Localizer["Schedules"]</li>
+                    <li class="mb-1"><i class="fas fa-check text-success me-2"></i>@Localizer["Full Analytics + API"]</li>
+                    <li class="mb-1"><i class="fas fa-check text-success me-2"></i>@Localizer["Real-Time Notifications"]</li>
+                    <li class="mb-1"><i class="fas fa-check text-success me-2"></i>@Localizer["Phone + Chat Support (4h)"]</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="text-center mt-4">
+        <a asp-controller="Organization" asp-action="Upgrade" class="btn btn-primary rounded-pill px-4 fw-semibold">
+            <i class="fas fa-gem me-2"></i>@Localizer["See Pricing & Upgrade"]
+        </a>
+    </div>
+</section>
+
+<!-- Analytics section -->
+<section id="step-analytics" class="mb-5">
+    <div class="d-flex align-items-center gap-3 mb-3">
+        <div class="rounded-circle bg-secondary text-white d-flex align-items-center justify-content-center fw-bold flex-shrink-0" style="width:42px;height:42px;">6</div>
+        <h2 class="fw-bold mb-0">@Localizer["Analytics Dashboard"]</h2>
+    </div>
+    <div class="card border-0 shadow-sm rounded-4 p-4">
+        <p class="text-muted mb-3">@Localizer["Starter, Pro and Enterprise organizations get access to detailed statistics for each organization."]</p>
+        <div class="row g-3">
+            <div class="col-sm-6">
+                <div class="d-flex gap-3 align-items-start">
+                    <div class="text-primary fs-4 flex-shrink-0"><i class="fas fa-chart-line"></i></div>
+                    <div>
+                        <div class="fw-semibold">@Localizer["Ticket Revenue"]</div>
+                        <div class="text-muted small">@Localizer["Track total revenue, tickets sold, and trends over time."]</div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="d-flex gap-3 align-items-start">
+                    <div class="text-success fs-4 flex-shrink-0"><i class="fas fa-users"></i></div>
+                    <div>
+                        <div class="fw-semibold">@Localizer["Passenger Insights"]</div>
+                        <div class="text-muted small">@Localizer["See which routes are most popular and when."]</div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="d-flex gap-3 align-items-start">
+                    <div class="text-warning fs-4 flex-shrink-0"><i class="fas fa-envelope"></i></div>
+                    <div>
+                        <div class="fw-semibold">@Localizer["Email Campaigns"]</div>
+                        <div class="text-muted small">@Localizer["Automated trial expiry reminders sent to your passengers."]</div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="d-flex gap-3 align-items-start">
+                    <div class="text-info fs-4 flex-shrink-0"><i class="fas fa-tachometer-alt"></i></div>
+                    <div>
+                        <div class="fw-semibold">@Localizer["Organization Dashboard"]</div>
+                        <div class="text-muted small">@Localizer["One-stop overview of all your routes, schedules, and tickets."]</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- CTA -->
+<div class="card border-0 bg-primary text-white rounded-4 p-5 text-center mb-2">
+    <h3 class="fw-bold mb-2">@Localizer["Ready to get started?"]</h3>
+    <p class="mb-4 text-white-50">@Localizer["Register your organization today — free, no credit card required."]</p>
+    <div class="d-flex gap-3 justify-content-center flex-wrap">
+        <a asp-controller="Organization" asp-action="Create" class="btn btn-light text-primary fw-semibold rounded-pill px-4">
+            <i class="fas fa-plus-circle me-2"></i>@Localizer["Register Organization"]
+        </a>
+        <a asp-controller="ContactForm" asp-action="Create" class="btn btn-outline-light fw-semibold rounded-pill px-4">
+            <i class="fas fa-question-circle me-2"></i>@Localizer["Ask a Question"]
+        </a>
+    </div>
+</div>

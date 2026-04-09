@@ -108,4 +108,5 @@
   <data name="Travel Illustration" xml:space="preserve"><value>Илюстрация за пътуване</value></data>
   <data name="Loading..." xml:space="preserve"><value>Зареждане...</value></data>
   <data name="Unable to load departures." xml:space="preserve"><value>Неуспешно зареждане на тръгвания.</value></data>
+  <data name="Features" xml:space="preserve"><value>Функционалности</value></data>
 </root>

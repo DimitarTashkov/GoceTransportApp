@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/2001/XMLSchema" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype"><value>text/microsoft-resx</value></resheader>
+  <resheader name="version"><value>2.0</value></resheader>
+  <resheader name="reader"><value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+  <resheader name="writer"><value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+
+  <data name="Organization Guide" xml:space="preserve"><value>Ръководство за Организации</value></data>
+  <data name="How to Use Goce Transport as an Organization" xml:space="preserve"><value>Как да Използвате Goce Transport като Организация</value></data>
+  <data name="Step-by-step guide for transport companies to set up and manage their presence on the platform." xml:space="preserve"><value>Стъпка по стъпка ръководство за транспортни компании за настройване и управление на тяхното присъствие в платформата.</value></data>
+
+  <data name="Register" xml:space="preserve"><value>Регистрация</value></data>
+  <data name="Routes" xml:space="preserve"><value>Маршрути</value></data>
+  <data name="Schedules" xml:space="preserve"><value>Разписания</value></data>
+  <data name="Plans" xml:space="preserve"><value>Планове</value></data>
+
+  <data name="Register Your Organization" xml:space="preserve"><value>Регистрирайте Организацията Си</value></data>
+  <data name="Create an account, then register your transport company in a few clicks." xml:space="preserve"><value>Създайте акаунт, след което регистрирайте транспортната си компания с няколко клика.</value></data>
+  <data name="Create a personal account (Register button, top right)." xml:space="preserve"><value>Създайте личен акаунт (бутон Регистрация, горе вдясно).</value></data>
+  <data name="Go to" xml:space="preserve"><value>Отидете в</value></data>
+  <data name="Organizations → Register Organization" xml:space="preserve"><value>Организации → Регистрирай Организация</value></data>
+  <data name="from the top menu or footer." xml:space="preserve"><value>от горното меню или footer-а.</value></data>
+  <data name="Fill in your company name, phone, email, and optionally upload a logo." xml:space="preserve"><value>Попълнете името на компанията, телефон, имейл и по желание качете лого.</value></data>
+  <data name="Submit — your organization is now live and visible to passengers." xml:space="preserve"><value>Изпратете — организацията ви е активна и видима за пътниците.</value></data>
+  <data name="New organizations start with a free 14-day Pro trial — no credit card required. After the trial you can stay on the Free plan or upgrade." xml:space="preserve"><value>Новите организации започват с безплатен 14-дневен Pro пробен период — без кредитна карта. След изтичането му можете да останете на Free плана или да надградите.</value></data>
+
+  <data name="Add Routes" xml:space="preserve"><value>Добавете Маршрути</value></data>
+  <data name="Routes define the origin and destination cities your buses travel between." xml:space="preserve"><value>Маршрутите определят началния и крайния град, между които пътуват вашите автобуси.</value></data>
+  <data name="Open your organization from" xml:space="preserve"><value>Отворете организацията си от</value></data>
+  <data name="My Organizations" xml:space="preserve"><value>Моите Организации</value></data>
+  <data name="(top-right menu → Organization Dashboard)." xml:space="preserve"><value>(горно дясно меню → Табло на Организацията).</value></data>
+  <data name="Click" xml:space="preserve"><value>Кликнете</value></data>
+  <data name="Add Route" xml:space="preserve"><value>Добави Маршрут</value></data>
+  <data name="Select the departure city and the destination city from the dropdown lists." xml:space="preserve"><value>Изберете началния и крайния град от падащите списъци.</value></data>
+  <data name="Save — the route appears on the public Routes page immediately." xml:space="preserve"><value>Запазете — маршрутът се появява веднага на публичната страница с маршрути.</value></data>
+  <data name="Plan limit:" xml:space="preserve"><value>Ограничение на плана:</value></data>
+  <data name="Free plan — 2 routes. Starter — 10. Pro and Enterprise — unlimited." xml:space="preserve"><value>Free план — 2 маршрута. Starter — 10. Pro и Enterprise — неограничен брой.</value></data>
+
+  <data name="Create Schedules" xml:space="preserve"><value>Създайте Разписания</value></data>
+  <data name="Schedules attach departure times, prices, and available seats to a route." xml:space="preserve"><value>Разписанията задават часове на тръгване, цени и налични места към даден маршрут.</value></data>
+  <data name="Navigate to" xml:space="preserve"><value>Отидете в</value></data>
+  <data name="Schedules → Add Schedule" xml:space="preserve"><value>Разписания → Добави Разписание</value></data>
+  <data name="Select the route this schedule belongs to." xml:space="preserve"><value>Изберете маршрута, към който принадлежи разписанието.</value></data>
+  <data name="Set departure time, arrival time, ticket price, and total seat count." xml:space="preserve"><value>Задайте час на тръгване, час на пристигане, цена на билет и брой места.</value></data>
+  <data name="Choose which days of the week the schedule repeats." xml:space="preserve"><value>Изберете в кои дни от седмицата се повтаря разписанието.</value></data>
+  <data name="Save — passengers can now find and book this departure." xml:space="preserve"><value>Запазете — пътниците вече могат да намерят и резервират това тръгване.</value></data>
+  <data name="Free plan — 5 schedules. Starter — 30. Pro and Enterprise — unlimited." xml:space="preserve"><value>Free план — 5 разписания. Starter — 30. Pro и Enterprise — неограничен брой.</value></data>
+
+  <data name="Manage Tickets" xml:space="preserve"><value>Управление на Билети</value></data>
+  <data name="Passengers book tickets through the platform. Here is how to track them." xml:space="preserve"><value>Пътниците купуват билети чрез платформата. Ето как да ги проследявате.</value></data>
+  <data name="All booked tickets are visible under" xml:space="preserve"><value>Всички закупени билети са видими в</value></data>
+  <data name="Tickets" xml:space="preserve"><value>Билети</value></data>
+  <data name="in the main menu." xml:space="preserve"><value>в главното меню.</value></data>
+  <data name="Each ticket shows the passenger name, route, departure time, and seat." xml:space="preserve"><value>Всеки билет показва името на пътника, маршрут, час на тръгване и място.</value></data>
+  <data name="You can cancel a ticket from the ticket detail page if needed." xml:space="preserve"><value>Можете да анулирате билет от страницата с детайли, ако е необходимо.</value></data>
+  <data name="Passengers receive a confirmation notification when they book. Seat availability updates in real time." xml:space="preserve"><value>Пътниците получават потвърдително известие при покупка. Наличността на места се обновява в реално време.</value></data>
+
+  <data name="Subscription Plans" xml:space="preserve"><value>Абонаментни Планове</value></data>
+  <data name="For individual operators" xml:space="preserve"><value>За индивидуални оператори</value></data>
+  <data name="Organization" xml:space="preserve"><value>Организация</value></data>
+  <data name="Organizations" xml:space="preserve"><value>Организации</value></data>
+  <data name="Basic Analytics" xml:space="preserve"><value>Базово Аналитично Табло</value></data>
+  <data name="Real-Time Notifications" xml:space="preserve"><value>Известия в Реално Време</value></data>
+  <data name="Priority Support" xml:space="preserve"><value>Приоритетна Поддръжка</value></data>
+  <data name="For small operators" xml:space="preserve"><value>За малки оператори</value></data>
+  <data name="Extended Analytics" xml:space="preserve"><value>Разширено Аналитично Табло</value></data>
+  <data name="Email Support (48h)" xml:space="preserve"><value>Имейл Поддръжка (48ч)</value></data>
+  <data name="Most Popular" xml:space="preserve"><value>Най-популярен</value></data>
+  <data name="For growing businesses" xml:space="preserve"><value>За растящи бизнеси</value></data>
+  <data name="Unlimited" xml:space="preserve"><value>Неограничен</value></data>
+  <data name="Full Analytics + Export" xml:space="preserve"><value>Пълно Табло + Експорт</value></data>
+  <data name="Email Support (24h)" xml:space="preserve"><value>Имейл Поддръжка (24ч)</value></data>
+  <data name="For large fleets" xml:space="preserve"><value>За големи автопаркове</value></data>
+  <data name="Full Analytics + API" xml:space="preserve"><value>Пълно Табло + API</value></data>
+  <data name="Phone + Chat Support (4h)" xml:space="preserve"><value>Телефон + Чат (4ч)</value></data>
+  <data name="mo" xml:space="preserve"><value>мес</value></data>
+  <data name="See Pricing &amp; Upgrade" xml:space="preserve"><value>Виж Цените и Надгради</value></data>
+
+  <data name="Analytics Dashboard" xml:space="preserve"><value>Аналитично Табло</value></data>
+  <data name="Starter, Pro and Enterprise organizations get access to detailed statistics for each organization." xml:space="preserve"><value>Организациите на Starter, Pro и Enterprise получават достъп до подробна статистика за всяка организация.</value></data>
+  <data name="Ticket Revenue" xml:space="preserve"><value>Приходи от Билети</value></data>
+  <data name="Track total revenue, tickets sold, and trends over time." xml:space="preserve"><value>Проследявайте общите приходи, продадените билети и тенденциите с времето.</value></data>
+  <data name="Passenger Insights" xml:space="preserve"><value>Анализ на Пътници</value></data>
+  <data name="See which routes are most popular and when." xml:space="preserve"><value>Вижте кои маршрути са най-популярни и кога.</value></data>
+  <data name="Email Campaigns" xml:space="preserve"><value>Имейл Кампании</value></data>
+  <data name="Automated trial expiry reminders sent to your passengers." xml:space="preserve"><value>Автоматични напомняния за изтичане на пробния период, изпратени до вашите пътници.</value></data>
+  <data name="Organization Dashboard" xml:space="preserve"><value>Табло на Организацията</value></data>
+  <data name="One-stop overview of all your routes, schedules, and tickets." xml:space="preserve"><value>Единен преглед на всички ваши маршрути, разписания и билети.</value></data>
+
+  <data name="Ready to get started?" xml:space="preserve"><value>Готови ли сте да започнете?</value></data>
+  <data name="Register your organization today — free, no credit card required." xml:space="preserve"><value>Регистрирайте организацията си днес — безплатно, без кредитна карта.</value></data>
+  <data name="Register Organization" xml:space="preserve"><value>Регистрирай Организация</value></data>
+  <data name="Ask a Question" xml:space="preserve"><value>Задайте Въпрос</value></data>
+</root>

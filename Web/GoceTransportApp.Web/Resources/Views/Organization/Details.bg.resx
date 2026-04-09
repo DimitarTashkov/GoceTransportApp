@@ -80,4 +80,5 @@
   <data name="Your 14-day Pro trial expires in {0} day(s)." xml:space="preserve"><value>Вашият 14-дневен Pro trial изтича след {0} ден(а).</value></data>
   <data name="Upgrade Now" xml:space="preserve"><value>Надградете Сега</value></data>
   <data name="Analytics" xml:space="preserve"><value>Анализи</value></data>
+  <data name="Organization Guide" xml:space="preserve"><value>Ръководство за Организации</value></data>
 </root>

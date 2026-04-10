@@ -1,0 +1,22 @@
+@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer Localizer
+
+@{
+    ViewData["Title"] = Localizer["Subscription Cancelled"].Value;
+}
+
+<section class="py-5 text-center">
+    <div class="mb-4">
+        <i class="fas fa-times-circle fa-5x text-warning"></i>
+    </div>
+    <h1 class="display-5 fw-bold mb-3">@Localizer["Payment Cancelled"]</h1>
+    <p class="lead text-muted col-lg-6 mx-auto mb-4">
+        @Localizer["No payment was made. You can try again at any time."]
+    </p>
+    <a asp-area="" asp-controller="Organization" asp-action="Upgrade" class="btn btn-outline-primary rounded-pill px-5 py-2 me-2">
+        <i class="fas fa-arrow-left me-1"></i> @Localizer["Back to Plans"]
+    </a>
+    <a asp-area="" asp-controller="Organization" asp-action="Index" class="btn btn-outline-secondary rounded-pill px-5 py-2">
+        <i class="fas fa-building me-1"></i> @Localizer["Go to Organizations"]
+    </a>
+</section>

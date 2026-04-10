@@ -74,6 +74,7 @@ namespace GoceTransportApp.Web
                 var builder = WebApplication.CreateBuilder(args);
                 builder.Host.UseSerilog();
                 ConfigureServices(builder.Services, builder.Configuration);
+                Stripe.StripeConfiguration.ApiKey = builder.Configuration["Stripe:SecretKey"];
                 var app = builder.Build();
                 Configure(app);
                 app.Run();

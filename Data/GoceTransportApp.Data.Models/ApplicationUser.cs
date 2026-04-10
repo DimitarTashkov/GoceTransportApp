@@ -57,6 +57,12 @@ namespace GoceTransportApp.Data.Models
 
         public MembershipTier MembershipTier { get; set; } = MembershipTier.Free;
 
+        [MaxLength(200)]
+        public string? StripeCustomerId { get; set; }
+
+        [MaxLength(200)]
+        public string? StripeSubscriptionId { get; set; }
+
         public HashSet<UserTicket> UsersTickets { get; set; }
         = new HashSet<UserTicket>();
 

@@ -1,5 +1,5 @@
 // Service Worker — Goce Transport PWA
-const CACHE_VERSION = 'v1';
+const CACHE_VERSION = 'v2';
 const STATIC_CACHE = 'goce-static-' + CACHE_VERSION;
 const DYNAMIC_CACHE = 'goce-dynamic-' + CACHE_VERSION;
 
@@ -69,9 +69,18 @@ self.addEventListener('fetch', event => {
         return;
     }
 
-    // HTML pages → Network First with cache fallback
-    if (request.headers.get('accept')?.includes('text/html')) {
+    // Page navigations (standalone PWA + browser) → Network First with cache fallback
+    // Use request.mode === 'navigate' (more reliable than Accept header check)
+    // In standalone mode fetch(request) with navigate mode can fail on Android Chrome;
+    // networkFirstWithFallback uses fetch(request.url) to avoid this.
+    if (request.mode === 'navigate') {
         event.respondWith(networkFirstWithFallback(request));
+        return;
+    }
+
+    // Other HTML requests (AJAX partials, etc.) → Network First
+    if (request.headers.get('accept')?.includes('text/html')) {
+        event.respondWith(networkFirst(request));
         return;
     }
 
@@ -115,15 +124,19 @@ async function networkFirst(request) {
 
 async function networkFirstWithFallback(request) {
     try {
-        const response = await fetch(request);
+        // Use request.url (string) + explicit credentials instead of the raw request object.
+        // Passing a navigate-mode request directly to fetch() can silently fail in
+        // standalone PWA mode on Android Chrome, causing blank pages / errors for
+        // pages like /schedule or /organization.
+        const response = await fetch(request.url, { credentials: 'same-origin' });
         if (response.ok) {
             const cache = await caches.open(DYNAMIC_CACHE);
-            cache.put(request, response.clone());
+            cache.put(request.url, response.clone());
         }
         return response;
     } catch {
-        // Try exact page from cache
-        const cached = await caches.match(request);
+        // Try exact page from cache (keyed by URL string)
+        const cached = await caches.match(request.url) || await caches.match(request);
         if (cached) return cached;
 
         // Fallback to homepage

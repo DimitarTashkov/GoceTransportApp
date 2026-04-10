@@ -76,8 +76,9 @@
         e.preventDefault();
         deferredPrompt = e;
 
-        // Show the desktop install button
-        if (installBtn) {
+        // Show the desktop install button — only on large screens (lg ≥ 992px)
+        // On mobile the hamburger button is used; showing both would create duplicates
+        if (installBtn && window.matchMedia('(min-width: 992px)').matches) {
             installBtn.classList.remove('d-none');
         }
 

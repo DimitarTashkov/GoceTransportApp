@@ -113,9 +113,23 @@
                                 </button>
                             </li>
                         </ul>
+                        <!-- PWA Install — visible only in hamburger menu on mobile, shown by JS -->
+                        <ul class="navbar-nav d-lg-none border-top pt-2 mt-1 d-none" id="pwaHamburgerWrapper">
+                            <li class="nav-item px-3 py-1">
+                                <button id="pwaInstallBtnHamburger" class="btn btn-outline-primary btn-sm d-flex align-items-center gap-2 w-100 rounded-3" aria-label="Install app">
+                                    <i class="fas fa-download"></i>
+                                    <span class="fw-semibold small">@Localizer["Install App"]</span>
+                                </button>
+                            </li>
+                        </ul>
                     </ul>
 
                     <div class="d-flex align-items-center gap-2">
+                        <button id="pwaInstallBtn" class="btn btn-outline-primary btn-sm rounded-pill px-3 fw-semibold d-none d-lg-inline-flex align-items-center gap-1" aria-label="Install app">
+                            <i class="fas fa-download"></i>
+                            <span class="d-none d-xl-inline">@Localizer["Install App"]</span>
+                        </button>
+
                         <a asp-area="" asp-controller="Schedule" asp-action="Index" class="btn btn-primary btn-sm rounded-pill px-3 fw-semibold d-none d-lg-inline-block">
                             <i class="fas fa-search me-1"></i>@Localizer["Find a Bus"]
                         </a>
@@ -271,6 +285,49 @@
     <!-- Bottom nav spacer on mobile -->
     <div class="d-block d-lg-none" style="height:64px;"></div>
 
+    <!-- iOS PWA Install Modal -->
+    <div class="modal fade" id="iosInstallModal" tabindex="-1" aria-labelledby="iosInstallModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content rounded-4 border-0 shadow">
+                <div class="modal-header border-0 pb-0">
+                    <h5 class="modal-title fw-bold" id="iosInstallModalLabel">
+                        <i class="fas fa-download text-primary me-2"></i>Инсталирай приложението
+                    </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body pt-2">
+                    <p class="text-muted small mb-3">Добави Goce Transport на началния екран за бърз достъп без браузър:</p>
+                    <ol class="list-unstyled">
+                        <li class="d-flex align-items-start gap-3 mb-3">
+                            <span class="badge bg-primary rounded-pill px-2 py-1 fs-6">1</span>
+                            <div>
+                                <span class="fw-semibold">Натисни бутона "Сподели"</span><br>
+                                <small class="text-muted">Иконата <i class="fas fa-external-link-alt"></i> в долната лента на Safari</small>
+                            </div>
+                        </li>
+                        <li class="d-flex align-items-start gap-3 mb-3">
+                            <span class="badge bg-primary rounded-pill px-2 py-1 fs-6">2</span>
+                            <div>
+                                <span class="fw-semibold">Избери "Добави към началния екран"</span><br>
+                                <small class="text-muted">Превъртете надолу в менюто за споделяне</small>
+                            </div>
+                        </li>
+                        <li class="d-flex align-items-start gap-3">
+                            <span class="badge bg-primary rounded-pill px-2 py-1 fs-6">3</span>
+                            <div>
+                                <span class="fw-semibold">Натисни "Добави"</span><br>
+                                <small class="text-muted">Приложението ще се появи на началния екран</small>
+                            </div>
+                        </li>
+                    </ol>
+                </div>
+                <div class="modal-footer border-0 pt-0">
+                    <button type="button" class="btn btn-primary rounded-pill px-4" id="iosInstallConfirmBtn" data-bs-dismiss="modal">Разбрах</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script src="~/lib/jquery/dist/jquery.min.js" asp-append-version="true"></script>
     <script src="~/lib/jquery-validation/dist/jquery.validate.min.js" asp-append-version="true"></script>
     <script src="~/lib/jquery-validation-unobtrusive/dist/jquery.validate.unobtrusive.min.js" asp-append-version="true"></script>
@@ -280,6 +337,7 @@
     <script src="~/js/notifications.js" asp-append-version="true"></script>
     <script src="~/js/darkMode.js" asp-append-version="true"></script>
     <script src="~/js/hoverDropdown.js" asp-append-version="true"></script>
+    <script src="~/js/registerSw.js" asp-append-version="true"></script>
     @await this.RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

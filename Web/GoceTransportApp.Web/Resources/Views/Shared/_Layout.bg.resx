@@ -178,4 +178,7 @@
   <data name="Organization Guide" xml:space="preserve">
     <value>Ръководство за Организации</value>
   </data>
+  <data name="Install App" xml:space="preserve">
+    <value>Инсталирай</value>
+  </data>
 </root>

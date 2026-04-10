@@ -1,9 +1,11 @@
 {
   "name": "Goce Transport",
   "short_name": "GoceTrans",
-  "description": "Автобусни разписания и транспортни услуги",
+  "description": "Автобусни разписания и транспортни услуги за Гоце Делчев и региона",
   "start_url": "/",
+  "scope": "/",
   "display": "standalone",
+  "orientation": "portrait",
   "background_color": "#ffffff",
   "theme_color": "#0d6efd",
   "lang": "bg",
@@ -12,6 +14,41 @@
       "src": "/favicon.ico",
       "sizes": "64x64 32x32 24x24 16x16",
       "type": "image/x-icon"
+    },
+    {
+      "src": "/images/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/images/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Намери автобус",
+      "short_name": "Търсене",
+      "description": "Търси разписания",
+      "url": "/schedule/index",
+      "icons": [{ "src": "/images/icon-192.png", "sizes": "192x192" }]
+    },
+    {
+      "name": "Маршрути",
+      "short_name": "Маршрути",
+      "description": "Всички маршрути",
+      "url": "/route/index",
+      "icons": [{ "src": "/images/icon-192.png", "sizes": "192x192" }]
+    },
+    {
+      "name": "Организации",
+      "short_name": "Организации",
+      "description": "Транспортни организации",
+      "url": "/organization/index",
+      "icons": [{ "src": "/images/icon-192.png", "sizes": "192x192" }]
     }
   ],
   "categories": [ "travel", "transportation" ],

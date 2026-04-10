@@ -309,11 +309,22 @@ namespace GoceTransportApp.Web
             // Response compression — before static files and routing
             app.UseResponseCompression();
 
-            // Static files with 7-day cache
+            // Static files with 7-day cache (sw.js excluded — must not be cached)
             app.UseStaticFiles(new StaticFileOptions
             {
                 OnPrepareResponse = ctx =>
-                    ctx.Context.Response.Headers.Append("Cache-Control", "public,max-age=604800"),
+                {
+                    var path = ctx.Context.Request.Path.Value ?? string.Empty;
+                    if (path.EndsWith("sw.js", StringComparison.OrdinalIgnoreCase))
+                    {
+                        ctx.Context.Response.Headers.Append("Cache-Control", "no-cache, no-store, must-revalidate");
+                        ctx.Context.Response.Headers.Append("Service-Worker-Allowed", "/");
+                    }
+                    else
+                    {
+                        ctx.Context.Response.Headers.Append("Cache-Control", "public,max-age=604800");
+                    }
+                },
             });
 
             app.UseCookiePolicy();

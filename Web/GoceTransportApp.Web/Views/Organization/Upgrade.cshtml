@@ -26,6 +26,17 @@
                 <i class="fas fa-lock me-1"></i> @upgradeReason
             </div>
         }
+
+        <div class="d-inline-flex align-items-center gap-3 mt-4 bg-body-secondary rounded-pill px-4 py-2 shadow-sm">
+            <span class="fw-semibold small text-primary" id="monthlyLabel">@Localizer["Monthly"]</span>
+            <div class="form-check form-switch mb-0">
+                <input class="form-check-input" type="checkbox" role="switch" id="billingToggle" style="width:2.8rem;height:1.4rem;cursor:pointer;">
+            </div>
+            <span class="fw-semibold small" id="annualLabel">
+                @Localizer["Annual"]
+                <span class="badge bg-success ms-1 rounded-pill" style="font-size:0.7rem;">@Localizer["Save ~17%"]</span>
+            </span>
+        </div>
     </div>
 
     <div class="row row-cols-1 row-cols-md-2 row-cols-xl-4 g-4 justify-content-center mb-5">
@@ -69,8 +80,8 @@
                     </div>
                     <h3 class="fw-bold text-success">Starter</h3>
                     <p class="text-muted small mb-3">@Localizer["For small operators"]</p>
-                    <div class="display-5 fw-bolder mb-1">€9.99<small class="fs-6 text-muted fw-normal">/mo</small></div>
-                    <p class="text-muted small mb-4">@Localizer["Billed monthly"]</p>
+                    <div class="display-5 fw-bolder mb-1">€<span class="price-amount" data-monthly="6.99" data-annual="4.58">6.99</span><small class="fs-6 text-muted fw-normal">/mo</small></div>
+                    <p class="text-muted small mb-4 price-note" data-monthly="@Localizer["Billed monthly"]" data-annual="@Localizer["Billed annually (€54.99/yr)"]">@Localizer["Billed monthly"]</p>
 
                     <ul class="list-unstyled text-start mb-4 flex-grow-1">
                         <li class="mb-2 py-1"><i class="fas fa-check-circle text-success me-2"></i><strong>2</strong> @Localizer["Organizations"]</li>
@@ -104,8 +115,8 @@
                     </div>
                     <h3 class="fw-bold text-primary">Pro</h3>
                     <p class="text-muted small mb-3">@Localizer["For growing businesses"]</p>
-                    <div class="display-5 fw-bolder mb-1">€24.99<small class="fs-6 text-muted fw-normal">/mo</small></div>
-                    <p class="text-muted small mb-4">@Localizer["Billed monthly"]</p>
+                    <div class="display-5 fw-bolder mb-1">€<span class="price-amount" data-monthly="14.99" data-annual="10.41">14.99</span><small class="fs-6 text-muted fw-normal">/mo</small></div>
+                    <p class="text-muted small mb-4 price-note" data-monthly="@Localizer["Billed monthly"]" data-annual="@Localizer["Billed annually (€124.99/yr)"]">@Localizer["Billed monthly"]</p>
 
                     <ul class="list-unstyled text-start mb-4 flex-grow-1">
                         <li class="mb-2 py-1"><i class="fas fa-check-circle text-success me-2"></i><strong>5</strong> @Localizer["Organizations"]</li>
@@ -134,8 +145,8 @@
                     </div>
                     <h3 class="fw-bold">Enterprise</h3>
                     <p class="text-muted small mb-3">@Localizer["For large fleets"]</p>
-                    <div class="display-5 fw-bolder mb-1">€49.99<small class="fs-6 text-muted fw-normal">/mo</small></div>
-                    <p class="text-muted small mb-4">@Localizer["Billed monthly"]</p>
+                    <div class="display-5 fw-bolder mb-1">€<span class="price-amount" data-monthly="28.99" data-annual="20.00">28.99</span><small class="fs-6 text-muted fw-normal">/mo</small></div>
+                    <p class="text-muted small mb-4 price-note" data-monthly="@Localizer["Billed monthly"]" data-annual="@Localizer["Billed annually (€239.99/yr)"]">@Localizer["Billed monthly"]</p>
 
                     <ul class="list-unstyled text-start mb-4 flex-grow-1">
                         <li class="mb-2 py-1"><i class="fas fa-check-circle text-success me-2"></i><strong>@Localizer["Unlimited"]</strong> @Localizer["Organizations"]</li>
@@ -234,8 +245,30 @@
     </div>
 
     <div class="text-center">
-        <a asp-action="UserOrganizations" class="btn btn-link text-muted text-decoration-none">
-            <i class="fas fa-arrow-left me-1"></i>@Localizer["Back to My Organizations"]
+        <a asp-area="" asp-controller="Organization" asp-action="Index" class="btn btn-link text-muted text-decoration-none">
+            <i class="fas fa-arrow-left me-1"></i>@Localizer["Back to Organizations"]
         </a>
     </div>
 </section>
+
+@section Scripts {
+<script>
+    (function () {
+        var toggle = document.getElementById('billingToggle');
+        var monthlyLabel = document.getElementById('monthlyLabel');
+        var annualLabel = document.getElementById('annualLabel');
+
+        toggle.addEventListener('change', function () {
+            var mode = toggle.checked ? 'annual' : 'monthly';
+            document.querySelectorAll('.price-amount').forEach(function (el) {
+                el.textContent = el.dataset[mode];
+            });
+            document.querySelectorAll('.price-note').forEach(function (el) {
+                el.textContent = el.dataset[mode];
+            });
+            monthlyLabel.classList.toggle('text-primary', !toggle.checked);
+            annualLabel.classList.toggle('text-primary', toggle.checked);
+        });
+    })();
+</script>
+}

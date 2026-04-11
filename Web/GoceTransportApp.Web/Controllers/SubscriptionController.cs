@@ -1,9 +1,14 @@
+using GoceTransportApp.Data.Models;
+using GoceTransportApp.Web.ViewModels.Subscription;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
+using Stripe;
 using Stripe.Checkout;
 using System.Collections.Generic;
 using System.Security.Claims;
+using System.Threading.Tasks;
 
 namespace GoceTransportApp.Web.Controllers
 {
@@ -11,10 +16,12 @@ namespace GoceTransportApp.Web.Controllers
     public class SubscriptionController : Controller
     {
         private readonly IConfiguration configuration;
+        private readonly UserManager<ApplicationUser> userManager;
 
-        public SubscriptionController(IConfiguration configuration)
+        public SubscriptionController(IConfiguration configuration, UserManager<ApplicationUser> userManager)
         {
             this.configuration = configuration;
+            this.userManager = userManager;
         }
 
         [HttpPost]
@@ -57,6 +64,89 @@ namespace GoceTransportApp.Web.Controllers
             Session session = service.Create(options);
 
             return this.Redirect(session.Url);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> ManagePlan()
+        {
+            var user = await this.userManager.GetUserAsync(User);
+            if (user == null)
+            {
+                return this.Challenge();
+            }
+
+            var vm = new SubscriptionPlanViewModel
+            {
+                CurrentTier          = user.MembershipTier,
+                StripeSubscriptionId = user.StripeSubscriptionId,
+            };
+
+            if (!string.IsNullOrEmpty(user.StripeSubscriptionId))
+            {
+                var subscriptionService = new SubscriptionService();
+                Stripe.Subscription subscription = await subscriptionService.GetAsync(
+                    user.StripeSubscriptionId,
+                    new SubscriptionGetOptions { Expand = new System.Collections.Generic.List<string> { "items" } });
+
+                vm.StripeStatus      = subscription.Status;
+                vm.CancelAtPeriodEnd = subscription.CancelAtPeriodEnd;
+
+                // In Stripe.net v47+, CurrentPeriodEnd moved from Subscription to SubscriptionItem
+                var firstItem = subscription.Items?.Data?.Count > 0 ? subscription.Items.Data[0] : null;
+                vm.CurrentPeriodEnd = firstItem?.CurrentPeriodEnd;
+            }
+
+            return this.View(vm);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> CancelSubscription()
+        {
+            var user = await this.userManager.GetUserAsync(User);
+            if (user == null)
+            {
+                return this.Challenge();
+            }
+
+            if (string.IsNullOrEmpty(user.StripeSubscriptionId))
+            {
+                return this.RedirectToAction(nameof(ManagePlan));
+            }
+
+            var subscriptionService = new SubscriptionService();
+            await subscriptionService.UpdateAsync(user.StripeSubscriptionId, new SubscriptionUpdateOptions
+            {
+                CancelAtPeriodEnd = true,
+            });
+
+            TempData["SuccessMessage"] = "CancelScheduled";
+            return this.RedirectToAction(nameof(ManagePlan));
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> ResumeSubscription()
+        {
+            var user = await this.userManager.GetUserAsync(User);
+            if (user == null)
+            {
+                return this.Challenge();
+            }
+
+            if (string.IsNullOrEmpty(user.StripeSubscriptionId))
+            {
+                return this.RedirectToAction(nameof(ManagePlan));
+            }
+
+            var subscriptionService = new SubscriptionService();
+            await subscriptionService.UpdateAsync(user.StripeSubscriptionId, new SubscriptionUpdateOptions
+            {
+                CancelAtPeriodEnd = false,
+            });
+
+            TempData["SuccessMessage"] = "ResumeScheduled";
+            return this.RedirectToAction(nameof(ManagePlan));
         }
 
         [HttpGet]

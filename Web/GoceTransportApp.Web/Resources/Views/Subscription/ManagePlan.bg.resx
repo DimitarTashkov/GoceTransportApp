@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype"><value>text/microsoft-resx</value></resheader>
+  <resheader name="version"><value>2.0</value></resheader>
+  <resheader name="reader"><value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+  <resheader name="writer"><value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+  <data name="My Plan" xml:space="preserve"><value>Моят план</value></data>
+  <data name="Current plan" xml:space="preserve"><value>Текущ план</value></data>
+  <data name="Active" xml:space="preserve"><value>Активен</value></data>
+  <data name="Cancels soon" xml:space="preserve"><value>Предстои отказ</value></data>
+  <data name="Next billing date" xml:space="preserve"><value>Следващо плащане</value></data>
+  <data name="Access until" xml:space="preserve"><value>Достъп до</value></data>
+  <data name="Cancellation scheduled. Your plan will revert to Free after the billing period ends." xml:space="preserve"><value>Отказът е насрочен. Планът ви ще се върне на Free след края на периода.</value></data>
+  <data name="Resume subscription" xml:space="preserve"><value>Поднови абонамента</value></data>
+  <data name="Cancel subscription" xml:space="preserve"><value>Откажи абонамента</value></data>
+  <data name="Are you sure you want to cancel? You will keep access until the end of the billing period." xml:space="preserve"><value>Сигурни ли сте? Ще запазите достъп до края на периода.</value></data>
+  <data name="You are currently on the Free plan." xml:space="preserve"><value>В момента използвате безплатния план.</value></data>
+  <data name="Upgrade plan" xml:space="preserve"><value>Надгради плана</value></data>
+  <data name="Back to profile" xml:space="preserve"><value>Обратно към профила</value></data>
+  <data name="Back to dashboard" xml:space="preserve"><value>Обратно към таблото</value></data>
+  <data name="Change plan" xml:space="preserve"><value>Смени план</value></data>
+  <data name="Your subscription will be cancelled at the end of the billing period. You keep full access until then." xml:space="preserve"><value>Абонаментът ви ще бъде отказан в края на периода. До тогава запазвате пълен достъп.</value></data>
+  <data name="Your subscription has been resumed and will renew automatically." xml:space="preserve"><value>Абонаментът ви е подновен и ще се подновява автоматично.</value></data>
+</root>

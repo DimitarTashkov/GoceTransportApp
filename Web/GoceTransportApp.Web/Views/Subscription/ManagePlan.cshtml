@@ -1,0 +1,133 @@
+@model GoceTransportApp.Web.ViewModels.Subscription.SubscriptionPlanViewModel
+@using GoceTransportApp.Data.Models.Enumerations
+@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer Localizer
+
+@{
+    ViewData["Title"] = Localizer["My Plan"].Value;
+
+    string tierBadgeClass = Model.CurrentTier switch
+    {
+        MembershipTier.Starter    => "bg-info",
+        MembershipTier.Pro        => "bg-primary",
+        MembershipTier.Enterprise => "bg-warning text-dark",
+        _                         => "bg-secondary",
+    };
+
+    string tierIcon = Model.CurrentTier switch
+    {
+        MembershipTier.Starter    => "fas fa-rocket",
+        MembershipTier.Pro        => "fas fa-star",
+        MembershipTier.Enterprise => "fas fa-crown",
+        _                         => "fas fa-user",
+    };
+}
+
+<div class="row justify-content-center py-5">
+    <div class="col-lg-6 col-md-8">
+
+        <div class="text-center mb-4">
+            <i class="@tierIcon fa-3x text-primary mb-3"></i>
+            <h1 class="h3 fw-bold">@Localizer["My Plan"]</h1>
+        </div>
+
+        @if (TempData["SuccessMessage"]?.ToString() == "CancelScheduled")
+        {
+            <div class="alert alert-warning rounded-3 mb-4">
+                <i class="fas fa-clock me-2"></i>
+                @Localizer["Your subscription will be cancelled at the end of the billing period. You keep full access until then."]
+            </div>
+        }
+        @if (TempData["SuccessMessage"]?.ToString() == "ResumeScheduled")
+        {
+            <div class="alert alert-success rounded-3 mb-4">
+                <i class="fas fa-check-circle me-2"></i>
+                @Localizer["Your subscription has been resumed and will renew automatically."]
+            </div>
+        }
+
+        <div class="card border-0 shadow-sm rounded-4">
+            <div class="card-body p-4 p-lg-5">
+
+                @* Current plan *@
+                <div class="d-flex align-items-center justify-content-between mb-4">
+                    <div>
+                        <p class="text-muted small mb-1">@Localizer["Current plan"]</p>
+                        <span class="badge @tierBadgeClass fs-6 px-3 py-2 rounded-pill">
+                            <i class="@tierIcon me-1"></i> @Model.CurrentTier
+                        </span>
+                    </div>
+                    @if (Model.HasActiveSubscription)
+                    {
+                        <span class="badge @(Model.CancelAtPeriodEnd ? "bg-warning text-dark" : "bg-success") rounded-pill px-3 py-2">
+                            @(Model.CancelAtPeriodEnd ? Localizer["Cancels soon"] : Localizer["Active"])
+                        </span>
+                    }
+                </div>
+
+                @if (Model.HasActiveSubscription)
+                {
+                    <hr class="my-3" />
+
+                    @if (Model.CurrentPeriodEnd.HasValue)
+                    {
+                        <div class="mb-4">
+                            <p class="text-muted small mb-1">
+                                @(Model.CancelAtPeriodEnd ? Localizer["Access until"] : Localizer["Next billing date"])
+                            </p>
+                            <p class="fw-semibold mb-0">
+                                <i class="fas fa-calendar-alt me-2 text-muted"></i>
+                                @Model.CurrentPeriodEnd.Value.ToString("dd MMMM yyyy")
+                            </p>
+                        </div>
+                    }
+
+                    @if (Model.CancelAtPeriodEnd)
+                    {
+                        <div class="alert alert-warning rounded-3 mb-4">
+                            <i class="fas fa-info-circle me-2"></i>
+                            @Localizer["Cancellation scheduled. Your plan will revert to Free after the billing period ends."]
+                        </div>
+
+                        <form asp-action="ResumeSubscription" asp-controller="Subscription" method="post">
+                            <button type="submit" class="btn btn-success w-100 rounded-pill">
+                                <i class="fas fa-redo me-2"></i> @Localizer["Resume subscription"]
+                            </button>
+                        </form>
+                    }
+                    else
+                    {
+                        <div class="d-flex flex-column gap-2">
+                            <a asp-area="" asp-controller="Organization" asp-action="Upgrade"
+                               class="btn btn-primary w-100 rounded-pill">
+                                <i class="fas fa-arrow-up me-2"></i> @Localizer["Change plan"]
+                            </a>
+                            <form asp-action="CancelSubscription" asp-controller="Subscription" method="post"
+                                  onsubmit="return confirm('@Localizer["Are you sure you want to cancel? You will keep access until the end of the billing period."]')">
+                                <button type="submit" class="btn btn-outline-danger w-100 rounded-pill">
+                                    <i class="fas fa-times-circle me-2"></i> @Localizer["Cancel subscription"]
+                                </button>
+                            </form>
+                        </div>
+                    }
+                }
+                else
+                {
+                    <p class="text-muted text-center mb-4">@Localizer["You are currently on the Free plan."]</p>
+                    <a asp-area="" asp-controller="Organization" asp-action="Upgrade"
+                       class="btn btn-primary w-100 rounded-pill">
+                        <i class="fas fa-arrow-up me-2"></i> @Localizer["Upgrade plan"]
+                    </a>
+                }
+
+            </div>
+        </div>
+
+        <div class="text-center mt-3">
+            <a asp-area="" asp-controller="Dashboard" asp-action="Index" class="text-muted small">
+                <i class="fas fa-arrow-left me-1"></i> @Localizer["Back to dashboard"]
+            </a>
+        </div>
+
+    </div>
+</div>

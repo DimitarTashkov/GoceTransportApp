@@ -1,5 +1,6 @@
 namespace GoceTransportApp.Services.Messaging
 {
+    using System;
     using System.Collections.Generic;
     using System.Threading.Tasks;
 
@@ -13,6 +14,13 @@ namespace GoceTransportApp.Services.Messaging
             string htmlContent,
             IEnumerable<EmailAttachment> attachments = null)
         {
+            Console.WriteLine("=====================================================");
+            Console.WriteLine("[NullMessageSender] Email not sent (no SendGrid configured).");
+            Console.WriteLine($"  To:      {to}");
+            Console.WriteLine($"  Subject: {subject}");
+            Console.WriteLine($"  Body:    {htmlContent}");
+            Console.WriteLine("=====================================================");
+
             return Task.CompletedTask;
         }
     }

@@ -1,0 +1,27 @@
+@page
+@model Disable2faModel
+@{
+    ViewData["Title"] = Localizer["Disable two-factor authentication (2FA)"].Value;
+    ViewData["ActivePage"] = ManageNavPages.TwoFactorAuthentication;
+}
+
+<h3 class="h4 fw-bold mb-3">@ViewData["Title"]</h3>
+
+<div class="alert alert-warning rounded-3">
+    <p class="mb-0">
+        <i class="fas fa-exclamation-triangle me-2"></i>
+        <strong>@Localizer["This action only disables 2FA."]</strong>
+    </p>
+    <p class="mb-0 mt-2">
+        @Localizer["Disabling 2FA does not change the keys used in authenticator apps. If you wish to change the key used in an authenticator app you should reset your authenticator keys."]
+    </p>
+</div>
+
+<form method="post" class="d-inline">
+    <button type="submit" class="btn btn-danger rounded-pill">
+        <i class="fas fa-times me-2"></i>@Localizer["Disable 2FA"]
+    </button>
+    <a asp-page="./TwoFactorAuthentication" class="btn btn-outline-secondary rounded-pill ms-2">
+        @Localizer["Cancel"]
+    </a>
+</form>

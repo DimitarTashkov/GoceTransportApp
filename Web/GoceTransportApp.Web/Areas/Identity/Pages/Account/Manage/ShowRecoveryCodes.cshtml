@@ -1,0 +1,32 @@
+@page
+@model ShowRecoveryCodesModel
+@{
+    ViewData["Title"] = Localizer["Recovery codes"].Value;
+    ViewData["ActivePage"] = ManageNavPages.TwoFactorAuthentication;
+}
+
+<h3 class="h4 fw-bold mb-3">@ViewData["Title"]</h3>
+
+<div class="alert alert-warning rounded-3">
+    <p class="mb-2"><strong><i class="fas fa-exclamation-triangle me-2"></i>@Localizer["Put these codes in a safe place."]</strong></p>
+    <p class="mb-0">@Localizer["If you lose your device and don't have the recovery codes you will lose access to your account."]</p>
+</div>
+
+<div class="card border-0 shadow-sm rounded-4">
+    <div class="card-body p-4">
+        <div class="row g-2 font-monospace">
+            @for (var i = 0; i < Model.RecoveryCodes.Length; i++)
+            {
+                <div class="col-6 col-md-4">
+                    <code class="d-block bg-light p-2 rounded">@Model.RecoveryCodes[i]</code>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+<div class="mt-3">
+    <a asp-page="./TwoFactorAuthentication" class="btn btn-primary rounded-pill">
+        <i class="fas fa-check me-2"></i>@Localizer["I've saved the codes"]
+    </a>
+</div>

@@ -1,0 +1,37 @@
+@page
+@model LoginWithRecoveryCodeModel
+@inject IViewLocalizer Localizer
+@{
+    ViewData["Title"] = Localizer["Recovery code verification"].Value;
+}
+
+<div class="row justify-content-center py-5">
+    <div class="col-lg-5 col-md-7">
+        <div class="text-center mb-4">
+            <i class="fas fa-key fa-3x text-primary mb-3"></i>
+            <h1 class="h3 fw-bold">@Localizer["Recovery code verification"]</h1>
+            <p class="text-muted">@Localizer["Enter one of your recovery codes below."]</p>
+        </div>
+        <div class="card border-0 shadow-sm rounded-4">
+            <div class="card-body p-5">
+                <form method="post" asp-route-returnUrl="@Model.ReturnUrl">
+                    <div asp-validation-summary="ModelOnly" class="alert alert-danger rounded-3" role="alert"></div>
+
+                    <div class="form-floating mb-4">
+                        <input asp-for="Input.RecoveryCode" class="form-control rounded-3" autocomplete="off" placeholder="xxxxx-xxxxx" />
+                        <label asp-for="Input.RecoveryCode">@Localizer["Recovery Code"]</label>
+                        <span asp-validation-for="Input.RecoveryCode" class="text-danger small"></span>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary btn-lg w-100 rounded-pill">
+                        <i class="fas fa-sign-in-alt me-2"></i>@Localizer["Log in"]
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

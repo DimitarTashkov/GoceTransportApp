@@ -1,0 +1,47 @@
+@page
+@model LoginWith2faModel
+@inject IViewLocalizer Localizer
+@{
+    ViewData["Title"] = Localizer["Two-factor authentication"].Value;
+}
+
+<div class="row justify-content-center py-5">
+    <div class="col-lg-5 col-md-7">
+        <div class="text-center mb-4">
+            <i class="fas fa-shield-alt fa-3x text-primary mb-3"></i>
+            <h1 class="h3 fw-bold">@Localizer["Two-factor authentication"]</h1>
+            <p class="text-muted">@Localizer["Your login is protected with an authenticator app. Enter your authenticator code below."]</p>
+        </div>
+        <div class="card border-0 shadow-sm rounded-4">
+            <div class="card-body p-5">
+                <form method="post" asp-route-returnUrl="@Model.ReturnUrl" asp-route-rememberMe="@Model.RememberMe">
+                    <div asp-validation-summary="ModelOnly" class="alert alert-danger rounded-3" role="alert"></div>
+
+                    <div class="form-floating mb-3">
+                        <input asp-for="Input.TwoFactorCode" class="form-control rounded-3" autocomplete="one-time-code" placeholder="123456" />
+                        <label asp-for="Input.TwoFactorCode">@Localizer["Authenticator code"]</label>
+                        <span asp-validation-for="Input.TwoFactorCode" class="text-danger small"></span>
+                    </div>
+
+                    <div class="form-check mb-4">
+                        <input class="form-check-input" asp-for="Input.RememberMachine" />
+                        <label class="form-check-label" asp-for="Input.RememberMachine">@Localizer["Remember this machine"]</label>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary btn-lg w-100 rounded-pill">
+                        <i class="fas fa-sign-in-alt me-2"></i>@Localizer["Log in"]
+                    </button>
+
+                    <p class="text-center mt-3 mb-0 small">
+                        @Localizer["Don't have access to your authenticator device?"]
+                        <a asp-page="./LoginWithRecoveryCode" asp-route-returnUrl="@Model.ReturnUrl" class="text-primary fw-semibold">@Localizer["Log in with a recovery code"]</a>
+                    </p>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

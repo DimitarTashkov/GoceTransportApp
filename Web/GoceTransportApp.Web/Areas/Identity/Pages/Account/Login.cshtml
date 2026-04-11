@@ -44,7 +44,11 @@
                         <i class="fas fa-sign-in-alt me-2"></i>@Localizer["Log in"]
                     </button>
 
-                    <p class="text-center mt-4 mb-0 text-muted small">
+                    <p class="text-center mt-3 mb-0 small">
+                        <a asp-page="./ForgotPassword" class="text-primary fw-semibold">@Localizer["Forgot your password?"]</a>
+                    </p>
+
+                    <p class="text-center mt-2 mb-0 text-muted small">
                         @Localizer["Don't have an account?"]
                         <a asp-page="./Register" asp-route-returnUrl="@Model.ReturnUrl" class="text-primary fw-semibold">@Localizer["Register"]</a>
                     </p>

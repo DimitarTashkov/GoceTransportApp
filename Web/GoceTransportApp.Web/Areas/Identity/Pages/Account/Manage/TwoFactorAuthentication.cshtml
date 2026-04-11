@@ -1,0 +1,55 @@
+@page
+@model TwoFactorAuthenticationModel
+@{
+    ViewData["Title"] = Localizer["Two-factor authentication (2FA)"].Value;
+    ViewData["ActivePage"] = ManageNavPages.TwoFactorAuthentication;
+}
+
+<h3 class="h4 fw-bold mb-3">@ViewData["Title"]</h3>
+
+@if (!string.IsNullOrEmpty(Model.StatusMessage))
+{
+    <div class="alert alert-success rounded-3">@Model.StatusMessage</div>
+}
+
+@if (Model.Is2faEnabled)
+{
+    if (Model.RecoveryCodesLeft == 0)
+    {
+        <div class="alert alert-danger rounded-3">
+            <strong>@Localizer["You have no recovery codes left."]</strong>
+            <p class="mb-0">@Localizer["You must generate a new set of recovery codes before you can log in with a recovery code."]</p>
+        </div>
+    }
+    else if (Model.RecoveryCodesLeft <= 3)
+    {
+        <div class="alert alert-warning rounded-3">
+            <strong>@Localizer["You have {0} recovery codes left.", Model.RecoveryCodesLeft]</strong>
+            <p class="mb-0">@Localizer["You should generate a new set of recovery codes."]</p>
+        </div>
+    }
+
+    <div class="d-flex flex-wrap gap-2 mb-4">
+        @if (Model.IsMachineRemembered)
+        {
+            <form method="post" class="d-inline">
+                <button type="submit" class="btn btn-outline-secondary rounded-pill">@Localizer["Forget this browser"]</button>
+            </form>
+        }
+        <a asp-page="./Disable2fa" class="btn btn-outline-danger rounded-pill">@Localizer["Disable 2FA"]</a>
+    </div>
+}
+
+<h4 class="h5 fw-bold mt-4">@Localizer["Authenticator app"]</h4>
+<div class="d-flex flex-wrap gap-2">
+    @if (!Model.HasAuthenticator)
+    {
+        <a asp-page="./EnableAuthenticator" class="btn btn-primary rounded-pill">
+            <i class="fas fa-shield-alt me-2"></i>@Localizer["Add authenticator app"]
+        </a>
+    }
+    else
+    {
+        <a asp-page="./EnableAuthenticator" class="btn btn-outline-primary rounded-pill">@Localizer["Set up authenticator app"]</a>
+    }
+</div>

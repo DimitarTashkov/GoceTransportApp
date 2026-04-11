@@ -36,4 +36,5 @@
   <data name="External logins" xml:space="preserve"><value>Външни входове</value></data>
   <data name="Personal data" xml:space="preserve"><value>Лични данни</value></data>
   <data name="My Plan" xml:space="preserve"><value>Моят план</value></data>
+  <data name="Two-factor authentication" xml:space="preserve"><value>Двуфакторна автентикация</value></data>
 </root>

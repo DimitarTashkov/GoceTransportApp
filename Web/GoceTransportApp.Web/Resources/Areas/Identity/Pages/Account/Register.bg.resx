@@ -40,4 +40,6 @@
   <data name="Show passwords" xml:space="preserve"><value>Покажи паролите</value></data>
   <data name="Already have an account?" xml:space="preserve"><value>Вече имате профил?</value></data>
   <data name="Log in" xml:space="preserve"><value>Вход</value></data>
+  <data name="or" xml:space="preserve"><value>или</value></data>
+  <data name="Sign up with Google" xml:space="preserve"><value>Регистрация с Google</value></data>
 </root>

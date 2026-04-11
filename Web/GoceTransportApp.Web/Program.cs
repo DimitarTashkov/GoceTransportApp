@@ -5,6 +5,7 @@ namespace GoceTransportApp.Web
     using System.Threading.RateLimiting;
 
     using Microsoft.AspNetCore.Diagnostics.HealthChecks;
+    using Microsoft.AspNetCore.HttpOverrides;
     using Microsoft.AspNetCore.ResponseCompression;
 
     using GoceTransportApp.Data;
@@ -75,7 +76,16 @@ namespace GoceTransportApp.Web
                 builder.Host.UseSerilog();
                 ConfigureServices(builder.Services, builder.Configuration);
                 Stripe.StripeConfiguration.ApiKey = builder.Configuration["Stripe:SecretKey"];
+
+                builder.Services.Configure<ForwardedHeadersOptions>(options =>
+                {
+                    options.ForwardedHeaders = ForwardedHeaders.XForwardedProto;
+                    options.KnownNetworks.Clear();
+                    options.KnownProxies.Clear();
+                });
+
                 var app = builder.Build();
+                app.UseForwardedHeaders();
                 Configure(app);
                 app.Run();
             }
@@ -104,22 +114,20 @@ namespace GoceTransportApp.Web
                 {
                     options.ClientId = configuration["Authentication:Google:ClientId"] ?? "dummy-client-id";
                     options.ClientSecret = configuration["Authentication:Google:ClientSecret"] ?? "dummy-client-secret";
-                });
-
-            services.Configure<CookiePolicyOptions>(
-                options =>
-                {
-                    options.CheckConsentNeeded = context => true;
-                    options.MinimumSameSitePolicy = SameSiteMode.None;
+                    options.CorrelationCookie.SameSite = SameSiteMode.None;
+                    options.CorrelationCookie.SecurePolicy = CookieSecurePolicy.Always;
                 });
 
             services.ConfigureApplicationCookie(options =>
             {
-                options.Cookie.HttpOnly = true;
-                options.Cookie.SecurePolicy = CookieSecurePolicy.Always;
-                options.Cookie.SameSite = SameSiteMode.Lax;
-                options.ExpireTimeSpan = TimeSpan.FromDays(30);
-                options.SlidingExpiration = true;
+                options.Cookie.SameSite = Microsoft.AspNetCore.Http.SameSiteMode.None;
+                options.Cookie.SecurePolicy = Microsoft.AspNetCore.Http.CookieSecurePolicy.Always;
+            });
+
+            services.Configure<CookiePolicyOptions>(options =>
+            {
+                options.MinimumSameSitePolicy = Microsoft.AspNetCore.Http.SameSiteMode.None;
+                options.Secure = Microsoft.AspNetCore.Http.CookieSecurePolicy.Always;
             });
 
             services.Configure<Microsoft.AspNetCore.Http.Features.FormOptions>(options =>
@@ -306,6 +314,7 @@ namespace GoceTransportApp.Web
             // Security headers — early in pipeline
             app.UseMiddleware<SecurityHeadersMiddleware>();
             app.UseHttpsRedirection();
+            app.UseCookiePolicy();
 
             // Response compression — before static files and routing
             app.UseResponseCompression();

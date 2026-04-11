@@ -54,18 +54,18 @@
                 {
                     <div class="d-flex align-items-center my-4">
                         <hr class="flex-grow-1" />
-                        <span class="px-3 text-muted small">или</span>
+                        <span class="px-3 text-muted small">@Localizer["or"]</span>
                         <hr class="flex-grow-1" />
                     </div>
                     @if (!string.IsNullOrEmpty(Model.ErrorMessage))
                     {
                         <div class="alert alert-danger rounded-3" role="alert">
-                            <strong>Внимание:</strong> @Model.ErrorMessage
+                            <strong>@Localizer["Warning:"]</strong> @Model.ErrorMessage
                         </div>
                     }
                     <form asp-page-handler="GoogleLogin" asp-route-returnUrl="@Model.ReturnUrl" method="post">
-                        <button type="submit" class="btn btn-outline-dark w-100 mb-2 rounded-pill" title="Вход с Google">
-                            <i class="bi bi-google me-2"></i> Вход с Google
+                        <button type="submit" class="btn btn-outline-dark w-100 mb-2 rounded-pill" title="@Localizer["Sign in with Google"]">
+                            <i class="bi bi-google me-2"></i> @Localizer["Sign in with Google"]
                         </button>
                     </form>
                 }

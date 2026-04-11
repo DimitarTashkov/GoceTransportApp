@@ -1,5 +1,5 @@
 // Service Worker — Goce Transport PWA
-const CACHE_VERSION = 'v2';
+const CACHE_VERSION = 'v3';
 const STATIC_CACHE = 'goce-static-' + CACHE_VERSION;
 const DYNAMIC_CACHE = 'goce-dynamic-' + CACHE_VERSION;
 
@@ -62,6 +62,13 @@ self.addEventListener('fetch', event => {
     if (url.pathname.startsWith('/notification/')) return;
     if (url.pathname.startsWith('/home/nextdepartures')) return;
     if (url.pathname.startsWith('/schedule/search')) return;
+
+    // External auth callbacks (Google/Facebook/etc.) must reach the server as
+    // native top-level navigations so that SameSite=None correlation cookies
+    // are forwarded. Re-fetching them via the SW drops the correlation cookie
+    // and breaks the OAuth flow with "Correlation failed".
+    if (url.pathname.startsWith('/signin-') || url.pathname.startsWith('/signout-')) return;
+    if (url.pathname.startsWith('/identity/account/externallogin')) return;
 
     // Static assets → Cache First
     if (isStaticAsset(url.pathname)) {

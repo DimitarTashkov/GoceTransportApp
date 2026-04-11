@@ -39,4 +39,7 @@
   <data name="Show password" xml:space="preserve"><value>Покажи паролата</value></data>
   <data name="Don't have an account?" xml:space="preserve"><value>Нямате профил?</value></data>
   <data name="Register" xml:space="preserve"><value>Регистрация</value></data>
+  <data name="or" xml:space="preserve"><value>или</value></data>
+  <data name="Warning:" xml:space="preserve"><value>Внимание:</value></data>
+  <data name="Sign in with Google" xml:space="preserve"><value>Вход с Google</value></data>
 </root>

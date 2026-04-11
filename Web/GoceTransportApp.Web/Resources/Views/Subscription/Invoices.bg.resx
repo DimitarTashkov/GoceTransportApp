@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype"><value>text/microsoft-resx</value></resheader>
+  <resheader name="version"><value>2.0</value></resheader>
+  <resheader name="reader"><value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+  <resheader name="writer"><value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+  <data name="My Invoices" xml:space="preserve"><value>Моите фактури</value></data>
+  <data name="Download your payment invoices as PDF." xml:space="preserve"><value>Свалете своите платежни фактури в PDF формат.</value></data>
+  <data name="No invoices yet" xml:space="preserve"><value>Още нямате фактури</value></data>
+  <data name="You will see invoices here once you subscribe to a paid plan." xml:space="preserve"><value>Ще видите фактурите тук след като се абонирате за платен план.</value></data>
+  <data name="Your first invoice will appear here after the next billing cycle." xml:space="preserve"><value>Първата ви фактура ще се появи тук след следващия платежен цикъл.</value></data>
+  <data name="See plans" xml:space="preserve"><value>Виж плановете</value></data>
+  <data name="Invoice #" xml:space="preserve"><value>Номер</value></data>
+  <data name="Date" xml:space="preserve"><value>Дата</value></data>
+  <data name="Amount" xml:space="preserve"><value>Сума</value></data>
+  <data name="Status" xml:space="preserve"><value>Статус</value></data>
+  <data name="Actions" xml:space="preserve"><value>Действия</value></data>
+  <data name="Download PDF" xml:space="preserve"><value>Свали PDF</value></data>
+  <data name="View online" xml:space="preserve"><value>Виж онлайн</value></data>
+  <data name="Back to My Plan" xml:space="preserve"><value>Обратно към Моят план</value></data>
+  <data name="paid" xml:space="preserve"><value>Платена</value></data>
+  <data name="open" xml:space="preserve"><value>Дължима</value></data>
+  <data name="void" xml:space="preserve"><value>Анулирана</value></data>
+  <data name="draft" xml:space="preserve"><value>Чернова</value></data>
+  <data name="uncollectible" xml:space="preserve"><value>Несъбираема</value></data>
+</root>

@@ -123,7 +123,10 @@
             </div>
         </div>
 
-        <div class="text-center mt-3">
+        <div class="text-center mt-3 d-flex flex-column gap-2">
+            <a asp-area="" asp-controller="Subscription" asp-action="Invoices" class="text-primary small fw-semibold">
+                <i class="fas fa-file-invoice me-1"></i> @Localizer["View invoices"]
+            </a>
             <a asp-area="" asp-controller="Dashboard" asp-action="Index" class="text-muted small">
                 <i class="fas fa-arrow-left me-1"></i> @Localizer["Back to dashboard"]
             </a>

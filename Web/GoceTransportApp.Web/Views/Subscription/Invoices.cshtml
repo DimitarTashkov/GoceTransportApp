@@ -1,0 +1,110 @@
+@model GoceTransportApp.Web.ViewModels.Subscription.UserInvoicesListViewModel
+@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer Localizer
+
+@{
+    ViewData["Title"] = Localizer["My Invoices"].Value;
+}
+
+<div class="row justify-content-center py-5">
+    <div class="col-lg-9 col-md-10">
+
+        <div class="text-center mb-4">
+            <i class="fas fa-file-invoice fa-3x text-primary mb-3"></i>
+            <h1 class="h3 fw-bold">@Localizer["My Invoices"]</h1>
+            <p class="text-muted">@Localizer["Download your payment invoices as PDF."]</p>
+        </div>
+
+        <div class="card border-0 shadow-sm rounded-4">
+            <div class="card-body p-4 p-lg-5">
+
+                @if (!Model.HasStripeCustomer)
+                {
+                    <div class="text-center py-4">
+                        <i class="fas fa-inbox fa-3x text-muted mb-3"></i>
+                        <h5 class="text-muted">@Localizer["No invoices yet"]</h5>
+                        <p class="text-muted small">@Localizer["You will see invoices here once you subscribe to a paid plan."]</p>
+                        <a asp-area="" asp-controller="Organization" asp-action="Upgrade" class="btn btn-primary rounded-pill px-4 mt-2">
+                            <i class="fas fa-gem me-1"></i> @Localizer["See plans"]
+                        </a>
+                    </div>
+                }
+                else if (!Model.Invoices.Any())
+                {
+                    <div class="text-center py-4">
+                        <i class="fas fa-inbox fa-3x text-muted mb-3"></i>
+                        <h5 class="text-muted">@Localizer["No invoices yet"]</h5>
+                        <p class="text-muted small">@Localizer["Your first invoice will appear here after the next billing cycle."]</p>
+                    </div>
+                }
+                else
+                {
+                    <div class="table-responsive">
+                        <table class="table table-hover align-middle mb-0">
+                            <thead>
+                                <tr class="text-muted small">
+                                    <th scope="col">@Localizer["Invoice #"]</th>
+                                    <th scope="col">@Localizer["Date"]</th>
+                                    <th scope="col">@Localizer["Amount"]</th>
+                                    <th scope="col">@Localizer["Status"]</th>
+                                    <th scope="col" class="text-end">@Localizer["Actions"]</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var invoice in Model.Invoices)
+                                {
+                                    string statusClass = invoice.Status switch
+                                    {
+                                        "paid"          => "bg-success",
+                                        "open"          => "bg-warning text-dark",
+                                        "void"          => "bg-secondary",
+                                        "uncollectible" => "bg-danger",
+                                        _               => "bg-secondary",
+                                    };
+
+                                    <tr>
+                                        <td class="fw-semibold">@invoice.Number</td>
+                                        <td>@invoice.Created.ToString("dd MMM yyyy")</td>
+                                        <td class="fw-semibold">@invoice.AmountFormatted</td>
+                                        <td>
+                                            <span class="badge @statusClass rounded-pill px-3 py-2">
+                                                @Localizer[invoice.Status]
+                                            </span>
+                                        </td>
+                                        <td class="text-end">
+                                            @if (!string.IsNullOrEmpty(invoice.InvoicePdfUrl))
+                                            {
+                                                <a href="@invoice.InvoicePdfUrl" target="_blank" rel="noopener"
+                                                   class="btn btn-sm btn-outline-primary rounded-pill"
+                                                   title="@Localizer["Download PDF"]">
+                                                    <i class="fas fa-download"></i>
+                                                    <span class="d-none d-md-inline ms-1">PDF</span>
+                                                </a>
+                                            }
+                                            @if (!string.IsNullOrEmpty(invoice.HostedInvoiceUrl))
+                                            {
+                                                <a href="@invoice.HostedInvoiceUrl" target="_blank" rel="noopener"
+                                                   class="btn btn-sm btn-outline-secondary rounded-pill"
+                                                   title="@Localizer["View online"]">
+                                                    <i class="fas fa-external-link-alt"></i>
+                                                </a>
+                                            }
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                }
+
+            </div>
+        </div>
+
+        <div class="text-center mt-3">
+            <a asp-area="" asp-controller="Subscription" asp-action="ManagePlan" class="text-muted small">
+                <i class="fas fa-arrow-left me-1"></i> @Localizer["Back to My Plan"]
+            </a>
+        </div>
+
+    </div>
+</div>

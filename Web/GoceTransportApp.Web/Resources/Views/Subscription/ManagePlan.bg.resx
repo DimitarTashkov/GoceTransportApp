@@ -45,6 +45,7 @@
   <data name="Back to profile" xml:space="preserve"><value>Обратно към профила</value></data>
   <data name="Back to dashboard" xml:space="preserve"><value>Обратно към таблото</value></data>
   <data name="Change plan" xml:space="preserve"><value>Смени план</value></data>
+  <data name="View invoices" xml:space="preserve"><value>Виж фактурите</value></data>
   <data name="Your subscription will be cancelled at the end of the billing period. You keep full access until then." xml:space="preserve"><value>Абонаментът ви ще бъде отказан в края на периода. До тогава запазвате пълен достъп.</value></data>
   <data name="Your subscription has been resumed and will renew automatically." xml:space="preserve"><value>Абонаментът ви е подновен и ще се подновява автоматично.</value></data>
 </root>

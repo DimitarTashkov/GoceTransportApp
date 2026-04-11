@@ -7,6 +7,7 @@ using Microsoft.Extensions.Configuration;
 using Stripe;
 using Stripe.Checkout;
 using System.Collections.Generic;
+using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 
@@ -147,6 +148,47 @@ namespace GoceTransportApp.Web.Controllers
 
             TempData["SuccessMessage"] = "ResumeScheduled";
             return this.RedirectToAction(nameof(ManagePlan));
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Invoices()
+        {
+            var user = await this.userManager.GetUserAsync(User);
+            if (user == null)
+            {
+                return this.Challenge();
+            }
+
+            var vm = new UserInvoicesListViewModel
+            {
+                HasStripeCustomer = !string.IsNullOrEmpty(user.StripeCustomerId),
+            };
+
+            if (vm.HasStripeCustomer)
+            {
+                var invoiceService = new InvoiceService();
+                var stripeInvoices = await invoiceService.ListAsync(new InvoiceListOptions
+                {
+                    Customer = user.StripeCustomerId,
+                    Limit    = 100,
+                });
+
+                vm.Invoices = stripeInvoices.Data
+                    .OrderByDescending(i => i.Created)
+                    .Select(i => new UserInvoiceViewModel
+                    {
+                        Number           = i.Number,
+                        Created          = i.Created,
+                        AmountPaid       = i.AmountPaid,
+                        Currency         = i.Currency,
+                        Status           = i.Status,
+                        InvoicePdfUrl    = i.InvoicePdf,
+                        HostedInvoiceUrl = i.HostedInvoiceUrl,
+                    })
+                    .ToList();
+            }
+
+            return this.View(vm);
         }
 
         [HttpGet]

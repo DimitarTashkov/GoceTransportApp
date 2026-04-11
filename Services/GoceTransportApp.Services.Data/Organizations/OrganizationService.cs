@@ -107,6 +107,8 @@ namespace GoceTransportApp.Services.Data.Organizations
             }
 
             allOrganizationQuery = allOrganizationQuery
+                .OrderByDescending(o => (int)o.Founder.MembershipTier)
+                .ThenBy(o => o.Name)
                 .Skip((inputModel.EntitiesPerPage.Value * (inputModel.CurrentPage.Value - 1)) * inputModel.EntitiesPerPage.Value)
                 .Take(inputModel.EntitiesPerPage.Value);
 
@@ -119,6 +121,7 @@ namespace GoceTransportApp.Services.Data.Organizations
                      FounderId = c.FounderId,
                      Founder = c.Founder.UserName,
                      ImageUrl = c.ImageUrl,
+                     FounderTier = c.Founder.MembershipTier,
                  })
                 .ToArrayAsync();
         }
@@ -172,6 +175,7 @@ namespace GoceTransportApp.Services.Data.Organizations
                     ImageUrl = organization.ImageUrl,
                     IsOnTrial = organization.IsOnTrial && organization.TrialExpiresOn > DateTime.UtcNow,
                     TrialExpiresOn = organization.TrialExpiresOn,
+                    FounderTier = organization.Founder.MembershipTier,
                     OrganizationMessages = organization.OrganizationMessages,
                     OrganizationDrivers = organization.OrganizationDrivers,
                     OrganizationRoutes = organization.OrganizationRoutes,

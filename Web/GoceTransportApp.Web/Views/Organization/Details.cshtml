@@ -1,4 +1,5 @@
 @using System.Security.Claims
+@using GoceTransportApp.Data.Models.Enumerations
 @using Microsoft.AspNetCore.Mvc.Localization
 @model GoceTransportApp.Web.ViewModels.Organizations.OrganizationDetailsViewModel
 @inject IViewLocalizer Localizer
@@ -7,6 +8,16 @@
     ViewData["Title"] = Model.Name;
     var currentUserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
     var isOwnerOrAdmin = currentUserId == Model.FounderId || User.IsInRole("Administrator");
+    var isFreeProfile = Model.FounderTier == MembershipTier.Free && !Model.IsOnTrial;
+}
+
+<!-- Free Profile Banner -->
+@if (isFreeProfile)
+{
+    <div class="alert alert-light border rounded-4 mb-4 py-2 small text-muted d-flex align-items-center gap-2" role="alert">
+        <i class="fas fa-info-circle"></i>
+        <span>@Localizer["Free profile — limited information"]</span>
+    </div>
 }
 
 <!-- Trial Banner (Owner/Admin only) -->

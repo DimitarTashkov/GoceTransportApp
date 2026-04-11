@@ -63,4 +63,7 @@
   <data name="Delete" xml:space="preserve">
     <value>Изтрий</value>
   </data>
+  <data name="Top Result" xml:space="preserve">
+    <value>Топ Резултат</value>
+  </data>
 </root>

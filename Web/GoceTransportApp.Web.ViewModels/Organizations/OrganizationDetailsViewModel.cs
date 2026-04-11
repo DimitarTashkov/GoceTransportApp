@@ -1,4 +1,5 @@
 using GoceTransportApp.Data.Models;
+using GoceTransportApp.Data.Models.Enumerations;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -21,6 +22,8 @@ namespace GoceTransportApp.Web.ViewModels.Organizations
         public bool IsOnTrial { get; set; }
 
         public DateTime? TrialExpiresOn { get; set; }
+
+        public MembershipTier FounderTier { get; set; } = MembershipTier.Free;
 
         public string Id { get; set; } = null!;
 

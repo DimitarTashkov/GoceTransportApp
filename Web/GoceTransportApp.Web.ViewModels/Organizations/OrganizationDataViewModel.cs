@@ -5,6 +5,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using GoceTransportApp.Data.Models.Enumerations;
 
 namespace GoceTransportApp.Web.ViewModels.Organizations
 {
@@ -21,5 +22,7 @@ namespace GoceTransportApp.Web.ViewModels.Organizations
         public string Founder { get; set; } = null!;
 
         public string? ImageUrl { get; set; }
+
+        public MembershipTier FounderTier { get; set; } = MembershipTier.Free;
     }
 }

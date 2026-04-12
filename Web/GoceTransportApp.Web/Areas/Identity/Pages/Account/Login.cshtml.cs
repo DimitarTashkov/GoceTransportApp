@@ -124,6 +124,12 @@ namespace CinemaApp.Web.Areas.Identity.Pages.Account
                     return Page();
                 }
 
+                if (!await _userManager.IsEmailConfirmedAsync(user))
+                {
+                    ModelState.AddModelError(string.Empty, "Моля, потвърдете имейла си преди да влезете. Проверете пощата си.");
+                    return Page();
+                }
+
                 var result = await _signInManager.PasswordSignInAsync(user.UserName!, Input.Password, Input.RememberMe, lockoutOnFailure: false);
                 if (result.Succeeded)
                 {

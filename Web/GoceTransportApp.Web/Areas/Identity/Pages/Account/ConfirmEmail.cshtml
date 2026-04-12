@@ -1,0 +1,23 @@
+@page
+@model ConfirmEmailModel
+@inject IViewLocalizer Localizer
+@{
+    ViewData["Title"] = "Потвърждение на имейл";
+}
+
+<div class="row justify-content-center py-5">
+    <div class="col-lg-5 col-md-7">
+        <div class="text-center mb-4">
+            <i class="fas fa-envelope-circle-check fa-3x text-success mb-3"></i>
+            <h1 class="h3 fw-bold">@ViewData["Title"]</h1>
+        </div>
+        <div class="card border-0 shadow-sm rounded-4">
+            <div class="card-body p-5 text-center">
+                <p class="fs-5">@Model.StatusMessage</p>
+                <a asp-page="./Login" class="btn btn-primary rounded-pill mt-3">
+                    <i class="fas fa-sign-in-alt me-2"></i>Вход
+                </a>
+            </div>
+        </div>
+    </div>
+</div>

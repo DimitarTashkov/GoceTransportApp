@@ -7,13 +7,18 @@ namespace CinemaApp.Web.Areas.Identity.Pages.Account
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
     using System.Linq;
+    using System.Text;
+    using System.Text.Encodings.Web;
 
     using Microsoft.AspNetCore.Authentication;
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.AspNetCore.Mvc.RazorPages;
+    using Microsoft.AspNetCore.WebUtilities;
 
     using GoceTransportApp.Data.Models;
+    using GoceTransportApp.Services.Messaging;
+    using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.Logging;
     using System.Threading.Tasks;
     using System.Threading;
@@ -24,17 +29,23 @@ namespace CinemaApp.Web.Areas.Identity.Pages.Account
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly IUserStore<ApplicationUser> _userStore;
+        private readonly IEmailSender _emailSender;
+        private readonly IConfiguration _configuration;
         private readonly ILogger<RegisterModel> _logger;
 
         public RegisterModel(
             UserManager<ApplicationUser> userManager,
             IUserStore<ApplicationUser> userStore,
             SignInManager<ApplicationUser> signInManager,
+            IEmailSender emailSender,
+            IConfiguration configuration,
             ILogger<RegisterModel> logger)
         {
             _userManager = userManager;
             _userStore = userStore;
             _signInManager = signInManager;
+            _emailSender = emailSender;
+            _configuration = configuration;
             _logger = logger;
         }
 
@@ -125,9 +136,26 @@ namespace CinemaApp.Web.Areas.Identity.Pages.Account
                     _logger.LogInformation("User created a new account with password.");
 
                     var userId = await _userManager.GetUserIdAsync(user);
+                    var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
+                    code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));
 
-                    await _signInManager.SignInAsync(user, isPersistent: false);
-                    return LocalRedirect(returnUrl);
+                    var callbackUrl = Url.Page(
+                        "/Account/ConfirmEmail",
+                        pageHandler: null,
+                        values: new { area = "Identity", userId = userId, code = code, returnUrl = returnUrl },
+                        protocol: Request.Scheme);
+
+                    var fromEmail = _configuration["EmailSettings:SenderEmail"] ?? "no-reply@gocetransport.local";
+                    var fromName = _configuration["EmailSettings:SenderName"] ?? "GoceTransportApp";
+
+                    await _emailSender.SendEmailAsync(
+                        fromEmail,
+                        fromName,
+                        Input.Email,
+                        "Потвърдете имейла си",
+                        $"Моля, потвърдете акаунта си като <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>кликнете тук</a>.");
+
+                    return RedirectToPage("RegisterConfirmation", new { email = Input.Email, returnUrl = returnUrl });
                 }
                 foreach (var error in result.Errors)
                 {

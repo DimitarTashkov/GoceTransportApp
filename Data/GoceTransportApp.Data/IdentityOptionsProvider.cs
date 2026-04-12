@@ -17,6 +17,8 @@ namespace GoceTransportApp.Data
             options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(15);
             options.Lockout.MaxFailedAccessAttempts = 5;
             options.Lockout.AllowedForNewUsers = true;
+
+            options.SignIn.RequireConfirmedEmail = true;
         }
     }
 }

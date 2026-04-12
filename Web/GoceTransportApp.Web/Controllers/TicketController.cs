@@ -464,8 +464,8 @@ namespace GoceTransportApp.Web.Controllers
             {
                 string userEmail = User.FindFirstValue(ClaimTypes.Email);
                 string userName = User.FindFirstValue(ClaimTypes.Name) ?? User.FindFirstValue(ClaimTypes.Email) ?? "User";
-                string senderEmail = this.configuration["SendGrid:SenderEmail"] ?? "noreply@gocetransport.com";
-                string senderName = this.configuration["SendGrid:SenderName"] ?? "GoceTransport";
+                string senderEmail = this.configuration["EmailSettings:SenderEmail"] ?? "noreply@gocetransport.com";
+                string senderName = this.configuration["EmailSettings:SenderName"] ?? "GoceTransport";
 
                 if (string.IsNullOrWhiteSpace(userEmail))
                 {
@@ -507,8 +507,8 @@ namespace GoceTransportApp.Web.Controllers
 
                 string userEmail = User.FindFirstValue(ClaimTypes.Email);
                 string userName = User.FindFirstValue(ClaimTypes.Name) ?? User.FindFirstValue(ClaimTypes.Email) ?? "User";
-                string senderEmail = this.configuration["SendGrid:SenderEmail"] ?? "noreply@gocetransport.com";
-                string senderName = this.configuration["SendGrid:SenderName"] ?? "GoceTransport";
+                string senderEmail = this.configuration["EmailSettings:SenderEmail"] ?? "noreply@gocetransport.com";
+                string senderName = this.configuration["EmailSettings:SenderName"] ?? "GoceTransport";
 
                 if (string.IsNullOrWhiteSpace(userEmail))
                 {

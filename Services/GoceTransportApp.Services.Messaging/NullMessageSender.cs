@@ -15,7 +15,7 @@ namespace GoceTransportApp.Services.Messaging
             IEnumerable<EmailAttachment> attachments = null)
         {
             Console.WriteLine("=====================================================");
-            Console.WriteLine("[NullMessageSender] Email not sent (no SendGrid configured).");
+            Console.WriteLine("[NullMessageSender] Email not sent (no SMTP configured).");
             Console.WriteLine($"  To:      {to}");
             Console.WriteLine($"  Subject: {subject}");
             Console.WriteLine($"  Body:    {htmlContent}");

@@ -64,8 +64,8 @@ namespace GoceTransportApp.Services.Data.TrialEmails
             var emailSender   = scope.ServiceProvider.GetRequiredService<IEmailSender>();
             var configuration = scope.ServiceProvider.GetRequiredService<IConfiguration>();
 
-            string senderEmail = configuration["SendGrid:SenderEmail"] ?? "noreply@gocetransport.app";
-            string senderName  = configuration["SendGrid:SenderName"]  ?? "GoceTransport";
+            string senderEmail = configuration["EmailSettings:SenderEmail"] ?? "noreply@gocetransport.app";
+            string senderName  = configuration["EmailSettings:SenderName"]  ?? "GoceTransport";
 
             var now = DateTime.UtcNow;
 

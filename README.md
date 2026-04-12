@@ -76,7 +76,7 @@ The platform operates on a **multi-tenant model**: each transport company regist
 | 🔒 **Premium Feature Gating** | Backend nulls restricted data for Free users; frontend shows upgrade prompts — double-layer protection |
 | 🔐 **Role-Based Access** | ASP.NET Identity with Admin, Organization Owner, and Passenger roles |
 | 🌱 **Auto-Seeding** | `TestScenarioSeeder` populates the database with realistic test data on first run |
-| 📧 **Email Notifications** | SendGrid integration for ticket confirmations and cancellations (pluggable — uses NullSender in dev) |
+| 📧 **Email Notifications** | MailKit/Brevo SMTP integration for ticket confirmations and cancellations |
 | 📬 **Contact Form** | Built-in contact form; admins receive a real-time SignalR alert on every new submission |
 | 🔎 **SEO** | `robots.txt`, `sitemap.xml`, Open Graph & Twitter Card meta tags, per-page descriptions |
 | 🛡️ **GDPR** | Full privacy policy (data collected, legal basis, retention, subject rights) and Terms of Service page |
@@ -94,7 +94,7 @@ The platform operates on a **multi-tenant model**: each transport company regist
 | **Real-Time** | ASP.NET Core SignalR |
 | **Maps** | Google Maps JavaScript API (coordinate picker + interactive modal) |
 | **Object Mapping** | AutoMapper (custom `IMapFrom<T>` / `IMapTo<T>` interfaces) |
-| **Email** | SendGrid (with graceful fallback to `NullMessageSender`) |
+| **Email** | MailKit + Brevo SMTP |
 | **Resilience** | Polly (retry + circuit breaker policies for HTTP clients) |
 | **E2E Testing** | Playwright + NUnit |
 | **API Docs** | Swagger / Swashbuckle (WebApi project) |
@@ -115,7 +115,7 @@ GoceTransportApp/
 │   ├── GoceTransportApp.Services            # Business logic contracts
 │   ├── GoceTransportApp.Services.Data       # Service implementations (EF queries)
 │   ├── GoceTransportApp.Services.Mapping    # AutoMapper profiles & interfaces
-│   └── GoceTransportApp.Services.Messaging  # Email (SendGrid) + templates
+│   └── GoceTransportApp.Services.Messaging  # Email (MailKit/Brevo) + templates
 ├── Data/
 │   ├── GoceTransportApp.Data                # DbContext, migrations, seeders
 │   ├── GoceTransportApp.Data.Models         # Entity models (EF Code-First)

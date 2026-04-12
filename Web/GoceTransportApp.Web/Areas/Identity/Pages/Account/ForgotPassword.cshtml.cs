@@ -66,8 +66,8 @@ namespace CinemaApp.Web.Areas.Identity.Pages.Account
                 values: new { area = "Identity", code },
                 protocol: Request.Scheme);
 
-            var fromEmail = configuration["SendGrid:FromEmail"] ?? "no-reply@gocetransport.local";
-            var fromName = configuration["SendGrid:FromName"] ?? "GoceTransportApp";
+            var fromEmail = configuration["EmailSettings:SenderEmail"] ?? "no-reply@gocetransport.local";
+            var fromName = configuration["EmailSettings:SenderName"] ?? "GoceTransportApp";
 
             await emailSender.SendEmailAsync(
                 fromEmail,

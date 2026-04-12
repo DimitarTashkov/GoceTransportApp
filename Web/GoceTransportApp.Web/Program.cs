@@ -259,15 +259,8 @@ namespace GoceTransportApp.Web
             services.AddScoped<IDbQueryRunner, DbQueryRunner>();
 
             // Application services
-            var sendGridApiKey = configuration["SendGrid:ApiKey"];
-            if (!string.IsNullOrWhiteSpace(sendGridApiKey) && !sendGridApiKey.StartsWith("SG.Dummy"))
-            {
-                services.AddTransient<IEmailSender>(_ => new SendGridEmailSender(sendGridApiKey));
-            }
-            else
-            {
-                services.AddTransient<IEmailSender, NullMessageSender>();
-            }
+            services.Configure<EmailSettings>(configuration.GetSection("EmailSettings"));
+            services.AddTransient<IEmailSender, EmailSender>();
             services.AddTransient<ISettingsService, SettingsService>();
             services.AddScoped<IStreetService, StreetService>();
             services.AddScoped<ICityService, CityService>();

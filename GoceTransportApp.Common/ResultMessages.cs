@@ -73,6 +73,7 @@ namespace GoceTransportApp.Common
         {
             public const string ContactFormWasSumbitted = "Your form has been successfully sent to the staff.";
             public const string NewContactFormAlert = "Нова контактна форма е изпратена!";
+            public const string ContactFormReplySuccess = "Your reply has been sent successfully.";
         }
 
         public static class GeneralMessages

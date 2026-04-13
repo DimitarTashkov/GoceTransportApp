@@ -1,12 +1,9 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.ComponentModel.DataAnnotations;
 
 namespace GoceTransportApp.Web.ViewModels.ContactForms
 {
-    public class ContactFormDetailsViewModel
+    public class ContactFormReplyViewModel
     {
         public Guid Id { get; set; }
 
@@ -20,8 +17,8 @@ namespace GoceTransportApp.Web.ViewModels.ContactForms
 
         public DateTime DateSubmitted { get; set; }
 
-        public bool IsReplied { get; set; }
-
+        [Required]
+        [StringLength(2000, MinimumLength = 5)]
         public string ReplyText { get; set; }
     }
 }

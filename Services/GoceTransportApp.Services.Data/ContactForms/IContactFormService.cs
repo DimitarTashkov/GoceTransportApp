@@ -19,6 +19,10 @@ namespace GoceTransportApp.Services.Data.ContactForms
 
         Task<ContactFormDetailsViewModel> GetFormDetailsByIdAsync(Guid id);
 
+        Task<ContactFormReplyViewModel> GetFormForReplyAsync(Guid id);
+
+        Task ReplyAsync(Guid id, string replyText);
+
         public Task<int> GetFormsCountByFilterAsync(AllFormsSearchFilterViewModel inputModel);
     }
 }

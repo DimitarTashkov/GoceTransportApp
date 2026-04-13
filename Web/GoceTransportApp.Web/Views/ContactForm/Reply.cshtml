@@ -1,0 +1,48 @@
+@using Microsoft.AspNetCore.Mvc.Localization
+@model GoceTransportApp.Web.ViewModels.ContactForms.ContactFormReplyViewModel
+@inject IViewLocalizer Localizer
+
+<div class="row justify-content-center">
+    <div class="col-lg-8">
+        <div class="text-center mb-4">
+            <i class="fas fa-reply fa-3x text-success mb-3"></i>
+            <h1 class="h3 fw-bold">@Localizer["Reply to Contact Form"]</h1>
+        </div>
+
+        <div class="card border-0 shadow-sm rounded-4 mb-4">
+            <div class="card-header bg-transparent border-0 p-4 pb-0">
+                <h4 class="fw-semibold">@Model.Title</h4>
+            </div>
+            <div class="card-body p-4">
+                <p><strong>@Localizer["Submitted By"]:</strong> @(Model.Username ?? "Anonymous")</p>
+                <p><strong>@Localizer["Email"]:</strong> @Model.Email</p>
+                <p><strong>@Localizer["Date Submitted"]:</strong> @Model.DateSubmitted.ToString("f")</p>
+                <p class="mb-1"><strong>@Localizer["Message"]:</strong></p>
+                <p class="text-muted bg-light p-3 rounded-3">@Model.Message</p>
+            </div>
+        </div>
+
+        <div class="card border-0 shadow-sm rounded-4">
+            <div class="card-body p-4">
+                <form asp-action="Reply" method="post">
+                    <input type="hidden" asp-for="Id" />
+
+                    <div class="mb-3">
+                        <label asp-for="ReplyText" class="form-label fw-semibold">@Localizer["Your Reply"]</label>
+                        <textarea asp-for="ReplyText" class="form-control rounded-3" rows="6" placeholder="@Localizer["Type your reply here..."]"></textarea>
+                        <span asp-validation-for="ReplyText" class="text-danger small"></span>
+                    </div>
+
+                    <div class="d-flex gap-2">
+                        <button type="submit" class="btn btn-success rounded-pill px-4">
+                            <i class="fas fa-paper-plane me-2"></i>@Localizer["Send Reply"]
+                        </button>
+                        <a asp-action="Index" class="btn btn-outline-secondary rounded-pill px-4">
+                            <i class="fas fa-arrow-left me-2"></i>@Localizer["Back to List"]
+                        </a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

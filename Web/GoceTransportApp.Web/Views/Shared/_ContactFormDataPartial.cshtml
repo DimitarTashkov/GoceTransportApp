@@ -18,6 +18,7 @@
                 <th class="text-uppercase text-secondary fw-semibold small">Username</th>
                 <th class="text-uppercase text-secondary fw-semibold small">Title</th>
                 <th class="text-uppercase text-secondary fw-semibold small">Date Submitted</th>
+                <th class="text-uppercase text-secondary fw-semibold small">Status</th>
                 <th class="text-uppercase text-secondary fw-semibold small">Actions</th>
             </tr>
         </thead>
@@ -33,9 +34,25 @@
                         <td>@contactForm.Title</td>
                         <td>@contactForm.DateSubmitted.ToString("f")</td>
                         <td>
+                            @if (contactForm.IsReplied)
+                            {
+                                <span class="badge bg-success rounded-pill">Replied</span>
+                            }
+                            else
+                            {
+                                <span class="badge bg-warning text-dark rounded-pill">Pending</span>
+                            }
+                        </td>
+                        <td>
                             <a asp-action="Details" asp-route-id="@contactForm.Id" class="btn btn-outline-primary btn-sm rounded-pill">
                                 <i class="fas fa-eye"></i> View
                             </a>
+                            @if (!contactForm.IsReplied)
+                            {
+                                <a asp-action="Reply" asp-route-id="@contactForm.Id" class="btn btn-outline-success btn-sm rounded-pill">
+                                    <i class="fas fa-reply"></i> Reply
+                                </a>
+                            }
                             <a asp-action="Delete" asp-route-id="@contactForm.Id" class="btn btn-outline-danger btn-sm rounded-pill">
                                 <i class="fas fa-trash"></i>
                             </a>
@@ -47,7 +64,7 @@
             else
             {
                 <tr>
-                    <td colspan="5" class="text-center text-muted">No contact forms found.</td>
+                    <td colspan="6" class="text-center text-muted">No contact forms found.</td>
                 </tr>
             }
         </tbody>

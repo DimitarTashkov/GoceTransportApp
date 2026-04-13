@@ -11,7 +11,6 @@ namespace GoceTransportApp.Web.ViewModels.ContactForms
 {
     public class ContactFormInputModel
     {
-        [Required]
         public string UserId { get; set; }
 
         [Required]

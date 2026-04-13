@@ -61,6 +61,7 @@ namespace GoceTransportApp.Services
                     Username = x.User.UserName,
                     Title = x.Title,
                     DateSubmitted = x.DateSubmitted,
+                    IsReplied = x.IsReplied,
                 })
                 .ToListAsync();
 
@@ -104,7 +105,28 @@ namespace GoceTransportApp.Services
                 .Select(x => new ContactFormDetailsViewModel
                 {
                     Id = x.Id,
-                    Username = x.User.UserName, 
+                    Username = x.User.UserName,
+                    Email = x.Email,
+                    Title = x.Title,
+                    Message = x.Message,
+                    DateSubmitted = x.DateSubmitted,
+                    IsReplied = x.IsReplied,
+                    ReplyText = x.ReplyText,
+                })
+                .FirstOrDefaultAsync();
+
+            return contactForm;
+        }
+
+        public async Task<ContactFormReplyViewModel> GetFormForReplyAsync(Guid id)
+        {
+            var contactForm = await contactFormRepository
+                .AllAsNoTracking()
+                .Where(x => x.Id == id)
+                .Select(x => new ContactFormReplyViewModel
+                {
+                    Id = x.Id,
+                    Username = x.User.UserName,
                     Email = x.Email,
                     Title = x.Title,
                     Message = x.Message,
@@ -113,6 +135,18 @@ namespace GoceTransportApp.Services
                 .FirstOrDefaultAsync();
 
             return contactForm;
+        }
+
+        public async Task ReplyAsync(Guid id, string replyText)
+        {
+            var contactForm = await contactFormRepository.GetByIdAsync(id);
+
+            if (contactForm != null)
+            {
+                contactForm.IsReplied = true;
+                contactForm.ReplyText = replyText;
+                await contactFormRepository.SaveChangesAsync();
+            }
         }
 
         public async Task<int> GetFormsCountByFilterAsync(AllFormsSearchFilterViewModel inputModel)

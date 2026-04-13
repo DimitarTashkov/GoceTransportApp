@@ -15,5 +15,7 @@ namespace GoceTransportApp.Web.ViewModels.ContactForms
         public string Title { get; set; }
 
         public DateTime DateSubmitted { get; set; }
+
+        public bool IsReplied { get; set; }
     }
 }

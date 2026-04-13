@@ -7,10 +7,18 @@
         <h4 class="fw-semibold">@Model.Title</h4>
     </div>
     <div class="card-body p-4">
-        <p><strong>@Localizer["Submitted By"]:</strong> @Model.Username</p>
+        <p><strong>@Localizer["Submitted By"]:</strong> @(Model.Username ?? "Anonymous")</p>
         <p><strong>@Localizer["Email"]:</strong> @Model.Email</p>
         <p><strong>@Localizer["Date Submitted"]:</strong> @Model.DateSubmitted.ToString("f")</p>
         <p class="mb-1"><strong>@Localizer["Message"]:</strong></p>
         <p class="text-muted">@Model.Message</p>
+
+        @if (Model.IsReplied)
+        {
+            <hr />
+            <p><span class="badge bg-success rounded-pill">Replied</span></p>
+            <p class="mb-1"><strong>@Localizer["Reply"]:</strong></p>
+            <p class="text-muted bg-light p-3 rounded-3">@Model.ReplyText</p>
+        }
     </div>
 </div>

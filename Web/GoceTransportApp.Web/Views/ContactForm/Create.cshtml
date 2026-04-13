@@ -12,7 +12,10 @@
         <div class="card border-0 shadow-sm rounded-4">
             <div class="card-body p-5">
                 <form asp-action="Create" method="post">
-                    <input asp-for="UserId" type="hidden" />
+                    @if (Model.UserId != null)
+                    {
+                        <input asp-for="UserId" type="hidden" />
+                    }
 
                     <div class="form-floating mb-3">
                         <input asp-for="Email" class="form-control rounded-3" placeholder="your@email.com" />

@@ -11,7 +11,6 @@ namespace GoceTransportApp.Data.Models
 {
     public class ContactForm : BaseDeletableModel<Guid>
     {
-        [Required]
         public string UserId { get; set; }
 
         [ForeignKey(nameof(UserId))]
@@ -28,5 +27,9 @@ namespace GoceTransportApp.Data.Models
         public string Message { get; set; }
 
         public DateTime DateSubmitted { get; set; } = DateTime.Now;
+
+        public bool IsReplied { get; set; }
+
+        public string ReplyText { get; set; }
     }
 }

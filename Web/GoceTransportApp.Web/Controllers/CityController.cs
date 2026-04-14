@@ -7,14 +7,14 @@ using System;
 using GoceTransportApp.Services.Data.Cities;
 using GoceTransportApp.Web.ViewModels.Cities;
 
-using static GoceTransportApp.Common.ResultMessages.CityMessages;
-using static GoceTransportApp.Common.ResultMessages.GeneralMessages;
 using static GoceTransportApp.Common.GlobalConstants;
 
 using System.Collections.Generic;
 using GoceTransportApp.Data.Common.Repositories;
 using GoceTransportApp.Data.Models;
 using System.Net.Mail;
+using GoceTransportApp.Web.Resources;
+using Microsoft.Extensions.Localization;
 
 namespace GoceTransportApp.Web.Controllers
 {
@@ -22,12 +22,20 @@ namespace GoceTransportApp.Web.Controllers
     public class CityController : BaseController
     {
         private readonly ICityService cityService;
+        private readonly IStringLocalizer<SharedResource> localizer;
 
-        public CityController(ICityService cityService, IDeletableEntityRepository<Organization> organizationRepository)
+        public CityController(
+            ICityService cityService,
+            IDeletableEntityRepository<Organization> organizationRepository,
+            IStringLocalizer<SharedResource> localizer)
             : base(organizationRepository)
         {
             this.cityService = cityService;
+            this.localizer = localizer;
         }
+
+        private const string SuccessKey = "SuccessMessage";
+        private const string FailKey = "FailMessage";
 
         [HttpGet]
         [AllowAnonymous]
@@ -66,7 +74,7 @@ namespace GoceTransportApp.Web.Controllers
 
             await cityService.CreateAsync(model);
 
-            TempData[nameof(SuccessMessage)] = SuccessMessage;
+            TempData[SuccessKey] = localizer["SuccessMessage"].Value;
 
             return RedirectToAction(nameof(Index));
         }
@@ -108,12 +116,12 @@ namespace GoceTransportApp.Web.Controllers
 
             if (!isUpdated)
             {
-                ModelState.AddModelError(nameof(FailMessage), FailMessage);
+                ModelState.AddModelError(FailKey, localizer["FailMessage"].Value);
 
                 return this.View(formModel);
             }
 
-            TempData[nameof(SuccessMessage)] = SuccessMessage;
+            TempData[SuccessKey] = localizer["SuccessMessage"].Value;
             return this.RedirectToAction(nameof(Index));
         }
 
@@ -133,12 +141,12 @@ namespace GoceTransportApp.Web.Controllers
 
             if (result == false)
             {
-                TempData[nameof(FailMessage)] = FailMessage;
+                TempData[FailKey] = localizer["FailMessage"].Value;
 
                 return this.RedirectToAction("Index");
             }
 
-            TempData[nameof(SuccessMessage)] = SuccessMessage;
+            TempData[SuccessKey] = localizer["SuccessMessage"].Value;
 
             return this.RedirectToAction(nameof(Index));
         }
@@ -159,7 +167,7 @@ namespace GoceTransportApp.Web.Controllers
                 .GetCityDetailsAsync(cityGuid);
             if (model == null)
             {
-                TempData[nameof(FailMessage)] = FailMessage;
+                TempData[FailKey] = localizer["FailMessage"].Value;
 
                 return this.RedirectToAction(nameof(Index));
             }
@@ -212,7 +220,7 @@ namespace GoceTransportApp.Web.Controllers
         {
             if (!this.ModelState.IsValid)
             {
-                TempData[nameof(FailMessage)] = FailMessage;
+                TempData[FailKey] = localizer["FailMessage"].Value;
                 return this.View(model);
             }
 
@@ -227,12 +235,12 @@ namespace GoceTransportApp.Web.Controllers
                 .AddStreetToCityAsync(cityGuid, model);
             if (result == false)
             {
-                TempData[nameof(FailMessage)] = FailMessage;
+                TempData[FailKey] = localizer["FailMessage"].Value;
 
                 return this.RedirectToAction(nameof(Index));
             }
 
-            TempData[nameof(SuccessMessage)] = SuccessMessage;
+            TempData[SuccessKey] = localizer["SuccessMessage"].Value;
 
             return this.RedirectToAction(nameof(Details), new {id = model.Id});
         }

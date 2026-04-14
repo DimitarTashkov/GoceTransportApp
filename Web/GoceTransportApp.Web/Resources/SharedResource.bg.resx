@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype"><value>text/microsoft-resx</value></resheader>
+  <resheader name="version"><value>2.0</value></resheader>
+  <resheader name="reader"><value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+  <resheader name="writer"><value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+
+  <!-- General notifications -->
+  <data name="SuccessMessage"><value>Действието беше успешно изпълнено!</value></data>
+  <data name="FailMessage"><value>Възникна неочаквана грешка при обработката на заявката. Моля, свържете се с администратор.</value></data>
+  <data name="OperationCancelled"><value>Операцията е отказана.</value></data>
+  <data name="NotFound"><value>Търсеният ресурс не беше намерен.</value></data>
+  <data name="AccessDenied"><value>Нямате права за това действие.</value></data>
+
+  <!-- Buttons / common UI -->
+  <data name="Save"><value>Запази</value></data>
+  <data name="Cancel"><value>Отказ</value></data>
+  <data name="Delete"><value>Изтрий</value></data>
+  <data name="Edit"><value>Редактирай</value></data>
+  <data name="Create"><value>Създай</value></data>
+  <data name="Details"><value>Детайли</value></data>
+  <data name="Back"><value>Назад</value></data>
+  <data name="Submit"><value>Изпрати</value></data>
+  <data name="Confirm"><value>Потвърди</value></data>
+  <data name="Yes"><value>Да</value></data>
+  <data name="No"><value>Не</value></data>
+  <data name="Loading"><value>Зареждане…</value></data>
+  <data name="Search"><value>Търси</value></data>
+
+  <!-- DataAnnotations keys -->
+  <data name="RequiredField"><value>Полето е задължително.</value></data>
+  <data name="StringLengthField"><value>Полето {0} трябва да бъде между {2} и {1} символа.</value></data>
+  <data name="MinLengthField"><value>Полето {0} трябва да съдържа поне {1} символа.</value></data>
+  <data name="MaxLengthField"><value>Полето {0} не може да надвишава {1} символа.</value></data>
+  <data name="RangeField"><value>Полето {0} трябва да бъде между {1} и {2}.</value></data>
+  <data name="EmailAddressField"><value>Моля, въведете валиден имейл адрес.</value></data>
+  <data name="CompareField"><value>{0} и {1} не съвпадат.</value></data>
+  <data name="PhoneField"><value>Моля, въведете валиден телефонен номер.</value></data>
+
+  <!-- Domain-specific validation -->
+  <data name="CityNameRequired"><value>Името на града е задължително.</value></data>
+  <data name="CityStateRequired"><value>Областта на града е задължителна.</value></data>
+  <data name="CityZipRequired"><value>Пощенският код е задължителен.</value></data>
+
+  <!-- Identity errors -->
+  <data name="DefaultError"><value>Възникна неизвестна грешка.</value></data>
+  <data name="ConcurrencyFailure"><value>Грешка при паралелен достъп — обектът е бил променен.</value></data>
+  <data name="PasswordMismatch"><value>Грешна парола.</value></data>
+  <data name="InvalidToken"><value>Невалиден токен.</value></data>
+  <data name="LoginAlreadyAssociated"><value>Вече съществува потребител с този външен вход.</value></data>
+  <data name="InvalidUserName"><value>Потребителското име „{0}“ е невалидно. Може да съдържа само букви и цифри.</value></data>
+  <data name="InvalidEmail"><value>Имейлът „{0}“ е невалиден.</value></data>
+  <data name="DuplicateUserName"><value>Потребителското име „{0}“ вече е заето.</value></data>
+  <data name="DuplicateEmail"><value>Вече съществува потребител с имейл „{0}“.</value></data>
+  <data name="InvalidRoleName"><value>Името на ролята „{0}“ е невалидно.</value></data>
+  <data name="DuplicateRoleName"><value>Името на ролята „{0}“ вече е заето.</value></data>
+  <data name="UserAlreadyHasPassword"><value>Потребителят вече има зададена парола.</value></data>
+  <data name="UserLockoutNotEnabled"><value>Заключването не е активирано за този потребител.</value></data>
+  <data name="UserAlreadyInRole"><value>Потребителят вече е в ролята „{0}“.</value></data>
+  <data name="UserNotInRole"><value>Потребителят не е в ролята „{0}“.</value></data>
+  <data name="PasswordTooShort"><value>Паролата трябва да бъде поне {0} символа.</value></data>
+  <data name="PasswordRequiresUniqueChars"><value>Паролата трябва да съдържа поне {0} уникални символа.</value></data>
+  <data name="PasswordRequiresNonAlphanumeric"><value>Паролата трябва да съдържа поне един не-алфанумеричен символ.</value></data>
+  <data name="PasswordRequiresDigit"><value>Паролата трябва да съдържа поне една цифра („0“–„9“).</value></data>
+  <data name="PasswordRequiresLower"><value>Паролата трябва да съдържа поне една малка буква („a“–„z“).</value></data>
+  <data name="PasswordRequiresUpper"><value>Паролата трябва да съдържа поне една главна буква („A“–„Z“).</value></data>
+  <data name="RecoveryCodeRedemptionFailed"><value>Неуспешна употреба на код за възстановяване.</value></data>
+
+  <!-- Ticket email -->
+  <data name="TicketIssuedSubject"><value>Билетът е издаден успешно — GoceTransport</value></data>
+  <data name="TicketCancelledSubject"><value>Анулирането на билета е потвърдено — GoceTransport</value></data>
+</root>

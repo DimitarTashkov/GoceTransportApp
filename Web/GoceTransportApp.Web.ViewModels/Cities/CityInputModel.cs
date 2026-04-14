@@ -1,31 +1,21 @@
-using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 using static GoceTransportApp.Common.EntityValidationConstants.CityConstants;
-using static GoceTransportApp.Common.ResultMessages.CityMessages;
-
 
 namespace GoceTransportApp.Web.ViewModels.Cities
 {
     public class CityInputModel
     {
-        [Required(ErrorMessage = CityNameRequiredMessage)]
-        [MinLength(MinNameLength)]
-        [MaxLength(MaxNameLength)]
+        [Required(ErrorMessage = "CityNameRequired")]
+        [StringLength(MaxNameLength, MinimumLength = MinNameLength, ErrorMessage = "StringLengthField")]
         public string Name { get; set; } = null!;
 
-        [Required(ErrorMessage = CityStateRequiredMessage)]
-        [MaxLength(MaxStateLength)]
-        [MinLength(MinStateLength)]
+        [Required(ErrorMessage = "CityStateRequired")]
+        [StringLength(MaxStateLength, MinimumLength = MinStateLength, ErrorMessage = "StringLengthField")]
         public string State { get; set; } = null!;
 
-        [Required(ErrorMessage = CityZipRequiredMessage)]
-        [MinLength(MinZipCodeLength)]
-        [MaxLength(MaxZipCodeLength)]
+        [Required(ErrorMessage = "CityZipRequired")]
+        [StringLength(MaxZipCodeLength, MinimumLength = MinZipCodeLength, ErrorMessage = "StringLengthField")]
         public string ZipCode { get; set; } = null!;
     }
 }

@@ -25,6 +25,8 @@ using System.Linq;
 using Microsoft.Extensions.Configuration;
 using GoceTransportApp.Web.Hubs;
 using Microsoft.AspNetCore.SignalR;
+using GoceTransportApp.Web.Resources;
+using Microsoft.Extensions.Localization;
 
 namespace GoceTransportApp.Web.Controllers
 {
@@ -39,6 +41,7 @@ namespace GoceTransportApp.Web.Controllers
         private readonly IHubContext<NotificationHub> hubContext;
         private readonly INotificationService notificationService;
         private readonly IDeletableEntityRepository<Organization> organizationRepository;
+        private readonly IStringLocalizer<SharedResource> localizer;
 
         public TicketController(
             ITicketService ticketService,
@@ -48,7 +51,8 @@ namespace GoceTransportApp.Web.Controllers
             IEmailSender emailSender,
             IConfiguration configuration,
             IHubContext<NotificationHub> hubContext,
-            INotificationService notificationService)
+            INotificationService notificationService,
+            IStringLocalizer<SharedResource> localizer)
             : base(organizationRepository)
         {
             this.ticketService = ticketService;
@@ -59,6 +63,7 @@ namespace GoceTransportApp.Web.Controllers
             this.configuration = configuration;
             this.hubContext = hubContext;
             this.notificationService = notificationService;
+            this.localizer = localizer;
         }
 
         [HttpGet]
@@ -487,7 +492,7 @@ namespace GoceTransportApp.Web.Controllers
                     senderEmail,
                     senderName,
                     userEmail,
-                    "Ticket Successfully Issued ï¿½ GoceTransport",
+                    localizer["TicketIssuedSubject"].Value,
                     html);
             }
             catch
@@ -527,7 +532,7 @@ namespace GoceTransportApp.Web.Controllers
                     senderEmail,
                     senderName,
                     userEmail,
-                    "Ticket Cancellation Confirmed ï¿½ GoceTransport",
+                    localizer["TicketCancelledSubject"].Value,
                     html);
             }
             catch

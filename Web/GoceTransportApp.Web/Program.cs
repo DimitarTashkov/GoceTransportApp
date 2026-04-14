@@ -35,6 +35,8 @@ namespace GoceTransportApp.Web
     using GoceTransportApp.Web.Hubs;
     using GoceTransportApp.Web.Middleware;
     using Microsoft.Extensions.Logging;
+    using GoceTransportApp.Web.Resources;
+    using GoceTransportApp.Web.Services.Identity;
     using GoceTransportApp.Web.ViewModels;
     using Microsoft.AspNetCore.Authentication.Cookies;
     using Microsoft.AspNetCore.Builder;
@@ -107,7 +109,8 @@ namespace GoceTransportApp.Web
             services
                 .AddDefaultIdentity<ApplicationUser>(IdentityOptionsProvider.GetIdentityOptions)
                 .AddRoles<ApplicationRole>()
-                .AddEntityFrameworkStores<ApplicationDbContext>();
+                .AddEntityFrameworkStores<ApplicationDbContext>()
+                .AddErrorDescriber<LocalizedIdentityErrorDescriber>();
 
             services.AddAuthentication()
                 .AddGoogle(options =>
@@ -149,7 +152,11 @@ namespace GoceTransportApp.Web
                     options.Filters.Add(new AutoValidateAntiforgeryTokenAttribute());
                 })
                 .AddViewLocalization()
-                .AddDataAnnotationsLocalization()
+                .AddDataAnnotationsLocalization(options =>
+                {
+                    options.DataAnnotationLocalizerProvider = (type, factory) =>
+                        factory.Create(typeof(SharedResource));
+                })
                 .AddRazorRuntimeCompilation();
             services.AddRazorPages();
 

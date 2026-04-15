@@ -40,6 +40,7 @@ namespace GoceTransportApp.Web
     using GoceTransportApp.Web.ViewModels;
     using Microsoft.AspNetCore.Authentication.Cookies;
     using Microsoft.AspNetCore.Builder;
+    using Microsoft.AspNetCore.DataProtection;
     using Microsoft.AspNetCore.Http;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.AspNetCore.RateLimiting;
@@ -111,6 +112,20 @@ namespace GoceTransportApp.Web
                 .AddRoles<ApplicationRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>()
                 .AddErrorDescriber<LocalizedIdentityErrorDescriber>();
+
+            var keysDirectory = new System.IO.DirectoryInfo(
+                System.IO.Path.Combine(
+                    Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
+                    "GoceTransportApp",
+                    "DataProtection-Keys"));
+            if (!keysDirectory.Exists)
+            {
+                keysDirectory.Create();
+            }
+
+            services.AddDataProtection()
+                .PersistKeysToFileSystem(keysDirectory)
+                .SetApplicationName("GoceTransportApp");
 
             services.AddAuthentication()
                 .AddGoogle(options =>

@@ -5,6 +5,7 @@
   <img src="https://img.shields.io/badge/Bootstrap-5-purple?style=for-the-badge&logo=bootstrap&logoColor=white" alt="Bootstrap 5" />
   <img src="https://img.shields.io/badge/SignalR-Real--Time-red?style=for-the-badge&logo=dotnet&logoColor=white" alt="SignalR" />
   <img src="https://img.shields.io/badge/Google_Maps-API-4285F4?style=for-the-badge&logo=googlemaps&logoColor=white" alt="Google Maps" />
+  <img src="https://img.shields.io/badge/Stripe-Payments-635bff?style=for-the-badge&logo=stripe&logoColor=white" alt="Stripe" />
 </p>
 
 <h1 align="center">🚍 GoceTransportApp</h1>
@@ -38,7 +39,7 @@
 - 🧳 **For Passengers** — An intuitive way to search bus routes, compare schedules, and purchase tickets online, no phone calls or guesswork needed.
 - 🏢 **For Transport Companies** — A complete back-office system to manage fleets, drivers, routes, schedules, and ticket sales, all from a single organization dashboard.
 
-The platform operates on a **multi-tenant model**: each transport company registers as an organization, manages its own resources independently, and is visible to all passengers browsing the platform. A tiered membership system (Free / Pro / Sponsor) controls how many organizations a user can operate and which premium features they can access.
+The platform operates on a **multi-tenant model**: each transport company registers as an organization, manages its own resources independently, and is visible to all passengers browsing the platform. A tiered SaaS subscription model (Free / Starter / Pro / Enterprise) — powered by Stripe — controls how many organizations a user can operate and which premium features they can access.
 
 ---
 
@@ -72,7 +73,8 @@ The platform operates on a **multi-tenant model**: each transport company regist
 ### ⚙️ Admin & System
 | Feature | Description |
 |---------|-------------|
-| 🏷️ **Membership Tiers** | Free (1 org), Pro (3 orgs), Sponsor (unlimited) — controls resource limits and premium feature access |
+| 💳 **Stripe Subscriptions** | Integrated Stripe Checkout for recurring SaaS billing — Starter, Pro, and Enterprise tiers with automatic webhook handling |
+| 🏷️ **Membership Tiers** | Free (1 org), Pro (3 orgs), Enterprise (unlimited) — controls resource limits and premium feature access |
 | 🔒 **Premium Feature Gating** | Backend nulls restricted data for Free users; frontend shows upgrade prompts — double-layer protection |
 | 🔐 **Role-Based Access** | ASP.NET Identity with Admin, Organization Owner, and Passenger roles |
 | 🌱 **Auto-Seeding** | `TestScenarioSeeder` populates the database with realistic test data on first run |
@@ -82,6 +84,7 @@ The platform operates on a **multi-tenant model**: each transport company regist
 | 🛡️ **GDPR** | Full privacy policy (data collected, legal basis, retention, subject rights) and Terms of Service page |
 
 ---
+
 
 ## 🛠️ Tech Stack
 
@@ -94,7 +97,9 @@ The platform operates on a **multi-tenant model**: each transport company regist
 | **Real-Time** | ASP.NET Core SignalR |
 | **Maps** | Google Maps JavaScript API (coordinate picker + interactive modal) |
 | **Object Mapping** | AutoMapper (custom `IMapFrom<T>` / `IMapTo<T>` interfaces) |
+| **Payments** | Stripe API (Checkout Sessions, Webhooks, Subscriptions) |
 | **Email** | MailKit + Brevo SMTP |
+| **Logging** | Serilog (structured logging to file) |
 | **Resilience** | Polly (retry + circuit breaker policies for HTTP clients) |
 | **E2E Testing** | Playwright + NUnit |
 | **API Docs** | Swagger / Swashbuckle (WebApi project) |
@@ -103,7 +108,7 @@ The platform operates on a **multi-tenant model**: each transport company regist
 
 ## 🏗️ Architecture
 
-The solution follows an **N-Tier architecture** with clean separation of concerns across **16 projects**:
+The solution follows a **Clean Architecture** with the **Repository Pattern** and clean separation of concerns across **16 projects**:
 
 ```
 GoceTransportApp/
@@ -172,7 +177,23 @@ To enable the interactive stop location picker and map modal, add your key to `a
 
 > Without a key the map sections are hidden for Free-tier users. Pro/Sponsor users will see a placeholder until a valid key is provided.
 
-### Step 4 — Apply Migrations & Seed Data
+### Step 4 — (Optional) Configure Stripe Payments
+
+To enable subscription checkout (Starter / Pro / Enterprise plans), add your Stripe keys to `appsettings.json`:
+
+```json
+"Stripe": {
+  "PublishableKey": "pk_test_YOUR_PUBLISHABLE_KEY",
+  "SecretKey": "sk_test_YOUR_SECRET_KEY",
+  "StarterPriceId": "price_YOUR_STARTER_ID",
+  "ProPriceId": "price_YOUR_PRO_ID",
+  "EnterprisePriceId": "price_YOUR_ENTERPRISE_ID"
+}
+```
+
+> Without Stripe keys the app runs in Free-tier mode. Subscription features activate once valid keys are provided.
+
+### Step 5 — Apply Migrations & Seed Data
 
 Using the **Package Manager Console** (Visual Studio):
 ```
@@ -186,7 +207,7 @@ dotnet ef database update --project Web/GoceTransportApp.Web
 
 > 💡 **Auto-Seeding:** On the first run, the `TestScenarioSeeder` automatically populates the database with **3 transport companies**, **3 cities** (Sofia, Plovdiv, Varna), **routes, vehicles, drivers, schedules**, and **a sample ticket** — so you can explore the app immediately without manual data entry.
 
-### Step 5 — Run the Application
+### Step 6 — Run the Application
 
 ```bash
 cd Web/GoceTransportApp.Web
